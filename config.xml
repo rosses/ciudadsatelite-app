@@ -5,7 +5,7 @@
     <author email="rosses@gmail.com" href="http://www.ciudadsatelite.app">Ciudad Satelite</author>
     <content src="index.html" />
     <access origin="*" />
-    <preference name="phonegap-version" value="cli-7.0.1" />
+    <preference name="phonegap-version" value="cli-7.1.0" />
     <allow-navigation href="http://ionic.local/*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -30,6 +30,7 @@
     <preference name="ShowSplashScreenSpinner" value="false" />
     <platform name="android">
         <resource-file src="google-services.json" target="google-services.json" />
+        <resource-file src="google-services.json" target="/google-services.json" />
         <preference name="loadUrlTimeoutValue" value="700000" />
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
