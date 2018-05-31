@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons end>
+      <button class="camera" (click)="share()">
+        <ion-icon name="md-share"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="image" [style.background-image]="'url(' + news.image + ')'" style="background-size: cover;">
+    <div class="titulo">
+      <p>{{news.title}}</p>
+      <span class="subtitulo"> {{ news.date | date}}</span>
+    </div>
+  </div>
+
+  <div class="content-html" [innerHtml]="news.content">
+
+  </div>
+
+</ion-content>

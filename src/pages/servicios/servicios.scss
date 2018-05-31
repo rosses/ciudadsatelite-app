@@ -1,0 +1,58 @@
+page-servicios {
+
+  .content {
+    background-color: map-get($colors, light);
+  }
+
+  .scroll-content {
+    padding: 0 !important;
+  }
+
+  .card {
+    margin: 10px;
+    width: calc(100% - 20px);
+
+    .card-header {
+      padding: 1.2rem 1.6rem;
+    }
+  }
+
+  .centered {
+    text-align: center;
+  }
+
+  .publicityBanner img {
+    max-width: 100%;
+    width: 100%;
+  }
+  .publicityBanner {
+    width: 100%;
+    /*
+    height: 150px;
+    background: url(/assets/img/publicity.png);
+    background-size: cover;
+    background-position: center;
+    */
+  }
+
+  .swiper-pagination {
+    display: none;
+  }
+
+  .subTitle {
+    padding: 20px;
+    padding-bottom: 0;
+    font-size: 1.3rem;
+    font-weight: 800;
+  }
+
+  .slidesWrapper {
+    margin-top: 16px;
+    margin-bottom: 16px;
+  }
+
+  .refresher-pulling-icon ion-icon {
+    font-family: "Ionicons" !important;
+  }
+}
+

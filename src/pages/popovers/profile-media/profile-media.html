@@ -1,0 +1,33 @@
+<ion-list radio-group class="popover-page">
+  <div class="close buttonPinkOrange" (click)="close()">
+    <ion-icon name="close"></ion-icon>
+  </div>
+  <ion-item (click)="takePicture()">
+    <ion-label>{{ 'POPOVER_PET_MEDIA_OPTIONS.TAKE_PICTURE' | translate }}</ion-label>
+    <ion-note item-right>
+      <ion-icon name="camera"></ion-icon>
+    </ion-note>
+  </ion-item>
+  <ion-item (click)="openGallery()">
+    <ion-label>{{ 'POPOVER_PET_MEDIA_OPTIONS.CHOOSE_FROM_ALBUM' | translate }}</ion-label>
+    <ion-note item-right>
+      <ion-icon name="folder-open"></ion-icon>
+    </ion-note>
+  </ion-item>
+  <!--
+  <ion-item>
+    <ion-label>{{ 'POPOVER_PET_MEDIA_OPTIONS.SET_AS_MAIN' | translate }}</ion-label>
+    <ion-note item-right>
+      <span class="icon-principal"></span>
+    </ion-note>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>{{ 'POPOVER_PET_MEDIA_OPTIONS.DELETE_PICTURE' | translate }}</ion-label>
+    <ion-note item-right>
+      <span class="icon-eliminar"></span>
+    </ion-note>
+  </ion-item>
+  -->
+
+</ion-list>

@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <span class="icon-menu"></span>
+    </button>
+  </ion-navbar>
+</ion-header>
+<ion-content [ngClass]="{'blurred' : isBlurred}">
+
+  <div *ngIf="loaded">
+    <div class="mediaSlideContainer"><ion-slides pager slidesPerView="1">
+      <div class="media" [style.background-image]="'url(' + (me.avatar != '' && me.avatar != null ? staticUrl+me.avatar : 'assets/img/default/avatar.png' ) + ')'" style="background-size: cover;"></div>
+      </ion-slides>
+    </div>
+    <div class="name">
+      {{ me.name }}
+    </div>
+    <div class="welcome">
+      Información del dueño
+    </div>
+
+    <div class="formContainer">
+      <ion-item>
+        <ion-label fixed>Nombre</ion-label>
+        <ion-input type="text" [(ngModel)]="me.name" [disabled]="true"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>Email</ion-label>
+        <ion-input type="text" [(ngModel)]="me.email" [disabled]="true"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>Nro. Teléfono</ion-label>
+        <ion-input type="text" [(ngModel)]="me.phone" [disabled]="true"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>Dirección</ion-label>
+        <ion-input type="text" [(ngModel)]="me.address" [disabled]="true"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>Región</ion-label>
+        <ion-input type="text" [(ngModel)]="me.region_name" [disabled]="true"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>Distrito</ion-label>
+        <ion-input type="text" [(ngModel)]="me.distrito_name" [disabled]="true"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>Género</ion-label>
+        <ion-input type="text" [(ngModel)]="me.genero" [disabled]="true"></ion-input>
+      </ion-item>
+    </div>
+
+    <div class="buttonWrapper" *ngIf="me.phone.length > 3">
+      <button class="buttonPinkOrange" (click)="call(me.phone)" ion-button round>Llamar a {{ me.name }}</button>
+    </div>
+
+    <div class="buttonWrapper" *ngIf="me.email.length > 3">
+      <button class="buttonPinkOrange" (click)="sendEmail(me.email)" ion-button round>Enviar un email a {{ me.name }}</button>
+    </div>
+
+  </div>
+
+
+</ion-content>

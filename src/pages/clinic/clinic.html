@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-navbar>
+
+  </ion-navbar>
+</ion-header>
+<ion-content [ngClass]="{'blurred' : isBlurred}">
+  <div class="mediaSlideContainer">
+    <ion-slides pager slidesPerView="1">
+      <div class="media" [style.background-image]="'url(' + (clinic.avatar != '' && clinic.avatar != null ? staticUrl+clinic.avatar : 'assets/img/pet.png' ) + ')'" style="background-size: cover;"></div>
+    </ion-slides>
+  </div>
+
+  <div *ngIf="loaded">
+   <div class="formContainer">
+    <h5>{{clinic.name}}</h5>
+    <div class="subTitle">Información de la clínica</div>
+    <ion-item>
+      <ion-label fixed>Nombre</ion-label>
+      <ion-input type="text" [(ngModel)]="clinic.name" [disabled]="true"></ion-input>
+    </ion-item>
+    <ion-item>
+
+      <ion-label fixed>Dirección</ion-label>
+      <ion-input type="text" [(ngModel)]="clinic.address" [disabled]="true"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>Teléfono</ion-label>
+      <ion-input type="text" [(ngModel)]="clinic.phone" [disabled]="true"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>Sitio web</ion-label>
+      <ion-input type="text" [(ngModel)]="clinic.web" [disabled]="true"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>Horario:</ion-label>
+      <ion-input type="text" [(ngModel)]="clinic.schedule" [disabled]="true"></ion-input>    
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>Email</ion-label>
+      <ion-input type="text" [(ngModel)]="clinic.email" [disabled]="true"></ion-input>
+    </ion-item>
+
+    <div class="buttonWrapper">
+      <button class="buttonPinkOrange" (click)="call()" ion-button round>Llamar a clínica</button>
+    </div>
+    <div class="buttonWrapper">
+      <button class="button2" (click)="email()" ion-button round>Enviar un email</button>
+    </div>
+
+  </div>
+
+  </div>
+</ion-content>

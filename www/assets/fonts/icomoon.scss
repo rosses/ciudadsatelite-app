@@ -1,0 +1,88 @@
+$icomoon-font-path: $font-path !default;
+
+@font-face {
+  font-family: 'icomoon';
+  src:  url('#{$icomoon-font-path}/icomoon.eot?pkmk0n');
+  src:  url('#{$icomoon-font-path}/icomoon.eot?pkmk0n#iefix') format('embedded-opentype'),
+    url('#{$icomoon-font-path}/icomoon.ttf?pkmk0n') format('truetype'),
+    url('#{$icomoon-font-path}/icomoon.woff?pkmk0n') format('woff'),
+    url('#{$icomoon-font-path}/icomoon.svg?pkmk0n#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  /*font-family: 'icomoon' !important;*/
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-album:before {
+  content: "\61";
+}
+.icon-camara:before {
+  content: "\62";
+}
+.icon-cerrar:before {
+  content: "\63";
+}
+.icon-compartir:before {
+  content: "\64";
+}
+.icon-confirmacion:before {
+  content: "\65";
+}
+.icon-corazon-lleno:before {
+  content: "\66";
+}
+.icon-corazon:before {
+  content: "\67";
+}
+.icon-eliminar:before {
+  content: "\68";
+}
+.icon-error:before {
+  content: "\69";
+}
+.icon-exito:before {
+  content: "\6a";
+}
+.icon-facebook:before {
+  content: "\6b";
+}
+.icon-filtro:before {
+  content: "\6c";
+}
+.icon-lupa:before {
+  content: "\6d";
+}
+.icon-menu:before {
+  content: "\6e";
+}
+.icon-movil:before {
+  content: "\73";
+}
+.icon-play:before {
+  content: "\6f";
+}
+.icon-principal:before {
+  content: "\70";
+}
+.icon-twitter:before {
+  content: "\71";
+}
+.icon-ubicacion:before {
+  content: "\72";
+}
+.icon-volver:before {
+  content: "\74";
+}

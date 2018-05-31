@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button icon-only (click)="gotoHome()" class="my-style-for-modal">
+      <ion-icon class="ionicons" name="arrow-back"></ion-icon>
+    </button>
+    <ion-title>MI PERFIL</ion-title>
+    <ion-buttons end>
+    <button (click)="presentMediaOptionsPopover($event)" class="buttonPinkOrange camera">
+      <ion-icon ios="ios-camera-outline" md="ios-camera-outline"></ion-icon>
+    </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content [ngClass]="{'blurred' : isBlurred}">
+
+  <div *ngIf="loaded">
+    <div class="mediaSlideContainer">
+        <div class="media" [style.background-image]="'url(' + (me.avatar != '' && me.avatar != null ? me.avatar : 'assets/img/default/avatar.png' ) + ')'" style="background-size: cover;"></div>
+    </div>
+    <div class="name">
+      {{ me.first_name }}
+    </div>
+    <div class="welcome">
+      Información de mi cuenta
+    </div>
+
+    <div class="formContainer">
+      <ion-item>
+        <ion-label fixed>Nombre</ion-label>
+        <ion-input type="text" [(ngModel)]="me.first_name"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>Email</ion-label>
+        <ion-input type="text" [(ngModel)]="me.email"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>Villa</ion-label>
+        <ion-select [(ngModel)]="me.address.state" (ionChange)="refreshDistrito($event)">
+          <ion-option *ngFor="let state of states" [value]="state.id">{{state.name}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>Sector</ion-label>
+        <ion-select [(ngModel)]="me.address.city">
+          <ion-option *ngFor="let city of cities" [value]="city.id">{{city.name}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <!--
+      <ion-item>
+        <ion-label fixed>Contraseña</ion-label>
+        <ion-label fixed><button (click)="changePassword()" class="buttonPinkOrange" style="top: 7px; left: 124px;" ion-button round>Cambiar</button></ion-label>
+      </ion-item>
+      -->
+      <div class="buttonWrapper">
+        <button (click)="save()" class="buttonPinkOrange" ion-button round>{{ 'PET.UPDATE_INFO' | translate }}</button>
+      </div>
+    </div>
+  </div>
+</ion-content>

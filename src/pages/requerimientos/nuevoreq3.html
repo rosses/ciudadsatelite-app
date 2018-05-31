@@ -1,0 +1,91 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>NUEVO (3/3)</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="cancelRequerimiento()">
+        <ion-icon name="close" class="icon-right-menu"></ion-icon>
+      </button>
+    </ion-buttons>
+
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <h3>Fechas</h3>
+    <ion-list>
+      <ion-item>
+        <ion-label>¿Cuando retirar?</ion-label>
+        <ion-datetime displayFormat="DD/MM/YYYY HH:mm" [(ngModel)]="extended.withdraw_time"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label>¿Cuando entregar?</ion-label>
+        <ion-datetime displayFormat="DD/MM/YYYY HH:mm" [(ngModel)]="extended.delivery_time"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label>Publicar hasta</ion-label>
+        <ion-datetime displayFormat="DD/MM/YYYY HH:mm" [(ngModel)]="extended.expire_at"></ion-datetime>
+      </ion-item>
+    </ion-list>
+
+    <h3>Transporte</h3>
+    <ion-list>
+      <ion-item>
+        <ion-label>Tipo Camión</ion-label>
+        <ion-select [(ngModel)]="extended.trucktype" okText="OK" cancelText="Cancelar">
+          <ion-option *ngFor="let truck of trucktype" [value]="truck.id">{{truck.value}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>Tipo Carga</ion-label>
+        <ion-select [(ngModel)]="extended.loadtype" okText="OK" cancelText="Cancelar">
+          <ion-option *ngFor="let load of loadtype" [value]="load.id">{{service.value}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>Servicio</ion-label>
+        <ion-select [(ngModel)]="extended.servicetype" okText="OK" cancelText="Cancelar">
+          <ion-option *ngFor="let service of servicetype" [value]="service.id">{{service.value}}</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+    
+    <h3>Carga</h3>
+    <ion-list>
+      <ion-item>
+        <ion-input type="number" [(ngModel)]="extended.weight" placeholder="Peso"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="number" [(ngModel)]="extended.volume" placeholder="Volumen"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="number" [(ngModel)]="extended.payment_days" placeholder="Plazos de pago"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="number" [(ngModel)]="extended.insurance_amount" placeholder="Monto seguro"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="tel" [(ngModel)]="extended.truck_qty" placeholder="Camiones necesarios"></ion-input>
+      </ion-item>
+    </ion-list>
+    
+    <h3>Otros detalles</h3>
+    <ion-list>
+      <ion-item>
+        <ion-input type="text" [(ngModel)]="extended.contact_name" placeholder="Nombre contacto"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="text" [(ngModel)]="extended.contact_phone" placeholder="Teléfono contacto"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="text" [(ngModel)]="extended.notes" placeholder="Detalles adicionales"></ion-input>
+      </ion-item>
+    </ion-list>
+    
+    <div class="buttonWrapper">
+      <button class="buttonPinkOrange" ion-button round full (click)="next()">Enviar requerimiento</button>
+    </div>
+
+</ion-content>

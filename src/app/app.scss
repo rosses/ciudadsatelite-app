@@ -1,0 +1,434 @@
+// http://ionicframework.com/docs/theming/
+
+
+// App Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.
+
+*{
+  font-family: "MuktaVaani";
+}
+body {
+  font-family: "MuktaVaani";
+  color: map-get($colors, font-bold);
+}
+#custom-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  width: 100vw;
+  height: 100vh;
+  background-color: #FFF;
+  background-image: url(../assets/img/bg.jpg);
+  background-position: center center;
+  background-size: cover;
+}
+.spinnerwelcome {
+  width: 40px;
+  height: 40px;
+  position: relative;
+  margin: 40px auto;
+}
+.animated-start {
+  opacity: 0;
+}
+.double-bounce1, .double-bounce2 {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: map-get($colors, bck-blue);
+  opacity: 0.6;
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-animation: sk-bounce 1.0s infinite ease-in-out;
+  animation: sk-bounce 1.0s infinite ease-in-out;
+}
+
+.double-bounce2 {
+  -webkit-animation-delay: -1.0s;
+  animation-delay: -1.0s;
+}
+
+@-webkit-keyframes sk-bounce {
+  0%, 100% { left: scale(0.0) }
+  50% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes sk-bounce {
+  0%, 100% { 
+    transform: scale(0.0);
+    -webkit-transform: scale(0.0);
+  } 50% { 
+    transform: scale(1.0);
+    -webkit-transform: scale(1.0);
+  }
+}
+.custom-loader {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+}
+
+
+.animated {
+  -webkit-animation-duration: 1.0s; 
+  animation-duration: 1.0s; 
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+@-webkit-keyframes bounceOut {
+  0% {
+     -webkit-transform: scale(0);
+  }
+  20% {
+     -webkit-transform: scale(0.6);
+  }
+  70% {
+      opacity: 0.7;
+  }
+  100% {
+     -webkit-transform: scale(500);
+     opacity: 0;
+  }
+}
+
+@keyframes bounceOut {
+  0% {
+     -webkit-transform: scale(0);
+  }
+  20% {
+     -webkit-transform: scale(0.6);
+  }
+  70% {
+      opacity: 0.7;
+  }
+  100% {
+     -webkit-transform: scale(500);
+     opacity: 0;
+  }
+}
+
+.bounceOut {
+  -webkit-animation-name: bounceOut;
+  animation-name: bounceOut;
+}
+
+
+ng-component.blur {
+  filter: blur(10px);
+}
+
+.menu-inner {
+    width: 70% !important;
+    padding-top: 20px;
+    background: #AFC155 !important; /* Old browsers */
+    border-right: 0;
+    font-weight: 400;
+    color: map-get($colors, light);
+
+    // display: flex;
+    // justify-content: center;
+    // flex-direction: column;
+
+    .destacado {
+      background-color: #f16021;    
+    }
+    .link {
+        line-height: 16px;
+        font-size: 1.7rem;
+        padding: 14px 26px;
+
+        &.selected span{
+            position: relative;
+
+            &:after {
+                content: "";
+                position: absolute;
+                width: calc(100% + 0.8rem);
+                height: 2px;
+                bottom: -0.4rem;
+                left: -0.4rem;
+                // background-color: map-get($colors, light);
+            }
+        }
+    }
+}
+
+.profile {
+    font-weight: 500;
+    padding-bottom: 1.2rem;
+    padding-left: 20px;
+    padding-top: 0;
+
+    .image {
+        width: 10rem;
+        height: 10rem;
+        display: inline-block;
+        border-radius: 100%;
+        background-position: center;
+        margin-left: 0.9rem;
+    }
+
+    .name {
+        font-size: 1.6rem;
+        padding: 0.5rem;
+        padding-bottom: 0;
+    }
+    .scope {
+        font-size: 1.2rem;
+        padding: 0.5rem;
+        padding-top: 0;
+    }
+
+    button {
+        font-weight: 500;
+        font-size: 1.4rem;
+        padding: 0.5rem 2rem;
+        height: auto;
+        color: map-get($colors, font-pink);
+        text-transform: none;
+        width: 11.4rem;
+    }
+}
+
+.toolbar-background, .toolbar-background-ios, .toolbar-background-md {
+  background-color: map-get($colors, light);
+  border-color: #D6D6D6 !important;
+}
+
+.subTitle {
+  text-transform: uppercase;
+  font-weight: 800;
+  font-size: 1.2rem;
+  color: map-get($colors, font-bold);
+}
+ion-select {
+  width: 100%;
+  max-width: 55%;
+  background-image: url(../assets/img/chevron.png);
+  background-position: right;
+  background-size: 15px;
+  font-size: 12px;
+  color: #3D404B;
+  padding: 13px 8px !important;
+  background-repeat: no-repeat;
+}
+ion-select .select-icon {
+  display: none;
+}
+.toolbar-title {
+  color: #FFF;
+  text-align: center;
+  font-weight: 800;
+  font-size: 1.7rem;
+  text-transform: uppercase;
+}
+
+.toolbar-title-md {
+  padding: 0;
+  padding-right: 56px;
+}
+
+.formContainer {
+  padding: 20px;
+
+  .subTitle {
+    padding: 0;
+    padding-bottom: 8px;
+  }
+
+  ion-input {
+    font-size: 1.2rem;
+    color: map-get($colors, font-bold);
+    font-weight: 500;
+  }
+
+  .label {
+    width: 101px;
+    display: inline-block;
+    font-weight: 400;
+    color: map-get($colors, font-regular);
+    width: 12rem;
+    flex: initial;
+    font-size: 1.2rem;
+    margin-top: 17px;
+    margin-bottom: 17px;
+  }
+  .item {
+    background: transparent;
+    padding: 0;
+    border-bottom: 1px solid #D3D3D3;
+  }
+
+  .item.item-block .item-inner {
+    border-bottom: 1px solid rgba(105,116,124,0.2);
+  }
+
+  .item-md.item-input.item-input-has-focus .item-inner, .item-md.input.item-input-has-focus .item-inner {
+    box-shadow: inset 0 -1px 0 0 black;
+  }
+
+  .description {
+    font-size: 1.4rem;
+    font-weight: 300;
+    color: #878a8c;
+    margin-top: 8px;
+  }
+
+  .buttonWrapper {
+    padding: 0 4px;
+
+    button {
+      background: white;
+      font-size: 1.6rem;
+      font-weight: 500;
+      text-transform: initial;
+      margin-top: 20px;
+      position: initial;
+      width: 100%;
+      padding: 1.6rem;
+    }
+  }
+}
+
+.buttonPinkOrange {
+  background: map-get($colors, bck-light-orange) !important; 
+  background: -moz-linear-gradient(right, map-get($colors, bck-light-orange) 0%, map-get($colors, bck-orange) 100%) !important; 
+  background: -webkit-linear-gradient(left, map-get($colors, bck-light-orange) 0%,map-get($colors, bck-orange) 100%) !important; 
+  background: linear-gradient(to right, map-get($colors, bck-light-orange) 0%,map-get($colors, bck-orange) 100%) !important; 
+}
+.button2 {
+  border: 2px solid map-get($colors, bck-light-orange);
+  color: map-get($colors, bck-pink);
+}
+.buttonPinkOrange.small{
+  height: 2.5rem!important;
+}
+
+.toolbar {
+  height: 6.2rem;
+}
+.toolbar-background {
+  background-color: #88A201;
+}
+
+.header .toolbar {
+  .button-inner {
+    font-size: 3rem;
+    color: #FFF;
+  }
+}
+
+.popover-content {
+  background-color: transparent !important;
+}
+.popover-content ion-list {
+  background-color: white;
+}
+.popover-ios .popover-content {
+  width: calc(100% - 40px);
+  left: 20px !important;
+  box-shadow: none !important;
+
+  .item-ios {
+    padding-left: 0;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+}
+
+.popover-md .popover-content {
+  width: calc(100% - 40px);
+  left: 20px !important;
+  box-shadow: none !important;
+}
+
+.popover-ios .popover-arrow {
+  display: none;
+}
+
+.popover-content {
+  overflow: visible;
+}
+
+.icon-right-menu {
+  font-size: 3rem !important;
+}
+ion-backdrop {
+  opacity: 0.9 !important;
+  background-color: map-get($colors, font-bold);
+}
+
+.blurred {
+  .scroll-content {
+    filter: blur(10px);
+  }
+}
+
+@mixin placeholder-color($color) {
+  &::-webkit-input-placeholder { /* WebKit browsers */
+      color: $color;
+  }
+  &:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+      color: $color;
+  }
+  &::-moz-placeholder { /* Mozilla Firefox 19+ */
+      color: $color;
+  }
+  &:-ms-input-placeholder { /* Internet Explorer 10+ */
+      color: $color;
+  }
+}
+.md button .button-effect {
+  display: none;
+}
+.petpre .swiper-slide {
+  max-width: 80px;
+}
+.f0 {
+  background-color: #F0F0F0;
+  min-height: calc(100vh - 200px);
+}
+.list-md .item-block .item-inner {
+  box-shadow: none !important;
+  border-bottom: 0px 1important;
+}
+.list-md .item-input {
+  box-shadow: none !important;
+  border-bottom: 0px 1important;
+}
+
+.sidenav .menu-inner {
+  overflow-y: scroll;
+}
+.content-ios {
+  background-color: transparent;
+}
+
+
+.back-button-ios {
+  min-height: 3rem !important;
+}
+
+.lastView {
+  color: #3D404B;
+  padding: 20px;
+}

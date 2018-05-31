@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons end style="margin-right: 20px;">
+    <button (click)="presentMediaOptionsPopover($event)" *ngIf="isDetail && !lastView" class="buttonPinkOrange camera">
+      <ion-icon ios="ios-camera-outline" md="ios-camera-outline"></ion-icon>
+    </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content [ngClass]="{'blurred' : isBlurred}">
+  <div class="mediaSlideContainer">
+    <ion-slides #mySlider pager slidesPerView="1">
+      <ion-slide *ngFor="let imagen of imagenes">
+        <div class="media" [style.background-image]="'url(' + staticUrl+imagen + ')'" style="background-size: cover;"></div>
+      </ion-slide>
+      <div class="media" *ngIf="imagenes.length == 0" [style.background-image]="'url(' + (pet.avatar != '' && pet.avatar != null ? staticUrl+pet.avatar : 'assets/img/pet.png' ) + ')'" style="background-size: cover;"></div>
+    </ion-slides>
+  </div>
+  <div class="name">
+    {{ pet.name }}
+    <button *ngIf="isDetail && !lastView" ion-button round class="options buttonPinkOrange" (click)="presentStatePopover($event)">{{ 'PET.EDIT_STATE' | translate }}</button>
+  </div>
+  <div *ngIf="loaded && !lastView">
+    <qr-card *ngIf="isDetail && !isLost" [pet]="pet"></qr-card>
+    <pet-info-form [pet]="pet" [isDetail]="isDetail" [isLost]="isLost" [isLove]="isLove" [isMatch]="isMatch" [isEdit]="isEdit" [isFound]="isFound" [myPet]="myPet" [petId]="petId"></pet-info-form>
+  </div>
+
+  <div *ngIf="lastView" class="lastView">
+    <strong>PERDIDO EL {{pet.missing_at | date: 'dd/MM/yyyy'}}</strong>
+    <br /><br />
+    <div *ngIf="lastSeen">
+      Tu mascota fue vista por última vez por {{lastSeenName}}. Puedes ver su información y contactarlo para saber más.
+      <br /><br />
+      <agm-map [latitude]="lastSeenLat" [longitude]="lastSeenLng" [styles]="styles" [zoom]="13" [zoomControl]="false" [streetViewControl]="false" (onMapLoad)='loadAPIWrapper($event)'>
+        <agm-marker [iconUrl]="getmarkericon()" [latitude]="lastSeenLat" [longitude]="lastSeenLng">
+        </agm-marker>
+      </agm-map>
+      <br /><br />
+      <div class="buttonWrapper">
+        <button class="buttonPinkOrange" (click)="gotoUser(lastSeenID)" ion-button round>Ver información de contacto</button>
+      </div>
+    </div>
+
+
+    <div *ngIf="!lastSeen">
+    Lo sentimos, tu mascota aún no ha sido vista por nadie
+    </div>
+    <br /><br />
+    Si encontraste esta mascota y tiene su collar MiMaskot haz clic en el botón para notificar a su dueño.
+    <br /><br />
+    <button class="buttonWhiting" (click)="reportarComoEncontrado(pet.code)" ion-button round>Reportar como encontrado</button>
+  </div>
+</ion-content>

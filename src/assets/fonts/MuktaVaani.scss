@@ -1,0 +1,50 @@
+$muktaVaani-font-path: $font-path !default;
+
+@font-face {
+  font-family: "MuktaVaani";
+  font-style: normal;
+  font-weight: 200;
+  src: local("MuktaVaani ExtraLight"), local("MuktaVaani-ExtraLight"), url("#{$muktaVaani-font-path}/MuktaVaani-ExtraLight.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "MuktaVaani";
+  font-style: normal;
+  font-weight: 300;
+  src: local("MuktaVaani Light"), local("MuktaVaani-Light"), url("#{$muktaVaani-font-path}/MuktaVaani-Light.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "MuktaVaani";
+  font-style: normal;
+  font-weight: 400;
+  src: local("MuktaVaani Regular"), local("MuktaVaani-Regular"), url("#{$muktaVaani-font-path}/MuktaVaani-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "MuktaVaani";
+  font-style: normal;
+  font-weight: 500;
+  src: local("MuktaVaani Medium"), local("MuktaVaani-Medium"), url("#{$muktaVaani-font-path}/MuktaVaani-Medium.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "MuktaVaani";
+  font-style: normal;
+  font-weight: 600;
+  src: local("MuktaVaani SemiBold"), local("MuktaVaani-SemiBold"), url("#{$muktaVaani-font-path}/MuktaVaani-SemiBold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "MuktaVaani";
+  font-style: normal;
+  font-weight: 700;
+  src: local("MuktaVaani Bold"), local("MuktaVaani-Bold"), url("#{$muktaVaani-font-path}/MuktaVaani-Bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "MuktaVaani";
+  font-style: normal;
+  font-weight: 800;
+  src: local("MuktaVaani ExtraBold"), local("MuktaVaani-ExtraBold"), url("#{$muktaVaani-font-path}/MuktaVaani-ExtraBold.ttf") format("truetype");
+}

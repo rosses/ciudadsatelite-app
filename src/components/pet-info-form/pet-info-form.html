@@ -1,0 +1,84 @@
+<!-- Generated template for the PetInfoFormComponent component -->
+<div class="formContainer">
+  <div class="subTitle" *ngIf="!isDetail">{{ 'PET.PET_INFORMATION' | translate }}</div>
+  <div class="subTitle" *ngIf="isDetail">{{ 'PET.MY_PET_INFORMATION' | translate }}</div>
+  <ion-item>
+    <ion-label fixed>{{ 'PET.NAME' | translate }}</ion-label>
+    <ion-input type="text" [(ngModel)]="pet.name" [disabled]="true" [hidden]="isEdit"></ion-input>
+    <ion-input type="text" [(ngModel)]="pet.name" [hidden]="!isEdit"></ion-input>
+  </ion-item>
+  <ion-item>
+
+    <ion-label fixed>{{ 'PET.SPECIES' | translate }}</ion-label>
+    <ion-input type="text" [(ngModel)]="names.especie" [disabled]="true" [hidden]="isEdit"></ion-input>
+    <ion-select [(ngModel)]="pet.type" (ionChange)="refreshRazas($event)" [hidden]="!isEdit">
+      <ion-option *ngFor="let species of especies" [value]="species.id">{{species.species}}</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label fixed>{{ 'PET.BREED' | translate }}</ion-label>
+    <ion-input type="text" [(ngModel)]="names.raza" [disabled]="true" [hidden]="isEdit"></ion-input>
+    <ion-select [(ngModel)]="pet.breed" [hidden]="!isEdit">
+      <ion-option *ngFor="let breed of razas" [value]="breed.id">{{breed.breed}}</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label fixed>{{ 'PET.BIRTH_DATE' | translate }}</ion-label>
+
+    <ion-input type="text" [(ngModel)]="pet.birthday" [disabled]="true" [hidden]="isEdit"></ion-input>
+    <ion-input type="text" [(ngModel)]="pet.birthday" readonly [hidden]="!isEdit" (click)="setBirthDate(pet.birthday)"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label fixed>{{ 'PET.GENDER' | translate }}</ion-label>
+    <ion-input type="text" [(ngModel)]="names.sex" [disabled]="true" [hidden]="isEdit"></ion-input>
+    <ion-select [(ngModel)]="pet.sex" [hidden]="!isEdit">
+      <ion-option *ngFor="let sex of sexs" [value]="sex.id">{{sex.value}}</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label fixed>{{ 'PET.COLOR' | translate }}</ion-label>
+    <ion-input type="text" [(ngModel)]="names.color" [disabled]="true" [hidden]="isEdit"></ion-input>
+    <ion-select [(ngModel)]="pet.color" [hidden]="!isEdit">
+      <ion-option *ngFor="let color of colors" [value]="color.id">{{color.value}}</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label fixed>{{ 'PET.SIZE' | translate }}</ion-label>
+    <ion-input type="text" [(ngModel)]="names.size" [disabled]="true" [hidden]="isEdit"></ion-input>
+    <ion-select [(ngModel)]="pet.size" [hidden]="!isEdit">
+      <ion-option *ngFor="let size of sizes" [value]="size.id">{{size.value}}</ion-option>
+    </ion-select>
+  </ion-item>
+  <!--
+  <div class="buttonWrapper" *ngIf="isEdit ">
+    <button class="buttonPinkOrange" ion-button round>{{ 'PET.UPDATE_INFO' | translate }}</button>
+  </div>
+  -->
+  <div class="buttonWrapper" *ngIf="isNew">
+    <button class="buttonPinkOrange" (click)="add()" ion-button round>{{ 'PET.SAVE' | translate }}</button>
+  </div>
+
+  <div class="buttonWrapper" *ngIf="isEdit && !isNew">
+    <button class="buttonPinkOrange" (click)="save()" ion-button round>{{ 'PET.UPDATE_INFO' | translate }}</button>
+  </div>
+
+  <div class="buttonWrapper" *ngIf="isLove && !isMatch">
+    <button class="buttonPinkOrange" (click)="notificar()" ion-button round>Notificar al dueño</button>
+  </div>
+
+  <div class="buttonWrapper" *ngIf="isMatch">
+    <button class="buttonPinkOrange" (click)="aceptar()" ion-button round>Aceptar candidato</button>
+  </div>
+  <div class="buttonWrapper" *ngIf="isMatch">
+    <button class="button2" (click)="rechazar()" ion-button round>Rechazar candidato</button>
+  </div>
+
+  <div class="buttonWrapper" *ngIf="isLost && isFound && !isDetail">
+    <button class="buttonPinkOrange" (click)="owner(pet.user_id)" ion-button round>Ver datos del dueño</button>
+  </div>
+
+  <div class="buttonWrapper" *ngIf="isLost && !isFound && !isDetail">
+    <button class="buttonPinkOrange" (click)="scanear()" ion-button round>Escanear Mascota</button>
+  </div>
+</div>

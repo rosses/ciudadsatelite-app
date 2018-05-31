@@ -1,0 +1,36 @@
+<!--
+  Generated template for the MyPetsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <span class="icon-menu"></span>
+    </button>
+    <ion-title>{{ 'APP_MENU.MY_PETS' | translate }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="slidesWrapper">
+    <ion-slides *ngIf="loadok" class="petpre" pager slidesPerView="4.5">
+      <ion-slide>
+        <pet-preview [add]="true" (click)="addPet()"></pet-preview>
+      </ion-slide>
+      <ion-slide *ngFor="let pet of pets">
+        <pet-preview [pet]="pet" [isDetail]="true" [isEdit]="true" [isMe]="true" [add]="false"></pet-preview>
+      </ion-slide>
+    </ion-slides>
+  </div>
+
+  <div *ngIf="addPetForm">
+    <qr-card [pet]="newPet" [nueva]="true" (change)="qrChange($event)"></qr-card>
+    <div *ngIf="addPetForm && !addPetForm2" class="start_qr">
+      Comienza escaneando el QR para tu mascota
+    </div>
+    <pet-info-form *ngIf="addPetForm2" [pet]="newPet" [isDetail]="true" [isEdit]="true" [isNew]="true"></pet-info-form>
+  </div>
+</ion-content>
+

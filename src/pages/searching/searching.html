@@ -1,0 +1,171 @@
+<!--
+  Generated template for the MyPetsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <span class="icon-menu"></span>
+    </button>
+    <ion-title>{{ 'APP_MENU.LOOKING_FOR_PARTNERS' | translate }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="over" *ngIf="over">
+    <ion-grid>
+      <ion-row>
+      <ion-col col-9><h1>Filtros de búsqueda</h1> </ion-col>
+      <ion-col col-3 text-center><img (click)="closeFiltros();" src="assets/img/close.png" style="max-width: 40px;" /></ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-6>Especie</ion-col>
+        <ion-col col-6>
+          <ion-select [(ngModel)]="search.type" (ionChange)="refreshRazas($event)">
+            <ion-option value="">Cualquiera</ion-option>
+            <ion-option *ngFor="let species of especies" [value]="species.id">{{species.species}}</ion-option>
+          </ion-select>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-6>Raza</ion-col>
+        <ion-col col-6>
+          <ion-select [(ngModel)]="search.breed">
+            <ion-option value="">Cualquiera</ion-option>
+            <ion-option *ngFor="let breed of razas" [value]="breed.id">{{breed.breed}}</ion-option>
+          </ion-select>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-6>Edad</ion-col>
+        <ion-col col-6>
+          <ion-select [(ngModel)]="search.age">
+            <ion-option value="">Cualquiera</ion-option>
+            <ion-option value="0-1">Menos de un año</ion-option>
+            <ion-option value="1-3">entre 1 y 3 años</ion-option>
+            <ion-option value="3-5">entre 3 y 5 años</ion-option>
+            <ion-option value="5-7">entre 5 y 7 años</ion-option>
+            <ion-option value="7-10">entre 7 y 10 años</ion-option>
+            <ion-option value="10-1000">más de 10 años</ion-option>
+          </ion-select>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-6>Sexo</ion-col>
+        <ion-col col-6>
+          <ion-select [(ngModel)]="search.sex">
+            <ion-option value="">Cualquiera</ion-option>
+            <ion-option *ngFor="let sex of sexs" [value]="sex.id">{{sex.value}}</ion-option>
+          </ion-select>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-6>Tamaño</ion-col>
+        <ion-col col-6>
+          <ion-select [(ngModel)]="search.size">
+            <ion-option value="">Cualquiera</ion-option>
+            <ion-option *ngFor="let size of sizes" [value]="size.id">{{size.value}}</ion-option>
+          </ion-select>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <div class="tabs t">
+    <button (click)="Tab1()" [ngClass]="tab1 ? 'activo' : ''">Buscando pareja</button>
+    <button (click)="Tab2()" [ngClass]="tab2 ? 'activo' : ''">Mis candidatos</button>
+  </div>
+
+  <div [hidden]="!tab1">
+    <!-- start Banner -->
+    <ins data-revive-zoneid="9" data-revive-id="9d276fa041e1067786e857fe85ab98f9"></ins>
+    <!-- end Banner -->
+
+    <div class="slidesWrapper">
+      <ion-slides pager slidesPerView="4.5">
+        <ion-slide *ngFor="let pet of pets">
+          <pet-preview [pet]="pet" (click)="activarMascota(pet)" [preventDetail]="true" [isDetail]="false" [isMe]="true" [add]="false"></pet-preview>
+        </ion-slide>
+      </ion-slides>
+    </div>
+
+    <div class="t" *ngIf="pets.length == 0" style="text-align:center;">
+      No tienes ninguna mascota, conoce candidatos agregando tu primera mascota en <b>Mis Mascotas</b>
+    </div>
+
+    <div class="f0" *ngIf="mascota_activa.id">
+      <ion-grid class="t">
+        <ion-row>
+        <ion-col col-9><h1>Actualmente buscando pareja para {{mascota_activa.name}}</h1> </ion-col>
+        <ion-col col-3 text-center><img (click)="openFiltros();"  src="assets/img/filter.png" style="max-width: 40px;" /></ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <div text-center *ngIf="findpets.length == 0"><strong>No hay mascotas encontradas</strong></div>
+
+      <ion-row class="t" responsive-sm wrap>
+        <ion-col col-6 *ngFor="let pet of findpets">
+         <div class="rondme" (click)="goToDetail(pet)">
+          <div class="foto" [style.background-image]="'url(' + (pet.avatar != '' ? staticUrl+pet.avatar : 'assets/img/pet.png' ) + ')'" style="background-size: cover;">
+          </div>
+          <div class="name">{{pet.name}}</div>
+          <div class="sub">Especie: {{pet.type_name}}</div>
+          <div class="sub">Raza: {{pet.breed_name}}</div>
+          <div class="sub">Sexo: {{pet.sex_name}}</div>
+          <div class="sub">Tamaño: {{pet.size_name}}</div>
+          <div class="sub">Edad: {{getYearOld(pet.birthday)}}</div>
+           <div class="sub location"><ion-icon class="ion-icon" name="pin"></ion-icon>{{getLocation(pet)}}</div>
+         </div>
+        </ion-col>
+      </ion-row>
+    </div>
+
+  </div>
+  <div [hidden]="!tab2">
+    <!-- start Banner -->
+    <ins data-revive-zoneid="9" data-revive-id="9d276fa041e1067786e857fe85ab98f9"></ins>
+    <!-- end Banner -->
+    <div class="slidesWrapper">
+      <ion-slides pager slidesPerView="4.5">
+        <ion-slide *ngFor="let pet of pets">
+          <pet-preview [pet]="pet" (click)="activarMascota(pet)" [preventDetail]="true" [isDetail]="false" [isMe]="true" [add]="false"></pet-preview>
+        </ion-slide>
+      </ion-slides>
+    </div>
+
+    <div class="t" *ngIf="pets.length == 0" style="text-align:center;">
+      No tienes ninguna mascota, conoce candidatos agregando tu primera mascota en <b>Mis Mascotas</b>
+    </div>
+
+    <div class="f0" *ngIf="mascota_activa.id">
+      <ion-grid class="t" *ngIf="candidatos.length > 0">
+        <ion-row>
+          <ion-col col-12><h1>Estos son los candidatos para {{ mascota_activa.name }}</h1> </ion-col>
+
+          <ion-col col-6 *ngFor="let pet of candidatos">
+            <div class="rondme" (click)="goToLoveDetail(pet)">
+              <div class="foto" [style.background-image]="'url(' + (pet.avatar && pet.avatar != '' ? staticUrl+pet.avatar : 'assets/img/default/mascota.png' ) + ')'" style="background-size: cover;">
+              </div>
+              <div class="name">{{pet.name}}</div>
+              <div class="sub">Especie: {{pet.type_name}}</div>
+              <div class="sub">Raza: {{pet.breed_name}}</div>
+              <div class="sub">Sexo: {{pet.sex_name}}</div>
+              <div class="sub">Tamaño: {{pet.size_name}}</div>
+              <div class="sub">Edad: {{getYearOld(pet.birthday)}}</div>
+            </div>
+          </ion-col>
+
+        </ion-row>
+      </ion-grid>
+
+      <ion-grid class="t" *ngIf="candidatos.length == 0">
+        <ion-row>
+          <ion-col col-12><h1>No hay candidatos activos para {{ mascota_activa.name }}</h1> </ion-col>
+        </ion-row>
+      </ion-grid>
+
+    </div>
+  </div>
+</ion-content>
+

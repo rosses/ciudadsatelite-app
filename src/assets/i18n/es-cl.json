@@ -1,0 +1,101 @@
+{
+    "APP_MENU": {
+        "HOME": "Inicio",
+        "MY_PETS": "Mis mascotas",
+        "LOOKING_FOR_PARTNERS": "Buscando pareja",
+        "LOST_PETS": "Mascotas perdidas",
+        "VETERINARY_CLINICS": "Clínicas veterinarias",
+        "MY_ACCOUNT": "Mi cuenta",
+        "CLOSE": "Cerrar sesión"
+    },
+    "HOME": {
+        "LAST_MEMBERS_OF_OUR_COMMUNITY": "Últimos integrantes de la comunidad",
+        "NEWS": "Noticias"
+    },
+    "PET": {
+        "NAME": "Nombre",
+        "SPECIES": "Especie",
+        "BREED": "Raza",
+        "BIRTH_DATE": "F. Nacimiento",
+        "GENDER": "Sexo",
+        "COLOR": "Color",
+        "SIZE": "Tamaño",
+        "MY_PET_INFORMATION": "Información de mi mascota",
+        "PET_INFORMATION": "Información de la mascota",
+        "ID_MIMASKOT": "ID Mimaskot",
+        "IDENTIFIER": "Identificador",
+        "SCAN_AGAIN": "Escanear nuevamente",
+        "SCAN": "Escanear",
+        "UPDATE_INFO": "Actualizar información",
+        "SAVE": "Guardar mascota",
+        "EDIT_STATE": "Editar estado"
+    },
+    "POPOVER_PET_MEDIA_OPTIONS": {
+        "TAKE_PICTURE": "Tomar foto",
+        "CHOOSE_FROM_ALBUM": "Escoger del álbum",
+        "SET_AS_MAIN": "Dejar como principal",
+        "DELETE_PICTURE": "Eliminar esta foto"
+    },
+    "POPOVER_PET_STATE": {
+        "LOST_PET": "Reportar como perdido",
+        "PET_FOUND": "Mascota encontrada",
+        "I_AM_LOOKING_FOR_PARTNER": "Estoy buscando pareja",
+        "DELETE_PET": "Eliminar mascota"
+    },
+    "ONBOARDING": {
+        "CREATE_ACCOUNT": "Crea tu cuenta",
+        "REGISTER_YOUR_PETS": "Registra tus mascotas",
+        "ENJOY_APP": "Disfruta de la app",
+        "CREATE_ACCOUNT_DESCRIPTION_1": "Crea tu cuenta registrando tu email y número de teléfono.",
+        "CREATE_ACCOUNT_DESCRIPTION_2": "Tus datos estarán seguros con nosotros.",
+        "REGISTER_YOUR_PETS_DESCRIPTION_1": "Registra a tus mascotas y vincula el chip asociado a la medalla.",
+        "REGISTER_YOUR_PETS_DESCRIPTION_2": " Puedes hacerlo escaneando el Código QR.",
+        "REGISTER_YOUR_PETS_DESCRIPTION_3": "",
+        "ENJOY_APP_DESCRIPTION_1": "Recibirás información relevante para tu mascota y",
+        "ENJOY_APP_DESCRIPTION_2": " podrás acceder a otras funciones ",
+        "ENJOY_APP_DESCRIPTION_3": "como búsqueda de pareja.",
+        "SKIP": "Saltar",
+        "NEXT": "Siguiente"
+    },
+    "LOGIN": {
+        "WELCOME": "¡Bienvenido!",
+        "DESCRIPTION": "Inicia Sesión",
+        "EMAIL": "Dirección de correo",
+        "PASSWORD": "Contraseña",
+        "TERMS_OF_USE": "términos de uso",
+        "PRIVACY_POLICY": "políticas de privacidad",
+        "ACCEPT_TERMS_AND_CONDITIONS_1": "Al registrate, estás aceptando los ",
+        "ACCEPT_TERMS_AND_CONDITIONS_2": " y ",
+        "ACCEPT_TERMS_AND_CONDITIONS_3": " del servicio",
+        "NEXT": "Siguiente",
+        "TO_SIGNUP": "Regístrate"
+    },
+    "SIGNUP": {
+      "WELCOME": "¡Bienvenido!",
+      "ENTER_PHONE_NUMBER_TO_BEGIN": "Ingresa tu número de teléfono para comenzar",
+      "NAME": "Nombre",
+      "EMAIL": "Dirección de correo",
+      "PHONE": "Número móvil",
+      "PASSWORD": "Contraseña",
+      "REPASSWORD": "Repetir Contraseña",
+      "TERMS_OF_USE": "términos de uso",
+      "PRIVACY_POLICY": "políticas de privacidad",
+      "ACCEPT_TERMS_AND_CONDITIONS_1": "Al registrate, estás aceptando los ",
+      "ACCEPT_TERMS_AND_CONDITIONS_2": " y ",
+      "ACCEPT_TERMS_AND_CONDITIONS_3": " del servicio",
+      "NEXT": "Siguiente",
+      "TO_LOGIN": "Ingresa"
+    },
+    "LOGIN_CODE": {
+        "FEW_MORE_SECONDS": "Unos segundos más",
+        "ENTER_VERIFICATION_CODE": "Ingresa el código de verificación enviado a tu número móvil",
+        "ACCEPT": "Aceptar",
+        "GO_BACK": "Volver",
+        "ONE_STEP": "a un paso!",
+        "WE_ARE_VERIFYING": "Estamos verificando, en un momento serás redirigido a la aplicación",
+        "VERIFY": "Ingrese código"
+    },
+    "BUTTONS": {
+        "SCAN": "Escanear Código"
+    }
+}

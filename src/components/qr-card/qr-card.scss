@@ -1,0 +1,68 @@
+qr-card {
+  .white {
+    background: white;
+    padding-top: 5px !important;
+    margin-top: 24px;
+  }
+
+  .qrCard {
+    position: relative;
+    padding: 20px;
+    background: white;
+
+    #mimaskotLogo {
+      position: absolute;
+      width: 6.2rem;
+      height: auto;
+      top: 15px;
+      right: 20px;
+    }
+
+    .qr {
+      height: 7.7rem;
+      width: 7.7rem;
+      display: inline-block;
+      vertical-align: top;
+    }
+
+    .emptyQr {
+      background: map-get($colors, bck-grey);
+    }
+
+    .identifierWrapper {
+      font-family: "Helvetica";
+      font-weight: 300;
+      display: inline-block;
+      width: calc(100% - 7.7rem - 4px);
+      font-size: 1.4rem;
+      padding: 0 23px;
+      line-height: 1.7rem;
+
+      .identifier {
+        font-size: 2rem;
+        line-height: 2rem;
+      }
+    }
+
+    button {
+      bottom: 12px;
+      left: calc(7.7rem + 47px);
+      color: map-get($colors, font-pink);
+      border: 1px solid map-get($colors, font-pink);
+    }
+
+    button.activated {
+      background-color: map-get($colors, font-pink) !important;
+      color: white;
+    }
+  }
+
+  button.button-round {
+      position: absolute;
+      font-weight: 400;
+      font-size: 1.4rem;
+      padding: 0.5rem 2.3rem;
+      height: auto;
+      text-transform: initial;
+  }
+}

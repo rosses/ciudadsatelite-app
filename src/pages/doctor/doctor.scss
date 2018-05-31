@@ -1,0 +1,117 @@
+page-doctor {
+
+  .content {
+    background-color: map-get($colors, light);
+  }
+  agm-map {
+    height: calc(100vh - 60px);
+  }
+  .scroll-content {
+    padding: 0 !important;
+  }
+
+  .overcard {
+    z-index: 10000;
+    position: absolute;
+    width: 90%;
+  }
+
+  .findme {
+    position: absolute;
+    z-index: 100;
+    right: 15px;
+    bottom: 15px;
+    max-width: 15vw;
+  }
+  .findme img {
+    max-width: 100%;
+  }
+  .overcard ion-icon {
+    font-family: "Ionicons" !important;
+  }
+  .overcard ion-label {
+    z-index: 99999;
+    position: absolute;
+    padding-left: 14px;
+    color: gray;
+    padding-top: 0px;
+    font-size: 20px;
+    top: 0;
+    left: 0;
+  }
+  .overcard ion-input {
+    padding-left: 15px;
+  }
+
+  .search_result ion-scroll {
+    min-height: calc(100vh - 300px);
+  }
+  .search_result .scroll-content {
+    margin-top: 0 !important;
+  }
+  .search_result {
+    position: absolute;
+    z-index: 100;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    min-height: 200px;
+    max-height: calc(100vh - 300px);
+  }
+  .search_result ul {
+    margin: 0;
+    padding: 0;
+  }
+  .search_result ul li {
+    list-style: none;
+    font-size: 15px;
+    border-bottom: 1px solid gray;
+    padding: 15px;
+  }
+  .info_vet {
+    position: absolute;
+    z-index: 100;
+    width: calc(100% - 40px);
+    margin-left: 20px;
+    bottom: 0px;
+  }
+  .buttonWrapper {
+    margin-bottom: 15px;
+  }
+
+  .info_vet .box {
+    padding: 25px;
+    background-color: white;
+  }
+  .info_vet .buttonWrapper {
+    margin: auto;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .info_vet .buttonWrapper button {
+    margin: auto;
+    width: 80%;
+  }
+
+  .close {
+    position: relative;
+    top: calc(-2rem);
+    left: calc(100% - 4rem);
+    font-size: 3.5rem;
+    text-align:center;
+    border-radius: 100%;
+    width: 4rem;
+    height: 4rem;
+    margin-bottom: -4rem;
+    color: white;
+
+    background: map-get($colors, bck-pink) !important; /* Old browsers */
+    background: -moz-linear-gradient(-45deg, map-get($colors, bck-pink) 0%, map-get($colors, bck-orange) 100%) !important; /* FF3.6-15 */
+    background: -webkit-linear-gradient(-45deg, map-get($colors, bck-pink) 0%,map-get($colors, bck-orange) 100%) !important; /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(135deg, map-get($colors, bck-pink) 0%,map-get($colors, bck-orange) 100%) !important; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */ 
+  }
+
+
+}
+

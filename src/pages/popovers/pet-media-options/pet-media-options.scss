@@ -1,0 +1,63 @@
+page-pet-media-options {
+  position: relative;
+  margin-top: 50px;
+
+  .close {
+    position: relative;
+    top: -60px;
+    left: calc(100% - 4rem);
+    font-size: 4rem;
+    border-radius: 100%;
+    width: 4rem;
+    height: 4rem;
+    margin-bottom: -4rem;
+    color: white;
+
+    background: map-get($colors, bck-pink) !important; /* Old browsers */
+    background: -moz-linear-gradient(-45deg, map-get($colors, bck-pink) 0%, map-get($colors, bck-orange) 100%) !important; /* FF3.6-15 */
+    background: -webkit-linear-gradient(-45deg, map-get($colors, bck-pink) 0%,map-get($colors, bck-orange) 100%) !important; /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(135deg, map-get($colors, bck-pink) 0%,map-get($colors, bck-orange) 100%) !important; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */ 
+  }
+
+  ion-list {
+    transform: translateY(90px);
+    -webkit-transform: translateY(90px);
+    -moz-transform: translateY(90px);
+    background-color: white;
+  }
+  ion-label {
+    font-size: 1.8rem;
+    font-weight: 400;
+    color: map-get($colors, font-bold);
+  }
+
+  ion-label.label-ios {
+    padding-left: 20px;
+  }
+
+  .item-md {
+    padding-left: 0;
+
+    .label-md {
+      margin-left: 20px;
+    }
+  }
+
+  ion-note {
+    width: 40px;
+    text-align: center;
+    font-size: 40px;
+    height: 40px;
+    color: map-get($colors, font-bold) !important;
+  }
+
+  .list-md, .list-ios {
+    margin-bottom: 0;
+  }
+
+  .list-ios > .item-block:last-child {
+    border-bottom: 0;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+}

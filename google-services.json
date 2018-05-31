@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "751567943339",
+    "firebase_url": "https://camiongo2018.firebaseio.com",
+    "project_id": "camiongo2018",
+    "storage_bucket": "camiongo2018.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:751567943339:android:bbce984711d73b57",
+        "android_client_info": {
+          "package_name": "com.camiongo.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "751567943339-fd67va6886r7j4osc81uotk62fecpb26.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIckYy0s-R_wqEy6bVNstu_vCdrDnmjZQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

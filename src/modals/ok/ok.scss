@@ -1,0 +1,41 @@
+page-modalOK {
+	ion-content {
+		background-color: transparent !important;
+	}
+	.scroll-content { 
+		margin-top: 0 !important;
+	}
+	.full {
+		position: fixed;
+		background-color: rgba(38, 132, 150, 0.9) !important;
+		height: 100vh;
+		width: 100vw;
+		z-index: -1;
+		top: 0;
+		left: 0;
+	}
+	.msg {
+		position: absolute;
+		top: 30vh;
+		font-size: 15px;
+		color: white;
+		width: 70%;
+		margin: auto;
+		margin-left: 15%;
+		text-align: center;
+		font-weight: 100;
+	}
+
+	button.buttonPinkOrange,
+	button.buttonPinkOrange.small,
+	{
+		position: absolute;
+		top: 70vh;
+		font-size: 18px;
+		margin: auto;
+		left: 10%;
+		padding: 10px;
+		width: 80%;
+		height: 40px !important;
+	}
+}

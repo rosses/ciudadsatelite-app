@@ -1,0 +1,24 @@
+<ion-menu [content]="content" id="leftMenu" class="sidenav">
+
+  <div class="profile" *ngIf="user">
+    <div class="image" [style.background-image]="'url(' + user.avatar + ')'" style="background-size: cover"></div>
+    <div class="name">{{ user.first_name }} {{ user.last_name }} {{ user.company }}</div>
+    <div class="scope" *ngIf="active">{{ active.name }} </div>
+    <button menuClose (click)="profile()" ion-button round color="light">MI PERFIL</button>
+  </div>
+
+  <div menuClose *ngFor="let p of pages" class="link" [ngClass]="{'selected' : p.selected}" (click)="openPage(p)">
+    <span>{{p.title}}</span>
+  </div>
+  
+  <div menuClose *ngFor="let zone of zones" class="link destacado" [ngClass]="{'selected' : selected}" (click)="switchActive(zone)">
+    <span><strong>Cambia a</strong><br />{{zone.name}}</span>
+  </div>
+
+  <div menuClose class="link" [ngClass]="{'selected' : selected}" (click)="closeSession()">
+    <span>{{'APP_MENU.CLOSE' | translate }}</span>
+  </div>
+</ion-menu>
+
+<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

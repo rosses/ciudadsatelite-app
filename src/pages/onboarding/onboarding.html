@@ -1,0 +1,44 @@
+<!--
+  Generated template for the OnboardingPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-content>
+  <ion-slides #slider pager slidesPerView="1" (ionSlideWillChange)="onIonDrag($event)" >
+    <ion-slide id="slide1">
+      <div class="title">Únete</div>
+      <div class="card">
+        <img class="step-one" src="./assets/img/icon.route.png" alt="">
+        <div>Bienvenido a CamiónGo. Primera red de carga en tiempo real</div>
+        <div class="bold">Transportistas, Conductores y Generadores de carga</div>
+      </div>
+    </ion-slide>
+    <ion-slide id="slide2">
+      <div class="title">Generadores de Carga</div>
+      <div class="card">
+        <img class="step-two" src="./assets/img/icon.box.png" alt="">
+        <div>
+          Revisa <span class="bold">en línea y en tiempo real</span> transportistas disponibles en <span class="bold">todo Chile.</span>
+          Consigue transporte inmediato o deja un requerimiento y espera las mejores ofertas.          
+        </div>
+      </div>
+    </ion-slide>
+    <ion-slide id="slide3">
+      <div class="title">Transportistas</div>
+      <div class="card">
+        <img class="step-three" src="./assets/img/icon.deliveryman.png" alt="">
+        <div>
+          Haz ofertas a los requerimientos de carga, si tu oferta es buena, el viaje es tuyo. 
+          <span class="bold">Ponte disponible</span> para recibir solicitudes de transporte cercanas a tí en tiempo real.
+        </div>
+      </div>
+    </ion-slide>
+  </ion-slides>
+  <div class="labels">
+    <div class="labelsWrapper">
+      <div id="skip" (click)="skip()">{{ 'ONBOARDING.SKIP' | translate }}</div>
+      <div id="next" (click)="next()">{{ 'ONBOARDING.NEXT' | translate }}</div>
+    </div>
+  </div>
+</ion-content>

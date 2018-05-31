@@ -1,0 +1,13 @@
+<!-- Generated template for the QrCardComponent component -->
+<div class="subTitle white">{{ 'PET.ID_MIMASKOT' | translate }}</div>
+<div class="qrCard">
+  <img class="qr" *ngIf="pet.code" [src]="getQR(pet.code)" alt="qr">
+  <div class="qr emptyQr" *ngIf="!pet.code"></div>
+  <div class="identifierWrapper">
+    <div>{{ 'PET.IDENTIFIER' | translate }}</div>
+    <div class="identifier">{{ pet.code }}</div>
+  </div>
+  <img id="mimaskotLogo" src="./assets/img/logo_mimaskot.png" alt="Mimaskot">
+  <button ion-button round (click)="scanear()" outline *ngIf="nueva">{{ 'PET.SCAN' | translate }}</button>
+  <button ion-button round (click)="scanear()" outline *ngIf="!nueva">{{ 'PET.SCAN_AGAIN' | translate }}</button>
+</div>

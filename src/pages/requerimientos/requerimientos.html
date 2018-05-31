@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>MIS REQUERIMIENTOS</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="addRequerimiento()">
+        <ion-icon name="add" class="icon-right-menu"></ion-icon>
+      </button>
+    </ion-buttons>
+
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngIf="requirements.length == 0">
+    <ion-card-header class="no-items">
+      <img src="assets/img/transport_bad.png" />
+      <br />
+      No tienes requerimientos
+    </ion-card-header>
+  </ion-card>
+</ion-content>

@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>JUNTA DE VECINOS</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div class="subTitle">{{ 'HOME.NEWS' | translate }}</div>
+  <news-preview *ngFor="let n of news" [news]="n"></news-preview>
+
+	<ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+	<ion-infinite-scroll-content></ion-infinite-scroll-content>
+	</ion-infinite-scroll>
+
+
+</ion-content>
