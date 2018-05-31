@@ -1,27 +1,31 @@
 {
   "project_info": {
-    "project_number": "751567943339",
-    "firebase_url": "https://camiongo2018.firebaseio.com",
-    "project_id": "camiongo2018",
-    "storage_bucket": "camiongo2018.appspot.com"
+    "project_number": "898266993467",
+    "firebase_url": "https://ciudad-satelite-app.firebaseio.com",
+    "project_id": "ciudad-satelite-app",
+    "storage_bucket": "ciudad-satelite-app.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:751567943339:android:bbce984711d73b57",
+        "mobilesdk_app_id": "1:898266993467:android:362d2b053423c2ad",
         "android_client_info": {
-          "package_name": "com.camiongo.app"
+          "package_name": "com.ciudadsatelite.app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "751567943339-fd67va6886r7j4osc81uotk62fecpb26.apps.googleusercontent.com",
+          "client_id": "898266993467-7ll7vavib11s5hdilc3ldqsuip76dada.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "898266993467-7ll7vavib11s5hdilc3ldqsuip76dada.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBIckYy0s-R_wqEy6bVNstu_vCdrDnmjZQ"
+          "current_key": "AIzaSyBRKXrez5vJvj7ICepAEJr4HPzmRbie2DQ"
         }
       ],
       "services": {
