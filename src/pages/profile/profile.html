@@ -47,6 +47,10 @@
           <ion-option *ngFor="let city of cities" [value]="city.id">{{city.name}}</ion-option>
         </ion-select>
       </ion-item>
+      <ion-item>
+        <ion-label fixed>Telefono</ion-label>
+        <ion-input type="tel" [(ngModel)]="me.phone"></ion-input>
+      </ion-item>
       <!--
       <ion-item>
         <ion-label fixed>Contraseña</ion-label>

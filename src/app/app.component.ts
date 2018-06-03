@@ -18,6 +18,9 @@ import { Searching } from '../pages/searching/searching';
 import { Lost } from '../pages/lost/lost';
 import { Clinic } from '../pages/clinic/clinic';
 import { Doctor } from '../pages/doctor/doctor';
+import { StoreProfile } from '../pages/storeprofile/storeprofile';
+import { StoreProducts } from '../pages/storeproducts/storeproducts';
+import { StoreServices } from '../pages/storeservices/storeservices';
 import { RequerimientosPage } from '../pages/requerimientos/requerimientos';
 import { CamionesPage } from '../pages/camiones/camiones';
 import { ConductoresPage } from '../pages/conductores/conductores';
@@ -243,12 +246,14 @@ export class MyApp {
 
     this.pages = [];
     this.pages.push({ title: 'Inicio', component: HomePage, selected: true });
-    this.pages.push({ title: 'Junta de vecinos', component: JuntaVecinosPage, selected: false });
 
     if (this.active.profile_id == "2") { // Vendedor
-      this.pages.push({ title: 'Perfil de tienda', component: CamionesPage, selected: false });
-      this.pages.push({ title: 'Mis productos', component: ConductoresPage, selected: false });
-      this.pages.push({ title: 'Mis servicios', component: ServiciosPage, selected: false });
+      this.pages.push({ title: 'Perfil de tienda', component: StoreProfile, selected: false });
+      this.pages.push({ title: 'Mis productos', component: StoreProducts, selected: false });
+      this.pages.push({ title: 'Mis servicios', component: StoreServices, selected: false });
+    }
+    else {
+      this.pages.push({ title: 'Junta de vecinos', component: JuntaVecinosPage, selected: false });
     }
 
     this.zones = [];

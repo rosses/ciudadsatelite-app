@@ -50,9 +50,18 @@ export class UserService extends BaseService{
     return this.get('users/profile/'+id);
   }
 
-  update(obj: any) {
-  	return this.post('users/profile/update', obj);
+  getStore() {
+    return this.get('store/profile/');
   }
+
+  update(obj: any) {
+  	return this.post('update', obj);
+  }
+
+  updateStore(obj: any, id: number) {
+    return this.post('store/update/'+id, obj);
+  }
+
 
   region() {
     return this.get('region');

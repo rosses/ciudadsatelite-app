@@ -77,37 +77,36 @@ export class Profile {
       });
 
       loading.present();
-      /*
+      
 
-      this.storage.get('MP-Profile').then((val) => {
-        let updateOperation = this.userService.update({
-          name: this.me.name,
-          last_name: this.me.last_name,
-          birthday: this.me.birthday,
-          address: this.me.address,
-          phone: this.me.phone,
-          email: this.me.email,
-          region: this.me.region,
-          district: this.me.district,
-          gender: this.me.gender
-        });
+      //this.storage.get('MP-Profile').then((val) => {
 
-        updateOperation.subscribe((ok: any) => {
-          loading.dismiss();
-          if (ok.status == 1) {
-            this.service.showOk();
-          }
-          else {
-            this.service.logError(null, "No fue posible guardar sus datos, intente nuevamente");
-          }
-        }, (error) => {
+      let updateOperation = this.userService.update({
+        name: this.me.first_name,
+        state: this.me.address.state,
+        city: this.me.address.city,
+        email: this.me.email,
+        phone: this.me.phone
+      });
+
+      updateOperation.subscribe((ok: any) => {
+        loading.dismiss();
+        if (ok.res == "OK") {
+          this.service.showOk();
+        }
+        else {
           loading.dismiss();
           this.service.logError(null, "No fue posible guardar sus datos, intente nuevamente");
-          console.log(error);
-        });
+        }
+      }, (error) => {
+        console.log('in error profile');
+        loading.dismiss();
+        this.service.logError(null, "No fue posible guardar sus datos, intente nuevamente");
       });
-      */
-      this.service.logError(null, "No fue posible guardar sus datos, intente nuevamente");
+
+      //});
+      
+      //this.service.logError(null, "No fue posible guardar sus datos, intente nuevamente");
   }
 
   removeBlur() {

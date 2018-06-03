@@ -43,7 +43,7 @@ body {
   margin: 40px auto;
 }
 .animated-start {
-  opacity: 0;
+  /*opacity: 0;*/
 }
 .double-bounce1, .double-bounce2 {
   width: 100%;
@@ -149,7 +149,7 @@ ng-component.blur {
     // flex-direction: column;
 
     .destacado {
-      background-color: #f16021;    
+      background-color: #4bb70e;
     }
     .link {
         line-height: 16px;

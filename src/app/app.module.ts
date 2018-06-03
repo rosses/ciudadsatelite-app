@@ -41,6 +41,9 @@ import { Lost } from '../pages/lost/lost';
 import { Owner } from '../pages/owner/owner';
 import { Doctor } from '../pages/doctor/doctor';
 import { Clinic } from '../pages/clinic/clinic';
+import { StoreProfile } from '../pages/storeprofile/storeprofile';
+import { StoreProducts } from '../pages/storeproducts/storeproducts';
+import { StoreServices } from '../pages/storeservices/storeservices';
 import { Ng2Rut, RutValidator } from 'ng2-rut';
 import { Pata } from '../pata';
 
@@ -107,6 +110,9 @@ export function HttpLoaderFactory(http: Http) {
     SignupPage3,
     CamionesPage,
     AdsMedia,
+    StoreProfile,
+    StoreProducts,
+    StoreServices,
     RequerimientosPage,
     NuevoReq1,
     NuevoReq2,
@@ -179,6 +185,9 @@ export function HttpLoaderFactory(http: Http) {
     SignupPage3,
     CamionesPage,
     AdsMedia,
+    StoreProfile,
+    StoreProducts,
+    StoreServices,
     RequerimientosPage,
     NuevoReq1,
     NuevoReq2,
