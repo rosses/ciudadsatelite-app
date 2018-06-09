@@ -12,10 +12,14 @@
   </div>
   
   <div menuClose *ngFor="let zone of zones" class="link destacado" [ngClass]="{'selected' : selected}" (click)="switchActive(zone)">
-    <span><strong>Cambia a</strong><br />{{zone.name}}</span>
+    <span><strong>Administrar</strong><br />{{zone.name}}</span>
   </div>
 
-  <div menuClose class="link" [ngClass]="{'selected' : selected}" (click)="closeSession()">
+  <div menuClose class="link" (click)="contacto()">
+    <span>Contacto</span>
+  </div>
+
+  <div menuClose class="link" (click)="closeSession()">
     <span>{{'APP_MENU.CLOSE' | translate }}</span>
   </div>
 </ion-menu>

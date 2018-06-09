@@ -15,8 +15,21 @@ export class DoctorService extends BaseService{
   }
 
   getAll() {
-    return this.get('clinics/');
+    return this.get('categs');
   }
+
+  getStores(id:number) {
+    return this.get('categs/'+id);
+  }
+
+  getStore(id:number) {
+    return this.get('store/'+id);
+  }
+
+  buscar(buscar:string, categ: number) {
+    return this.get('search/'+categ+'/'+buscar);
+  }
+
   ads() {
     return this.get('ads');
   }

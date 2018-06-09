@@ -16,7 +16,7 @@ export class NewsService extends BaseService{
   }
 
   geList(page, perPage) {
-    let apiNewsUrl = environment.apiUrl + 'news?page='+page+'&per_page='+perPage;
+    let apiNewsUrl = environment.apiUrl + 'jjvv?page='+page+'&per_page='+perPage;
     return  this.http.get(apiNewsUrl, {
       params: null
     });

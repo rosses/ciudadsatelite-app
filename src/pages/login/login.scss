@@ -5,6 +5,11 @@ page-login {
   background-position: center center;
   background-size: cover;
   
+  @media (max-height: 500px) {
+  	background-size: auto;
+  	background-position: top center;
+  }
+
   ion-scroll { 
     height: 100%;
   }

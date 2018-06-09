@@ -8,16 +8,58 @@
 </ion-header>
 
 <ion-content>
-  <ion-refresher (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
 
-  <div class="subTitle">{{ 'HOME.NEWS' | translate }}</div>
-  <news-preview *ngFor="let n of news" [news]="n"></news-preview>
 
-	<ion-infinite-scroll (ionInfinite)="doInfinite($event)">
-	<ion-infinite-scroll-content></ion-infinite-scroll-content>
-	</ion-infinite-scroll>
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="openTab" color="primary">
+      <ion-segment-button value="news">
+        Noticias
+      </ion-segment-button>
+      <ion-segment-button value="we">
+        Nosotros
+      </ion-segment-button>
+      <ion-segment-button value="residencia">
+        Cert. Residencia
+      </ion-segment-button>
+      <ion-segment-button value="faq">
+        Preguntas Frecuentes
+      </ion-segment-button>
+      <ion-segment-button value="denuncias">
+        Denuncias
+      </ion-segment-button>
+      <ion-segment-button value="contacto">
+        Contacto
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
 
+  <div *ngIf="openTab == 'news'">
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <div class="subTitle">{{ 'HOME.NEWS' | translate }}</div>
+    <news-preview *ngFor="let n of news" [news]="n"></news-preview>
+
+    <div *ngIf="isLoading">
+      <div class="timeline-wrapper">
+          <div class="timeline-item forceh">
+            <div class="animated-background">
+              <div class="background-masker news-img"></div>
+             </div>
+          </div>
+          <div class="timeline-item forceh">
+            <div class="animated-background">
+              <div class="background-masker news-img"></div>
+             </div>
+          </div>
+      </div>
+    </div>
+
+  	<ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+  	<ion-infinite-scroll-content></ion-infinite-scroll-content>
+  	</ion-infinite-scroll>
+  
+  </div>
 
 </ion-content>

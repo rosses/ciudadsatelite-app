@@ -10,6 +10,7 @@ import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
 import { SignupPage2 } from '../pages/signup/signup2';
 import { SignupPage3 } from '../pages/signup/signup3';
+import { Contacto } from '../pages/contacto/contacto';
 import { HomePage } from '../pages/home/home';
 import { OnboardingPage } from '../pages/onboarding/onboarding';
 import { MyPetsPage } from '../pages/my-pets/my-pets';
@@ -223,7 +224,7 @@ export class MyApp {
 
     setTimeout(() => { 
       document.getElementById("custom-overlay").style.display = "none";
-    },3000);
+    },1000);
 
     this.nav.setRoot(HomePage);
 
@@ -242,6 +243,10 @@ export class MyApp {
     this.nav.setRoot(Profile);
   }
 
+  contacto() {
+    this.nav.setRoot(Contacto);
+  }
+
   reloadSide() {
 
     this.pages = [];
@@ -257,6 +262,12 @@ export class MyApp {
     }
 
     this.zones = [];
+    if (this.user.types.length > 0) {
+      for (let i=0; i < this.user.markets.length ; i++) {
+        this.zones.push(this.user.markets[i]);
+      }
+    }
+    /*
     if (this.user.types.length > 1) {
       for (let i=0; i < this.user.types.length ; i++) {
         if (this.user.types[i].profile_id != this.active.profile_id ) {
@@ -264,6 +275,7 @@ export class MyApp {
         }
       }
     }
+    */
 
   }
 

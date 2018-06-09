@@ -7,19 +7,35 @@
 <ion-content scrollX="false" scrollY="false" scroll="false" class="noscroll">
 	<ion-scroll scrollX="false" scrollY="true">
 	  <img class="logo" src="assets/img/logo.png" alt="">
-	  <div class="welcome">Bienvenido</div>
-	  <div class="listWrapper" scroll="false">
-	    <ion-list>
-	      <ion-item>
-	        <ion-input type="email" [(ngModel)]="login.name" placeholder="Tu nombre y apellido"></ion-input>
-	      </ion-item>
-	      <ion-item>
-	        <ion-input type="text" [(ngModel)]="login.email" placeholder="Tu email"></ion-input>
-	      </ion-item>
-	    </ion-list>
+	  <div *ngIf="welcome0">
+		  <div class="welcome">Bienvenido</div>
+		  <div class="listWrapper" scroll="false">
+		    <ion-list>
+		      <ion-item>
+		        <ion-input type="email" [(ngModel)]="login.name" placeholder="Tu nombre y apellido"></ion-input>
+		      </ion-item>
+		      <ion-item>
+		        <ion-input type="text" [(ngModel)]="login.email" placeholder="Tu email"></ion-input>
+		      </ion-item>
+		    </ion-list>
+		  </div>
+		  <div class="buttonWrapper">
+		    <button class="buttonPinkOrange" ion-button round full (click)="next()">Comenzar</button>
+		  </div>
 	  </div>
-	  <div class="buttonWrapper">
-	    <button class="buttonPinkOrange" ion-button round full (click)="next()">Comenzar</button>
+	  <div *ngIf="welcome1">
+		  <div class="welcome">Ingrese clave de acceso</div>
+		  <p>Esta cuenta está protegida por contraseña.</p>
+		  <div class="listWrapper" scroll="false">
+		    <ion-list>
+		      <ion-item>
+		        <ion-input type="password" [(ngModel)]="login.passwd" placeholder=""></ion-input>
+		      </ion-item>
+		    </ion-list>
+		  </div>
+		  <div class="buttonWrapper">
+		    <button class="buttonPinkOrange" ion-button round full (click)="withPassword()">Comenzar</button>
+		  </div>
 	  </div>
 
 	</ion-scroll>

@@ -19,31 +19,36 @@ export class JuntaVecinosPage {
   public staticUrl: string;
   private pageNews = 1;
   private perPegeNews = 3;
-
+  public isLoading: boolean = true;
+  public openTab: string = 'news';
 
   constructor(
     public navCtrl: NavController,
     private petService: PetService,
     private newsService: NewsService)
   {
-
+    
     this.newsService.geList(this.pageNews, this.perPegeNews).subscribe(
       (news:any) =>{
+        this.isLoading = false;
         this.pageNews++;
-        this.news = news
+        this.news = news.data
       },
       error => {
         console.log(error);
       }
-    )
+    );
+    
   }
   
   doRefresh(refresher){
     this.pageNews = 1;
+    this.isLoading = true;
     this.newsService.geList(this.pageNews, this.perPegeNews).subscribe(
       (news:any) =>{
+        this.isLoading = false;
         this.pageNews++;
-        this.news = news;
+        this.news = news.data;
         refresher.complete();
       },
       error => {
@@ -58,7 +63,7 @@ export class JuntaVecinosPage {
       this.newsService.geList(this.pageNews, this.perPegeNews).subscribe(
         (news: any) =>{
           this.pageNews++;
-          news.forEach( (value) => {
+          news.data.forEach( (value) => {
             this.news.push(value);
           });
           infiniteScroll.complete();

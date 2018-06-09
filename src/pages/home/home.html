@@ -10,36 +10,111 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>CIUDAD SATÉLITE</ion-title>
+    <ion-item>
+        <ion-icon name="search" (click)="toggleSearch()" item-right></ion-icon>
+    </ion-item>
   </ion-navbar>
+  <ion-toolbar class="searchbar" *ngIf="searchActive">
+      <ion-searchbar (ionClear)="onClear($event)" (ionInput)="onSearch($event)" [(ngModel)]="search" placeholder="Tiendas, productos y servicios en Ciudad Satélite"></ion-searchbar>
+  </ion-toolbar>
 </ion-header>
 
-<ion-content no-bounce>
+<ion-content>
+
+<div *ngIf="isSearching" class="search-container">
+  <div *ngIf="isSearchingLoad">
+    <div text-center>
+      <ion-spinner></ion-spinner>
+      <br /><br />
+      <strong>Buscando</strong><br />
+      &quot;{{search}}&quot;
+    </div>
+  </div>
+  <div *ngIf="!isSearchingLoad">
+    <div *ngIf="searchStores.length == 0 && searchProducts.length == 0 && searchServices.length == 0 && !isSearchingLoad" text-center>
+      <ion-icon name="hand"></ion-icon>
+      <br />
+      <strong>No se encontraron resultados</strong><br />
+      &quot;{{search}}&quot;
+    </div>
+  </div>
+</div>
+
+<ion-refresher (ionRefresh)="doRefresh($event)" *ngIf="!isSearching">
+  <ion-refresher-content pullingText="actualizar..." refreshingText="actualizando..."></ion-refresher-content>
+</ion-refresher>
+
 <div *ngIf="isLoading">
   <div class="timeline-wrapper">
       <div class="timeline-item forceh">
         <div class="animated-background">
-          <div class="background-masker news-img"></div>
-          <div class="background-masker news-date"></div>
-          <div class="background-masker news-date2"></div>
-          <div class="background-masker news-title"></div>
-          <div class="background-masker news-icon1"></div>
-          <div class="background-masker news-icon2"></div>
+          <div class="background-masker news-icon"></div>
          </div>
       </div>
   </div>
   <div class="timeline-wrapper">
       <div class="timeline-item forceh">
         <div class="animated-background">
-          <div class="background-masker news-img"></div>
-          <div class="background-masker news-date"></div>
-          <div class="background-masker news-date2"></div>
-          <div class="background-masker news-title"></div>
-          <div class="background-masker news-icon1"></div>
-          <div class="background-masker news-icon2"></div>
+          <div class="background-masker news-icon"></div>
+        </div>
+      </div>
+  </div>
+  <div class="timeline-wrapper">
+      <div class="timeline-item forceh">
+        <div class="animated-background">
+          <div class="background-masker news-icon"></div>
+        </div>
+      </div>
+  </div>
+  <div class="timeline-wrapper">
+      <div class="timeline-item forceh">
+        <div class="animated-background">
+          <div class="background-masker news-icon"></div>
+        </div>
+      </div>
+  </div>
+  <div class="timeline-wrapper">
+      <div class="timeline-item forceh">
+        <div class="animated-background">
+          <div class="background-masker news-icon"></div>
+        </div>
+      </div>
+  </div>
+  <div class="timeline-wrapper">
+      <div class="timeline-item forceh">
+        <div class="animated-background">
+          <div class="background-masker news-icon"></div>
+        </div>
+      </div>
+  </div>
+  <div class="timeline-wrapper">
+      <div class="timeline-item forceh">
+        <div class="animated-background">
+          <div class="background-masker news-icon"></div>
+        </div>
+      </div>
+  </div>
+  <div class="timeline-wrapper">
+      <div class="timeline-item forceh">
+        <div class="animated-background">
+          <div class="background-masker news-icon"></div>
         </div>
       </div>
   </div>
 </div>
 
+<div *ngIf="!isLoading && !isSearching">
+
+  <ion-list>
+    <button ion-item detail-push *ngFor="let categ of categs" (click)="verCategoria(categ)">
+      <ion-avatar item-start>
+        <img src="{{categ.banner}}">
+      </ion-avatar>
+      <h2>{{categ.name}}</h2>
+      <h3>{{categ.total_stores}} tiendas</h3>
+      <!--<p>I've had a pretty messed up day. If we just...</p>-->
+    </button>
+  </ion-list>
+</div>
 
 </ion-content>

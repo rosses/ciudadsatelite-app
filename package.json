@@ -22,15 +22,18 @@
     "@angular/platform-browser": "4.3.3",
     "@angular/platform-browser-dynamic": "4.3.3",
     "@angular/router": "4.3.3",
+    "@ionic-native/app-availability": "^4.7.0",
     "@ionic-native/barcode-scanner": "4.5.3",
     "@ionic-native/call-number": "4.5.3",
     "@ionic-native/camera": "4.4.2",
+    "@ionic-native/contacts": "^4.7.0",
     "@ionic-native/core": "3.12.1",
     "@ionic-native/date-picker": "4.5.3",
     "@ionic-native/device": "4.5.2",
     "@ionic-native/email-composer": "4.5.3",
     "@ionic-native/fcm": "4.5.2",
     "@ionic-native/geolocation": "4.4.2",
+    "@ionic-native/launch-navigator": "^4.7.0",
     "@ionic-native/social-sharing": "4.5.3",
     "@ionic-native/splash-screen": "3.12.1",
     "@ionic-native/status-bar": "3.12.1",
@@ -44,11 +47,15 @@
     "cordova-android": "6.2.3",
     "cordova-android-support-gradle-release": "^1.4.2",
     "cordova-ios": "4.5.4",
+    "cordova-plugin-actionsheet": "^2.3.3",
+    "cordova-plugin-appavailability": "^0.4.2",
     "cordova-plugin-camera": "^3.0.0",
     "cordova-plugin-compat": "^1.2.0",
     "cordova-plugin-console": "^1.1.0",
+    "cordova-plugin-contacts": "^2.3.1",
     "cordova-plugin-datepicker": "^0.9.3",
     "cordova-plugin-device": "^1.1.7",
+    "cordova-plugin-dialogs": "^2.0.1",
     "cordova-plugin-email-composer": "^0.8.15",
     "cordova-plugin-fcm": "^2.1.2",
     "cordova-plugin-geolocation": "^3.0.0",
@@ -66,6 +73,7 @@
     "phonegap-plugin-barcodescanner": "^6.0.8",
     "rxjs": "5.4.0",
     "sw-toolbox": "3.6.0",
+    "uk.co.workingedge.phonegap.plugin.launchnavigator": "^4.2.1",
     "zone.js": "0.8.12"
   },
   "devDependencies": {
@@ -97,6 +105,14 @@
       "call-number": {},
       "cordova-android-support-gradle-release": {
         "ANDROID_SUPPORT_VERSION": "25.+"
+      },
+      "cordova-plugin-contacts": {
+        "CONTACTS_USAGE_DESCRIPTION": " "
+      },
+      "cordova-plugin-appavailability": {},
+      "uk.co.workingedge.phonegap.plugin.launchnavigator": {
+        "OKHTTP_VERSION": "3.+",
+        "LOCATION_USAGE_DESCRIPTION": "This app requires access to your location for navigation purposes"
       }
     },
     "dependencies": {

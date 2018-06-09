@@ -1,0 +1,239 @@
+import { Component, ViewChild } from '@angular/core';
+import { NavController, AlertController, NavParams, Platform, ToastController, LoadingController, PopoverController, Slides } from 'ionic-angular';
+import { GoogleMapsAPIWrapper  } from '@agm/core';
+import { Geolocation } from '@ionic-native/geolocation';
+import { HttpClient } from '@angular/common/http';
+import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
+import { AppAvailability } from '@ionic-native/app-availability';
+import { Contacts, Contact, ContactFieldType, ContactFindOptions, ContactField, ContactName } from '@ionic-native/contacts';
+
+import { AdsMedia } from '../../pages/popovers/ads/ads';
+import { DoctorService } from '../../services/doctor.service';
+import { Storage } from '@ionic/storage';
+import { Pata } from '../../pata';
+
+declare let cordova: any;
+
+@Component({
+  selector: 'page-store',
+  templateUrl: 'store.html'
+})
+export class Store {
+
+  public isLoading: boolean = true;
+  public store: any;
+  public name: string = '';
+  public products: any = [];
+  public services: any = [];
+  public load: any;
+  public openTab: string = 'products';
+
+  @ViewChild(Slides) slides: Slides;
+
+
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private alertCtrl: AlertController,
+    private doctorService: DoctorService,
+    private geolocation: Geolocation,
+    public gMaps: GoogleMapsAPIWrapper,
+    private toastCtrl: ToastController,
+    public popoverCtrl: PopoverController,
+    public http: HttpClient,
+    private storage: Storage,
+    private loadingCtrl: LoadingController,
+    private contacts: Contacts,
+    private appAvailability: AppAvailability, 
+    private platform: Platform,
+    public service: Pata,
+    private launchNavigator: LaunchNavigator
+  ) {
+
+    this.store = this.navParams.get("store");
+    this.name = this.store.name;
+
+    this.load = this.loadingCtrl.create();
+    this.load.present();
+
+    this.doctorService.getStore(this.store.id).subscribe((data: any)=> {
+      this.isLoading=false;
+      this.store=data.data;
+      this.products=data.products;
+      this.services=data.services;
+      this.load.dismiss();
+    });
+
+  }
+
+  showMap() {
+    let options: LaunchNavigatorOptions = {
+      destinationName: this.store.name,
+      start: [parseFloat(this.store.lat), parseFloat(this.store.lng)]
+    };
+
+    this.launchNavigator.navigate([parseFloat(this.store.lat), parseFloat(this.store.lng)], options);
+
+  }
+  email() {
+    window.open('mailto:'+this.store.email, '_system', 'location=no');
+  }
+  whatsapp() {
+
+    let app;
+
+    if (this.platform.is('ios')) {
+      app = 'whatsapp://';
+    } else if (this.platform.is('android')) {
+      app = 'com.whatsapp';
+    }
+
+    this.appAvailability.check(app).then((yes: boolean) => {
+
+      this.load.present();
+
+      let contactsfound;
+
+      let fields:ContactFieldType[];
+
+      const options = new ContactFindOptions();
+      options.filter = this.store.name;
+      options.multiple = true;
+      options.hasPhoneNumber = true;
+
+      this.contacts.find(fields, options).then((contactos) => {
+        console.log(contactos);
+        let create = 0;
+        if (contactos.length > 0) {
+          this.load.dismiss();
+          this.goWhatsapp();
+        } else {
+
+          var contact = this.contacts.create();
+          contact.displayName = this.store.name;
+          contact.nickname = this.store.name;
+          
+          var field = new ContactField();
+          field.value = this.store.whatsapp;
+          field.pref = true;
+          
+          var numberSection = [];
+          numberSection.push( field );
+          contact.phoneNumbers = numberSection;
+          
+          contact.save().then((value) => {
+            this.load.dismiss();
+            this.goWhatsapp();
+          }, (error) => {
+            this.load.dismiss();
+            this.service.logError("No hemos podido acceder a tu agenda e ir a WhatsApp.");
+          })   
+
+        }
+
+      }, () => {
+        this.load.dismiss();
+        this.service.logError("No hemos podido acceder a tu agenda e ir a WhatsApp.");
+      });
+
+
+    },
+    (no: boolean) => {
+      this.service.logError({}, "WhatsApp parece no estar disponible o no se ha autorizado la conexión");
+    });
+
+  }
+
+  goWhatsapp() {
+
+    let alert = this.alertCtrl.create({
+      title: 'Contacto creado',
+      message: 'Se ha creado el contacto '+this.store.name+' ¿Desea continuar a WhatsApp?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            
+          }
+        },
+        {
+          text: 'OK',
+          handler: () => {
+            if (this.platform.is('android')) {
+              cordova.plugins.Whatsapp.send(this.store.whatsapp);
+            }
+            else if (this.platform.is('ios')) {
+              window.open('whatsapp://send', '_system', 'location=no');
+            }
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+  twitter() {
+
+    let app;
+
+    if (this.platform.is('ios')) {
+      app = 'twitter://';
+    } else if (this.platform.is('android')) {
+      app = 'com.twitter.android';
+    }
+
+    this.appAvailability.check(app).then((yes: boolean) => {
+      window.open('twitter://user?screen_name='+this.store.twitter, '_system', 'location=no');
+    },
+    (no: boolean) => {
+      window.open('https://www.twitter.com/'+this.store.twitter, '_system');
+    });
+  
+  }
+  facebook() {
+
+    let app;
+
+    if (this.platform.is('ios')) {
+      app = 'fb://';
+    } else if (this.platform.is('android')) {
+      app = 'com.facebook.katana';
+    }
+
+    this.appAvailability.check(app).then((yes: boolean) => {
+      if (this.platform.is('ios')) {
+        window.open('fb://profile/'+this.store.facebook, '_system', 'location=no');
+      } else {
+        window.open('fb://facewebmodal/f?href=https://www.facebook.com/'+this.store.facebook, '_system', 'location=no');
+      }
+    },
+    (no: boolean) => {
+      window.open('https://www.facebook.com/'+this.store.facebook, '_system');
+    });
+  
+  }
+  instagram() {
+
+    let app;
+
+    if (this.platform.is('ios')) {
+      app = 'instagram://';
+    } else if (this.platform.is('android')) {
+      app = 'com.instagram.android';
+    }
+
+    this.appAvailability.check(app).then((yes: boolean) => {
+      window.open('instagram://user?username='+this.store.facebook, '_system', 'location=no');
+    },
+    (no: boolean) => {
+      window.open('https://www.instagram.com/'+this.store.instagram, '_system');
+    });
+  
+  }
+  website() {
+    window.open(this.store.website, '_system');
+  }
+
+}
+
+

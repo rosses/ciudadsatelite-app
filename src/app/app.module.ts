@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import {ErrorHandler, LOCALE_ID, NgModule} from '@angular/core';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { IonicApp, IonicErrorHandler, IonicModule, Platform } from 'ionic-angular';
 import { HttpModule, Http } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { TranslateService } from '@ngx-translate/core';
@@ -9,7 +9,10 @@ import { IonicStorageModule } from '@ionic/storage';
 import { AgmCoreModule, GoogleMapsAPIWrapper } from '@agm/core';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Geolocation } from '@ionic-native/geolocation';
+import { AppAvailability } from '@ionic-native/app-availability';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import { Contacts, Contact, ContactField, ContactName } from '@ionic-native/contacts';
+import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
 import { DatePicker } from '@ionic-native/date-picker';
 import { FCM } from '@ionic-native/fcm';
 import { Device } from '@ionic-native/device';
@@ -28,6 +31,9 @@ import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
 import { SignupPage2 } from '../pages/signup/signup2';
 import { SignupPage3 } from '../pages/signup/signup3';
+import { Categoria } from '../pages/home/categoria';
+import { Store } from '../pages/home/store';
+import { Contacto } from '../pages/contacto/contacto';
 import { RequerimientosPage } from '../pages/requerimientos/requerimientos';
 import { NuevoReq1 } from '../pages/requerimientos/nuevoreq1';
 import { NuevoReq2 } from '../pages/requerimientos/nuevoreq2';
@@ -105,9 +111,12 @@ export function HttpLoaderFactory(http: Http) {
     LoginPage,
     Profile,
     Owner,
+    Contacto,
     SignupPage,
     SignupPage2,
     SignupPage3,
+    Categoria,
+    Store,
     CamionesPage,
     AdsMedia,
     StoreProfile,
@@ -180,9 +189,12 @@ export function HttpLoaderFactory(http: Http) {
     ProfileMedia,
     OnboardingPage,
     LoginPage,
+    Contacto,
     SignupPage,
     SignupPage2,
     SignupPage3,
+    Categoria,
+    Store,
     CamionesPage,
     AdsMedia,
     StoreProfile,
@@ -218,6 +230,9 @@ export function HttpLoaderFactory(http: Http) {
     BarcodeScanner,
     Geolocation,
     Camera,
+    Contacts,
+    AppAvailability,
+    LaunchNavigator,
     DatePicker,
     FCM,
     Device,

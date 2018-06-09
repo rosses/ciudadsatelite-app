@@ -16,10 +16,14 @@ export class LoginPage {
   
   public loading: any;
 
-  public login: { email:string, name:string } = {
+  public login: { email:string, name:string, passwd: string } = {
     email: '',
-    name:''
+    name:'',
+    passwd: ''
   };
+
+  public welcome0: boolean = true;
+  public welcome1: boolean = false;
 
   constructor(
     public navCtrl: NavController,
@@ -31,7 +35,8 @@ export class LoginPage {
   ){
   	this.login = {
   		name: '',
-  		email: ''
+  		email: '',
+      passwd: ''
   	};
   }
 
@@ -49,11 +54,45 @@ export class LoginPage {
       this.loading.present();
 
       console.log('login start');
-      this.auth.login(this.login).subscribe(
-        (data: any) => {
+      this.auth.login(this.login).subscribe((data: any) => {
           this.auth.loginOk.emit(data);
           this.loading.dismiss();
-          console.log('login response');
+
+          if (data.res == "OK"){
+            this.auth.setToken(data.token);
+            this.storage.set("MP-Profile", data.profile);
+            this.navCtrl.setRoot(HomePage);
+          }
+          else if (data.res == "PASSWD") {
+            this.welcome0 = false;
+            this.welcome1 = true;
+          }
+          else{
+            this.service.logError({}, data.msg);
+          }
+        },
+        err => {
+          this.loading.dismiss();
+          this.service.logError({});
+        }
+      );
+
+  	}
+
+  }
+
+  withPassword() {
+    if (this.login.passwd == "") {
+      this.service.logError({}, "Clave no puede estar vacío");
+    }
+    else {
+      this.loading = this.loadingCtrl.create();
+      this.loading.present();
+
+      this.auth.login(this.login).subscribe((data: any) => {
+          this.auth.loginOk.emit(data);
+          this.loading.dismiss();
+          
           if (data.res == "OK"){
             this.auth.setToken(data.token);
             this.storage.set("MP-Profile", data.profile);
@@ -69,8 +108,7 @@ export class LoginPage {
         }
       );
 
-  	}
-
+    }
   }
 
   gotoSignup(){

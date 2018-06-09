@@ -1,0 +1,182 @@
+<!--
+  Generated template for the MyPetsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{name}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+<div *ngIf="!isLoading">
+
+  <ion-list class="list-store">
+    <ion-item text-wrap>
+      <ion-avatar item-start>
+        <img src="{{store.avatar != '' ? store.avatar : 'assets/img/default/store.png'}}" />
+      </ion-avatar>
+      <ion-row>
+        <ion-col col-10>
+          <h2>{{store.name}}</h2>
+          <h3>{{store.address}}</h3>
+        </ion-col>
+        <ion-col col-2 text-right class="location">
+          <div class="vertical-align-content" *ngIf="store.lat != '' && store.lng != ''">
+            <img src="assets/img/map-location.png" (click)="showMap()" />
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12>
+          <p class="opening {{store.open_color}}"><strong>{{store.open_now}}</strong></p>
+          <p class="opening">{{store.open_news}}</p>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-list>
+
+  <hr />
+
+  <!-- Social networks --> 
+  <ion-row class="to-right social">
+    <ion-col col-2 *ngIf="store.email != ''">
+      <button (click)="email()" block>
+        <img src="assets/img/arroba.png" />
+      </button>
+    </ion-col>
+    <ion-col col-2 *ngIf="store.whatsapp != ''">
+      <button (click)="whatsapp()" block>
+        <img src="assets/img/whatsapp.png" />
+      </button>
+    </ion-col>
+    <ion-col col-2 *ngIf="store.website != ''">
+      <button (click)="website()" block>
+        <img src="assets/img/www.png" />
+      </button>
+    </ion-col>
+    <ion-col col-2 *ngIf="store.facebook != ''">
+      <button (click)="facebook()" block>
+        <img src="assets/img/facebook.png" />
+      </button>
+    </ion-col>
+    <ion-col col-2 *ngIf="store.instagram != ''">
+      <button (click)="instagram()" block>
+        <img src="assets/img/instagram.png" />
+      </button>
+    </ion-col>
+    <ion-col col-2 *ngIf="store.twitter != ''">
+      <button (click)="twitter()" block>
+        <img src="assets/img/twitter.png" />
+      </button>
+    </ion-col>
+  </ion-row>
+
+  <div *ngIf="store.showcase == 1">
+    <h2>Productos</h2>
+    <ion-card *ngIf="products.length == 0">
+      <ion-card-header class="no-items">
+        No se han publicado productos
+      </ion-card-header>
+    </ion-card>
+
+    <div *ngIf="products.length > 0">
+      <ion-slides spaceBetween="20" slidesPerView="1.5">
+        <ion-slide *ngFor="let product of products">
+          <img src="{{product.avatar == '' ? 'assets/img/default/no-pictures.png' : product.avatar}}" />
+          <div class="slide-product">
+            <div class="slide-title">{{product.name}}</div>
+            <div class="slide-price">$ {{product.price | number:'1.0-0' }}</div>
+          </div>
+        </ion-slide>
+      </ion-slides>
+    </div>
+
+    <h2>Servicios</h2>
+    <ion-card *ngIf="services.length == 0">
+      <ion-card-header class="no-items">
+        No se han publicado servicios
+      </ion-card-header>
+    </ion-card>
+
+    <div *ngIf="services.length > 0">
+      <ion-row class="store-services" *ngFor="let service of services">
+        <ion-col col-8 class="tab-service-name">
+          <strong>{{service.name}}</strong>
+        </ion-col>
+        <ion-col col-4 class="tab-service-price">
+          $ {{service.price | number:'1.0-0' }}
+        </ion-col>
+        <ion-col col-12>
+          <p>{{service.description}}</p>
+        </ion-col>
+      </ion-row>
+    </div>
+  </div>
+
+  <div *ngIf="store.showcase == 2">
+
+    <ion-toolbar>
+      <ion-segment [(ngModel)]="openTab" color="primary">
+        <ion-segment-button value="products">
+          Productos
+        </ion-segment-button>
+        <ion-segment-button value="services">
+          Servicios
+        </ion-segment-button>
+      </ion-segment>
+    </ion-toolbar>
+  
+    <div *ngIf="openTab == 'products'">
+
+      <ion-card *ngIf="products.length == 0">
+        <ion-card-header class="no-items">
+          No se han publicado productos
+        </ion-card-header>
+      </ion-card>
+
+      <div *ngIf="products.length > 0">
+        <ion-row class="store-grid">
+          <ion-col col-6 *ngFor="let product of products">
+            <img src="{{product.avatar == '' ? 'assets/img/default/no-pictures.png' : product.avatar}}" />
+            <div class="slide-product">
+              <div class="slide-title">{{product.name}}</div>
+              <div class="slide-price">$ {{product.price | number:'1.0-0' }}</div>
+            </div>
+          </ion-col>
+         </ion-row>
+      </div>
+
+    </div>
+
+    <div *ngIf="openTab == 'services'">
+      
+      <ion-card *ngIf="services.length == 0">
+        <ion-card-header class="no-items">
+          No se han publicado servicios
+        </ion-card-header>
+      </ion-card>
+
+      <div *ngIf="services.length > 0">
+        <ion-row class="store-services" *ngFor="let service of services">
+          <ion-col col-8 class="tab-service-name">
+            <strong>{{service.name}}</strong>
+          </ion-col>
+          <ion-col col-4 class="tab-service-price">
+            $ {{service.price | number:'1.0-0' }}
+          </ion-col>
+          <ion-col col-12 class="tab-service-name">
+            <p>{{service.description}}</p>
+          </ion-col>
+        </ion-row>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+</ion-content>

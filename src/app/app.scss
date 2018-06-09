@@ -135,15 +135,34 @@ body {
 ng-component.blur {
   filter: blur(10px);
 }
+ion-header {
+  background-color: map-get($colors, primary);
+}
+ion-header .item { background-color: transparent !important; }
+ion-header .item-inner { border: 0 !important; }
+ion-header ion-icon { color: #FFF; }
+ion-header .searchbar .toolbar-background {
+  background-color: #d6d6d6;
+}
+
+.search-container {
+  margin-top: 70px;
+}
+.search-container ion-icon {
+  font-size: 110px;
+}
+.search-container ion-spinner {
+  width: 50px;
+  height: 50px;
+}
 
 .menu-inner {
     width: 70% !important;
     padding-top: 20px;
-    background: #AFC155 !important; /* Old browsers */
+    background: map-get($colors, primary) !important; /* Old browsers */
     border-right: 0;
     font-weight: 400;
     color: map-get($colors, light);
-
     // display: flex;
     // justify-content: center;
     // flex-direction: column;
@@ -152,6 +171,8 @@ ng-component.blur {
       background-color: #4bb70e;
     }
     .link {
+        margin-top: 5px;
+        margin-bottom: 5px;
         line-height: 16px;
         font-size: 1.7rem;
         padding: 14px 26px;
@@ -210,7 +231,7 @@ ng-component.blur {
 }
 
 .toolbar-background, .toolbar-background-ios, .toolbar-background-md {
-  background-color: map-get($colors, light);
+  background-color: map-get($colors, primary);
   border-color: #D6D6D6 !important;
 }
 
@@ -327,7 +348,7 @@ ion-select .select-icon {
   height: 6.2rem;
 }
 .toolbar-background {
-  background-color: #88A201;
+  background-color: map-get($colors, primary);
 }
 
 .header .toolbar {
@@ -365,6 +386,10 @@ ion-select .select-icon {
   display: none;
 }
 
+.to-right {
+  display: flex;
+  justify-content: right;
+}
 .popover-content {
   overflow: visible;
 }
@@ -432,3 +457,32 @@ ion-backdrop {
   color: #3D404B;
   padding: 20px;
 }
+
+.vertical-align-content {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  height: 100%;
+}
+
+/*
+ .searchbar-input-container{
+  .searchbar-input{
+    &::-webkit-input-placeholder { 
+      color: #b2e098;
+    }
+    &::-moz-placeholder {  
+      color: #b2e098;
+    }
+    &:-ms-input-placeholder { 
+      color: #b2e098;
+    }
+    &:-moz-placeholder { 
+      color: #b2e098;
+    }
+  }
+  .searchbar-clear-icon{
+    filter: invert(100);
+  }
+}
+*/

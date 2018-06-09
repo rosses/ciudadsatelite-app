@@ -13,12 +13,17 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <allow-intent href="fb:*" />
+    <allow-intent href="whatsapp:*" />
+    <allow-intent href="instagram:*" />
+    <allow-intent href="twitter:*" />
     <preference name="orientation" value="portrait" />
     <preference name="webviewbounce" value="false" />
     <preference name="UIWebViewBounce" value="false" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="KeyboardDisplayRequiresUserAction" value="false" />
     <preference name="loadUrlTimeoutValue" value="700000" />
+    <preference name="AllowInlineMediaPlayback" value="true" />
     <preference name="android-minSdkVersion" value="19" />
     <preference name="android-targetSdkVersion" value="26" />
     <preference name="BackupWebStorage" value="none" />
@@ -33,6 +38,9 @@
         <resource-file src="google-services.json" target="google-services.json" />
         <preference name="loadUrlTimeoutValue" value="700000" />
         <allow-intent href="market:*" />
+        <feature name="Whatsapp">
+            <param name="android-package" value="mobi.moica.whatsapp.Whatsapp" />
+        </feature>
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
         <icon density="mdpi" src="resources/android/icon/drawable-mdpi-icon.png" />
         <icon density="hdpi" src="resources/android/icon/drawable-hdpi-icon.png" />
@@ -53,7 +61,15 @@
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
     </platform>
     <allow-navigation href="*" />
-    <plugin name="cordova-plugin-camera" spec="3.0.0" />
+    <plugin name="cordova-plugin-camera" spec="3.0.0">
+        <param name="CAMERA_USAGE_DESCRIPTION" value="Esta app necesita acceso a tu camara" />
+        <variable name="CAMERA_USAGE_DESCRIPTION" value="Esta app necesita acceso a tu camara" />
+    </plugin>
+    <plugin name="cordova-plugin-media-capture" spec="1.4.3">
+        <variable name="CAMERA_USAGE_DESCRIPTION" value="Esta app necesita usar tu camara" />
+        <variable name="MICROPHONE_USAGE_DESCRIPTION" value="Esta app necesita usar el microfono" />
+        <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value="Esta app necesita usar tus fotos" />
+    </plugin>
     <plugin name="cordova-plugin-console" spec="1.1.0" />
     <plugin name="cordova-plugin-datepicker" spec="0.9.3" />
     <plugin name="cordova-plugin-device" spec="1.1.7" />
@@ -104,10 +120,48 @@
         <splash height="960" src="resources/ios/splash/Default@2x~iphone.png" width="640" />
         <splash height="480" src="resources/ios/splash/Default~iphone.png" width="320" />
         <splash height="2732" src="resources/ios/splash/Default@2x~universal~anyany.png" width="2732" />
+
+        <config-file target="*-Info.plist" parent="LSApplicationQueriesSchemes">
+            <array>
+                <string>fb</string>
+                <string>twitter</string>
+                <string>gplus</string>
+                <string>pintrest</string>
+                <string>instagram</string>
+                <string>youtube</string>
+                <string>vnd.youtube</string>
+                <string>yelp</string>
+                <string>linkedin</string>
+                <string>tumblr</string>
+                <string>whatsapp</string>
+                <string>snapchat</string>
+                <string>comgooglemaps</string>
+                <string>amazon</string>
+                <string>skype</string>
+                <string>googledrive</string>
+                <string>itms-apps</string>
+                <string>tel</string>
+                <string>mailto</string>
+                <string>uber</string>
+                <string>lyft</string>
+                <string>sumupmerchant</string>
+                <string>yammer</string>
+                <string>salesforce</string>
+            </array>
+        </config-file>
     </platform>
     <engine name="android" spec="~6.2.3" />
     <engine name="ios" spec="~4.5.4" />
     <plugin name="cordova-android-support-gradle-release" spec="1.4.2">
         <variable name="ANDROID_SUPPORT_VERSION" value="25.+" />
     </plugin>
+    <plugin name="cordova-plugin-contacts" spec="^2.3.1">
+        <variable name="CONTACTS_USAGE_DESCRIPTION" value=" " />
+    </plugin>
+    <plugin name="cordova-plugin-appavailability" spec="^0.4.2" />
+    <plugin name="uk.co.workingedge.phonegap.plugin.launchnavigator" spec="^4.2.1">
+        <variable name="OKHTTP_VERSION" value="3.+" />
+        <variable name="LOCATION_USAGE_DESCRIPTION" value="This app requires access to your location for navigation purposes" />
+    </plugin>
+    <plugin spec="https://github.com/ranjitpandit/whatsapp-phonegap-plugin.git" source="git" />
 </widget>

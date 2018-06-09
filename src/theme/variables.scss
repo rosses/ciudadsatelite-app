@@ -33,8 +33,13 @@ $app-direction: ltr;
 // colors so you can add, rename and remove colors as needed.
 // The "primary" color is the only required color in the map.
 
+
+// verde opaco: 88A201
+// verde original: AFC155
+// verde JJVV 116362
+
 $colors: (
-  primary:      #488aff,
+  primary:      #116362,
   secondary:    #32db64,
   danger:       #f53d3d,
   light:        #FFF,
@@ -48,7 +53,9 @@ $colors: (
   font-bold:    #3D404B,
   font-regular: #545761,
   bck-blue:     #13B9C5,
-  bck-light-blue: #088AF7
+  bck-light-blue: #088AF7,
+  verde: #b2e098
+
 );
 
 
