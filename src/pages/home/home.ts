@@ -102,6 +102,13 @@ export class HomePage {
   }
 
   verCategoria(categ:any) {
+    this.searchActive = false;
+    this.onClear(false);
+    this.searchStores = [];
+    this.searchProducts = [];
+    this.searchServices = [];
+    this.search='';
+    this.isSearching = false;
     this.navCtrl.push(Categoria, { categ: categ });
   }
 
