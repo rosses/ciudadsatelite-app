@@ -262,7 +262,7 @@ export class MyApp {
     }
 
     this.zones = [];
-    if (this.user.types.length > 0) {
+    if (this.user.markets.length > 0) {
       for (let i=0; i < this.user.markets.length ; i++) {
         this.zones.push(this.user.markets[i]);
       }

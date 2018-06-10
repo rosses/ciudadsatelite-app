@@ -233,6 +233,7 @@ ion-header .searchbar .toolbar-background {
 .toolbar-background, .toolbar-background-ios, .toolbar-background-md {
   background-color: map-get($colors, primary);
   border-color: #D6D6D6 !important;
+  border: 0 !important;
 }
 
 .subTitle {

@@ -65819,6 +65819,7 @@ ion-header .searchbar .toolbar-background {
 .toolbar-background, .toolbar-background-ios, .toolbar-background-md {
   background-color: #116362;
   border-color: #D6D6D6 !important;
+  border: 0 !important;
 }
 
 .subTitle {
@@ -67593,6 +67594,7 @@ page-newsDetalle .slidesWrapper {
 page-newsDetalle .image {
   height: 30vh;
   position: relative;
+  background-position: top;
 }
 
 page-newsDetalle .titulo {
@@ -67644,7 +67646,6 @@ page-newsDetalle .back-button {
   color: black;
   width: 3rem;
   height: 3rem;
-  background: white;
   border-radius: 100%;
   position: relative;
   left: 10px;

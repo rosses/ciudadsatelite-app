@@ -68,6 +68,7 @@ page-newsDetalle {
   .image {
     height: 30vh;
     position: relative;
+    background-position: top;
   }
   /*
   ion-icon {
@@ -131,7 +132,6 @@ page-newsDetalle {
     color: black;
     width: 3rem;
     height: 3rem;
-    background: white;
     border-radius: 100%;
     position: relative;
     left: 10px;
