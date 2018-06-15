@@ -10,9 +10,11 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>CIUDAD SATÉLITE</ion-title>
-    <ion-item>
-        <ion-icon name="search" (click)="toggleSearch()" item-right></ion-icon>
-    </ion-item>
+    <ion-buttons end>
+      <button class="search-top" ion-button icon-only (click)="toggleSearch()">
+        <ion-icon name="search"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
   <ion-toolbar class="searchbar" *ngIf="searchActive">
       <ion-searchbar (ionClear)="onClear($event)" (ionInput)="onSearch($event)" [(ngModel)]="search" placeholder="Tiendas, productos y servicios en Ciudad Satélite"></ion-searchbar>

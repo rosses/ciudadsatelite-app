@@ -206,6 +206,8 @@ ion-header .searchbar .toolbar-background {
         border-radius: 100%;
         background-position: center;
         margin-left: 0.9rem;
+        border: 3px solid #FFF;
+        background-color: #FFF;
     }
 
     .name {
@@ -487,3 +489,6 @@ ion-backdrop {
   }
 }
 */
+
+
+.search-top span { font-size: 20px !important; }

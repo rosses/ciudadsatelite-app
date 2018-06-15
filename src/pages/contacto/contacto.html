@@ -1,29 +1,17 @@
 <ion-header>
   <ion-navbar>
-    <button ion-button icon-only (click)="gotoHome()" class="my-style-for-modal">
-      <ion-icon class="ionicons" name="arrow-back"></ion-icon>
-    </button>
     <ion-title>CONTACTO</ion-title>
-    <ion-buttons end>
-    <button class="">
-      <ion-icon name="add"></ion-icon>
-    </button>
-    </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
 <ion-content [ngClass]="{'blurred' : isBlurred}">
 
   <div *ngIf="loaded">
-
     <ion-list>
       <ion-list-header>Productos</ion-list-header>
       <ion-item-group reorder="true">
         <ion-item *ngFor="let item of items">{{ item }}</ion-item>
       </ion-item-group>
     </ion-list>
-
-
   </div>
 </ion-content>
