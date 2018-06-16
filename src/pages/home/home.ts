@@ -5,6 +5,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { HttpClient } from '@angular/common/http';
 
 import { Clinic } from '../../pages/clinic/clinic';
+import { Store } from '../../pages/home/store';
 import { AdsMedia } from '../../pages/popovers/ads/ads';
 import { DoctorService } from '../../services/doctor.service';
 import { Storage } from '@ionic/storage';
@@ -47,6 +48,10 @@ export class HomePage {
         this.categs=data.data;
       });
     },2000);
+  }
+
+  goToStore(store: any) {
+    this.navCtrl.push(Store, { store: store });
   }
 
   onSearch(ev: any) {

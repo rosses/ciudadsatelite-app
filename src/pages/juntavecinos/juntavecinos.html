@@ -3,7 +3,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>JUNTA DE VECINOS</ion-title>
+    <ion-title>{{title}}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -43,7 +43,7 @@
           <ion-col col-9 text-center>
             <h2>{{section}}</h2>
             <div class="buttonWrapper">
-              <button (click)="changeBack()" class="buttonPinkOrange" ion-button round>Volver al inicio</button>
+              <button (click)="changeBack()" class="buttonPinkOrange" ion-button round>Volver</button>
             </div>
           </ion-col>
         </ion-row>

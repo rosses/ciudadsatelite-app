@@ -3,7 +3,9 @@ page-home {
   background-color: #FFF;
 
 
-
+  .search-container2 {
+    color: gray;
+  }
   .has-refresher > .scroll-content { border:0; }
   ion-refresher-content { padding: 20px; }
   .list > .item-block:first-child { border-top: 0 !important; }

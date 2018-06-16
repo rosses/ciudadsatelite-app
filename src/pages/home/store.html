@@ -43,7 +43,6 @@
       </ion-row>
     </ion-item>
   </ion-list>
-
   <hr />
 
   <!-- Social networks --> 
@@ -79,14 +78,29 @@
       </button>
     </ion-col>
   </ion-row>
+  <hr />
+  <ion-row>
+    <ion-col col-1><ion-icon name="card"></ion-icon></ion-col>
+    <ion-col col-11><b>Redcompra:</b> {{(store.credit_card == 1 ? "SI" : "NO")}}</ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col col-1><ion-icon name="paper-plane"></ion-icon></ion-col>
+    <ion-col col-11><b>Delivery:</b> {{(store.delivery == 1 ? "SI" : "NO")}}</ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col col-1><ion-icon name="bicycle"></ion-icon></ion-col>
+    <ion-col col-11><b>Delivery + Redcompra:</b> {{(store.credit_card_delivery == 1 ? "SI" : "NO")}}</ion-col>
+  </ion-row>
 
-  <div *ngIf="store.showcase == 1">
-    <h2>Productos</h2>
-    <ion-card *ngIf="products.length == 0">
+  <div *ngIf="store.showcase == 1" class="showcase1">
+
+    <h2 *ngIf="products.length > 0">Productos</h2>
+    <!--<ion-card *ngIf="products.length == 0">
       <ion-card-header class="no-items">
         No se han publicado productos
       </ion-card-header>
     </ion-card>
+    -->
 
     <div *ngIf="products.length > 0">
       <ion-slides spaceBetween="20" slidesPerView="1.5">
@@ -100,12 +114,14 @@
       </ion-slides>
     </div>
 
-    <h2>Servicios</h2>
+    <h2 *ngIf="services.length > 0">Servicios</h2>
+    <!--
     <ion-card *ngIf="services.length == 0">
       <ion-card-header class="no-items">
         No se han publicado servicios
       </ion-card-header>
     </ion-card>
+    -->
 
     <div *ngIf="services.length > 0">
       <ion-row class="store-services" *ngFor="let service of services">

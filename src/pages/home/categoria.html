@@ -36,7 +36,69 @@
       <strong>No se encontraron resultados</strong><br />
       &quot;{{search}}&quot;
     </div>
+
+    <div *ngIf="(searchStores.length > 0 || searchProducts.length > 0 || searchServices.length > 0) && !isSearchingLoad">
+
+      <ion-list>
+        <ion-list-header *ngIf="searchStores.length > 0">
+          Tiendas ({{searchStores.length}})
+        </ion-list-header>
+
+        <ion-item *ngFor="let result of searchStores" (click)="goToStore(result);">
+          <ion-col col-2>
+            <img src="{{result.icon}}" />
+          </ion-col>
+          <ion-col col-10>
+            <ion-label>
+              <strong>{{result.name}}</strong><br />
+              {{result.address}} {{(result.local != "" ? "Loc. "+result.local : "")}}
+            </ion-label>
+          </ion-col>
+        </ion-item>
+
+        <ion-list-header *ngIf="searchProducts.length > 0">
+          Productos ({{searchProducts.length}})
+        </ion-list-header>
+
+        <ion-item *ngFor="let result of searchProducts" (click)="goToStore(result.store);">
+          <ion-col col-2>
+            <img src="{{result.icon}}" />
+          </ion-col>
+          <ion-col col-10>
+            <ion-label>
+              <strong>{{result.name}}</strong><br />
+              {{result.address}} {{(result.local != "" ? "Loc. "+result.local : "")}}
+            </ion-label>
+          </ion-col>
+        </ion-item>
+
+        <ion-list-header *ngIf="searchServices.length > 0">
+          Servicios ({{searchServices.length}})
+        </ion-list-header>
+
+        <ion-item *ngFor="let result of searchServices" (click)="goToStore(result.store);">
+          <ion-col col-2>
+            <img src="{{result.icon}}" />
+          </ion-col>
+          <ion-col col-10>
+            <ion-label>
+              <strong>{{result.store.name}}</strong><br />
+              {{result.name}} / $ {{result.price | number:'1.0-0' }}
+            </ion-label>
+          </ion-col>
+        </ion-item>
+      </ion-list>
+
+
+    </div>
   </div>
+</div>
+
+<div *ngIf="searchActive && !isSearching" class="search-container2" text-center>
+      <ion-icon name="search"></ion-icon>
+      <br />
+      <strong>Comienza a escribir para<br />buscar tiendas, productos o servicios<br />en {{title}}</strong><br />
+      <br />
 </div>
 
 
@@ -71,7 +133,7 @@
   </div>
 </div>
 
-<div *ngIf="!isLoading && !isSearching">
+<div *ngIf="!isLoading && !searchActive">
 
   <ion-list class="list-store">
     <ion-item *ngFor="let store of stores" (click)="verStore(store)" text-wrap>

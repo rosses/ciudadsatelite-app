@@ -64,6 +64,10 @@ export class Categoria {
 
   }
 
+  goToStore(store: any) {
+    this.navCtrl.push(Store, { store: store });
+  }
+  
   goContacto() {
     this.navCtrl.push(Contacto);
   }

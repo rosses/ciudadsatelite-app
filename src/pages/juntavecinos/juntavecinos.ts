@@ -15,7 +15,7 @@ export class JuntaVecinosPage {
   active: number = 0;
   section: string = '';
   image: string = '';
-
+  title: string = '';
   public staticUrl: string;
   public isLoading: boolean = true;
   public openTab: string = 'news';
@@ -27,6 +27,7 @@ export class JuntaVecinosPage {
     private loadingCtrl: LoadingController
   ) {
     
+    this.title = 'JUNTA DE VECINOS';
     this.load = this.loadingCtrl.create();
     this.load.present();
 
@@ -48,12 +49,14 @@ export class JuntaVecinosPage {
     this.active = o.id;
     this.section = o.name;
     this.image = o.icon;
+    this.title = o.name;
   }
 
   changeBack() {
     this.active = 0;
     this.section = '';
     this.image = '';
+    this.title = 'JUNTA DE VECINOS';
   }
 
 }
