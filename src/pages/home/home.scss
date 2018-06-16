@@ -2,9 +2,7 @@ page-home {
   
   background-color: #FFF;
 
-  .scroll-content {
-    padding: 20px;
-  }
+
 
   .has-refresher > .scroll-content { border:0; }
   ion-refresher-content { padding: 20px; }
@@ -12,6 +10,9 @@ page-home {
   .list > .item-block:last-child, .list > .item-wrapper:last-child .item-block { border-bottom: 0 !important; }
   .item ion-avatar ion-img, .item ion-avatar img { border-radius: 0 !important; }
 
+  h2 {
+    font-weight: bold;
+  }
   .timeline-item {
       background: #fff;
       border: 0;

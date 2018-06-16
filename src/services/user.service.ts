@@ -42,6 +42,14 @@ export class UserService extends BaseService{
     });
   }
 
+  sendContact(obj:any) {
+    return this.post('users/contact', {
+      name: obj.name,
+      email: obj.email,
+      message: obj.message
+    });
+  }
+
   getProfile() {
     return Observable.fromPromise(this.storage.get('MP-Profile'));
   }

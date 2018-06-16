@@ -65855,9 +65855,17 @@ ion-select .select-icon {
   text-transform: uppercase;
 }
 
-.toolbar-title-md {
+ion-title {
   padding: 0;
-  padding-right: 56px;
+  padding-right: 50px;
+}
+
+.no-padding {
+  padding: 0 !important;
+}
+
+.pd20 {
+  padding: 20px !important;
 }
 
 .formContainer {
@@ -66975,10 +66983,6 @@ page-home {
   background-color: #FFF;
 }
 
-page-home .scroll-content {
-  padding: 20px;
-}
-
 page-home .has-refresher > .scroll-content {
   border: 0;
 }
@@ -66997,6 +67001,10 @@ page-home .list > .item-block:last-child, page-home .list > .item-wrapper:last-c
 
 page-home .item ion-avatar ion-img, page-home .item ion-avatar img {
   border-radius: 0 !important;
+}
+
+page-home h2 {
+  font-weight: bold;
 }
 
 page-home .timeline-item {
@@ -67385,54 +67393,6 @@ page-juntavecinos .scroll-content {
   padding: 0 !important;
 }
 
-page-juntavecinos .card {
-  margin: 10px;
-  width: calc(100% - 20px);
-}
-
-page-juntavecinos .card .card-header {
-  padding: 1.2rem 1.6rem;
-}
-
-page-juntavecinos .centered {
-  text-align: center;
-}
-
-page-juntavecinos .publicityBanner img {
-  max-width: 100%;
-  width: 100%;
-}
-
-page-juntavecinos .publicityBanner {
-  width: 100%;
-  /*
-    height: 150px;
-    background: url(/assets/img/publicity.png);
-    background-size: cover;
-    background-position: center;
-    */
-}
-
-page-juntavecinos .swiper-pagination {
-  display: none;
-}
-
-page-juntavecinos .subTitle {
-  padding: 20px;
-  padding-bottom: 0;
-  font-size: 1.3rem;
-  font-weight: 800;
-}
-
-page-juntavecinos .slidesWrapper {
-  margin-top: 16px;
-  margin-bottom: 16px;
-}
-
-page-juntavecinos .refresher-pulling-icon ion-icon {
-  font-family: "Ionicons" !important;
-}
-
 page-juntavecinos .timeline-item {
   background: #fff;
   border: 0;
@@ -67516,6 +67476,40 @@ page-juntavecinos .background-masker.news-title {
   left: 0px;
   width: 100%;
   height: 10px;
+}
+
+page-juntavecinos .buttonWrapper button {
+  min-width: 90px;
+}
+
+page-juntavecinos h2 {
+  font-size: 25px;
+  margin: 0;
+}
+
+page-juntavecinos .grid ion-col {
+  text-align: center;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+page-juntavecinos .grid button {
+  padding: 0;
+  background-color: transparent !important;
+}
+
+page-juntavecinos .grid button.activated img {
+  border: 3px solid #116362;
+}
+
+page-juntavecinos .grid button label {
+  font-size: 15px;
+}
+
+page-juntavecinos .grid button img {
+  border-radius: 50%;
+  max-width: 75%;
+  border: 3px solid #9eeeb1;
 }
 
 page-newsDetalle {
@@ -68888,10 +68882,6 @@ page-profile .button[icon-only]:hover {
   background-color: transparent;
   -webkit-box-shadow: none;
   box-none: none;
-}
-
-page-profile .header .toolbar .button-inner {
-  font-size: 2rem !important;
 }
 
 page-profile ion-icon.ionicons {

@@ -266,11 +266,16 @@ ion-select .select-icon {
   text-transform: uppercase;
 }
 
-.toolbar-title-md {
+ion-title {
   padding: 0;
-  padding-right: 56px;
+  padding-right: 50px;
 }
-
+.no-padding {
+  padding: 0 !important;
+}
+.pd20 {
+  padding: 20px !important;
+}
 .formContainer {
   padding: 20px;
 

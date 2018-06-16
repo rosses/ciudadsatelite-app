@@ -1,17 +1,33 @@
 <ion-header>
   <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>CONTACTO</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content [ngClass]="{'blurred' : isBlurred}">
 
-  <div *ngIf="loaded">
-    <ion-list>
-      <ion-list-header>Productos</ion-list-header>
-      <ion-item-group reorder="true">
-        <ion-item *ngFor="let item of items">{{ item }}</ion-item>
-      </ion-item-group>
-    </ion-list>
+<div class="formContainer">
+  <ion-list>
+    <ion-item>
+      <ion-label floating>Nombre</ion-label>
+      <ion-input type="text" readonly [(ngModel)]="name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Email</ion-label>
+      <ion-input type="email" readonly [(ngModel)]="email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Mensaje</ion-label>
+      <ion-textarea [(ngModel)]="message"></ion-textarea>
+    </ion-item>
+  </ion-list>
+
+  <div class="buttonWrapper">
+    <button (click)="send()" class="buttonPinkOrange" ion-button round>Enviar el mensaje</button>
   </div>
+
+</div>
 </ion-content>

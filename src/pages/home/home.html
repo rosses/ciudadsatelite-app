@@ -9,7 +9,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>CIUDAD SATÉLITE</ion-title>
+    <ion-title class="no-padding">CIUDAD SATÉLITE</ion-title>
     <ion-buttons end>
       <button class="search-top" ion-button icon-only (click)="toggleSearch()">
         <ion-icon name="search"></ion-icon>
@@ -22,6 +22,8 @@
 </ion-header>
 
 <ion-content>
+
+<img src="assets/img/jjvv.jpg" (click)="goToJJVV()" class="jjvv" />
 
 <div *ngIf="isSearching" class="search-container">
   <div *ngIf="isSearchingLoad">
@@ -46,7 +48,7 @@
   <ion-refresher-content pullingText="actualizar..." refreshingText="actualizando..."></ion-refresher-content>
 </ion-refresher>
 
-<div *ngIf="isLoading">
+<div *ngIf="isLoading" class="pd20">
   <div class="timeline-wrapper">
       <div class="timeline-item forceh">
         <div class="animated-background">
@@ -107,7 +109,7 @@
 
 <div *ngIf="!isLoading && !isSearching">
 
-  <ion-list>
+  <ion-list class="pd20">
     <button ion-item detail-push *ngFor="let categ of categs" (click)="verCategoria(categ)">
       <ion-avatar item-start>
         <img src="{{categ.banner}}">

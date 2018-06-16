@@ -9,6 +9,7 @@ import { AdsMedia } from '../../pages/popovers/ads/ads';
 import { DoctorService } from '../../services/doctor.service';
 import { Storage } from '@ionic/storage';
 import { Categoria } from '../../pages/home/categoria';
+import { JuntaVecinosPage } from '../../pages/juntavecinos/juntavecinos';
 
 @Component({
   selector: 'page-home',
@@ -110,6 +111,10 @@ export class HomePage {
     this.search='';
     this.isSearching = false;
     this.navCtrl.push(Categoria, { categ: categ });
+  }
+
+  goToJJVV() {
+    this.navCtrl.setRoot(JuntaVecinosPage);
   }
 
 }

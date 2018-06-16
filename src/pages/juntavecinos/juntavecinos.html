@@ -8,35 +8,52 @@
 </ion-header>
 
 <ion-content>
+  
+  <div *ngIf="!isLoading">
 
+    <ion-grid>
+      <ion-row>
+        <ion-col col-4>
+          <img src="assets/img/junta.jpg" />
+        </ion-col>
+        <ion-col col-8 text-center>
+          <h2>{{headers.name}}</h2>
+          <p>{{headers.subtitle}}</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 
-  <ion-toolbar>
-    <ion-segment [(ngModel)]="openTab" color="primary">
-      <ion-segment-button value="news">
-        Noticias
-      </ion-segment-button>
-      <ion-segment-button value="we">
-        Nosotros
-      </ion-segment-button>
-      <ion-segment-button value="residencia">
-        Cert. Residencia
-      </ion-segment-button>
-      <ion-segment-button value="faq">
-        Preguntas Frecuentes
-      </ion-segment-button>
-      <ion-segment-button value="denuncias">
-        Denuncias
-      </ion-segment-button>
-      <ion-segment-button value="contacto">
-        Contacto
-      </ion-segment-button>
-    </ion-segment>
-  </ion-toolbar>
+    <div *ngIf="active == 0">
+      <ion-grid class="grid">
+        <ion-row>
+          <ion-col col-4 *ngFor="let s of sections">
+            <button (click)="changeActive(s)"> <div> <img src="{{s.icon}}" /> <br> <label>{{s.name}}</label> </div> </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
 
+    <div *ngIf="active != 0">
+      <hr />
+      <ion-grid>
+        <ion-row>
+          <ion-col col-3>
+            <img src="{{image}}" />
+          </ion-col>
+          <ion-col col-9 text-center>
+            <h2>{{section}}</h2>
+            <div class="buttonWrapper">
+              <button (click)="changeBack()" class="buttonPinkOrange" ion-button round>Volver al inicio</button>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+
+  </div>
+
+  <!--
   <div *ngIf="openTab == 'news'">
-    <ion-refresher (ionRefresh)="doRefresh($event)">
-      <ion-refresher-content></ion-refresher-content>
-    </ion-refresher>
 
     <div class="subTitle">{{ 'HOME.NEWS' | translate }}</div>
     <news-preview *ngFor="let n of news" [news]="n"></news-preview>
@@ -55,11 +72,8 @@
           </div>
       </div>
     </div>
-
-  	<ion-infinite-scroll (ionInfinite)="doInfinite($event)">
-  	<ion-infinite-scroll-content></ion-infinite-scroll-content>
-  	</ion-infinite-scroll>
-  
+ 
   </div>
+  -->
 
 </ion-content>

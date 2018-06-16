@@ -22,4 +22,8 @@ export class NewsService extends BaseService{
     });
   }
 
+  getSections(id:number) {
+    return this.get('sections/'+id);
+  }
+
 }

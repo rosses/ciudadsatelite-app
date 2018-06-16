@@ -6,7 +6,7 @@
 -->
 <ion-header>
   <ion-navbar>
-    <ion-title>{{title}}</ion-title>
+    <ion-title class="no-padding">{{title}}</ion-title>
     <ion-buttons end>
       <button class="search-top" ion-button icon-only (click)="toggleSearch()">
         <ion-icon name="search"></ion-icon>
@@ -81,12 +81,15 @@
       <ion-row>
         <ion-col col-9>
           <h2>{{store.name}}</h2>
-          <h3>{{store.address}}</h3>
+          <h3>{{store.address}} {{(store.local != "" ? "Loc. "+store.local : "")}}</h3>
           <!--<p>I've had a pretty messed up day. If we just...</p>-->
         </ion-col>
-        <ion-col col-3 text-right class="mts">
-          <div class="vertical-align-content" *ngIf="store.lat != '' && store.lng != ''">
-            <img src="assets/img/map-location.png" (click)="showMap(store)" />
+        <ion-col col-3 text-center class="mts">
+          <div *ngIf="store.lat != '' && store.lng != ''">
+            <div><img src="assets/img/map-location.png" (click)="showMap(store)" /></div>
+            <div *ngIf="lat != 0 && lng != 0">
+            <strong>{{showDistance(lat,lng,store.lat,store.lng)}}</strong>
+            </div>
           </div>
         </ion-col>
       </ion-row>

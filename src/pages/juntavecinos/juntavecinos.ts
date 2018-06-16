@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, LoadingController } from 'ionic-angular';
 
-import { Pet } from '../../models/pet.model';
-import { PetService } from '../../services/pet.service';
-import { News } from '../../models/news.model';
 import { NewsService } from '../../services/news.service';
 
 import { environment } from "../../environments/environment"
@@ -13,26 +10,32 @@ import { environment } from "../../environments/environment"
   templateUrl: 'juntavecinos.html'
 })
 export class JuntaVecinosPage {
-  pets: any = [];
-  news: any = [];
+  sections: any = [];
+  headers: any = [];
+  active: number = 0;
+  section: string = '';
+  image: string = '';
 
   public staticUrl: string;
-  private pageNews = 1;
-  private perPegeNews = 3;
   public isLoading: boolean = true;
   public openTab: string = 'news';
+  public load: any;
 
   constructor(
     public navCtrl: NavController,
-    private petService: PetService,
-    private newsService: NewsService)
-  {
+    private newsService: NewsService,
+    private loadingCtrl: LoadingController
+  ) {
     
-    this.newsService.geList(this.pageNews, this.perPegeNews).subscribe(
-      (news:any) =>{
+    this.load = this.loadingCtrl.create();
+    this.load.present();
+
+    this.newsService.getSections(0).subscribe(
+      (data:any) =>{
         this.isLoading = false;
-        this.pageNews++;
-        this.news = news.data
+        this.sections = data.data;
+        this.headers = data.headers;
+        this.load.dismiss();
       },
       error => {
         console.log(error);
@@ -40,40 +43,19 @@ export class JuntaVecinosPage {
     );
     
   }
-  
-  doRefresh(refresher){
-    this.pageNews = 1;
-    this.isLoading = true;
-    this.newsService.geList(this.pageNews, this.perPegeNews).subscribe(
-      (news:any) =>{
-        this.isLoading = false;
-        this.pageNews++;
-        this.news = news.data;
-        refresher.complete();
-      },
-      error => {
-        console.log(error);
-        refresher.complete();
-      }
-    )
+
+  changeActive(o:any) {
+    this.active = o.id;
+    this.section = o.name;
+    this.image = o.icon;
   }
 
-  doInfinite(infiniteScroll) {
-      console.log('doInfinite...');
-      this.newsService.geList(this.pageNews, this.perPegeNews).subscribe(
-        (news: any) =>{
-          this.pageNews++;
-          news.data.forEach( (value) => {
-            this.news.push(value);
-          });
-          infiniteScroll.complete();
-        },
-        error => {
-          console.log(error);
-          infiniteScroll.complete();
-        }
-      )
+  changeBack() {
+    this.active = 0;
+    this.section = '';
+    this.image = '';
   }
+
 }
 
 

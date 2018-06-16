@@ -8,54 +8,6 @@ page-juntavecinos {
     padding: 0 !important;
   }
 
-  .card {
-    margin: 10px;
-    width: calc(100% - 20px);
-
-    .card-header {
-      padding: 1.2rem 1.6rem;
-    }
-  }
-
-  .centered {
-    text-align: center;
-  }
-
-  .publicityBanner img {
-    max-width: 100%;
-    width: 100%;
-  }
-  .publicityBanner {
-    width: 100%;
-    /*
-    height: 150px;
-    background: url(/assets/img/publicity.png);
-    background-size: cover;
-    background-position: center;
-    */
-  }
-
-  .swiper-pagination {
-    display: none;
-  }
-
-  .subTitle {
-    padding: 20px;
-    padding-bottom: 0;
-    font-size: 1.3rem;
-    font-weight: 800;
-  }
-
-  .slidesWrapper {
-    margin-top: 16px;
-    margin-bottom: 16px;
-  }
-
-  .refresher-pulling-icon ion-icon {
-    font-family: "Ionicons" !important;
-  }
-
-
   .timeline-item {
       background: #fff;
       border: 0;
@@ -126,6 +78,33 @@ page-juntavecinos {
       left: 0px;
       width: 100%;
       height: 10px;
+  }
+  .buttonWrapper button {
+    min-width: 90px;
+  }
+  h2 {
+    font-size: 25px;
+    margin:0;
+  }
+  .grid ion-col {
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+  .grid button {
+    padding:0;
+    background-color: transparent !important;
+  }
+  .grid button.activated img {
+    border: 3px solid #116362;
+  }
+  .grid button label { 
+    font-size: 15px;
+  }
+  .grid button img {
+    border-radius: 50%;
+    max-width: 75%;
+    border: 3px solid #9eeeb1;
   }
 }
 

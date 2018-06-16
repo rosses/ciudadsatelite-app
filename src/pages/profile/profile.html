@@ -1,13 +1,13 @@
 <ion-header>
   <ion-navbar>
-    <button ion-button icon-only (click)="gotoHome()" class="my-style-for-modal">
-      <ion-icon class="ionicons" name="arrow-back"></ion-icon>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>MI PERFIL</ion-title>
+    <ion-title class="no-padding">MI PERFIL</ion-title>
     <ion-buttons end>
-    <button (click)="presentMediaOptionsPopover($event)" class="buttonPinkOrange camera">
-      <ion-icon ios="ios-camera-outline" md="ios-camera-outline"></ion-icon>
-    </button>
+      <button (click)="presentMediaOptionsPopover($event)" class="buttonPinkOrange camera">
+        <ion-icon ios="ios-camera-outline" md="ios-camera-outline"></ion-icon>
+      </button>
     </ion-buttons>
   </ion-navbar>
 

@@ -22,7 +22,7 @@
       <ion-row>
         <ion-col col-10>
           <h2>{{store.name}}</h2>
-          <h3>{{store.address}}</h3>
+          <h3>{{store.address}} {{(store.local != "" ? "Loc. "+store.local : "")}}</h3>
         </ion-col>
         <ion-col col-2 text-right class="location">
           <div class="vertical-align-content" *ngIf="store.lat != '' && store.lng != ''">
@@ -31,9 +31,14 @@
         </ion-col>
       </ion-row>
       <ion-row>
-        <ion-col col-12>
+        <ion-col col-8>
           <p class="opening {{store.open_color}}"><strong>{{store.open_now}}</strong></p>
           <p class="opening">{{store.open_news}}</p>
+        </ion-col>
+        <ion-col col-4 text-right>
+          <div *ngIf="lat != 0 && lng != 0">
+            <strong>{{showDistance(lat,lng,store.lat,store.lng)}}</strong>
+          </div>
         </ion-col>
       </ion-row>
     </ion-item>

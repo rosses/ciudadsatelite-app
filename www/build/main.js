@@ -29,11 +29,9 @@ var environment = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_user_service__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_auth_service__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pata__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__popovers_profile_media_profile_media__ = __webpack_require__(50);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_date_picker__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__change_password_change_password__ = __webpack_require__(51);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__angular_common__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__home_home__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_date_picker__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__angular_common__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__home_home__ = __webpack_require__(42);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -43,8 +41,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-
-
 
 
 
@@ -70,129 +66,70 @@ var Contacto = (function () {
         this.datePipe = datePipe;
         this.isBlurred = false;
         this.loaded = false;
-        this.states = [];
-        this.cities = [];
-        this.loading = this.loadingCtrl.create({
-            content: 'cargando listado...'
+        this.name = '';
+        this.email = '';
+        this.message = '';
+        this.storage.get("MP-Profile").then(function (data) {
+            _this.name = data.first_name;
+            _this.email = data.email;
         });
-        this.loading.present();
-        setTimeout(function () {
-            _this.loading.dismiss();
-        }, 2000);
     }
-    Contacto.prototype.refreshDistrito = function (e) {
+    Contacto.prototype.send = function () {
         var _this = this;
-        this.authService.getCities(this.store.state).subscribe(function (data) {
-            _this.cities = data.data;
-        });
-    };
-    Contacto.prototype.save = function () {
-        var _this = this;
-        var loading = this.loadingCtrl.create({
-            content: 'guardando...'
-        });
-        loading.present();
-        var updateOperation = this.userService.updateStore({
-            name: this.store.name,
-            state: this.store.state,
-            city: this.store.city,
-            email: this.store.email,
-            phone: this.store.phone,
-            address: this.store.address,
-            whatsapp: this.store.whatsapp,
-            website: this.store.website
-        }, this.store.id);
-        updateOperation.subscribe(function (ok) {
-            loading.dismiss();
-            if (ok.res == "OK") {
-                _this.service.showOk();
-            }
-            else {
-                loading.dismiss();
-                _this.service.logError(null, "No fue posible guardar sus datos, intente nuevamente");
-            }
-        }, function (error) {
-            loading.dismiss();
-            _this.service.logError(null, "No fue posible guardar sus datos, intente nuevamente");
-        });
+        if (this.message.length < 4) {
+            this.service.showOk("Por favor especifique un mensaje más largo");
+        }
+        else {
+            var loading_1 = this.loadingCtrl.create({
+                content: 'enviando...'
+            });
+            loading_1.present();
+            var sendMessage = this.userService.sendContact({
+                name: this.name,
+                email: this.email,
+                message: this.message
+            });
+            sendMessage.subscribe(function (ok) {
+                loading_1.dismiss();
+                if (ok.res == "OK") {
+                    _this.service.showOk("Mensaje enviado con éxito");
+                    _this.message = '';
+                }
+                else {
+                    loading_1.dismiss();
+                    _this.service.logError(null, "No fue posible enviar el mensaje, intente nuevamente");
+                }
+            }, function (error) {
+                loading_1.dismiss();
+                _this.service.logError(null, "No fue posible enviar el mensaje, intente nuevamente");
+            });
+        }
     };
     Contacto.prototype.removeBlur = function () {
         this.isBlurred = false;
     };
-    Contacto.prototype.presentMediaOptionsPopover = function (event) {
-        var _this = this;
-        var popover = this.popoverCtrl.create(__WEBPACK_IMPORTED_MODULE_6__popovers_profile_media_profile_media__["a" /* ProfileMedia */]);
-        popover.present({
-            ev: event
-        });
-        popover.onDidDismiss(function (change) {
-            if (change) {
-                /*
-                this.storage.get("MP-Profile").then((val) => {
-                  this.store = val;
-                  this.loaded = true;
-                  if (this.store.avatar != null && this.store.avatar != "") {
-                    this.store.avatar = this.store.avatar.replace('/public/','');
-                  }
-                  this.changeAvatar(this.store.avatar);
-                });
-                */
-            }
-            _this.removeBlur();
-        });
-        this.isBlurred = true;
-    };
-    Contacto.prototype.changeAvatar = function (avatar) {
-        this.userService.changeAvatar.emit(avatar);
-    };
-    /** Birthday Date Picker */
-    Contacto.prototype.openDatepicker = function () {
-        var _this = this;
-        this.datePicker.show({
-            date: new Date(),
-            mode: 'date',
-            androidTheme: this.datePicker.ANDROID_THEMES.THEME_HOLO_DARK
-        }).then(function (date) {
-            var d = _this.datePipe.transform(date, 'dd/MM/yyyy');
-            console.log('Got date: ', d);
-            _this.store.birthday = d;
-        }, function (err) {
-            console.log('Error occurred while getting date: ', err);
-        });
-    };
-    Contacto.prototype.changePassword = function () {
-        var _this = this;
-        var profileModal = this.modalCtrl.create(__WEBPACK_IMPORTED_MODULE_8__change_password_change_password__["a" /* ChangePasswordPage */], {});
-        profileModal.onDidDismiss(function (data) {
-            if (data) {
-                _this.service.showOk();
-            }
-            else {
-                //this.service.showOk();
-            }
-        });
-        profileModal.present();
-    };
-    Contacto.prototype.formatDate = function (date) {
-        return date;
-    };
     Contacto.prototype.gotoHome = function () {
-        this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_10__home_home__["a" /* HomePage */]);
+        this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_8__home_home__["a" /* HomePage */]);
     };
     return Contacto;
 }());
-__decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('datepicker'),
-    __metadata("design:type", Object)
-], Contacto.prototype, "datepicker", void 0);
 Contacto = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-        selector: 'page-contacto',template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\pages\contacto\contacto.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>CONTACTO</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content [ngClass]="{\'blurred\' : isBlurred}">\n\n\n\n  <div *ngIf="loaded">\n\n    <ion-list>\n\n      <ion-list-header>Productos</ion-list-header>\n\n      <ion-item-group reorder="true">\n\n        <ion-item *ngFor="let item of items">{{ item }}</ion-item>\n\n      </ion-item-group>\n\n    </ion-list>\n\n  </div>\n\n</ion-content>\n\n'/*ion-inline-end:"D:\Mobile\sateliteapp\src\pages\contacto\contacto.html"*/,
+        selector: 'page-contacto',template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\pages\contacto\contacto.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <button ion-button menuToggle>\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n    <ion-title>CONTACTO</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content [ngClass]="{\'blurred\' : isBlurred}">\n\n\n\n<div class="formContainer">\n\n  <ion-list>\n\n    <ion-item>\n\n      <ion-label floating>Nombre</ion-label>\n\n      <ion-input type="text" readonly [(ngModel)]="name"></ion-input>\n\n    </ion-item>\n\n    <ion-item>\n\n      <ion-label floating>Email</ion-label>\n\n      <ion-input type="email" readonly [(ngModel)]="email"></ion-input>\n\n    </ion-item>\n\n    <ion-item>\n\n      <ion-label floating>Mensaje</ion-label>\n\n      <ion-textarea [(ngModel)]="message"></ion-textarea>\n\n    </ion-item>\n\n  </ion-list>\n\n\n\n  <div class="buttonWrapper">\n\n    <button (click)="send()" class="buttonPinkOrange" ion-button round>Enviar el mensaje</button>\n\n  </div>\n\n\n\n</div>\n\n</ion-content>\n\n'/*ion-inline-end:"D:\Mobile\sateliteapp\src\pages\contacto\contacto.html"*/,
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__ionic_storage__["b" /* Storage */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* NavParams */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["m" /* PopoverController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["m" /* PopoverController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* LoadingController */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_5__pata__["a" /* Pata */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__pata__["a" /* Pata */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_3__services_user_service__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__services_user_service__["a" /* UserService */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_4__services_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__services_auth_service__["a" /* AuthService */]) === "function" && _h || Object, typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_7__ionic_native_date_picker__["a" /* DatePicker */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7__ionic_native_date_picker__["a" /* DatePicker */]) === "function" && _j || Object, typeof (_k = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* ModalController */]) === "function" && _k || Object, typeof (_l = typeof __WEBPACK_IMPORTED_MODULE_9__angular_common__["d" /* DatePipe */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_9__angular_common__["d" /* DatePipe */]) === "function" && _l || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_1__ionic_storage__["b" /* Storage */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* NavParams */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["m" /* PopoverController */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* LoadingController */],
+        __WEBPACK_IMPORTED_MODULE_5__pata__["a" /* Pata */],
+        __WEBPACK_IMPORTED_MODULE_3__services_user_service__["a" /* UserService */],
+        __WEBPACK_IMPORTED_MODULE_4__services_auth_service__["a" /* AuthService */],
+        __WEBPACK_IMPORTED_MODULE_6__ionic_native_date_picker__["a" /* DatePicker */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* ModalController */],
+        __WEBPACK_IMPORTED_MODULE_7__angular_common__["d" /* DatePipe */]])
 ], Contacto);
 
-var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
 //# sourceMappingURL=contacto.js.map
 
 /***/ }),
@@ -262,10 +199,9 @@ MyPetsPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'page-my-pets',template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\pages\my-pets\my-pets.html"*/'<!--\n\n  Generated template for the MyPetsPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n  <ion-navbar>\n\n    <button ion-button menuToggle>\n\n      <span class="icon-menu"></span>\n\n    </button>\n\n    <ion-title>{{ \'APP_MENU.MY_PETS\' | translate }}</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n  <div class="slidesWrapper">\n\n    <ion-slides *ngIf="loadok" class="petpre" pager slidesPerView="4.5">\n\n      <ion-slide>\n\n        <pet-preview [add]="true" (click)="addPet()"></pet-preview>\n\n      </ion-slide>\n\n      <ion-slide *ngFor="let pet of pets">\n\n        <pet-preview [pet]="pet" [isDetail]="true" [isEdit]="true" [isMe]="true" [add]="false"></pet-preview>\n\n      </ion-slide>\n\n    </ion-slides>\n\n  </div>\n\n\n\n  <div *ngIf="addPetForm">\n\n    <qr-card [pet]="newPet" [nueva]="true" (change)="qrChange($event)"></qr-card>\n\n    <div *ngIf="addPetForm && !addPetForm2" class="start_qr">\n\n      Comienza escaneando el QR para tu mascota\n\n    </div>\n\n    <pet-info-form *ngIf="addPetForm2" [pet]="newPet" [isDetail]="true" [isEdit]="true" [isNew]="true"></pet-info-form>\n\n  </div>\n\n</ion-content>\n\n\n\n'/*ion-inline-end:"D:\Mobile\sateliteapp\src\pages\my-pets\my-pets.html"*/,
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__services_pet_service__["a" /* PetService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__services_pet_service__["a" /* PetService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */]) === "function" && _e || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */], __WEBPACK_IMPORTED_MODULE_4__services_pet_service__["a" /* PetService */], __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */]])
 ], MyPetsPage);
 
-var _a, _b, _c, _d, _e;
 //# sourceMappingURL=my-pets.js.map
 
 /***/ }),
@@ -402,10 +338,17 @@ Owner = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'page-owner',template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\pages\owner\owner.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <button ion-button menuToggle>\n\n      <span class="icon-menu"></span>\n\n    </button>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content [ngClass]="{\'blurred\' : isBlurred}">\n\n\n\n  <div *ngIf="loaded">\n\n    <div class="mediaSlideContainer"><ion-slides pager slidesPerView="1">\n\n      <div class="media" [style.background-image]="\'url(\' + (me.avatar != \'\' && me.avatar != null ? staticUrl+me.avatar : \'assets/img/default/avatar.png\' ) + \')\'" style="background-size: cover;"></div>\n\n      </ion-slides>\n\n    </div>\n\n    <div class="name">\n\n      {{ me.name }}\n\n    </div>\n\n    <div class="welcome">\n\n      Información del dueño\n\n    </div>\n\n\n\n    <div class="formContainer">\n\n      <ion-item>\n\n        <ion-label fixed>Nombre</ion-label>\n\n        <ion-input type="text" [(ngModel)]="me.name" [disabled]="true"></ion-input>\n\n      </ion-item>\n\n      <ion-item>\n\n        <ion-label fixed>Email</ion-label>\n\n        <ion-input type="text" [(ngModel)]="me.email" [disabled]="true"></ion-input>\n\n      </ion-item>\n\n      <ion-item>\n\n        <ion-label fixed>Nro. Teléfono</ion-label>\n\n        <ion-input type="text" [(ngModel)]="me.phone" [disabled]="true"></ion-input>\n\n      </ion-item>\n\n      <ion-item>\n\n        <ion-label fixed>Dirección</ion-label>\n\n        <ion-input type="text" [(ngModel)]="me.address" [disabled]="true"></ion-input>\n\n      </ion-item>\n\n      <ion-item>\n\n        <ion-label fixed>Región</ion-label>\n\n        <ion-input type="text" [(ngModel)]="me.region_name" [disabled]="true"></ion-input>\n\n      </ion-item>\n\n      <ion-item>\n\n        <ion-label fixed>Distrito</ion-label>\n\n        <ion-input type="text" [(ngModel)]="me.distrito_name" [disabled]="true"></ion-input>\n\n      </ion-item>\n\n      <ion-item>\n\n        <ion-label fixed>Género</ion-label>\n\n        <ion-input type="text" [(ngModel)]="me.genero" [disabled]="true"></ion-input>\n\n      </ion-item>\n\n    </div>\n\n\n\n    <div class="buttonWrapper" *ngIf="me.phone.length > 3">\n\n      <button class="buttonPinkOrange" (click)="call(me.phone)" ion-button round>Llamar a {{ me.name }}</button>\n\n    </div>\n\n\n\n    <div class="buttonWrapper" *ngIf="me.email.length > 3">\n\n      <button class="buttonPinkOrange" (click)="sendEmail(me.email)" ion-button round>Enviar un email a {{ me.name }}</button>\n\n    </div>\n\n\n\n  </div>\n\n\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"D:\Mobile\sateliteapp\src\pages\owner\owner.html"*/,
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__ionic_storage__["b" /* Storage */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* NavParams */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["m" /* PopoverController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["m" /* PopoverController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* LoadingController */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_4__pata__["a" /* Pata */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__pata__["a" /* Pata */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_3__services_user_service__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__services_user_service__["a" /* UserService */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_6__ionic_native_email_composer__["a" /* EmailComposer */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__ionic_native_email_composer__["a" /* EmailComposer */]) === "function" && _h || Object, typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_7__ionic_native_call_number__["a" /* CallNumber */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7__ionic_native_call_number__["a" /* CallNumber */]) === "function" && _j || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_1__ionic_storage__["b" /* Storage */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* NavParams */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["m" /* PopoverController */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* LoadingController */],
+        __WEBPACK_IMPORTED_MODULE_4__pata__["a" /* Pata */],
+        __WEBPACK_IMPORTED_MODULE_3__services_user_service__["a" /* UserService */],
+        __WEBPACK_IMPORTED_MODULE_6__ionic_native_email_composer__["a" /* EmailComposer */],
+        __WEBPACK_IMPORTED_MODULE_7__ionic_native_call_number__["a" /* CallNumber */]])
 ], Owner);
 
-var _a, _b, _c, _d, _e, _f, _g, _h, _j;
 //# sourceMappingURL=owner.js.map
 
 /***/ }),
@@ -625,6 +568,13 @@ var UserService = (function (_super) {
             }, function (err) {
                 console.log('push err', err);
             });
+        });
+    };
+    UserService.prototype.sendContact = function (obj) {
+        return this.post('users/contact', {
+            name: obj.name,
+            email: obj.email,
+            message: obj.message
         });
     };
     UserService.prototype.getProfile = function () {
@@ -1180,12 +1130,21 @@ __decorate([
 ], Profile.prototype, "datepicker", void 0);
 Profile = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-        selector: 'page-profile',template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\pages\profile\profile.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <button ion-button icon-only (click)="gotoHome()" class="my-style-for-modal">\n\n      <ion-icon class="ionicons" name="arrow-back"></ion-icon>\n\n    </button>\n\n    <ion-title>MI PERFIL</ion-title>\n\n    <ion-buttons end>\n\n    <button (click)="presentMediaOptionsPopover($event)" class="buttonPinkOrange camera">\n\n      <ion-icon ios="ios-camera-outline" md="ios-camera-outline"></ion-icon>\n\n    </button>\n\n    </ion-buttons>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n<ion-content [ngClass]="{\'blurred\' : isBlurred}">\n\n\n\n  <div *ngIf="loaded">\n\n    <div class="mediaSlideContainer">\n\n        <div class="media" [style.background-image]="\'url(\' + (me.avatar != \'\' && me.avatar != null ? me.avatar : \'assets/img/default/avatar.png\' ) + \')\'" style="background-size: cover;"></div>\n\n    </div>\n\n    <div class="name">\n\n      {{ me.first_name }}\n\n    </div>\n\n    <div class="welcome">\n\n      Información de mi cuenta\n\n    </div>\n\n\n\n    <div class="formContainer">\n\n      <ion-item>\n\n        <ion-label fixed>Nombre</ion-label>\n\n        <ion-input type="text" [(ngModel)]="me.first_name"></ion-input>\n\n      </ion-item>\n\n      <ion-item>\n\n        <ion-label fixed>Email</ion-label>\n\n        <ion-input type="text" [(ngModel)]="me.email"></ion-input>\n\n      </ion-item>\n\n      <ion-item>\n\n        <ion-label fixed>Villa</ion-label>\n\n        <ion-select [(ngModel)]="me.address.state" (ionChange)="refreshDistrito($event)">\n\n          <ion-option *ngFor="let state of states" [value]="state.id">{{state.name}}</ion-option>\n\n        </ion-select>\n\n      </ion-item>\n\n      <ion-item>\n\n        <ion-label fixed>Sector</ion-label>\n\n        <ion-select [(ngModel)]="me.address.city">\n\n          <ion-option *ngFor="let city of cities" [value]="city.id">{{city.name}}</ion-option>\n\n        </ion-select>\n\n      </ion-item>\n\n      <ion-item>\n\n        <ion-label fixed>Telefono</ion-label>\n\n        <ion-input type="tel" [(ngModel)]="me.phone"></ion-input>\n\n      </ion-item>\n\n      <!--\n\n      <ion-item>\n\n        <ion-label fixed>Contraseña</ion-label>\n\n        <ion-label fixed><button (click)="changePassword()" class="buttonPinkOrange" style="top: 7px; left: 124px;" ion-button round>Cambiar</button></ion-label>\n\n      </ion-item>\n\n      -->\n\n      <div class="buttonWrapper">\n\n        <button (click)="save()" class="buttonPinkOrange" ion-button round>{{ \'PET.UPDATE_INFO\' | translate }}</button>\n\n      </div>\n\n    </div>\n\n  </div>\n\n</ion-content>\n\n'/*ion-inline-end:"D:\Mobile\sateliteapp\src\pages\profile\profile.html"*/,
+        selector: 'page-profile',template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\pages\profile\profile.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <button ion-button menuToggle>\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n    <ion-title class="no-padding">MI PERFIL</ion-title>\n\n    <ion-buttons end>\n\n      <button (click)="presentMediaOptionsPopover($event)" class="buttonPinkOrange camera">\n\n        <ion-icon ios="ios-camera-outline" md="ios-camera-outline"></ion-icon>\n\n      </button>\n\n    </ion-buttons>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n<ion-content [ngClass]="{\'blurred\' : isBlurred}">\n\n\n\n  <div *ngIf="loaded">\n\n    <div class="mediaSlideContainer">\n\n        <div class="media" [style.background-image]="\'url(\' + (me.avatar != \'\' && me.avatar != null ? me.avatar : \'assets/img/default/avatar.png\' ) + \')\'" style="background-size: cover;"></div>\n\n    </div>\n\n    <div class="name">\n\n      {{ me.first_name }}\n\n    </div>\n\n    <div class="welcome">\n\n      Información de mi cuenta\n\n    </div>\n\n\n\n    <div class="formContainer">\n\n      <ion-item>\n\n        <ion-label fixed>Nombre</ion-label>\n\n        <ion-input type="text" [(ngModel)]="me.first_name"></ion-input>\n\n      </ion-item>\n\n      <ion-item>\n\n        <ion-label fixed>Email</ion-label>\n\n        <ion-input type="text" [(ngModel)]="me.email"></ion-input>\n\n      </ion-item>\n\n      <ion-item>\n\n        <ion-label fixed>Villa</ion-label>\n\n        <ion-select [(ngModel)]="me.address.state" (ionChange)="refreshDistrito($event)">\n\n          <ion-option *ngFor="let state of states" [value]="state.id">{{state.name}}</ion-option>\n\n        </ion-select>\n\n      </ion-item>\n\n      <ion-item>\n\n        <ion-label fixed>Sector</ion-label>\n\n        <ion-select [(ngModel)]="me.address.city">\n\n          <ion-option *ngFor="let city of cities" [value]="city.id">{{city.name}}</ion-option>\n\n        </ion-select>\n\n      </ion-item>\n\n      <ion-item>\n\n        <ion-label fixed>Telefono</ion-label>\n\n        <ion-input type="tel" [(ngModel)]="me.phone"></ion-input>\n\n      </ion-item>\n\n      <!--\n\n      <ion-item>\n\n        <ion-label fixed>Contraseña</ion-label>\n\n        <ion-label fixed><button (click)="changePassword()" class="buttonPinkOrange" style="top: 7px; left: 124px;" ion-button round>Cambiar</button></ion-label>\n\n      </ion-item>\n\n      -->\n\n      <div class="buttonWrapper">\n\n        <button (click)="save()" class="buttonPinkOrange" ion-button round>{{ \'PET.UPDATE_INFO\' | translate }}</button>\n\n      </div>\n\n    </div>\n\n  </div>\n\n</ion-content>\n\n'/*ion-inline-end:"D:\Mobile\sateliteapp\src\pages\profile\profile.html"*/,
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__ionic_storage__["b" /* Storage */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* NavParams */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["m" /* PopoverController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["m" /* PopoverController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* LoadingController */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_5__pata__["a" /* Pata */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__pata__["a" /* Pata */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_3__services_user_service__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__services_user_service__["a" /* UserService */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_4__services_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__services_auth_service__["a" /* AuthService */]) === "function" && _h || Object, typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_7__ionic_native_date_picker__["a" /* DatePicker */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7__ionic_native_date_picker__["a" /* DatePicker */]) === "function" && _j || Object, typeof (_k = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* ModalController */]) === "function" && _k || Object, typeof (_l = typeof __WEBPACK_IMPORTED_MODULE_9__angular_common__["d" /* DatePipe */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_9__angular_common__["d" /* DatePipe */]) === "function" && _l || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_1__ionic_storage__["b" /* Storage */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* NavParams */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["m" /* PopoverController */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* LoadingController */],
+        __WEBPACK_IMPORTED_MODULE_5__pata__["a" /* Pata */],
+        __WEBPACK_IMPORTED_MODULE_3__services_user_service__["a" /* UserService */],
+        __WEBPACK_IMPORTED_MODULE_4__services_auth_service__["a" /* AuthService */],
+        __WEBPACK_IMPORTED_MODULE_7__ionic_native_date_picker__["a" /* DatePicker */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* ModalController */],
+        __WEBPACK_IMPORTED_MODULE_9__angular_common__["d" /* DatePipe */]])
 ], Profile);
 
-var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
 //# sourceMappingURL=profile.js.map
 
 /***/ }),
@@ -1228,10 +1187,11 @@ ModalOK = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'page-modalOK',template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\modals\ok\ok.html"*/'<ion-content>\n\n	<div class="full"></div>\n\n	<div class="msg">\n\n	<img src="assets/img/checked.png" style="max-width: 25%; padding-bottom: 30px; display: block; margin: auto;">\n\n	{{msg}}\n\n	</div>\n\n	<button class="buttonPinkOrange small" ion-button round  (click)="close()">Aceptar</button>\n\n</ion-content>\n\n'/*ion-inline-end:"D:\Mobile\sateliteapp\src\modals\ok\ok.html"*/
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* ViewController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* ViewController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["Renderer2"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["Renderer2"]) === "function" && _c || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* ViewController */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */],
+        __WEBPACK_IMPORTED_MODULE_0__angular_core__["Renderer2"]])
 ], ModalOK);
 
-var _a, _b, _c;
 //# sourceMappingURL=ok.js.map
 
 /***/ }),
@@ -1274,10 +1234,11 @@ ModalERR = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'page-modalERR',template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\modals\err\err.html"*/'<ion-content>\n\n	<div class="full"></div>\n\n	<div class="msg">\n\n	<img src="assets/img/unchecked.png" style="max-width: 25%; padding-bottom: 30px; display: block; margin: auto;">\n\n	{{msg}}\n\n	</div>\n\n	<button class="buttonPinkOrange small" ion-button round  (click)="close()">Aceptar</button>\n\n</ion-content>\n\n'/*ion-inline-end:"D:\Mobile\sateliteapp\src\modals\err\err.html"*/
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* ViewController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* ViewController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["Renderer2"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["Renderer2"]) === "function" && _c || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* ViewController */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */],
+        __WEBPACK_IMPORTED_MODULE_0__angular_core__["Renderer2"]])
 ], ModalERR);
 
-var _a, _b, _c;
 //# sourceMappingURL=err.js.map
 
 /***/ }),
@@ -1339,15 +1300,46 @@ var Categoria = (function () {
         this.searchStores = [];
         this.searchProducts = [];
         this.searchServices = [];
+        this.lat = 0;
+        this.lng = 0;
         this.categ = this.navParams.get("categ");
         this.title = this.categ.name;
         this.doctorService.getStores(this.categ.id).subscribe(function (data) {
             _this.isLoading = false;
             _this.stores = data.data;
         });
+        this.geolocation.getCurrentPosition().then(function (resp) {
+            _this.lat = resp.coords.latitude;
+            _this.lng = resp.coords.longitude;
+        }).catch(function (error) {
+        });
     }
     Categoria.prototype.goContacto = function () {
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_6__pages_contacto_contacto__["a" /* Contacto */]);
+    };
+    Categoria.prototype.showDistance = function (lat1, lon1, lat2, lon2) {
+        var dif = this.calcCrow(lat1, lon1, lat2, lon2);
+        if (dif < 1) {
+            return Math.round(dif * 1000) + " mts";
+        }
+        else {
+            return (Math.round(dif * 10) / 10) + " kms";
+        }
+    };
+    Categoria.prototype.calcCrow = function (lat1, lon1, lat2, lon2) {
+        var R = 6371;
+        var dLat = this.toRad(lat2 - lat1);
+        var dLon = this.toRad(lon2 - lon1);
+        var lat1 = this.toRad(lat1);
+        var lat2 = this.toRad(lat2);
+        var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        var d = R * c;
+        return d;
+    };
+    Categoria.prototype.toRad = function (Value) {
+        return Value * Math.PI / 180;
     };
     Categoria.prototype.doRefresh = function (refresher) {
         var _this = this;
@@ -1422,7 +1414,7 @@ var Categoria = (function () {
 }());
 Categoria = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-        selector: 'page-categoria',template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\pages\home\categoria.html"*/'<!--\n\n  Generated template for the MyPetsPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>{{title}}</ion-title>\n\n    <ion-buttons end>\n\n      <button class="search-top" ion-button icon-only (click)="toggleSearch()">\n\n        <ion-icon name="search"></ion-icon>\n\n      </button>\n\n    </ion-buttons>\n\n  </ion-navbar>\n\n  <ion-toolbar class="searchbar" *ngIf="searchActive">\n\n      <ion-searchbar (ionClear)="onClear($event)" (ionInput)="onSearch($event)" [(ngModel)]="search" placeholder="Tiendas, productos y servicios en {{title}}"></ion-searchbar>\n\n  </ion-toolbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n\n\n<div *ngIf="isSearching" class="search-container">\n\n  <div *ngIf="isSearchingLoad">\n\n    <div text-center>\n\n      <ion-spinner></ion-spinner>\n\n      <br /><br />\n\n      <strong>Buscando</strong><br />\n\n      &quot;{{search}}&quot;\n\n    </div>\n\n  </div>\n\n  <div *ngIf="!isSearchingLoad">\n\n    <div *ngIf="searchStores.length == 0 && searchProducts.length == 0 && searchServices.length == 0 && !isSearchingLoad" text-center>\n\n      <ion-icon name="hand"></ion-icon>\n\n      <br />\n\n      <strong>No se encontraron resultados</strong><br />\n\n      &quot;{{search}}&quot;\n\n    </div>\n\n  </div>\n\n</div>\n\n\n\n\n\n<ion-refresher (ionRefresh)="doRefresh($event)"  *ngIf="!isSearching">\n\n  <ion-refresher-content pullingText="actualizar..." refreshingText="actualizando..."></ion-refresher-content>\n\n</ion-refresher>\n\n\n\n<div *ngIf="isLoading">\n\n  <div class="timeline-wrapper">\n\n      <div class="timeline-item forceh">\n\n        <div class="animated-background">\n\n          <div class="background-masker news-icon"></div>\n\n          <div class="background-masker news-icon2"></div>\n\n         </div>\n\n      </div>\n\n  </div>\n\n  <div class="timeline-wrapper">\n\n      <div class="timeline-item forceh">\n\n        <div class="animated-background">\n\n          <div class="background-masker news-icon"></div>\n\n          <div class="background-masker news-icon2"></div>\n\n         </div>\n\n      </div>\n\n  </div>\n\n  <div class="timeline-wrapper">\n\n      <div class="timeline-item forceh">\n\n        <div class="animated-background">\n\n          <div class="background-masker news-icon"></div>\n\n          <div class="background-masker news-icon2"></div>\n\n         </div>\n\n      </div>\n\n  </div>\n\n</div>\n\n\n\n<div *ngIf="!isLoading && !isSearching">\n\n\n\n  <ion-list class="list-store">\n\n    <ion-item *ngFor="let store of stores" (click)="verStore(store)" text-wrap>\n\n      <ion-avatar item-start>\n\n        <img src="{{store.avatar != \'\' ? store.avatar : \'assets/img/default/store.png\'}}" />\n\n      </ion-avatar>\n\n      <ion-row>\n\n        <ion-col col-9>\n\n          <h2>{{store.name}}</h2>\n\n          <h3>{{store.address}}</h3>\n\n          <!--<p>I\'ve had a pretty messed up day. If we just...</p>-->\n\n        </ion-col>\n\n        <ion-col col-3 text-right class="mts">\n\n          <div class="vertical-align-content" *ngIf="store.lat != \'\' && store.lng != \'\'">\n\n            <img src="assets/img/map-location.png" (click)="showMap(store)" />\n\n          </div>\n\n        </ion-col>\n\n      </ion-row>\n\n    </ion-item>\n\n  </ion-list>\n\n</div>\n\n\n\n<ion-card *ngIf="!isLoading && stores.length == 0">\n\n  <ion-card-header class="no-items">\n\n    <ion-icon name="pricetag"></ion-icon>\n\n    <br />\n\n    No tenemos tiendas en <br />\n\n    <strong>{{title}}</strong>\n\n  </ion-card-header>\n\n  <ion-list>\n\n    <button ion-item (click)="goContacto()">\n\n      <b>¿Como puedo aparecer aquí?</b>\n\n      <ion-icon name="arrow-forward" item-end></ion-icon>\n\n    </button>\n\n  </ion-list>  \n\n</ion-card>\n\n\n\n\n\n</ion-content>'/*ion-inline-end:"D:\Mobile\sateliteapp\src\pages\home\categoria.html"*/
+        selector: 'page-categoria',template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\pages\home\categoria.html"*/'<!--\n\n  Generated template for the MyPetsPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n  <ion-navbar>\n\n    <ion-title class="no-padding">{{title}}</ion-title>\n\n    <ion-buttons end>\n\n      <button class="search-top" ion-button icon-only (click)="toggleSearch()">\n\n        <ion-icon name="search"></ion-icon>\n\n      </button>\n\n    </ion-buttons>\n\n  </ion-navbar>\n\n  <ion-toolbar class="searchbar" *ngIf="searchActive">\n\n      <ion-searchbar (ionClear)="onClear($event)" (ionInput)="onSearch($event)" [(ngModel)]="search" placeholder="Tiendas, productos y servicios en {{title}}"></ion-searchbar>\n\n  </ion-toolbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n\n\n<div *ngIf="isSearching" class="search-container">\n\n  <div *ngIf="isSearchingLoad">\n\n    <div text-center>\n\n      <ion-spinner></ion-spinner>\n\n      <br /><br />\n\n      <strong>Buscando</strong><br />\n\n      &quot;{{search}}&quot;\n\n    </div>\n\n  </div>\n\n  <div *ngIf="!isSearchingLoad">\n\n    <div *ngIf="searchStores.length == 0 && searchProducts.length == 0 && searchServices.length == 0 && !isSearchingLoad" text-center>\n\n      <ion-icon name="hand"></ion-icon>\n\n      <br />\n\n      <strong>No se encontraron resultados</strong><br />\n\n      &quot;{{search}}&quot;\n\n    </div>\n\n  </div>\n\n</div>\n\n\n\n\n\n<ion-refresher (ionRefresh)="doRefresh($event)"  *ngIf="!isSearching">\n\n  <ion-refresher-content pullingText="actualizar..." refreshingText="actualizando..."></ion-refresher-content>\n\n</ion-refresher>\n\n\n\n<div *ngIf="isLoading">\n\n  <div class="timeline-wrapper">\n\n      <div class="timeline-item forceh">\n\n        <div class="animated-background">\n\n          <div class="background-masker news-icon"></div>\n\n          <div class="background-masker news-icon2"></div>\n\n         </div>\n\n      </div>\n\n  </div>\n\n  <div class="timeline-wrapper">\n\n      <div class="timeline-item forceh">\n\n        <div class="animated-background">\n\n          <div class="background-masker news-icon"></div>\n\n          <div class="background-masker news-icon2"></div>\n\n         </div>\n\n      </div>\n\n  </div>\n\n  <div class="timeline-wrapper">\n\n      <div class="timeline-item forceh">\n\n        <div class="animated-background">\n\n          <div class="background-masker news-icon"></div>\n\n          <div class="background-masker news-icon2"></div>\n\n         </div>\n\n      </div>\n\n  </div>\n\n</div>\n\n\n\n<div *ngIf="!isLoading && !isSearching">\n\n\n\n  <ion-list class="list-store">\n\n    <ion-item *ngFor="let store of stores" (click)="verStore(store)" text-wrap>\n\n      <ion-avatar item-start>\n\n        <img src="{{store.avatar != \'\' ? store.avatar : \'assets/img/default/store.png\'}}" />\n\n      </ion-avatar>\n\n      <ion-row>\n\n        <ion-col col-9>\n\n          <h2>{{store.name}}</h2>\n\n          <h3>{{store.address}} {{(store.local != "" ? "Loc. "+store.local : "")}}</h3>\n\n          <!--<p>I\'ve had a pretty messed up day. If we just...</p>-->\n\n        </ion-col>\n\n        <ion-col col-3 text-center class="mts">\n\n          <div *ngIf="store.lat != \'\' && store.lng != \'\'">\n\n            <div><img src="assets/img/map-location.png" (click)="showMap(store)" /></div>\n\n            <div *ngIf="lat != 0 && lng != 0">\n\n            <strong>{{showDistance(lat,lng,store.lat,store.lng)}}</strong>\n\n            </div>\n\n          </div>\n\n        </ion-col>\n\n      </ion-row>\n\n    </ion-item>\n\n  </ion-list>\n\n</div>\n\n\n\n<ion-card *ngIf="!isLoading && stores.length == 0">\n\n  <ion-card-header class="no-items">\n\n    <ion-icon name="pricetag"></ion-icon>\n\n    <br />\n\n    No tenemos tiendas en <br />\n\n    <strong>{{title}}</strong>\n\n  </ion-card-header>\n\n  <ion-list>\n\n    <button ion-item (click)="goContacto()">\n\n      <b>¿Como puedo aparecer aquí?</b>\n\n      <ion-icon name="arrow-forward" item-end></ion-icon>\n\n    </button>\n\n  </ion-list>  \n\n</ion-card>\n\n\n\n\n\n</ion-content>'/*ion-inline-end:"D:\Mobile\sateliteapp\src\pages\home\categoria.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */],
         __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */],
@@ -1500,6 +1492,8 @@ var Store = (function () {
         this.products = [];
         this.services = [];
         this.openTab = 'products';
+        this.lat = 0;
+        this.lng = 0;
         this.store = this.navParams.get("store");
         this.name = this.store.name;
         this.load = this.loadingCtrl.create();
@@ -1511,6 +1505,11 @@ var Store = (function () {
             _this.services = data.services;
             _this.load.dismiss();
         });
+        this.geolocation.getCurrentPosition().then(function (resp) {
+            _this.lat = resp.coords.latitude;
+            _this.lng = resp.coords.longitude;
+        }).catch(function (error) {
+        });
     }
     Store.prototype.showMap = function () {
         var options = {
@@ -1521,6 +1520,30 @@ var Store = (function () {
     };
     Store.prototype.email = function () {
         window.open('mailto:' + this.store.email, '_system', 'location=no');
+    };
+    Store.prototype.showDistance = function (lat1, lon1, lat2, lon2) {
+        var dif = this.calcCrow(lat1, lon1, lat2, lon2);
+        if (dif < 1) {
+            return Math.round(dif * 1000) + " mts";
+        }
+        else {
+            return (Math.round(dif * 10) / 10) + " kms";
+        }
+    };
+    Store.prototype.calcCrow = function (lat1, lon1, lat2, lon2) {
+        var R = 6371;
+        var dLat = this.toRad(lat2 - lat1);
+        var dLon = this.toRad(lon2 - lon1);
+        var lat1 = this.toRad(lat1);
+        var lat2 = this.toRad(lat2);
+        var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        var d = R * c;
+        return d;
+    };
+    Store.prototype.toRad = function (Value) {
+        return Value * Math.PI / 180;
     };
     Store.prototype.whatsapp = function () {
         var _this = this;
@@ -1656,16 +1679,30 @@ var Store = (function () {
 }());
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* Slides */]),
-    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* Slides */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* Slides */]) === "function" && _a || Object)
+    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* Slides */])
 ], Store.prototype, "slides", void 0);
 Store = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-        selector: 'page-store',template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\pages\home\store.html"*/'<!--\n\n  Generated template for the MyPetsPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>{{name}}</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n\n\n<div *ngIf="!isLoading">\n\n\n\n  <ion-list class="list-store">\n\n    <ion-item text-wrap>\n\n      <ion-avatar item-start>\n\n        <img src="{{store.avatar != \'\' ? store.avatar : \'assets/img/default/store.png\'}}" />\n\n      </ion-avatar>\n\n      <ion-row>\n\n        <ion-col col-10>\n\n          <h2>{{store.name}}</h2>\n\n          <h3>{{store.address}}</h3>\n\n        </ion-col>\n\n        <ion-col col-2 text-right class="location">\n\n          <div class="vertical-align-content" *ngIf="store.lat != \'\' && store.lng != \'\'">\n\n            <img src="assets/img/map-location.png" (click)="showMap()" />\n\n          </div>\n\n        </ion-col>\n\n      </ion-row>\n\n      <ion-row>\n\n        <ion-col col-12>\n\n          <p class="opening {{store.open_color}}"><strong>{{store.open_now}}</strong></p>\n\n          <p class="opening">{{store.open_news}}</p>\n\n        </ion-col>\n\n      </ion-row>\n\n    </ion-item>\n\n  </ion-list>\n\n\n\n  <hr />\n\n\n\n  <!-- Social networks --> \n\n  <ion-row class="to-right social">\n\n    <ion-col col-2 *ngIf="store.email != \'\'">\n\n      <button (click)="email()" block>\n\n        <img src="assets/img/arroba.png" />\n\n      </button>\n\n    </ion-col>\n\n    <ion-col col-2 *ngIf="store.whatsapp != \'\'">\n\n      <button (click)="whatsapp()" block>\n\n        <img src="assets/img/whatsapp.png" />\n\n      </button>\n\n    </ion-col>\n\n    <ion-col col-2 *ngIf="store.website != \'\'">\n\n      <button (click)="website()" block>\n\n        <img src="assets/img/www.png" />\n\n      </button>\n\n    </ion-col>\n\n    <ion-col col-2 *ngIf="store.facebook != \'\'">\n\n      <button (click)="facebook()" block>\n\n        <img src="assets/img/facebook.png" />\n\n      </button>\n\n    </ion-col>\n\n    <ion-col col-2 *ngIf="store.instagram != \'\'">\n\n      <button (click)="instagram()" block>\n\n        <img src="assets/img/instagram.png" />\n\n      </button>\n\n    </ion-col>\n\n    <ion-col col-2 *ngIf="store.twitter != \'\'">\n\n      <button (click)="twitter()" block>\n\n        <img src="assets/img/twitter.png" />\n\n      </button>\n\n    </ion-col>\n\n  </ion-row>\n\n\n\n  <div *ngIf="store.showcase == 1">\n\n    <h2>Productos</h2>\n\n    <ion-card *ngIf="products.length == 0">\n\n      <ion-card-header class="no-items">\n\n        No se han publicado productos\n\n      </ion-card-header>\n\n    </ion-card>\n\n\n\n    <div *ngIf="products.length > 0">\n\n      <ion-slides spaceBetween="20" slidesPerView="1.5">\n\n        <ion-slide *ngFor="let product of products">\n\n          <img src="{{product.avatar == \'\' ? \'assets/img/default/no-pictures.png\' : product.avatar}}" />\n\n          <div class="slide-product">\n\n            <div class="slide-title">{{product.name}}</div>\n\n            <div class="slide-price">$ {{product.price | number:\'1.0-0\' }}</div>\n\n          </div>\n\n        </ion-slide>\n\n      </ion-slides>\n\n    </div>\n\n\n\n    <h2>Servicios</h2>\n\n    <ion-card *ngIf="services.length == 0">\n\n      <ion-card-header class="no-items">\n\n        No se han publicado servicios\n\n      </ion-card-header>\n\n    </ion-card>\n\n\n\n    <div *ngIf="services.length > 0">\n\n      <ion-row class="store-services" *ngFor="let service of services">\n\n        <ion-col col-8 class="tab-service-name">\n\n          <strong>{{service.name}}</strong>\n\n        </ion-col>\n\n        <ion-col col-4 class="tab-service-price">\n\n          $ {{service.price | number:\'1.0-0\' }}\n\n        </ion-col>\n\n        <ion-col col-12>\n\n          <p>{{service.description}}</p>\n\n        </ion-col>\n\n      </ion-row>\n\n    </div>\n\n  </div>\n\n\n\n  <div *ngIf="store.showcase == 2">\n\n\n\n    <ion-toolbar>\n\n      <ion-segment [(ngModel)]="openTab" color="primary">\n\n        <ion-segment-button value="products">\n\n          Productos\n\n        </ion-segment-button>\n\n        <ion-segment-button value="services">\n\n          Servicios\n\n        </ion-segment-button>\n\n      </ion-segment>\n\n    </ion-toolbar>\n\n  \n\n    <div *ngIf="openTab == \'products\'">\n\n\n\n      <ion-card *ngIf="products.length == 0">\n\n        <ion-card-header class="no-items">\n\n          No se han publicado productos\n\n        </ion-card-header>\n\n      </ion-card>\n\n\n\n      <div *ngIf="products.length > 0">\n\n        <ion-row class="store-grid">\n\n          <ion-col col-6 *ngFor="let product of products">\n\n            <img src="{{product.avatar == \'\' ? \'assets/img/default/no-pictures.png\' : product.avatar}}" />\n\n            <div class="slide-product">\n\n              <div class="slide-title">{{product.name}}</div>\n\n              <div class="slide-price">$ {{product.price | number:\'1.0-0\' }}</div>\n\n            </div>\n\n          </ion-col>\n\n         </ion-row>\n\n      </div>\n\n\n\n    </div>\n\n\n\n    <div *ngIf="openTab == \'services\'">\n\n      \n\n      <ion-card *ngIf="services.length == 0">\n\n        <ion-card-header class="no-items">\n\n          No se han publicado servicios\n\n        </ion-card-header>\n\n      </ion-card>\n\n\n\n      <div *ngIf="services.length > 0">\n\n        <ion-row class="store-services" *ngFor="let service of services">\n\n          <ion-col col-8 class="tab-service-name">\n\n            <strong>{{service.name}}</strong>\n\n          </ion-col>\n\n          <ion-col col-4 class="tab-service-price">\n\n            $ {{service.price | number:\'1.0-0\' }}\n\n          </ion-col>\n\n          <ion-col col-12 class="tab-service-name">\n\n            <p>{{service.description}}</p>\n\n          </ion-col>\n\n        </ion-row>\n\n      </div>\n\n\n\n    </div>\n\n\n\n  </div>\n\n\n\n</div>\n\n</ion-content>'/*ion-inline-end:"D:\Mobile\sateliteapp\src\pages\home\store.html"*/
+        selector: 'page-store',template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\pages\home\store.html"*/'<!--\n\n  Generated template for the MyPetsPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>{{name}}</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n\n\n<div *ngIf="!isLoading">\n\n\n\n  <ion-list class="list-store">\n\n    <ion-item text-wrap>\n\n      <ion-avatar item-start>\n\n        <img src="{{store.avatar != \'\' ? store.avatar : \'assets/img/default/store.png\'}}" />\n\n      </ion-avatar>\n\n      <ion-row>\n\n        <ion-col col-10>\n\n          <h2>{{store.name}}</h2>\n\n          <h3>{{store.address}} {{(store.local != "" ? "Loc. "+store.local : "")}}</h3>\n\n        </ion-col>\n\n        <ion-col col-2 text-right class="location">\n\n          <div class="vertical-align-content" *ngIf="store.lat != \'\' && store.lng != \'\'">\n\n            <img src="assets/img/map-location.png" (click)="showMap()" />\n\n          </div>\n\n        </ion-col>\n\n      </ion-row>\n\n      <ion-row>\n\n        <ion-col col-8>\n\n          <p class="opening {{store.open_color}}"><strong>{{store.open_now}}</strong></p>\n\n          <p class="opening">{{store.open_news}}</p>\n\n        </ion-col>\n\n        <ion-col col-4 text-right>\n\n          <div *ngIf="lat != 0 && lng != 0">\n\n            <strong>{{showDistance(lat,lng,store.lat,store.lng)}}</strong>\n\n          </div>\n\n        </ion-col>\n\n      </ion-row>\n\n    </ion-item>\n\n  </ion-list>\n\n\n\n  <hr />\n\n\n\n  <!-- Social networks --> \n\n  <ion-row class="to-right social">\n\n    <ion-col col-2 *ngIf="store.email != \'\'">\n\n      <button (click)="email()" block>\n\n        <img src="assets/img/arroba.png" />\n\n      </button>\n\n    </ion-col>\n\n    <ion-col col-2 *ngIf="store.whatsapp != \'\'">\n\n      <button (click)="whatsapp()" block>\n\n        <img src="assets/img/whatsapp.png" />\n\n      </button>\n\n    </ion-col>\n\n    <ion-col col-2 *ngIf="store.website != \'\'">\n\n      <button (click)="website()" block>\n\n        <img src="assets/img/www.png" />\n\n      </button>\n\n    </ion-col>\n\n    <ion-col col-2 *ngIf="store.facebook != \'\'">\n\n      <button (click)="facebook()" block>\n\n        <img src="assets/img/facebook.png" />\n\n      </button>\n\n    </ion-col>\n\n    <ion-col col-2 *ngIf="store.instagram != \'\'">\n\n      <button (click)="instagram()" block>\n\n        <img src="assets/img/instagram.png" />\n\n      </button>\n\n    </ion-col>\n\n    <ion-col col-2 *ngIf="store.twitter != \'\'">\n\n      <button (click)="twitter()" block>\n\n        <img src="assets/img/twitter.png" />\n\n      </button>\n\n    </ion-col>\n\n  </ion-row>\n\n\n\n  <div *ngIf="store.showcase == 1">\n\n    <h2>Productos</h2>\n\n    <ion-card *ngIf="products.length == 0">\n\n      <ion-card-header class="no-items">\n\n        No se han publicado productos\n\n      </ion-card-header>\n\n    </ion-card>\n\n\n\n    <div *ngIf="products.length > 0">\n\n      <ion-slides spaceBetween="20" slidesPerView="1.5">\n\n        <ion-slide *ngFor="let product of products">\n\n          <img src="{{product.avatar == \'\' ? \'assets/img/default/no-pictures.png\' : product.avatar}}" />\n\n          <div class="slide-product">\n\n            <div class="slide-title">{{product.name}}</div>\n\n            <div class="slide-price">$ {{product.price | number:\'1.0-0\' }}</div>\n\n          </div>\n\n        </ion-slide>\n\n      </ion-slides>\n\n    </div>\n\n\n\n    <h2>Servicios</h2>\n\n    <ion-card *ngIf="services.length == 0">\n\n      <ion-card-header class="no-items">\n\n        No se han publicado servicios\n\n      </ion-card-header>\n\n    </ion-card>\n\n\n\n    <div *ngIf="services.length > 0">\n\n      <ion-row class="store-services" *ngFor="let service of services">\n\n        <ion-col col-8 class="tab-service-name">\n\n          <strong>{{service.name}}</strong>\n\n        </ion-col>\n\n        <ion-col col-4 class="tab-service-price">\n\n          $ {{service.price | number:\'1.0-0\' }}\n\n        </ion-col>\n\n        <ion-col col-12>\n\n          <p>{{service.description}}</p>\n\n        </ion-col>\n\n      </ion-row>\n\n    </div>\n\n  </div>\n\n\n\n  <div *ngIf="store.showcase == 2">\n\n\n\n    <ion-toolbar>\n\n      <ion-segment [(ngModel)]="openTab" color="primary">\n\n        <ion-segment-button value="products">\n\n          Productos\n\n        </ion-segment-button>\n\n        <ion-segment-button value="services">\n\n          Servicios\n\n        </ion-segment-button>\n\n      </ion-segment>\n\n    </ion-toolbar>\n\n  \n\n    <div *ngIf="openTab == \'products\'">\n\n\n\n      <ion-card *ngIf="products.length == 0">\n\n        <ion-card-header class="no-items">\n\n          No se han publicado productos\n\n        </ion-card-header>\n\n      </ion-card>\n\n\n\n      <div *ngIf="products.length > 0">\n\n        <ion-row class="store-grid">\n\n          <ion-col col-6 *ngFor="let product of products">\n\n            <img src="{{product.avatar == \'\' ? \'assets/img/default/no-pictures.png\' : product.avatar}}" />\n\n            <div class="slide-product">\n\n              <div class="slide-title">{{product.name}}</div>\n\n              <div class="slide-price">$ {{product.price | number:\'1.0-0\' }}</div>\n\n            </div>\n\n          </ion-col>\n\n         </ion-row>\n\n      </div>\n\n\n\n    </div>\n\n\n\n    <div *ngIf="openTab == \'services\'">\n\n      \n\n      <ion-card *ngIf="services.length == 0">\n\n        <ion-card-header class="no-items">\n\n          No se han publicado servicios\n\n        </ion-card-header>\n\n      </ion-card>\n\n\n\n      <div *ngIf="services.length > 0">\n\n        <ion-row class="store-services" *ngFor="let service of services">\n\n          <ion-col col-8 class="tab-service-name">\n\n            <strong>{{service.name}}</strong>\n\n          </ion-col>\n\n          <ion-col col-4 class="tab-service-price">\n\n            $ {{service.price | number:\'1.0-0\' }}\n\n          </ion-col>\n\n          <ion-col col-12 class="tab-service-name">\n\n            <p>{{service.description}}</p>\n\n          </ion-col>\n\n        </ion-row>\n\n      </div>\n\n\n\n    </div>\n\n\n\n  </div>\n\n\n\n</div>\n\n</ion-content>'/*ion-inline-end:"D:\Mobile\sateliteapp\src\pages\home\store.html"*/
     }),
-    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_8__services_doctor_service__["a" /* DoctorService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_8__services_doctor_service__["a" /* DoctorService */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__["a" /* Geolocation */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__["a" /* Geolocation */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_2__agm_core__["b" /* GoogleMapsAPIWrapper */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__agm_core__["b" /* GoogleMapsAPIWrapper */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ToastController */]) === "function" && _h || Object, typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* PopoverController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* PopoverController */]) === "function" && _j || Object, typeof (_k = typeof __WEBPACK_IMPORTED_MODULE_4__angular_common_http__["a" /* HttpClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__angular_common_http__["a" /* HttpClient */]) === "function" && _k || Object, typeof (_l = typeof __WEBPACK_IMPORTED_MODULE_9__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_9__ionic_storage__["b" /* Storage */]) === "function" && _l || Object, typeof (_m = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */]) === "function" && _m || Object, typeof (_o = typeof __WEBPACK_IMPORTED_MODULE_7__ionic_native_contacts__["c" /* Contacts */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7__ionic_native_contacts__["c" /* Contacts */]) === "function" && _o || Object, typeof (_p = typeof __WEBPACK_IMPORTED_MODULE_6__ionic_native_app_availability__["a" /* AppAvailability */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__ionic_native_app_availability__["a" /* AppAvailability */]) === "function" && _p || Object, typeof (_q = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* Platform */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* Platform */]) === "function" && _q || Object, typeof (_r = typeof __WEBPACK_IMPORTED_MODULE_10__pata__["a" /* Pata */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_10__pata__["a" /* Pata */]) === "function" && _r || Object, typeof (_s = typeof __WEBPACK_IMPORTED_MODULE_5__ionic_native_launch_navigator__["a" /* LaunchNavigator */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__ionic_native_launch_navigator__["a" /* LaunchNavigator */]) === "function" && _s || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
+        __WEBPACK_IMPORTED_MODULE_8__services_doctor_service__["a" /* DoctorService */],
+        __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__["a" /* Geolocation */],
+        __WEBPACK_IMPORTED_MODULE_2__agm_core__["b" /* GoogleMapsAPIWrapper */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ToastController */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* PopoverController */],
+        __WEBPACK_IMPORTED_MODULE_4__angular_common_http__["a" /* HttpClient */],
+        __WEBPACK_IMPORTED_MODULE_9__ionic_storage__["b" /* Storage */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */],
+        __WEBPACK_IMPORTED_MODULE_7__ionic_native_contacts__["c" /* Contacts */],
+        __WEBPACK_IMPORTED_MODULE_6__ionic_native_app_availability__["a" /* AppAvailability */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* Platform */],
+        __WEBPACK_IMPORTED_MODULE_10__pata__["a" /* Pata */],
+        __WEBPACK_IMPORTED_MODULE_5__ionic_native_launch_navigator__["a" /* LaunchNavigator */]])
 ], Store);
 
-var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s;
 //# sourceMappingURL=store.js.map
 
 /***/ }),
@@ -2057,10 +2094,14 @@ SignupPage3 = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'page-signup3',template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\pages\signup\signup3.html"*/'<!--\n\n  Generated template for the LoginPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-content scrollX="false" scrollY="false" scroll="false" class="noscroll">\n\n  <div class="background"></div>\n\n  <div class="overlay"></div>\n\n  <ion-scroll scrollX="false" scrollY="true">\n\n    <img class="logo" src="assets/img/logo-camiongo.png" alt="">\n\n    <div class="description"><br />Registrado con éxito<br /><br /></div>\n\n    <p style="text-align:left;">Revisa tu email y confirma tu correo.<br /><br />Recuerda que no podrás operar en Camion Go hasta que un administrador valide tu cuenta, normalmente no toma más de 1 día.<br /><br /></p>\n\n    <div class="buttonWrapper">\n\n      <button class="buttonPinkOrange" ion-button round full (click)="next()">Volver al inicio</button>\n\n    </div>\n\n  </ion-scroll>\n\n</ion-content>\n\n'/*ion-inline-end:"D:\Mobile\sateliteapp\src\pages\signup\signup3.html"*/,
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_4__pata__["a" /* Pata */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__pata__["a" /* Pata */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_5__services_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__services_auth_service__["a" /* AuthService */]) === "function" && _f || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_4__pata__["a" /* Pata */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */],
+        __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */],
+        __WEBPACK_IMPORTED_MODULE_5__services_auth_service__["a" /* AuthService */]])
 ], SignupPage3);
 
-var _a, _b, _c, _d, _e, _f;
 //# sourceMappingURL=signup3.js.map
 
 /***/ }),
@@ -2247,10 +2288,19 @@ StoreProfile = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'page-storeprofile',template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\pages\storeprofile\storeprofile.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <button ion-button icon-only (click)="gotoHome()" class="my-style-for-modal">\n\n      <ion-icon class="ionicons" name="arrow-back"></ion-icon>\n\n    </button>\n\n    <ion-title>PERFIL DE TIENDA</ion-title>\n\n    <ion-buttons end>\n\n    <button (click)="presentMediaOptionsPopover($event)" class="buttonPinkOrange camera">\n\n      <ion-icon ios="ios-camera-outline" md="ios-camera-outline"></ion-icon>\n\n    </button>\n\n    </ion-buttons>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n<ion-content [ngClass]="{\'blurred\' : isBlurred}">\n\n\n\n  <div *ngIf="loaded">\n\n    <div class="mediaSlideContainer">\n\n        <div class="media" [style.background-image]="\'url(\' + (store.avatar != \'\' && store.avatar != null ? store.avatar : \'assets/img/default/avatar.png\' ) + \')\'" style="background-size: cover;"></div>\n\n    </div>\n\n    <div class="name">\n\n      {{ store.name }}\n\n    </div>\n\n    <div class="welcome">\n\n      Información de mi tienda\n\n    </div>\n\n\n\n    <div class="formContainer">\n\n      <ion-item>\n\n        <ion-label fixed>Nombre</ion-label>\n\n        <ion-input type="text" [(ngModel)]="store.name"></ion-input>\n\n      </ion-item>\n\n      <ion-item>\n\n        <ion-label fixed>Email tienda</ion-label>\n\n        <ion-input type="text" [(ngModel)]="store.email"></ion-input>\n\n      </ion-item>\n\n      <ion-item>\n\n        <ion-label fixed>Dirección</ion-label>\n\n        <ion-input type="text" [(ngModel)]="store.address"></ion-input>\n\n      </ion-item>\n\n\n\n      <ion-item>\n\n        <ion-label fixed>Villa</ion-label>\n\n        <ion-select [(ngModel)]="store.state" (ionChange)="refreshDistrito($event)">\n\n          <ion-option *ngFor="let state of states" [value]="state.id">{{state.name}}</ion-option>\n\n        </ion-select>\n\n      </ion-item>\n\n      <ion-item>\n\n        <ion-label fixed>Sector</ion-label>\n\n        <ion-select [(ngModel)]="store.city">\n\n          <ion-option *ngFor="let city of cities" [value]="city.id">{{city.name}}</ion-option>\n\n        </ion-select>\n\n      </ion-item>\n\n      <ion-item>\n\n        <ion-label fixed>Telefono</ion-label>\n\n        <ion-input type="tel" [(ngModel)]="store.phone"></ion-input>\n\n      </ion-item>\n\n      <ion-item>\n\n        <ion-label fixed>WhatsApp</ion-label>\n\n        <ion-input type="tel" [(ngModel)]="store.whatsapp"></ion-input>\n\n      </ion-item>\n\n      <ion-item>\n\n        <ion-label fixed>Sitio Web</ion-label>\n\n        <ion-input type="tel" [(ngModel)]="store.website"></ion-input>\n\n      </ion-item>      \n\n      <!--\n\n      <ion-item>\n\n        <ion-label fixed>Contraseña</ion-label>\n\n        <ion-label fixed><button (click)="changePassword()" class="buttonPinkOrange" style="top: 7px; left: 124px;" ion-button round>Cambiar</button></ion-label>\n\n      </ion-item>\n\n      -->\n\n      <div class="buttonWrapper">\n\n        <button (click)="save()" class="buttonPinkOrange" ion-button round>{{ \'PET.UPDATE_INFO\' | translate }}</button>\n\n      </div>\n\n    </div>\n\n  </div>\n\n</ion-content>\n\n'/*ion-inline-end:"D:\Mobile\sateliteapp\src\pages\storeprofile\storeprofile.html"*/,
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__ionic_storage__["b" /* Storage */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* NavParams */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["m" /* PopoverController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["m" /* PopoverController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* LoadingController */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_5__pata__["a" /* Pata */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__pata__["a" /* Pata */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_3__services_user_service__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__services_user_service__["a" /* UserService */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_4__services_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__services_auth_service__["a" /* AuthService */]) === "function" && _h || Object, typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_7__ionic_native_date_picker__["a" /* DatePicker */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7__ionic_native_date_picker__["a" /* DatePicker */]) === "function" && _j || Object, typeof (_k = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* ModalController */]) === "function" && _k || Object, typeof (_l = typeof __WEBPACK_IMPORTED_MODULE_9__angular_common__["d" /* DatePipe */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_9__angular_common__["d" /* DatePipe */]) === "function" && _l || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_1__ionic_storage__["b" /* Storage */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* NavParams */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["m" /* PopoverController */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* LoadingController */],
+        __WEBPACK_IMPORTED_MODULE_5__pata__["a" /* Pata */],
+        __WEBPACK_IMPORTED_MODULE_3__services_user_service__["a" /* UserService */],
+        __WEBPACK_IMPORTED_MODULE_4__services_auth_service__["a" /* AuthService */],
+        __WEBPACK_IMPORTED_MODULE_7__ionic_native_date_picker__["a" /* DatePicker */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* ModalController */],
+        __WEBPACK_IMPORTED_MODULE_9__angular_common__["d" /* DatePipe */]])
 ], StoreProfile);
 
-var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
 //# sourceMappingURL=storeprofile.js.map
 
 /***/ }),
@@ -2426,10 +2476,19 @@ StoreProducts = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'page-storeproducts',template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\pages\storeproducts\storeproducts.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <button ion-button icon-only (click)="gotoHome()" class="my-style-for-modal">\n\n      <ion-icon class="ionicons" name="arrow-back"></ion-icon>\n\n    </button>\n\n    <ion-title>MIS PRODUCTOS</ion-title>\n\n    <ion-buttons end>\n\n    <button class="">\n\n      <ion-icon name="add"></ion-icon>\n\n    </button>\n\n    </ion-buttons>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n<ion-content [ngClass]="{\'blurred\' : isBlurred}">\n\n\n\n  <div *ngIf="loaded">\n\n\n\n    <ion-list>\n\n      <ion-list-header>Productos</ion-list-header>\n\n      <ion-item-group reorder="true">\n\n        <ion-item *ngFor="let item of items">{{ item }}</ion-item>\n\n      </ion-item-group>\n\n    </ion-list>\n\n\n\n\n\n  </div>\n\n</ion-content>\n\n'/*ion-inline-end:"D:\Mobile\sateliteapp\src\pages\storeproducts\storeproducts.html"*/,
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__ionic_storage__["b" /* Storage */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* NavParams */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["m" /* PopoverController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["m" /* PopoverController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* LoadingController */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_5__pata__["a" /* Pata */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__pata__["a" /* Pata */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_3__services_user_service__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__services_user_service__["a" /* UserService */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_4__services_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__services_auth_service__["a" /* AuthService */]) === "function" && _h || Object, typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_7__ionic_native_date_picker__["a" /* DatePicker */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7__ionic_native_date_picker__["a" /* DatePicker */]) === "function" && _j || Object, typeof (_k = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* ModalController */]) === "function" && _k || Object, typeof (_l = typeof __WEBPACK_IMPORTED_MODULE_9__angular_common__["d" /* DatePipe */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_9__angular_common__["d" /* DatePipe */]) === "function" && _l || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_1__ionic_storage__["b" /* Storage */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* NavParams */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["m" /* PopoverController */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* LoadingController */],
+        __WEBPACK_IMPORTED_MODULE_5__pata__["a" /* Pata */],
+        __WEBPACK_IMPORTED_MODULE_3__services_user_service__["a" /* UserService */],
+        __WEBPACK_IMPORTED_MODULE_4__services_auth_service__["a" /* AuthService */],
+        __WEBPACK_IMPORTED_MODULE_7__ionic_native_date_picker__["a" /* DatePicker */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* ModalController */],
+        __WEBPACK_IMPORTED_MODULE_9__angular_common__["d" /* DatePipe */]])
 ], StoreProducts);
 
-var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
 //# sourceMappingURL=storeproducts.js.map
 
 /***/ }),
@@ -2605,10 +2664,19 @@ StoreServices = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'page-storeservices',template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\pages\storeservices\storeservices.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <button ion-button icon-only (click)="gotoHome()" class="my-style-for-modal">\n\n      <ion-icon class="ionicons" name="arrow-back"></ion-icon>\n\n    </button>\n\n    <ion-title>MIS SERVICIOS</ion-title>\n\n    <ion-buttons end>\n\n    <button class="">\n\n      <ion-icon name="add"></ion-icon>\n\n    </button>\n\n    </ion-buttons>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n<ion-content [ngClass]="{\'blurred\' : isBlurred}">\n\n\n\n  <div *ngIf="loaded">\n\n\n\n    <ion-list>\n\n      <ion-list-header>Productos</ion-list-header>\n\n      <ion-item-group reorder="true">\n\n        <ion-item *ngFor="let item of items">{{ item }}</ion-item>\n\n      </ion-item-group>\n\n    </ion-list>\n\n\n\n\n\n  </div>\n\n</ion-content>\n\n'/*ion-inline-end:"D:\Mobile\sateliteapp\src\pages\storeservices\storeservices.html"*/,
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__ionic_storage__["b" /* Storage */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* NavParams */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["m" /* PopoverController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["m" /* PopoverController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* LoadingController */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_5__pata__["a" /* Pata */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__pata__["a" /* Pata */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_3__services_user_service__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__services_user_service__["a" /* UserService */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_4__services_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__services_auth_service__["a" /* AuthService */]) === "function" && _h || Object, typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_7__ionic_native_date_picker__["a" /* DatePicker */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7__ionic_native_date_picker__["a" /* DatePicker */]) === "function" && _j || Object, typeof (_k = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* ModalController */]) === "function" && _k || Object, typeof (_l = typeof __WEBPACK_IMPORTED_MODULE_9__angular_common__["d" /* DatePipe */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_9__angular_common__["d" /* DatePipe */]) === "function" && _l || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_1__ionic_storage__["b" /* Storage */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* NavParams */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["m" /* PopoverController */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* LoadingController */],
+        __WEBPACK_IMPORTED_MODULE_5__pata__["a" /* Pata */],
+        __WEBPACK_IMPORTED_MODULE_3__services_user_service__["a" /* UserService */],
+        __WEBPACK_IMPORTED_MODULE_4__services_auth_service__["a" /* AuthService */],
+        __WEBPACK_IMPORTED_MODULE_7__ionic_native_date_picker__["a" /* DatePicker */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* ModalController */],
+        __WEBPACK_IMPORTED_MODULE_9__angular_common__["d" /* DatePipe */]])
 ], StoreServices);
 
-var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
 //# sourceMappingURL=storeservices.js.map
 
 /***/ }),
@@ -2620,8 +2688,7 @@ var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return JuntaVecinosPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_pet_service__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_news_service__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_news_service__ = __webpack_require__(48);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2634,65 +2701,51 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-
 var JuntaVecinosPage = (function () {
-    function JuntaVecinosPage(navCtrl, petService, newsService) {
+    function JuntaVecinosPage(navCtrl, newsService, loadingCtrl) {
         var _this = this;
         this.navCtrl = navCtrl;
-        this.petService = petService;
         this.newsService = newsService;
-        this.pets = [];
-        this.news = [];
-        this.pageNews = 1;
-        this.perPegeNews = 3;
+        this.loadingCtrl = loadingCtrl;
+        this.sections = [];
+        this.headers = [];
+        this.active = 0;
+        this.section = '';
+        this.image = '';
         this.isLoading = true;
         this.openTab = 'news';
-        this.newsService.geList(this.pageNews, this.perPegeNews).subscribe(function (news) {
+        this.load = this.loadingCtrl.create();
+        this.load.present();
+        this.newsService.getSections(0).subscribe(function (data) {
             _this.isLoading = false;
-            _this.pageNews++;
-            _this.news = news.data;
+            _this.sections = data.data;
+            _this.headers = data.headers;
+            _this.load.dismiss();
         }, function (error) {
             console.log(error);
         });
     }
-    JuntaVecinosPage.prototype.doRefresh = function (refresher) {
-        var _this = this;
-        this.pageNews = 1;
-        this.isLoading = true;
-        this.newsService.geList(this.pageNews, this.perPegeNews).subscribe(function (news) {
-            _this.isLoading = false;
-            _this.pageNews++;
-            _this.news = news.data;
-            refresher.complete();
-        }, function (error) {
-            console.log(error);
-            refresher.complete();
-        });
+    JuntaVecinosPage.prototype.changeActive = function (o) {
+        this.active = o.id;
+        this.section = o.name;
+        this.image = o.icon;
     };
-    JuntaVecinosPage.prototype.doInfinite = function (infiniteScroll) {
-        var _this = this;
-        console.log('doInfinite...');
-        this.newsService.geList(this.pageNews, this.perPegeNews).subscribe(function (news) {
-            _this.pageNews++;
-            news.data.forEach(function (value) {
-                _this.news.push(value);
-            });
-            infiniteScroll.complete();
-        }, function (error) {
-            console.log(error);
-            infiniteScroll.complete();
-        });
+    JuntaVecinosPage.prototype.changeBack = function () {
+        this.active = 0;
+        this.section = '';
+        this.image = '';
     };
     return JuntaVecinosPage;
 }());
 JuntaVecinosPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-        selector: 'page-juntavecinos',template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\pages\juntavecinos\juntavecinos.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <button ion-button menuToggle>\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n    <ion-title>JUNTA DE VECINOS</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n\n\n\n\n  <ion-toolbar>\n\n    <ion-segment [(ngModel)]="openTab" color="primary">\n\n      <ion-segment-button value="news">\n\n        Noticias\n\n      </ion-segment-button>\n\n      <ion-segment-button value="we">\n\n        Nosotros\n\n      </ion-segment-button>\n\n      <ion-segment-button value="residencia">\n\n        Cert. Residencia\n\n      </ion-segment-button>\n\n      <ion-segment-button value="faq">\n\n        Preguntas Frecuentes\n\n      </ion-segment-button>\n\n      <ion-segment-button value="denuncias">\n\n        Denuncias\n\n      </ion-segment-button>\n\n      <ion-segment-button value="contacto">\n\n        Contacto\n\n      </ion-segment-button>\n\n    </ion-segment>\n\n  </ion-toolbar>\n\n\n\n  <div *ngIf="openTab == \'news\'">\n\n    <ion-refresher (ionRefresh)="doRefresh($event)">\n\n      <ion-refresher-content></ion-refresher-content>\n\n    </ion-refresher>\n\n\n\n    <div class="subTitle">{{ \'HOME.NEWS\' | translate }}</div>\n\n    <news-preview *ngFor="let n of news" [news]="n"></news-preview>\n\n\n\n    <div *ngIf="isLoading">\n\n      <div class="timeline-wrapper">\n\n          <div class="timeline-item forceh">\n\n            <div class="animated-background">\n\n              <div class="background-masker news-img"></div>\n\n             </div>\n\n          </div>\n\n          <div class="timeline-item forceh">\n\n            <div class="animated-background">\n\n              <div class="background-masker news-img"></div>\n\n             </div>\n\n          </div>\n\n      </div>\n\n    </div>\n\n\n\n  	<ion-infinite-scroll (ionInfinite)="doInfinite($event)">\n\n  	<ion-infinite-scroll-content></ion-infinite-scroll-content>\n\n  	</ion-infinite-scroll>\n\n  \n\n  </div>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"D:\Mobile\sateliteapp\src\pages\juntavecinos\juntavecinos.html"*/
+        selector: 'page-juntavecinos',template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\pages\juntavecinos\juntavecinos.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <button ion-button menuToggle>\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n    <ion-title>JUNTA DE VECINOS</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n  \n\n  <div *ngIf="!isLoading">\n\n\n\n    <ion-grid>\n\n      <ion-row>\n\n        <ion-col col-4>\n\n          <img src="assets/img/junta.jpg" />\n\n        </ion-col>\n\n        <ion-col col-8 text-center>\n\n          <h2>{{headers.name}}</h2>\n\n          <p>{{headers.subtitle}}</p>\n\n        </ion-col>\n\n      </ion-row>\n\n    </ion-grid>\n\n\n\n    <div *ngIf="active == 0">\n\n      <ion-grid class="grid">\n\n        <ion-row>\n\n          <ion-col col-4 *ngFor="let s of sections">\n\n            <button (click)="changeActive(s)"> <div> <img src="{{s.icon}}" /> <br> <label>{{s.name}}</label> </div> </button>\n\n          </ion-col>\n\n        </ion-row>\n\n      </ion-grid>\n\n    </div>\n\n\n\n    <div *ngIf="active != 0">\n\n      <hr />\n\n      <ion-grid>\n\n        <ion-row>\n\n          <ion-col col-3>\n\n            <img src="{{image}}" />\n\n          </ion-col>\n\n          <ion-col col-9 text-center>\n\n            <h2>{{section}}</h2>\n\n            <div class="buttonWrapper">\n\n              <button (click)="changeBack()" class="buttonPinkOrange" ion-button round>Volver al inicio</button>\n\n            </div>\n\n          </ion-col>\n\n        </ion-row>\n\n      </ion-grid>\n\n    </div>\n\n\n\n  </div>\n\n\n\n  <!--\n\n  <div *ngIf="openTab == \'news\'">\n\n\n\n    <div class="subTitle">{{ \'HOME.NEWS\' | translate }}</div>\n\n    <news-preview *ngFor="let n of news" [news]="n"></news-preview>\n\n\n\n    <div *ngIf="isLoading">\n\n      <div class="timeline-wrapper">\n\n          <div class="timeline-item forceh">\n\n            <div class="animated-background">\n\n              <div class="background-masker news-img"></div>\n\n             </div>\n\n          </div>\n\n          <div class="timeline-item forceh">\n\n            <div class="animated-background">\n\n              <div class="background-masker news-img"></div>\n\n             </div>\n\n          </div>\n\n      </div>\n\n    </div>\n\n \n\n  </div>\n\n  -->\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"D:\Mobile\sateliteapp\src\pages\juntavecinos\juntavecinos.html"*/
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__services_pet_service__["a" /* PetService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_pet_service__["a" /* PetService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__services_news_service__["a" /* NewsService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__services_news_service__["a" /* NewsService */]) === "function" && _c || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_2__services_news_service__["a" /* NewsService */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */]])
 ], JuntaVecinosPage);
 
-var _a, _b, _c;
 //# sourceMappingURL=juntavecinos.js.map
 
 /***/ }),
@@ -2997,10 +3050,17 @@ PetMediaOptionsPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'page-pet-media-options',template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\pages\popovers\pet-media-options\pet-media-options.html"*/'<ion-list radio-group class="popover-page" style="border-radius: 10px">\n\n  <div class="close" (click)="close()">\n\n    <span class="icon-cerrar"></span>\n\n  </div>\n\n  <ion-item (click)="takePicture()" style="border-radius: 10px 10px 0px 0px;">\n\n    <ion-label>{{ \'POPOVER_PET_MEDIA_OPTIONS.TAKE_PICTURE\' | translate }}</ion-label>\n\n    <ion-note item-right>\n\n      <span class="icon-movil"></span>\n\n    </ion-note>\n\n  </ion-item>\n\n  <ion-item (click)="openGallery()">\n\n    <ion-label>{{ \'POPOVER_PET_MEDIA_OPTIONS.CHOOSE_FROM_ALBUM\' | translate }}</ion-label>\n\n    <ion-note item-right>\n\n      <span class="icon-album"></span>\n\n    </ion-note>\n\n  </ion-item>\n\n\n\n  <ion-item *ngIf="canMark" (click)="markMain(imagenIndex)">\n\n    <ion-label>{{ \'POPOVER_PET_MEDIA_OPTIONS.SET_AS_MAIN\' | translate }}</ion-label>\n\n    <ion-note item-right>\n\n      <span class="icon-principal"></span>\n\n    </ion-note>\n\n  </ion-item>\n\n\n\n  <ion-item *ngIf="canDelete" (click)="delete(imagenIndex)" style="border-radius: 10px;">\n\n    <ion-label>{{ \'POPOVER_PET_MEDIA_OPTIONS.DELETE_PICTURE\' | translate }}</ion-label>\n\n    <ion-note item-right>\n\n      <span class="icon-eliminar"></span>\n\n    </ion-note>\n\n  </ion-item>\n\n\n\n\n\n</ion-list>\n\n'/*ion-inline-end:"D:\Mobile\sateliteapp\src\pages\popovers\pet-media-options\pet-media-options.html"*/,
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["p" /* ViewController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["p" /* ViewController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_6__pata__["a" /* Pata */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__pata__["a" /* Pata */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* UserService */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_5__services_pet_service__["a" /* PetService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__services_pet_service__["a" /* PetService */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* LoadingController */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_native_camera__["a" /* Camera */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_native_camera__["a" /* Camera */]) === "function" && _h || Object, typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_1__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__ionic_storage__["b" /* Storage */]) === "function" && _j || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* NavParams */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["p" /* ViewController */],
+        __WEBPACK_IMPORTED_MODULE_6__pata__["a" /* Pata */],
+        __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* UserService */],
+        __WEBPACK_IMPORTED_MODULE_5__services_pet_service__["a" /* PetService */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* LoadingController */],
+        __WEBPACK_IMPORTED_MODULE_3__ionic_native_camera__["a" /* Camera */],
+        __WEBPACK_IMPORTED_MODULE_1__ionic_storage__["b" /* Storage */]])
 ], PetMediaOptionsPage);
 
-var _a, _b, _c, _d, _e, _f, _g, _h, _j;
 //# sourceMappingURL=pet-media-options.js.map
 
 /***/ }),
@@ -3126,10 +3186,9 @@ PetStatePage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'page-pet-state',template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\pages\popovers\pet-state\pet-state.html"*/'<ion-list radio-group class="popover-page" style="border-radius:10px;">\n\n  <div class="close" (click)="close()">\n\n    <span class="icon-cerrar"></span>\n\n  </div>\n\n  <ion-item *ngIf="!petMissing" (click)="setEstado(petId, \'lost\');" style="border-radius:10px;">\n\n    <ion-label>{{ \'POPOVER_PET_STATE.LOST_PET\' | translate }}</ion-label>\n\n    <ion-note item-right>\n\n      <span class="icon-lupa"></span>\n\n    </ion-note>\n\n  </ion-item>\n\n  <ion-item *ngIf="petMissing" (click)="setEstado(petId, \'found\');">\n\n    <ion-label>{{ \'POPOVER_PET_STATE.PET_FOUND\' | translate }}</ion-label>\n\n    <ion-note item-right>\n\n      <span class="icon-lupa"></span>\n\n    </ion-note>\n\n  </ion-item>\n\n  <ion-item *ngIf="!petLoving" (click)="setEstado(petId, \'searching\');">\n\n    <ion-label>{{ \'POPOVER_PET_STATE.I_AM_LOOKING_FOR_PARTNER\' | translate }}</ion-label>\n\n    <ion-note item-right>\n\n      <span class="icon-corazon"></span>\n\n    </ion-note>\n\n  </ion-item>\n\n  <ion-item *ngIf="petLoving" (click)="setEstado(petId, \'nosearching\');">\n\n    <ion-label>No estoy buscando pareja</ion-label>\n\n    <ion-note item-right>\n\n      <span class="icon-corazon"></span>\n\n    </ion-note>\n\n  </ion-item>\n\n  <ion-item (click)="setEstado(petId, \'remove\');" style="border-radius:10px;">\n\n    <ion-label>{{ \'POPOVER_PET_STATE.DELETE_PET\' | translate }}</ion-label>\n\n    <ion-note item-right>\n\n      <span class="icon-eliminar"></span>\n\n    </ion-note>\n\n  </ion-item>\n\n</ion-list>\n\n'/*ion-inline-end:"D:\Mobile\sateliteapp\src\pages\popovers\pet-state\pet-state.html"*/,
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* ViewController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* ViewController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__services_pet_service__["a" /* PetService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_pet_service__["a" /* PetService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_3__pata__["a" /* Pata */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__pata__["a" /* Pata */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_5__ionic_native_geolocation__["a" /* Geolocation */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__ionic_native_geolocation__["a" /* Geolocation */]) === "function" && _g || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* ViewController */], __WEBPACK_IMPORTED_MODULE_2__services_pet_service__["a" /* PetService */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_3__pata__["a" /* Pata */], __WEBPACK_IMPORTED_MODULE_5__ionic_native_geolocation__["a" /* Geolocation */]])
 ], PetStatePage);
 
-var _a, _b, _c, _d, _e, _f, _g;
 //# sourceMappingURL=pet-state.js.map
 
 /***/ }),
@@ -3366,10 +3425,15 @@ NuevoReq3 = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'page-nuevoreq3',template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\pages\requerimientos\nuevoreq3.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <button ion-button menuToggle>\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n    <ion-title>NUEVO (3/3)</ion-title>\n\n    <ion-buttons end>\n\n      <button ion-button icon-only (click)="cancelRequerimiento()">\n\n        <ion-icon name="close" class="icon-right-menu"></ion-icon>\n\n      </button>\n\n    </ion-buttons>\n\n\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n    <h3>Fechas</h3>\n\n    <ion-list>\n\n      <ion-item>\n\n        <ion-label>¿Cuando retirar?</ion-label>\n\n        <ion-datetime displayFormat="DD/MM/YYYY HH:mm" [(ngModel)]="extended.withdraw_time"></ion-datetime>\n\n      </ion-item>\n\n      <ion-item>\n\n        <ion-label>¿Cuando entregar?</ion-label>\n\n        <ion-datetime displayFormat="DD/MM/YYYY HH:mm" [(ngModel)]="extended.delivery_time"></ion-datetime>\n\n      </ion-item>\n\n      <ion-item>\n\n        <ion-label>Publicar hasta</ion-label>\n\n        <ion-datetime displayFormat="DD/MM/YYYY HH:mm" [(ngModel)]="extended.expire_at"></ion-datetime>\n\n      </ion-item>\n\n    </ion-list>\n\n\n\n    <h3>Transporte</h3>\n\n    <ion-list>\n\n      <ion-item>\n\n        <ion-label>Tipo Camión</ion-label>\n\n        <ion-select [(ngModel)]="extended.trucktype" okText="OK" cancelText="Cancelar">\n\n          <ion-option *ngFor="let truck of trucktype" [value]="truck.id">{{truck.value}}</ion-option>\n\n        </ion-select>\n\n      </ion-item>\n\n      <ion-item>\n\n        <ion-label>Tipo Carga</ion-label>\n\n        <ion-select [(ngModel)]="extended.loadtype" okText="OK" cancelText="Cancelar">\n\n          <ion-option *ngFor="let load of loadtype" [value]="load.id">{{service.value}}</ion-option>\n\n        </ion-select>\n\n      </ion-item>\n\n      <ion-item>\n\n        <ion-label>Servicio</ion-label>\n\n        <ion-select [(ngModel)]="extended.servicetype" okText="OK" cancelText="Cancelar">\n\n          <ion-option *ngFor="let service of servicetype" [value]="service.id">{{service.value}}</ion-option>\n\n        </ion-select>\n\n      </ion-item>\n\n    </ion-list>\n\n    \n\n    <h3>Carga</h3>\n\n    <ion-list>\n\n      <ion-item>\n\n        <ion-input type="number" [(ngModel)]="extended.weight" placeholder="Peso"></ion-input>\n\n      </ion-item>\n\n      <ion-item>\n\n        <ion-input type="number" [(ngModel)]="extended.volume" placeholder="Volumen"></ion-input>\n\n      </ion-item>\n\n      <ion-item>\n\n        <ion-input type="number" [(ngModel)]="extended.payment_days" placeholder="Plazos de pago"></ion-input>\n\n      </ion-item>\n\n      <ion-item>\n\n        <ion-input type="number" [(ngModel)]="extended.insurance_amount" placeholder="Monto seguro"></ion-input>\n\n      </ion-item>\n\n      <ion-item>\n\n        <ion-input type="tel" [(ngModel)]="extended.truck_qty" placeholder="Camiones necesarios"></ion-input>\n\n      </ion-item>\n\n    </ion-list>\n\n    \n\n    <h3>Otros detalles</h3>\n\n    <ion-list>\n\n      <ion-item>\n\n        <ion-input type="text" [(ngModel)]="extended.contact_name" placeholder="Nombre contacto"></ion-input>\n\n      </ion-item>\n\n      <ion-item>\n\n        <ion-input type="text" [(ngModel)]="extended.contact_phone" placeholder="Teléfono contacto"></ion-input>\n\n      </ion-item>\n\n      <ion-item>\n\n        <ion-input type="text" [(ngModel)]="extended.notes" placeholder="Detalles adicionales"></ion-input>\n\n      </ion-item>\n\n    </ion-list>\n\n    \n\n    <div class="buttonWrapper">\n\n      <button class="buttonPinkOrange" ion-button round full (click)="next()">Enviar requerimiento</button>\n\n    </div>\n\n\n\n</ion-content>'/*ion-inline-end:"D:\Mobile\sateliteapp\src\pages\requerimientos\nuevoreq3.html"*/
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__services_doctor_service__["a" /* DoctorService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__services_doctor_service__["a" /* DoctorService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_3__services_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__services_auth_service__["a" /* AuthService */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_2__pata__["a" /* Pata */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__pata__["a" /* Pata */]) === "function" && _g || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */],
+        __WEBPACK_IMPORTED_MODULE_4__services_doctor_service__["a" /* DoctorService */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */],
+        __WEBPACK_IMPORTED_MODULE_3__services_auth_service__["a" /* AuthService */],
+        __WEBPACK_IMPORTED_MODULE_2__pata__["a" /* Pata */]])
 ], NuevoReq3);
 
-var _a, _b, _c, _d, _e, _f, _g;
 //# sourceMappingURL=nuevoreq3.js.map
 
 /***/ }),
@@ -3417,10 +3481,11 @@ Clinic = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'page-clinic',template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\pages\clinic\clinic.html"*/'<ion-header>\n\n  <ion-navbar>\n\n\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content [ngClass]="{\'blurred\' : isBlurred}">\n\n  <div class="mediaSlideContainer">\n\n    <ion-slides pager slidesPerView="1">\n\n      <div class="media" [style.background-image]="\'url(\' + (clinic.avatar != \'\' && clinic.avatar != null ? staticUrl+clinic.avatar : \'assets/img/pet.png\' ) + \')\'" style="background-size: cover;"></div>\n\n    </ion-slides>\n\n  </div>\n\n\n\n  <div *ngIf="loaded">\n\n   <div class="formContainer">\n\n    <h5>{{clinic.name}}</h5>\n\n    <div class="subTitle">Información de la clínica</div>\n\n    <ion-item>\n\n      <ion-label fixed>Nombre</ion-label>\n\n      <ion-input type="text" [(ngModel)]="clinic.name" [disabled]="true"></ion-input>\n\n    </ion-item>\n\n    <ion-item>\n\n\n\n      <ion-label fixed>Dirección</ion-label>\n\n      <ion-input type="text" [(ngModel)]="clinic.address" [disabled]="true"></ion-input>\n\n    </ion-item>\n\n    <ion-item>\n\n      <ion-label fixed>Teléfono</ion-label>\n\n      <ion-input type="text" [(ngModel)]="clinic.phone" [disabled]="true"></ion-input>\n\n    </ion-item>\n\n    <ion-item>\n\n      <ion-label fixed>Sitio web</ion-label>\n\n      <ion-input type="text" [(ngModel)]="clinic.web" [disabled]="true"></ion-input>\n\n    </ion-item>\n\n    <ion-item>\n\n      <ion-label fixed>Horario:</ion-label>\n\n      <ion-input type="text" [(ngModel)]="clinic.schedule" [disabled]="true"></ion-input>    \n\n    </ion-item>\n\n    <ion-item>\n\n      <ion-label fixed>Email</ion-label>\n\n      <ion-input type="text" [(ngModel)]="clinic.email" [disabled]="true"></ion-input>\n\n    </ion-item>\n\n\n\n    <div class="buttonWrapper">\n\n      <button class="buttonPinkOrange" (click)="call()" ion-button round>Llamar a clínica</button>\n\n    </div>\n\n    <div class="buttonWrapper">\n\n      <button class="button2" (click)="email()" ion-button round>Enviar un email</button>\n\n    </div>\n\n\n\n  </div>\n\n\n\n  </div>\n\n</ion-content>\n\n'/*ion-inline-end:"D:\Mobile\sateliteapp\src\pages\clinic\clinic.html"*/,
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* PopoverController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* PopoverController */]) === "function" && _c || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* PopoverController */]])
 ], Clinic);
 
-var _a, _b, _c;
 //# sourceMappingURL=clinic.js.map
 
 /***/ }),
@@ -4141,15 +4206,26 @@ var MyApp = (function () {
 }());
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* Nav */]),
-    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* Nav */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* Nav */]) === "function" && _a || Object)
+    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* Nav */])
 ], MyApp.prototype, "nav", void 0);
 MyApp = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\app\app.html"*/'<ion-menu [content]="content" id="leftMenu" class="sidenav">\n\n\n\n  <div class="profile" *ngIf="user">\n\n    <div class="image" [style.background-image]="\'url(\' + user.avatar + \')\'" style="background-size: cover"></div>\n\n    <div class="name">{{ user.first_name }} {{ user.last_name }} {{ user.company }}</div>\n\n    <div class="scope" *ngIf="active">{{ active.name }} </div>\n\n    <button menuClose (click)="profile()" ion-button round color="light">MI PERFIL</button>\n\n  </div>\n\n\n\n  <div menuClose *ngFor="let p of pages" class="link" [ngClass]="{\'selected\' : p.selected}" (click)="openPage(p)">\n\n    <span>{{p.title}}</span>\n\n  </div>\n\n  \n\n  <div menuClose *ngFor="let zone of zones" class="link destacado" [ngClass]="{\'selected\' : selected}" (click)="switchActive(zone)">\n\n    <span><strong>Administrar</strong><br />{{zone.name}}</span>\n\n  </div>\n\n\n\n  <div menuClose class="link" (click)="contacto()">\n\n    <span>Contacto</span>\n\n  </div>\n\n\n\n  <div menuClose class="link" (click)="closeSession()">\n\n    <span>{{\'APP_MENU.CLOSE\' | translate }}</span>\n\n  </div>\n\n</ion-menu>\n\n\n\n<!-- Disable swipe-to-go-back because it\'s poor UX to combine STGB with side menus -->\n\n<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>\n\n'/*ion-inline-end:"D:\Mobile\sateliteapp\src\app\app.html"*/
     }),
-    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* Platform */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* Platform */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_4__ngx_translate_core__["c" /* TranslateService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__ngx_translate_core__["c" /* TranslateService */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* Config */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* Config */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_16__pata__["a" /* Pata */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_16__pata__["a" /* Pata */]) === "function" && _h || Object, typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _j || Object, typeof (_k = typeof __WEBPACK_IMPORTED_MODULE_14__services_user_service__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_14__services_user_service__["a" /* UserService */]) === "function" && _k || Object, typeof (_l = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */]) === "function" && _l || Object, typeof (_m = typeof __WEBPACK_IMPORTED_MODULE_15__services_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_15__services_auth_service__["a" /* AuthService */]) === "function" && _m || Object, typeof (_o = typeof __WEBPACK_IMPORTED_MODULE_17__ionic_native_fcm__["a" /* FCM */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_17__ionic_native_fcm__["a" /* FCM */]) === "function" && _o || Object, typeof (_p = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* MenuController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* MenuController */]) === "function" && _p || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* Platform */],
+        __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */],
+        __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */],
+        __WEBPACK_IMPORTED_MODULE_4__ngx_translate_core__["c" /* TranslateService */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* Config */],
+        __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */],
+        __WEBPACK_IMPORTED_MODULE_16__pata__["a" /* Pata */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
+        __WEBPACK_IMPORTED_MODULE_14__services_user_service__["a" /* UserService */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */],
+        __WEBPACK_IMPORTED_MODULE_15__services_auth_service__["a" /* AuthService */],
+        __WEBPACK_IMPORTED_MODULE_17__ionic_native_fcm__["a" /* FCM */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* MenuController */]])
 ], MyApp);
 
-var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p;
 //# sourceMappingURL=app.component.js.map
 
 /***/ }),
@@ -4202,10 +4278,10 @@ ListPage = ListPage_1 = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'page-list',template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\pages\list\list.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <button ion-button menuToggle>\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n    <ion-title>List</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n  <ion-list>\n\n    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">\n\n      <ion-icon [name]="item.icon" item-left></ion-icon>\n\n      {{item.title}}\n\n      <div class="item-note" item-right>\n\n        {{item.note}}\n\n      </div>\n\n    </button>\n\n  </ion-list>\n\n  <div *ngIf="selectedItem" padding>\n\n    You navigated here from <b>{{selectedItem.title}}</b>\n\n  </div>\n\n</ion-content>\n\n'/*ion-inline-end:"D:\Mobile\sateliteapp\src\pages\list\list.html"*/
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */]])
 ], ListPage);
 
-var ListPage_1, _a, _b;
+var ListPage_1;
 //# sourceMappingURL=list.js.map
 
 /***/ }),
@@ -4223,6 +4299,7 @@ var ListPage_1, _a, _b;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_doctor_service__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_storage__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_home_categoria__ = __webpack_require__(294);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_juntavecinos_juntavecinos__ = __webpack_require__(302);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4232,6 +4309,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -4330,11 +4408,14 @@ var HomePage = (function () {
         this.isSearching = false;
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_7__pages_home_categoria__["a" /* Categoria */], { categ: categ });
     };
+    HomePage.prototype.goToJJVV = function () {
+        this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_8__pages_juntavecinos_juntavecinos__["a" /* JuntaVecinosPage */]);
+    };
     return HomePage;
 }());
 HomePage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-        selector: 'page-home',template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\pages\home\home.html"*/'<!--\n\n  Generated template for the MyPetsPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n  <ion-navbar>\n\n    <button ion-button menuToggle>\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n    <ion-title>CIUDAD SATÉLITE</ion-title>\n\n    <ion-buttons end>\n\n      <button class="search-top" ion-button icon-only (click)="toggleSearch()">\n\n        <ion-icon name="search"></ion-icon>\n\n      </button>\n\n    </ion-buttons>\n\n  </ion-navbar>\n\n  <ion-toolbar class="searchbar" *ngIf="searchActive">\n\n      <ion-searchbar (ionClear)="onClear($event)" (ionInput)="onSearch($event)" [(ngModel)]="search" placeholder="Tiendas, productos y servicios en Ciudad Satélite"></ion-searchbar>\n\n  </ion-toolbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n\n\n<div *ngIf="isSearching" class="search-container">\n\n  <div *ngIf="isSearchingLoad">\n\n    <div text-center>\n\n      <ion-spinner></ion-spinner>\n\n      <br /><br />\n\n      <strong>Buscando</strong><br />\n\n      &quot;{{search}}&quot;\n\n    </div>\n\n  </div>\n\n  <div *ngIf="!isSearchingLoad">\n\n    <div *ngIf="searchStores.length == 0 && searchProducts.length == 0 && searchServices.length == 0 && !isSearchingLoad" text-center>\n\n      <ion-icon name="hand"></ion-icon>\n\n      <br />\n\n      <strong>No se encontraron resultados</strong><br />\n\n      &quot;{{search}}&quot;\n\n    </div>\n\n  </div>\n\n</div>\n\n\n\n<ion-refresher (ionRefresh)="doRefresh($event)" *ngIf="!isSearching">\n\n  <ion-refresher-content pullingText="actualizar..." refreshingText="actualizando..."></ion-refresher-content>\n\n</ion-refresher>\n\n\n\n<div *ngIf="isLoading">\n\n  <div class="timeline-wrapper">\n\n      <div class="timeline-item forceh">\n\n        <div class="animated-background">\n\n          <div class="background-masker news-icon"></div>\n\n         </div>\n\n      </div>\n\n  </div>\n\n  <div class="timeline-wrapper">\n\n      <div class="timeline-item forceh">\n\n        <div class="animated-background">\n\n          <div class="background-masker news-icon"></div>\n\n        </div>\n\n      </div>\n\n  </div>\n\n  <div class="timeline-wrapper">\n\n      <div class="timeline-item forceh">\n\n        <div class="animated-background">\n\n          <div class="background-masker news-icon"></div>\n\n        </div>\n\n      </div>\n\n  </div>\n\n  <div class="timeline-wrapper">\n\n      <div class="timeline-item forceh">\n\n        <div class="animated-background">\n\n          <div class="background-masker news-icon"></div>\n\n        </div>\n\n      </div>\n\n  </div>\n\n  <div class="timeline-wrapper">\n\n      <div class="timeline-item forceh">\n\n        <div class="animated-background">\n\n          <div class="background-masker news-icon"></div>\n\n        </div>\n\n      </div>\n\n  </div>\n\n  <div class="timeline-wrapper">\n\n      <div class="timeline-item forceh">\n\n        <div class="animated-background">\n\n          <div class="background-masker news-icon"></div>\n\n        </div>\n\n      </div>\n\n  </div>\n\n  <div class="timeline-wrapper">\n\n      <div class="timeline-item forceh">\n\n        <div class="animated-background">\n\n          <div class="background-masker news-icon"></div>\n\n        </div>\n\n      </div>\n\n  </div>\n\n  <div class="timeline-wrapper">\n\n      <div class="timeline-item forceh">\n\n        <div class="animated-background">\n\n          <div class="background-masker news-icon"></div>\n\n        </div>\n\n      </div>\n\n  </div>\n\n</div>\n\n\n\n<div *ngIf="!isLoading && !isSearching">\n\n\n\n  <ion-list>\n\n    <button ion-item detail-push *ngFor="let categ of categs" (click)="verCategoria(categ)">\n\n      <ion-avatar item-start>\n\n        <img src="{{categ.banner}}">\n\n      </ion-avatar>\n\n      <h2>{{categ.name}}</h2>\n\n      <h3>{{categ.total_stores}} tiendas</h3>\n\n      <!--<p>I\'ve had a pretty messed up day. If we just...</p>-->\n\n    </button>\n\n  </ion-list>\n\n</div>\n\n\n\n</ion-content>'/*ion-inline-end:"D:\Mobile\sateliteapp\src\pages\home\home.html"*/
+        selector: 'page-home',template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\pages\home\home.html"*/'<!--\n\n  Generated template for the MyPetsPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n  <ion-navbar>\n\n    <button ion-button menuToggle>\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n    <ion-title class="no-padding">CIUDAD SATÉLITE</ion-title>\n\n    <ion-buttons end>\n\n      <button class="search-top" ion-button icon-only (click)="toggleSearch()">\n\n        <ion-icon name="search"></ion-icon>\n\n      </button>\n\n    </ion-buttons>\n\n  </ion-navbar>\n\n  <ion-toolbar class="searchbar" *ngIf="searchActive">\n\n      <ion-searchbar (ionClear)="onClear($event)" (ionInput)="onSearch($event)" [(ngModel)]="search" placeholder="Tiendas, productos y servicios en Ciudad Satélite"></ion-searchbar>\n\n  </ion-toolbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n\n\n<img src="assets/img/jjvv.jpg" (click)="goToJJVV()" class="jjvv" />\n\n\n\n<div *ngIf="isSearching" class="search-container">\n\n  <div *ngIf="isSearchingLoad">\n\n    <div text-center>\n\n      <ion-spinner></ion-spinner>\n\n      <br /><br />\n\n      <strong>Buscando</strong><br />\n\n      &quot;{{search}}&quot;\n\n    </div>\n\n  </div>\n\n  <div *ngIf="!isSearchingLoad">\n\n    <div *ngIf="searchStores.length == 0 && searchProducts.length == 0 && searchServices.length == 0 && !isSearchingLoad" text-center>\n\n      <ion-icon name="hand"></ion-icon>\n\n      <br />\n\n      <strong>No se encontraron resultados</strong><br />\n\n      &quot;{{search}}&quot;\n\n    </div>\n\n  </div>\n\n</div>\n\n\n\n<ion-refresher (ionRefresh)="doRefresh($event)" *ngIf="!isSearching">\n\n  <ion-refresher-content pullingText="actualizar..." refreshingText="actualizando..."></ion-refresher-content>\n\n</ion-refresher>\n\n\n\n<div *ngIf="isLoading" class="pd20">\n\n  <div class="timeline-wrapper">\n\n      <div class="timeline-item forceh">\n\n        <div class="animated-background">\n\n          <div class="background-masker news-icon"></div>\n\n         </div>\n\n      </div>\n\n  </div>\n\n  <div class="timeline-wrapper">\n\n      <div class="timeline-item forceh">\n\n        <div class="animated-background">\n\n          <div class="background-masker news-icon"></div>\n\n        </div>\n\n      </div>\n\n  </div>\n\n  <div class="timeline-wrapper">\n\n      <div class="timeline-item forceh">\n\n        <div class="animated-background">\n\n          <div class="background-masker news-icon"></div>\n\n        </div>\n\n      </div>\n\n  </div>\n\n  <div class="timeline-wrapper">\n\n      <div class="timeline-item forceh">\n\n        <div class="animated-background">\n\n          <div class="background-masker news-icon"></div>\n\n        </div>\n\n      </div>\n\n  </div>\n\n  <div class="timeline-wrapper">\n\n      <div class="timeline-item forceh">\n\n        <div class="animated-background">\n\n          <div class="background-masker news-icon"></div>\n\n        </div>\n\n      </div>\n\n  </div>\n\n  <div class="timeline-wrapper">\n\n      <div class="timeline-item forceh">\n\n        <div class="animated-background">\n\n          <div class="background-masker news-icon"></div>\n\n        </div>\n\n      </div>\n\n  </div>\n\n  <div class="timeline-wrapper">\n\n      <div class="timeline-item forceh">\n\n        <div class="animated-background">\n\n          <div class="background-masker news-icon"></div>\n\n        </div>\n\n      </div>\n\n  </div>\n\n  <div class="timeline-wrapper">\n\n      <div class="timeline-item forceh">\n\n        <div class="animated-background">\n\n          <div class="background-masker news-icon"></div>\n\n        </div>\n\n      </div>\n\n  </div>\n\n</div>\n\n\n\n<div *ngIf="!isLoading && !isSearching">\n\n\n\n  <ion-list class="pd20">\n\n    <button ion-item detail-push *ngFor="let categ of categs" (click)="verCategoria(categ)">\n\n      <ion-avatar item-start>\n\n        <img src="{{categ.banner}}">\n\n      </ion-avatar>\n\n      <h2>{{categ.name}}</h2>\n\n      <h3>{{categ.total_stores}} tiendas</h3>\n\n      <!--<p>I\'ve had a pretty messed up day. If we just...</p>-->\n\n    </button>\n\n  </ion-list>\n\n</div>\n\n\n\n</ion-content>'/*ion-inline-end:"D:\Mobile\sateliteapp\src\pages\home\home.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */],
         __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */],
@@ -4408,16 +4489,15 @@ var OnboardingPage = (function () {
 }());
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('slider'),
-    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* Slides */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* Slides */]) === "function" && _a || Object)
+    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* Slides */])
 ], OnboardingPage.prototype, "slider", void 0);
 OnboardingPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'page-onboarding',template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\pages\onboarding\onboarding.html"*/'<!--\n\n  Generated template for the OnboardingPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-content>\n\n  <ion-slides #slider pager slidesPerView="1" (ionSlideWillChange)="onIonDrag($event)" >\n\n    <ion-slide id="slide1">\n\n      <div class="title">Únete</div>\n\n      <div class="card">\n\n        <img class="step-one" src="./assets/img/icon.route.png" alt="">\n\n        <div>Bienvenido a CamiónGo. Primera red de carga en tiempo real</div>\n\n        <div class="bold">Transportistas, Conductores y Generadores de carga</div>\n\n      </div>\n\n    </ion-slide>\n\n    <ion-slide id="slide2">\n\n      <div class="title">Generadores de Carga</div>\n\n      <div class="card">\n\n        <img class="step-two" src="./assets/img/icon.box.png" alt="">\n\n        <div>\n\n          Revisa <span class="bold">en línea y en tiempo real</span> transportistas disponibles en <span class="bold">todo Chile.</span>\n\n          Consigue transporte inmediato o deja un requerimiento y espera las mejores ofertas.          \n\n        </div>\n\n      </div>\n\n    </ion-slide>\n\n    <ion-slide id="slide3">\n\n      <div class="title">Transportistas</div>\n\n      <div class="card">\n\n        <img class="step-three" src="./assets/img/icon.deliveryman.png" alt="">\n\n        <div>\n\n          Haz ofertas a los requerimientos de carga, si tu oferta es buena, el viaje es tuyo. \n\n          <span class="bold">Ponte disponible</span> para recibir solicitudes de transporte cercanas a tí en tiempo real.\n\n        </div>\n\n      </div>\n\n    </ion-slide>\n\n  </ion-slides>\n\n  <div class="labels">\n\n    <div class="labelsWrapper">\n\n      <div id="skip" (click)="skip()">{{ \'ONBOARDING.SKIP\' | translate }}</div>\n\n      <div id="next" (click)="next()">{{ \'ONBOARDING.NEXT\' | translate }}</div>\n\n    </div>\n\n  </div>\n\n</ion-content>\n\n'/*ion-inline-end:"D:\Mobile\sateliteapp\src\pages\onboarding\onboarding.html"*/,
     }),
-    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* MenuController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* MenuController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */]) === "function" && _e || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* MenuController */], __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */]])
 ], OnboardingPage);
 
-var _a, _b, _c, _d, _e;
 //# sourceMappingURL=onboarding.js.map
 
 /***/ }),
@@ -4583,10 +4663,11 @@ CamionesPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'page-camiones',template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\pages\camiones\camiones.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <button ion-button menuToggle>\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n    <ion-title>CAMIONES Y REMOLQUES</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"D:\Mobile\sateliteapp\src\pages\camiones\camiones.html"*/
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__services_pet_service__["a" /* PetService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_pet_service__["a" /* PetService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__services_news_service__["a" /* NewsService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__services_news_service__["a" /* NewsService */]) === "function" && _c || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_2__services_pet_service__["a" /* PetService */],
+        __WEBPACK_IMPORTED_MODULE_3__services_news_service__["a" /* NewsService */]])
 ], CamionesPage);
 
-var _a, _b, _c;
 //# sourceMappingURL=camiones.js.map
 
 /***/ }),
@@ -4668,10 +4749,11 @@ ConductoresPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'page-conductores',template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\pages\conductores\conductores.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <button ion-button menuToggle>\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n    <ion-title>CONDUCTORES</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n\n\n\n\n</ion-content>'/*ion-inline-end:"D:\Mobile\sateliteapp\src\pages\conductores\conductores.html"*/
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__services_pet_service__["a" /* PetService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_pet_service__["a" /* PetService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__services_news_service__["a" /* NewsService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__services_news_service__["a" /* NewsService */]) === "function" && _c || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_2__services_pet_service__["a" /* PetService */],
+        __WEBPACK_IMPORTED_MODULE_3__services_news_service__["a" /* NewsService */]])
 ], ConductoresPage);
 
-var _a, _b, _c;
 //# sourceMappingURL=conductores.js.map
 
 /***/ }),
@@ -4753,10 +4835,11 @@ ServiciosPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'page-servicios',template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\pages\servicios\servicios.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <button ion-button menuToggle>\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n    <ion-title>MIS SERVICIOS</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n\n\n\n\n</ion-content>'/*ion-inline-end:"D:\Mobile\sateliteapp\src\pages\servicios\servicios.html"*/
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__services_pet_service__["a" /* PetService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_pet_service__["a" /* PetService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__services_news_service__["a" /* NewsService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__services_news_service__["a" /* NewsService */]) === "function" && _c || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_2__services_pet_service__["a" /* PetService */],
+        __WEBPACK_IMPORTED_MODULE_3__services_news_service__["a" /* NewsService */]])
 ], ServiciosPage);
 
-var _a, _b, _c;
 //# sourceMappingURL=servicios.js.map
 
 /***/ }),
@@ -4976,10 +5059,9 @@ Searching = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'page-searching',template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\pages\searching\searching.html"*/'<!--\n\n  Generated template for the MyPetsPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n  <ion-navbar>\n\n    <button ion-button menuToggle>\n\n      <span class="icon-menu"></span>\n\n    </button>\n\n    <ion-title>{{ \'APP_MENU.LOOKING_FOR_PARTNERS\' | translate }}</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n  <div class="over" *ngIf="over">\n\n    <ion-grid>\n\n      <ion-row>\n\n      <ion-col col-9><h1>Filtros de búsqueda</h1> </ion-col>\n\n      <ion-col col-3 text-center><img (click)="closeFiltros();" src="assets/img/close.png" style="max-width: 40px;" /></ion-col>\n\n      </ion-row>\n\n      <ion-row>\n\n        <ion-col col-6>Especie</ion-col>\n\n        <ion-col col-6>\n\n          <ion-select [(ngModel)]="search.type" (ionChange)="refreshRazas($event)">\n\n            <ion-option value="">Cualquiera</ion-option>\n\n            <ion-option *ngFor="let species of especies" [value]="species.id">{{species.species}}</ion-option>\n\n          </ion-select>\n\n        </ion-col>\n\n      </ion-row>\n\n      <ion-row>\n\n        <ion-col col-6>Raza</ion-col>\n\n        <ion-col col-6>\n\n          <ion-select [(ngModel)]="search.breed">\n\n            <ion-option value="">Cualquiera</ion-option>\n\n            <ion-option *ngFor="let breed of razas" [value]="breed.id">{{breed.breed}}</ion-option>\n\n          </ion-select>\n\n        </ion-col>\n\n      </ion-row>\n\n      <ion-row>\n\n        <ion-col col-6>Edad</ion-col>\n\n        <ion-col col-6>\n\n          <ion-select [(ngModel)]="search.age">\n\n            <ion-option value="">Cualquiera</ion-option>\n\n            <ion-option value="0-1">Menos de un año</ion-option>\n\n            <ion-option value="1-3">entre 1 y 3 años</ion-option>\n\n            <ion-option value="3-5">entre 3 y 5 años</ion-option>\n\n            <ion-option value="5-7">entre 5 y 7 años</ion-option>\n\n            <ion-option value="7-10">entre 7 y 10 años</ion-option>\n\n            <ion-option value="10-1000">más de 10 años</ion-option>\n\n          </ion-select>\n\n        </ion-col>\n\n      </ion-row>\n\n      <ion-row>\n\n        <ion-col col-6>Sexo</ion-col>\n\n        <ion-col col-6>\n\n          <ion-select [(ngModel)]="search.sex">\n\n            <ion-option value="">Cualquiera</ion-option>\n\n            <ion-option *ngFor="let sex of sexs" [value]="sex.id">{{sex.value}}</ion-option>\n\n          </ion-select>\n\n        </ion-col>\n\n      </ion-row>\n\n      <ion-row>\n\n        <ion-col col-6>Tamaño</ion-col>\n\n        <ion-col col-6>\n\n          <ion-select [(ngModel)]="search.size">\n\n            <ion-option value="">Cualquiera</ion-option>\n\n            <ion-option *ngFor="let size of sizes" [value]="size.id">{{size.value}}</ion-option>\n\n          </ion-select>\n\n        </ion-col>\n\n      </ion-row>\n\n    </ion-grid>\n\n  </div>\n\n  <div class="tabs t">\n\n    <button (click)="Tab1()" [ngClass]="tab1 ? \'activo\' : \'\'">Buscando pareja</button>\n\n    <button (click)="Tab2()" [ngClass]="tab2 ? \'activo\' : \'\'">Mis candidatos</button>\n\n  </div>\n\n\n\n  <div [hidden]="!tab1">\n\n    <!-- start Banner -->\n\n    <ins data-revive-zoneid="9" data-revive-id="9d276fa041e1067786e857fe85ab98f9"></ins>\n\n    <!-- end Banner -->\n\n\n\n    <div class="slidesWrapper">\n\n      <ion-slides pager slidesPerView="4.5">\n\n        <ion-slide *ngFor="let pet of pets">\n\n          <pet-preview [pet]="pet" (click)="activarMascota(pet)" [preventDetail]="true" [isDetail]="false" [isMe]="true" [add]="false"></pet-preview>\n\n        </ion-slide>\n\n      </ion-slides>\n\n    </div>\n\n\n\n    <div class="t" *ngIf="pets.length == 0" style="text-align:center;">\n\n      No tienes ninguna mascota, conoce candidatos agregando tu primera mascota en <b>Mis Mascotas</b>\n\n    </div>\n\n\n\n    <div class="f0" *ngIf="mascota_activa.id">\n\n      <ion-grid class="t">\n\n        <ion-row>\n\n        <ion-col col-9><h1>Actualmente buscando pareja para {{mascota_activa.name}}</h1> </ion-col>\n\n        <ion-col col-3 text-center><img (click)="openFiltros();"  src="assets/img/filter.png" style="max-width: 40px;" /></ion-col>\n\n        </ion-row>\n\n      </ion-grid>\n\n\n\n      <div text-center *ngIf="findpets.length == 0"><strong>No hay mascotas encontradas</strong></div>\n\n\n\n      <ion-row class="t" responsive-sm wrap>\n\n        <ion-col col-6 *ngFor="let pet of findpets">\n\n         <div class="rondme" (click)="goToDetail(pet)">\n\n          <div class="foto" [style.background-image]="\'url(\' + (pet.avatar != \'\' ? staticUrl+pet.avatar : \'assets/img/pet.png\' ) + \')\'" style="background-size: cover;">\n\n          </div>\n\n          <div class="name">{{pet.name}}</div>\n\n          <div class="sub">Especie: {{pet.type_name}}</div>\n\n          <div class="sub">Raza: {{pet.breed_name}}</div>\n\n          <div class="sub">Sexo: {{pet.sex_name}}</div>\n\n          <div class="sub">Tamaño: {{pet.size_name}}</div>\n\n          <div class="sub">Edad: {{getYearOld(pet.birthday)}}</div>\n\n           <div class="sub location"><ion-icon class="ion-icon" name="pin"></ion-icon>{{getLocation(pet)}}</div>\n\n         </div>\n\n        </ion-col>\n\n      </ion-row>\n\n    </div>\n\n\n\n  </div>\n\n  <div [hidden]="!tab2">\n\n    <!-- start Banner -->\n\n    <ins data-revive-zoneid="9" data-revive-id="9d276fa041e1067786e857fe85ab98f9"></ins>\n\n    <!-- end Banner -->\n\n    <div class="slidesWrapper">\n\n      <ion-slides pager slidesPerView="4.5">\n\n        <ion-slide *ngFor="let pet of pets">\n\n          <pet-preview [pet]="pet" (click)="activarMascota(pet)" [preventDetail]="true" [isDetail]="false" [isMe]="true" [add]="false"></pet-preview>\n\n        </ion-slide>\n\n      </ion-slides>\n\n    </div>\n\n\n\n    <div class="t" *ngIf="pets.length == 0" style="text-align:center;">\n\n      No tienes ninguna mascota, conoce candidatos agregando tu primera mascota en <b>Mis Mascotas</b>\n\n    </div>\n\n\n\n    <div class="f0" *ngIf="mascota_activa.id">\n\n      <ion-grid class="t" *ngIf="candidatos.length > 0">\n\n        <ion-row>\n\n          <ion-col col-12><h1>Estos son los candidatos para {{ mascota_activa.name }}</h1> </ion-col>\n\n\n\n          <ion-col col-6 *ngFor="let pet of candidatos">\n\n            <div class="rondme" (click)="goToLoveDetail(pet)">\n\n              <div class="foto" [style.background-image]="\'url(\' + (pet.avatar && pet.avatar != \'\' ? staticUrl+pet.avatar : \'assets/img/default/mascota.png\' ) + \')\'" style="background-size: cover;">\n\n              </div>\n\n              <div class="name">{{pet.name}}</div>\n\n              <div class="sub">Especie: {{pet.type_name}}</div>\n\n              <div class="sub">Raza: {{pet.breed_name}}</div>\n\n              <div class="sub">Sexo: {{pet.sex_name}}</div>\n\n              <div class="sub">Tamaño: {{pet.size_name}}</div>\n\n              <div class="sub">Edad: {{getYearOld(pet.birthday)}}</div>\n\n            </div>\n\n          </ion-col>\n\n\n\n        </ion-row>\n\n      </ion-grid>\n\n\n\n      <ion-grid class="t" *ngIf="candidatos.length == 0">\n\n        <ion-row>\n\n          <ion-col col-12><h1>No hay candidatos activos para {{ mascota_activa.name }}</h1> </ion-col>\n\n        </ion-row>\n\n      </ion-grid>\n\n\n\n    </div>\n\n  </div>\n\n</ion-content>\n\n\n\n'/*ion-inline-end:"D:\Mobile\sateliteapp\src\pages\searching\searching.html"*/,
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_6__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__ionic_storage__["b" /* Storage */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__services_pet_service__["a" /* PetService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__services_pet_service__["a" /* PetService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_native_barcode_scanner__["a" /* BarcodeScanner */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_native_barcode_scanner__["a" /* BarcodeScanner */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */]) === "function" && _f || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */], __WEBPACK_IMPORTED_MODULE_6__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_3__services_pet_service__["a" /* PetService */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_barcode_scanner__["a" /* BarcodeScanner */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */]])
 ], Searching);
 
-var _a, _b, _c, _d, _e, _f;
 //# sourceMappingURL=searching.js.map
 
 /***/ }),
@@ -5186,10 +5268,18 @@ Lost = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'page-lost',template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\pages\lost\lost.html"*/'<!--\n\n  Generated template for the MyPetsPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n  <ion-navbar>\n\n    <button ion-button menuToggle>\n\n      <span class="icon-menu"></span>\n\n    </button>\n\n    <ion-title>{{ \'APP_MENU.LOST_PETS\' | translate }}</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n  <div class="over" *ngIf="over">\n\n    <ion-grid>\n\n      <ion-row>\n\n      <ion-col col-9><h1>Filtros de búsqueda</h1> </ion-col>\n\n      <ion-col col-3 text-center><img (click)="closeFiltros();" src="assets/img/close.png" style="max-width: 40px;" /></ion-col>\n\n      </ion-row>\n\n      <ion-row>\n\n        <ion-col col-6>Especie</ion-col>\n\n        <ion-col col-6>\n\n          <ion-select [(ngModel)]="search.type" (ionChange)="refreshRazas($event)">\n\n            <ion-option value="">Cualquiera</ion-option>\n\n            <ion-option *ngFor="let species of especies" [value]="species.id">{{species.species}}</ion-option>\n\n          </ion-select>\n\n        </ion-col>\n\n      </ion-row>\n\n      <ion-row>\n\n        <ion-col col-6>Raza</ion-col>\n\n        <ion-col col-6>\n\n          <ion-select [(ngModel)]="search.breed">\n\n            <ion-option value="">Cualquiera</ion-option>\n\n            <ion-option *ngFor="let breed of razas" [value]="breed.id">{{breed.breed}}</ion-option>\n\n          </ion-select>\n\n        </ion-col>\n\n      </ion-row>\n\n      <ion-row>\n\n        <ion-col col-6>Edad</ion-col>\n\n        <ion-col col-6>\n\n          <ion-select [(ngModel)]="search.age">\n\n            <ion-option value="">Cualquiera</ion-option>\n\n            <ion-option value="0-1">Menos de un año</ion-option>\n\n            <ion-option value="1-3">entre 1 y 3 años</ion-option>\n\n            <ion-option value="3-5">entre 3 y 5 años</ion-option>\n\n            <ion-option value="5-7">entre 5 y 7 años</ion-option>\n\n            <ion-option value="7-10">entre 7 y 10 años</ion-option>\n\n            <ion-option value="10-1000">más de 10 años</ion-option>\n\n          </ion-select>\n\n        </ion-col>\n\n      </ion-row>\n\n      <ion-row>\n\n        <ion-col col-6>Sexo</ion-col>\n\n        <ion-col col-6>\n\n          <ion-select [(ngModel)]="search.sex">\n\n            <ion-option value="">Cualquiera</ion-option>\n\n            <ion-option *ngFor="let sex of sexs" [value]="sex.id">{{sex.value}}</ion-option>\n\n          </ion-select>\n\n        </ion-col>\n\n      </ion-row>\n\n      <ion-row>\n\n        <ion-col col-6>Tamaño</ion-col>\n\n        <ion-col col-6>\n\n          <ion-select [(ngModel)]="search.size">\n\n            <ion-option value="">Cualquiera</ion-option>\n\n            <ion-option *ngFor="let size of sizes" [value]="size.id">{{size.value}}</ion-option>\n\n          </ion-select>\n\n        </ion-col>\n\n      </ion-row>\n\n    </ion-grid>\n\n  </div>\n\n\n\n  <div class="tabs">\n\n    <button (click)="Tab1()" [ngClass]="tab1 ? \'activo\' : \'\'">Mascotas perdidas</button>\n\n    <button (click)="Tab2()" [ngClass]="tab2 ? \'activo\' : \'\'">Encontré una mascota</button>\n\n  </div>\n\n\n\n  <div *ngIf="tab1">\n\n    <div class="f0">\n\n      <!-- start Banner -->\n\n      <ins data-revive-zoneid="9" data-revive-id="9d276fa041e1067786e857fe85ab98f9"></ins>\n\n      <!-- end Banner -->\n\n      <div class="t">\n\n        <h1 *ngIf="mylostpets.length > 0"><br>MIS MASCOTAS PERDIDAS<br></h1>\n\n        <ion-row responsive-sm wrap>\n\n          <ion-col col-6 *ngFor="let pet of mylostpets">\n\n           <div class="rondme" (click)="goToDetail(pet,true)">\n\n            <div class="foto" [style.background-image]="\'url(\' + (pet.avatar != \'\' ? staticUrl+pet.avatar : \'assets/img/default/pet.png\' ) + \')\'" style="background-size: cover;">\n\n            </div>\n\n            <div class="name">{{pet.name}}</div>\n\n            <div class="sub">Especie: {{pet.type_name}}</div>\n\n            <div class="sub">Raza: {{pet.breed_name}}</div>\n\n            <div class="sub">Sexo: {{pet.sex_name}}</div>\n\n            <div class="sub">Tamaño: {{pet.size_name}}</div>\n\n            <div class="sub">Edad: {{pet.name}}</div>\n\n           </div>\n\n          </ion-col>\n\n        </ion-row>\n\n\n\n      <ion-grid class="t">\n\n        <ion-row>\n\n        <ion-col col-10><h1>MASCOTAS REPORTADAS COMO PERDIDAS</h1> </ion-col>\n\n        <ion-col col-2 text-center><img (click)="openFiltros();"  src="assets/img/filter.png" style="max-width: 40px; margin: 10px 0px;q" /></ion-col>\n\n        </ion-row>\n\n      </ion-grid>\n\n\n\n\n\n        <div text-center *ngIf="findpets.length == 0"><strong>No hay reportes</strong></div>\n\n\n\n        <ion-row responsive-sm wrap>\n\n          <ion-col col-6 *ngFor="let pet of findpets">\n\n           <div class="rondme" (click)="goToDetail(pet,false)">{{pet.avatar}}\n\n            <div class="foto" [style.background-image]="\'url(\' + (pet.avatar != \'\' ? staticUrl+pet.avatar : \'assets/img/default/pet.png\' ) + \')\'" style="background-size: cover;">\n\n            </div>\n\n            <div class="name">{{pet.name}}</div>\n\n            <div class="sub">Especie: {{pet.type_name}}</div>\n\n            <div class="sub">Raza: {{pet.breed_name}}</div>\n\n            <div class="sub">Sexo: {{pet.sex_name}}</div>\n\n            <div class="sub">Tamaño: {{pet.size_name}}</div>\n\n            <div class="sub">Edad: {{pet.name}}</div>\n\n           </div>\n\n          </ion-col>\n\n        </ion-row>\n\n\n\n      </div>\n\n    </div>\n\n  </div>\n\n  <div *ngIf="tab2">\n\n    <div class="f0">\n\n      <!-- start Banner -->\n\n      <ins data-revive-zoneid="9" data-revive-id="9d276fa041e1067786e857fe85ab98f9"></ins>\n\n      <!-- end Banner -->\n\n      <div class="t">\n\n        <h1><br>ENCONTRÉ UNA MASCOTA PERDIDA<br></h1>\n\n        <p>Si encontraste una mascota perdida, escanea su código adherido a su collar para avisar a su dueño.</p>\n\n        <div class="buttonWrapper">\n\n          <button class="buttonPinkOrange" (click)="scanear()" ion-button round>{{ \'BUTTONS.SCAN\' | translate }}</button>\n\n        </div>\n\n      </div>\n\n    </div>\n\n  </div>\n\n</ion-content>\n\n\n\n'/*ion-inline-end:"D:\Mobile\sateliteapp\src\pages\lost\lost.html"*/,
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__pata__["a" /* Pata */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__pata__["a" /* Pata */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__services_pet_service__["a" /* PetService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__services_pet_service__["a" /* PetService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_9__services_user_service__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_9__services_user_service__["a" /* UserService */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_native_barcode_scanner__["a" /* BarcodeScanner */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_native_barcode_scanner__["a" /* BarcodeScanner */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_7__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7__ionic_storage__["b" /* Storage */]) === "function" && _h || Object, typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* Platform */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* Platform */]) === "function" && _j || Object, typeof (_k = typeof __WEBPACK_IMPORTED_MODULE_8__ionic_native_geolocation__["a" /* Geolocation */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_8__ionic_native_geolocation__["a" /* Geolocation */]) === "function" && _k || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_3__pata__["a" /* Pata */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */],
+        __WEBPACK_IMPORTED_MODULE_4__services_pet_service__["a" /* PetService */],
+        __WEBPACK_IMPORTED_MODULE_9__services_user_service__["a" /* UserService */],
+        __WEBPACK_IMPORTED_MODULE_2__ionic_native_barcode_scanner__["a" /* BarcodeScanner */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */],
+        __WEBPACK_IMPORTED_MODULE_7__ionic_storage__["b" /* Storage */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* Platform */],
+        __WEBPACK_IMPORTED_MODULE_8__ionic_native_geolocation__["a" /* Geolocation */]])
 ], Lost);
 
-var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
 //# sourceMappingURL=lost.js.map
 
 /***/ }),
@@ -5351,10 +5441,15 @@ Doctor = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'page-doctor',template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\pages\doctor\doctor.html"*/'<!--\n\n  Generated template for the MyPetsPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n  <ion-navbar>\n\n    <button ion-button menuToggle>\n\n      <span class="icon-menu"></span>\n\n    </button>\n\n    <ion-title>{{ \'APP_MENU.VETERINARY_CLINICS\' | translate }}</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n  <ion-card class="overcard">\n\n    <ion-label> <ion-icon (click)="clearBuscar()" name="close"></ion-icon></ion-label>\n\n    <ion-item>\n\n      <ion-input (keyup)=moveTo(buscar) [(ngModel)]="buscar" type="text" placeholder="Buscar..."></ion-input>\n\n    </ion-item>\n\n  </ion-card>\n\n  \n\n  <div class="search_result" *ngIf="buscando.length > 0">\n\n    <ion-scroll>\n\n    <ul>\n\n      <li *ngFor="let b of buscando" (click)="gotoPlace(b)"><img src="assets/img/chevron.png" />&nbsp;&nbsp;{{b.description}}</li>\n\n    </ul>\n\n    </ion-scroll>\n\n  </div>\n\n\n\n  <div class="findme" (click)="gotome()">\n\n    <img src="assets/img/findme.png" />\n\n  </div>\n\n\n\n  <agm-map [latitude]="lat" [longitude]="lng" [styles]="styles" [zoom]="12" [zoomControl]="false" [streetViewControl]="false" (onMapLoad)=\'loadAPIWrapper($event)\'>\n\n    <agm-marker *ngFor="let pos of list" (markerClick)="mapclick(pos)" [iconUrl]="pos.icon" [latitude]="pos.lat" [longitude]="pos.lng">\n\n    </agm-marker>\n\n  </agm-map>\n\n  <!--\n\n  <agm-map *ngFor="let pos of list" [latitude]="lat" [longitude]="lng" [styles]="styles" [zoom]="15" [zoomControl]="false" [streetViewControl]="false" (onMapLoad)=\'loadAPIWrapper($event)\'>\n\n    <agm-marker (markerClick)="mapclick(pos)" [iconUrl]="pos.icon" [latitude]="pos.lat" [longitude]="pos.lng">\n\n    </agm-marker>\n\n  </agm-map>\n\n  -->\n\n  <div class="info_vet" *ngIf="verDetalle">\n\n\n\n    <div class="buttonWrapper">\n\n      <button class="buttonPinkOrange" (click)="vermas(activo)" ion-button round>Más información</button>\n\n    </div>\n\n\n\n    <div class="close" (click)="close()">\n\n      <span class="icon-cerrar"></span>\n\n    </div>\n\n\n\n    <div class="box">\n\n      <b>{{activo.name}}</b>\n\n      <br />\n\n      <small>{{activo.description}}</small>\n\n    </div>\n\n  </div>\n\n</ion-content>\n\n\n\n'/*ion-inline-end:"D:\Mobile\sateliteapp\src\pages\doctor\doctor.html"*/,
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_6__services_doctor_service__["a" /* DoctorService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__services_doctor_service__["a" /* DoctorService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__["a" /* Geolocation */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__["a" /* Geolocation */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_2__agm_core__["b" /* GoogleMapsAPIWrapper */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__agm_core__["b" /* GoogleMapsAPIWrapper */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ToastController */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_4__angular_common_http__["a" /* HttpClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__angular_common_http__["a" /* HttpClient */]) === "function" && _g || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */],
+        __WEBPACK_IMPORTED_MODULE_6__services_doctor_service__["a" /* DoctorService */],
+        __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__["a" /* Geolocation */],
+        __WEBPACK_IMPORTED_MODULE_2__agm_core__["b" /* GoogleMapsAPIWrapper */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ToastController */],
+        __WEBPACK_IMPORTED_MODULE_4__angular_common_http__["a" /* HttpClient */]])
 ], Doctor);
 
-var _a, _b, _c, _d, _e, _f, _g;
 //# sourceMappingURL=doctor.js.map
 
 /***/ }),
@@ -5574,10 +5669,16 @@ AdsMedia = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'page-ads',template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\pages\popovers\ads\ads.html"*/'<ion-list radio-group class="popover-page">\n\n  <div class="close" (click)="close()">\n\n    <span class="icon-cerrar"></span>\n\n  </div>\n\n  <a href="{{link}}" target="_blank">\n\n    <img src="{{image}}" />\n\n    <strong>{{title}}</strong>\n\n    <p>{{text}}</p>\n\n  </a>\n\n</ion-list>\n\n'/*ion-inline-end:"D:\Mobile\sateliteapp\src\pages\popovers\ads\ads.html"*/,
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["p" /* ViewController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["p" /* ViewController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_5__pata__["a" /* Pata */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__pata__["a" /* Pata */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* UserService */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* LoadingController */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_native_camera__["a" /* Camera */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_native_camera__["a" /* Camera */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_1__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__ionic_storage__["b" /* Storage */]) === "function" && _h || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* NavParams */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["p" /* ViewController */],
+        __WEBPACK_IMPORTED_MODULE_5__pata__["a" /* Pata */],
+        __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* UserService */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* LoadingController */],
+        __WEBPACK_IMPORTED_MODULE_3__ionic_native_camera__["a" /* Camera */],
+        __WEBPACK_IMPORTED_MODULE_1__ionic_storage__["b" /* Storage */]])
 ], AdsMedia);
 
-var _a, _b, _c, _d, _e, _f, _g, _h;
 //# sourceMappingURL=ads.js.map
 
 /***/ }),
@@ -5641,7 +5742,7 @@ var PetPreviewComponent = (function () {
 }());
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
-    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__models_pet_model__["a" /* Pet */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__models_pet_model__["a" /* Pet */]) === "function" && _a || Object)
+    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_2__models_pet_model__["a" /* Pet */])
 ], PetPreviewComponent.prototype, "pet", void 0);
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
@@ -5667,10 +5768,9 @@ PetPreviewComponent = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'pet-preview',template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\components\pet-preview\pet-preview.html"*/'<!-- Generated template for the PetPreviewComponent component -->\n\n<div *ngIf="add">\n\n  <div class="image" [style.background-image]="\'url(assets/img/add.png)\'" style="background-size: cover;"></div>\n\n  <div class="name">agregar mascota</div>\n\n</div>\n\n<div (click)="goToDetail()" *ngIf="!add">\n\n  <div class="image" [style.background-image]="\'url(\' + (pet.avatar != \'\' ? encodeURL(staticUrl+pet.avatar) : \'assets/img/default/mascota.png\' ) + \')\'" style="background-size: cover;"></div>\n\n  <div class="name">{{ pet.name }}</div>\n\n</div>\n\n'/*ion-inline-end:"D:\Mobile\sateliteapp\src\components\pet-preview\pet-preview.html"*/
     }),
-    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */]])
 ], PetPreviewComponent);
 
-var _a, _b;
 //# sourceMappingURL=pet-preview.js.map
 
 /***/ }),
@@ -6024,11 +6124,11 @@ var PetInfoFormComponent = (function () {
 }());
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
-    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_5__models_pet_model__["a" /* Pet */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__models_pet_model__["a" /* Pet */]) === "function" && _a || Object)
+    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_5__models_pet_model__["a" /* Pet */])
 ], PetInfoFormComponent.prototype, "pet", void 0);
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
-    __metadata("design:type", typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_5__models_pet_model__["a" /* Pet */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__models_pet_model__["a" /* Pet */]) === "function" && _b || Object)
+    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_5__models_pet_model__["a" /* Pet */])
 ], PetInfoFormComponent.prototype, "myPet", void 0);
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
@@ -6066,10 +6166,16 @@ PetInfoFormComponent = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'pet-info-form',template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\components\pet-info-form\pet-info-form.html"*/'<!-- Generated template for the PetInfoFormComponent component -->\n\n<div class="formContainer">\n\n  <div class="subTitle" *ngIf="!isDetail">{{ \'PET.PET_INFORMATION\' | translate }}</div>\n\n  <div class="subTitle" *ngIf="isDetail">{{ \'PET.MY_PET_INFORMATION\' | translate }}</div>\n\n  <ion-item>\n\n    <ion-label fixed>{{ \'PET.NAME\' | translate }}</ion-label>\n\n    <ion-input type="text" [(ngModel)]="pet.name" [disabled]="true" [hidden]="isEdit"></ion-input>\n\n    <ion-input type="text" [(ngModel)]="pet.name" [hidden]="!isEdit"></ion-input>\n\n  </ion-item>\n\n  <ion-item>\n\n\n\n    <ion-label fixed>{{ \'PET.SPECIES\' | translate }}</ion-label>\n\n    <ion-input type="text" [(ngModel)]="names.especie" [disabled]="true" [hidden]="isEdit"></ion-input>\n\n    <ion-select [(ngModel)]="pet.type" (ionChange)="refreshRazas($event)" [hidden]="!isEdit">\n\n      <ion-option *ngFor="let species of especies" [value]="species.id">{{species.species}}</ion-option>\n\n    </ion-select>\n\n  </ion-item>\n\n  <ion-item>\n\n    <ion-label fixed>{{ \'PET.BREED\' | translate }}</ion-label>\n\n    <ion-input type="text" [(ngModel)]="names.raza" [disabled]="true" [hidden]="isEdit"></ion-input>\n\n    <ion-select [(ngModel)]="pet.breed" [hidden]="!isEdit">\n\n      <ion-option *ngFor="let breed of razas" [value]="breed.id">{{breed.breed}}</ion-option>\n\n    </ion-select>\n\n  </ion-item>\n\n  <ion-item>\n\n    <ion-label fixed>{{ \'PET.BIRTH_DATE\' | translate }}</ion-label>\n\n\n\n    <ion-input type="text" [(ngModel)]="pet.birthday" [disabled]="true" [hidden]="isEdit"></ion-input>\n\n    <ion-input type="text" [(ngModel)]="pet.birthday" readonly [hidden]="!isEdit" (click)="setBirthDate(pet.birthday)"></ion-input>\n\n  </ion-item>\n\n\n\n  <ion-item>\n\n    <ion-label fixed>{{ \'PET.GENDER\' | translate }}</ion-label>\n\n    <ion-input type="text" [(ngModel)]="names.sex" [disabled]="true" [hidden]="isEdit"></ion-input>\n\n    <ion-select [(ngModel)]="pet.sex" [hidden]="!isEdit">\n\n      <ion-option *ngFor="let sex of sexs" [value]="sex.id">{{sex.value}}</ion-option>\n\n    </ion-select>\n\n  </ion-item>\n\n  <ion-item>\n\n    <ion-label fixed>{{ \'PET.COLOR\' | translate }}</ion-label>\n\n    <ion-input type="text" [(ngModel)]="names.color" [disabled]="true" [hidden]="isEdit"></ion-input>\n\n    <ion-select [(ngModel)]="pet.color" [hidden]="!isEdit">\n\n      <ion-option *ngFor="let color of colors" [value]="color.id">{{color.value}}</ion-option>\n\n    </ion-select>\n\n  </ion-item>\n\n  <ion-item>\n\n    <ion-label fixed>{{ \'PET.SIZE\' | translate }}</ion-label>\n\n    <ion-input type="text" [(ngModel)]="names.size" [disabled]="true" [hidden]="isEdit"></ion-input>\n\n    <ion-select [(ngModel)]="pet.size" [hidden]="!isEdit">\n\n      <ion-option *ngFor="let size of sizes" [value]="size.id">{{size.value}}</ion-option>\n\n    </ion-select>\n\n  </ion-item>\n\n  <!--\n\n  <div class="buttonWrapper" *ngIf="isEdit ">\n\n    <button class="buttonPinkOrange" ion-button round>{{ \'PET.UPDATE_INFO\' | translate }}</button>\n\n  </div>\n\n  -->\n\n  <div class="buttonWrapper" *ngIf="isNew">\n\n    <button class="buttonPinkOrange" (click)="add()" ion-button round>{{ \'PET.SAVE\' | translate }}</button>\n\n  </div>\n\n\n\n  <div class="buttonWrapper" *ngIf="isEdit && !isNew">\n\n    <button class="buttonPinkOrange" (click)="save()" ion-button round>{{ \'PET.UPDATE_INFO\' | translate }}</button>\n\n  </div>\n\n\n\n  <div class="buttonWrapper" *ngIf="isLove && !isMatch">\n\n    <button class="buttonPinkOrange" (click)="notificar()" ion-button round>Notificar al dueño</button>\n\n  </div>\n\n\n\n  <div class="buttonWrapper" *ngIf="isMatch">\n\n    <button class="buttonPinkOrange" (click)="aceptar()" ion-button round>Aceptar candidato</button>\n\n  </div>\n\n  <div class="buttonWrapper" *ngIf="isMatch">\n\n    <button class="button2" (click)="rechazar()" ion-button round>Rechazar candidato</button>\n\n  </div>\n\n\n\n  <div class="buttonWrapper" *ngIf="isLost && isFound && !isDetail">\n\n    <button class="buttonPinkOrange" (click)="owner(pet.user_id)" ion-button round>Ver datos del dueño</button>\n\n  </div>\n\n\n\n  <div class="buttonWrapper" *ngIf="isLost && !isFound && !isDetail">\n\n    <button class="buttonPinkOrange" (click)="scanear()" ion-button round>Escanear Mascota</button>\n\n  </div>\n\n</div>\n\n'/*ion-inline-end:"D:\Mobile\sateliteapp\src\components\pet-info-form\pet-info-form.html"*/
     }),
-    __metadata("design:paramtypes", [typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__pata__["a" /* Pata */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__pata__["a" /* Pata */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* LoadingController */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_9__services_pet_service__["a" /* PetService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_9__services_pet_service__["a" /* PetService */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_1__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__ionic_storage__["b" /* Storage */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_10__ionic_native_date_picker__["a" /* DatePicker */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_10__ionic_native_date_picker__["a" /* DatePicker */]) === "function" && _h || Object, typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["l" /* Platform */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["l" /* Platform */]) === "function" && _j || Object, typeof (_k = typeof __WEBPACK_IMPORTED_MODULE_11__ionic_native_barcode_scanner__["a" /* BarcodeScanner */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_11__ionic_native_barcode_scanner__["a" /* BarcodeScanner */]) === "function" && _k || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_4__pata__["a" /* Pata */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* LoadingController */],
+        __WEBPACK_IMPORTED_MODULE_9__services_pet_service__["a" /* PetService */],
+        __WEBPACK_IMPORTED_MODULE_1__ionic_storage__["b" /* Storage */],
+        __WEBPACK_IMPORTED_MODULE_10__ionic_native_date_picker__["a" /* DatePicker */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["l" /* Platform */],
+        __WEBPACK_IMPORTED_MODULE_11__ionic_native_barcode_scanner__["a" /* BarcodeScanner */]])
 ], PetInfoFormComponent);
 
-var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
 //# sourceMappingURL=pet-info-form.js.map
 
 /***/ }),
@@ -6133,16 +6239,16 @@ var NewsPreviewComponent = (function () {
 }());
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
-    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__models_news_model__["a" /* News */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__models_news_model__["a" /* News */]) === "function" && _a || Object)
+    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_2__models_news_model__["a" /* News */])
 ], NewsPreviewComponent.prototype, "news", void 0);
 NewsPreviewComponent = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'news-preview',template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\components\news-preview\news-preview.html"*/'<!-- Generated template for the NewsPreviewComponent component -->\n\n<div class="wrapper">\n\n  <div class="image" [style.background-image]="\'url(\' + news.image + \')\'" style="background-position: top; background-size: cover;" (click)="detalleNews(news);">\n\n    <div class="descriptionContainer">\n\n      <div class="title">{{ news.title }}</div>\n\n      <div class="date">{{ news.date | date }}</div>\n\n    </div>\n\n  </div>\n\n</div>\n\n'/*ion-inline-end:"D:\Mobile\sateliteapp\src\components\news-preview\news-preview.html"*/
     }),
-    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_5__services_news_service__["a" /* NewsService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__services_news_service__["a" /* NewsService */]) === "function" && _c || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_5__services_news_service__["a" /* NewsService */]])
 ], NewsPreviewComponent);
 
-var _a, _b, _c;
 //# sourceMappingURL=news-preview.js.map
 
 /***/ }),
@@ -6382,6 +6488,9 @@ var NewsService = (function (_super) {
             params: null
         });
     };
+    NewsService.prototype.getSections = function (id) {
+        return this.get('sections/' + id);
+    };
     return NewsService;
 }(__WEBPACK_IMPORTED_MODULE_3__base_service__["a" /* BaseService */]));
 NewsService = __decorate([
@@ -6604,10 +6713,16 @@ ProfileMedia = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'page-profile-media',template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\pages\popovers\profile-media\profile-media.html"*/'<ion-list radio-group class="popover-page">\n\n  <div class="close buttonPinkOrange" (click)="close()">\n\n    <ion-icon name="close"></ion-icon>\n\n  </div>\n\n  <ion-item (click)="takePicture()">\n\n    <ion-label>{{ \'POPOVER_PET_MEDIA_OPTIONS.TAKE_PICTURE\' | translate }}</ion-label>\n\n    <ion-note item-right>\n\n      <ion-icon name="camera"></ion-icon>\n\n    </ion-note>\n\n  </ion-item>\n\n  <ion-item (click)="openGallery()">\n\n    <ion-label>{{ \'POPOVER_PET_MEDIA_OPTIONS.CHOOSE_FROM_ALBUM\' | translate }}</ion-label>\n\n    <ion-note item-right>\n\n      <ion-icon name="folder-open"></ion-icon>\n\n    </ion-note>\n\n  </ion-item>\n\n  <!--\n\n  <ion-item>\n\n    <ion-label>{{ \'POPOVER_PET_MEDIA_OPTIONS.SET_AS_MAIN\' | translate }}</ion-label>\n\n    <ion-note item-right>\n\n      <span class="icon-principal"></span>\n\n    </ion-note>\n\n  </ion-item>\n\n\n\n  <ion-item>\n\n    <ion-label>{{ \'POPOVER_PET_MEDIA_OPTIONS.DELETE_PICTURE\' | translate }}</ion-label>\n\n    <ion-note item-right>\n\n      <span class="icon-eliminar"></span>\n\n    </ion-note>\n\n  </ion-item>\n\n  -->\n\n\n\n</ion-list>\n\n'/*ion-inline-end:"D:\Mobile\sateliteapp\src\pages\popovers\profile-media\profile-media.html"*/,
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["p" /* ViewController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["p" /* ViewController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_5__pata__["a" /* Pata */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__pata__["a" /* Pata */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* UserService */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* LoadingController */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_native_camera__["a" /* Camera */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_native_camera__["a" /* Camera */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_1__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__ionic_storage__["b" /* Storage */]) === "function" && _h || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* NavParams */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["p" /* ViewController */],
+        __WEBPACK_IMPORTED_MODULE_5__pata__["a" /* Pata */],
+        __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* UserService */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* LoadingController */],
+        __WEBPACK_IMPORTED_MODULE_3__ionic_native_camera__["a" /* Camera */],
+        __WEBPACK_IMPORTED_MODULE_1__ionic_storage__["b" /* Storage */]])
 ], ProfileMedia);
 
-var _a, _b, _c, _d, _e, _f, _g, _h;
 //# sourceMappingURL=profile-media.js.map
 
 /***/ }),
@@ -6689,10 +6804,14 @@ ChangePasswordPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'page-change-password',template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\pages\change-password\change-password.html"*/'<!--\n\n  Generated template for the ChangePasswordPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-buttons left>\n\n      <button ion-button icon-only (click)="viewCtrl.dismiss()" class="my-style-for-modal">\n\n        <ion-icon class="ionicons" name="arrow-back"></ion-icon>\n\n      </button>\n\n    </ion-buttons>\n\n    <ion-title>Cambiar Contraseña</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n\n\n<ion-content padding>\n\n\n\n\n\n  <div class="formContainer">\n\n    <ion-item>\n\n      <ion-label fixed>Contraseña Actual</ion-label>\n\n      <ion-input type="password" [(ngModel)]="user.currentPass"></ion-input>\n\n    </ion-item>\n\n    <ion-item>\n\n      <ion-label fixed>Nueva Contraseña</ion-label>\n\n      <ion-input type="password" [(ngModel)]="user.newPass"></ion-input>\n\n    </ion-item>\n\n    <ion-item>\n\n      <ion-label fixed>Repetir Nueva contraseña</ion-label>\n\n      <ion-input type="password" [(ngModel)]="user.repeatPass"></ion-input>\n\n    </ion-item>\n\n\n\n\n\n    <div class="buttonWrapper">\n\n      <button (click)="changePassword()" class="buttonPinkOrange" ion-button round>Cambiar Contraseña</button>\n\n    </div>\n\n  </div>\n\n\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"D:\Mobile\sateliteapp\src\pages\change-password\change-password.html"*/,
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__services_user_service__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_user_service__["a" /* UserService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__pata__["a" /* Pata */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__pata__["a" /* Pata */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* ViewController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* ViewController */]) === "function" && _f || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */],
+        __WEBPACK_IMPORTED_MODULE_2__services_user_service__["a" /* UserService */],
+        __WEBPACK_IMPORTED_MODULE_3__pata__["a" /* Pata */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* ViewController */]])
 ], ChangePasswordPage);
 
-var _a, _b, _c, _d, _e, _f;
 //# sourceMappingURL=change-password.js.map
 
 /***/ }),
@@ -6892,16 +7011,22 @@ var PetPage = (function () {
 }());
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* Slides */]),
-    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* Slides */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* Slides */]) === "function" && _a || Object)
+    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* Slides */])
 ], PetPage.prototype, "slides", void 0);
 PetPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'page-pet',template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\pages\pet\pet.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-buttons end style="margin-right: 20px;">\n\n    <button (click)="presentMediaOptionsPopover($event)" *ngIf="isDetail && !lastView" class="buttonPinkOrange camera">\n\n      <ion-icon ios="ios-camera-outline" md="ios-camera-outline"></ion-icon>\n\n    </button>\n\n    </ion-buttons>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content [ngClass]="{\'blurred\' : isBlurred}">\n\n  <div class="mediaSlideContainer">\n\n    <ion-slides #mySlider pager slidesPerView="1">\n\n      <ion-slide *ngFor="let imagen of imagenes">\n\n        <div class="media" [style.background-image]="\'url(\' + staticUrl+imagen + \')\'" style="background-size: cover;"></div>\n\n      </ion-slide>\n\n      <div class="media" *ngIf="imagenes.length == 0" [style.background-image]="\'url(\' + (pet.avatar != \'\' && pet.avatar != null ? staticUrl+pet.avatar : \'assets/img/pet.png\' ) + \')\'" style="background-size: cover;"></div>\n\n    </ion-slides>\n\n  </div>\n\n  <div class="name">\n\n    {{ pet.name }}\n\n    <button *ngIf="isDetail && !lastView" ion-button round class="options buttonPinkOrange" (click)="presentStatePopover($event)">{{ \'PET.EDIT_STATE\' | translate }}</button>\n\n  </div>\n\n  <div *ngIf="loaded && !lastView">\n\n    <qr-card *ngIf="isDetail && !isLost" [pet]="pet"></qr-card>\n\n    <pet-info-form [pet]="pet" [isDetail]="isDetail" [isLost]="isLost" [isLove]="isLove" [isMatch]="isMatch" [isEdit]="isEdit" [isFound]="isFound" [myPet]="myPet" [petId]="petId"></pet-info-form>\n\n  </div>\n\n\n\n  <div *ngIf="lastView" class="lastView">\n\n    <strong>PERDIDO EL {{pet.missing_at | date: \'dd/MM/yyyy\'}}</strong>\n\n    <br /><br />\n\n    <div *ngIf="lastSeen">\n\n      Tu mascota fue vista por última vez por {{lastSeenName}}. Puedes ver su información y contactarlo para saber más.\n\n      <br /><br />\n\n      <agm-map [latitude]="lastSeenLat" [longitude]="lastSeenLng" [styles]="styles" [zoom]="13" [zoomControl]="false" [streetViewControl]="false" (onMapLoad)=\'loadAPIWrapper($event)\'>\n\n        <agm-marker [iconUrl]="getmarkericon()" [latitude]="lastSeenLat" [longitude]="lastSeenLng">\n\n        </agm-marker>\n\n      </agm-map>\n\n      <br /><br />\n\n      <div class="buttonWrapper">\n\n        <button class="buttonPinkOrange" (click)="gotoUser(lastSeenID)" ion-button round>Ver información de contacto</button>\n\n      </div>\n\n    </div>\n\n\n\n\n\n    <div *ngIf="!lastSeen">\n\n    Lo sentimos, tu mascota aún no ha sido vista por nadie\n\n    </div>\n\n    <br /><br />\n\n    Si encontraste esta mascota y tiene su collar MiMaskot haz clic en el botón para notificar a su dueño.\n\n    <br /><br />\n\n    <button class="buttonWhiting" (click)="reportarComoEncontrado(pet.code)" ion-button round>Reportar como encontrado</button>\n\n  </div>\n\n</ion-content>\n\n'/*ion-inline-end:"D:\Mobile\sateliteapp\src\pages\pet\pet.html"*/,
     }),
-    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_6__services_pet_service__["a" /* PetService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__services_pet_service__["a" /* PetService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_5__services_user_service__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__services_user_service__["a" /* UserService */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* PopoverController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* PopoverController */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */]) === "function" && _h || Object, typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_8__pata__["a" /* Pata */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_8__pata__["a" /* Pata */]) === "function" && _j || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */],
+        __WEBPACK_IMPORTED_MODULE_6__services_pet_service__["a" /* PetService */],
+        __WEBPACK_IMPORTED_MODULE_5__services_user_service__["a" /* UserService */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* PopoverController */],
+        __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */],
+        __WEBPACK_IMPORTED_MODULE_8__pata__["a" /* Pata */]])
 ], PetPage);
 
-var _a, _b, _c, _d, _e, _f, _g, _h, _j;
 //# sourceMappingURL=pet.js.map
 
 /***/ }),
@@ -7154,10 +7279,14 @@ LoginPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'page-login',template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\pages\login\login.html"*/'<!--\n\n  Generated template for the LoginPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-content scrollX="false" scrollY="false" scroll="false" class="noscroll">\n\n	<ion-scroll scrollX="false" scrollY="true">\n\n	  <img class="logo" src="assets/img/logo.png" alt="">\n\n	  <div *ngIf="welcome0">\n\n		  <div class="welcome">Bienvenido</div>\n\n		  <div class="listWrapper" scroll="false">\n\n		    <ion-list>\n\n		      <ion-item>\n\n		        <ion-input type="email" [(ngModel)]="login.name" placeholder="Tu nombre y apellido"></ion-input>\n\n		      </ion-item>\n\n		      <ion-item>\n\n		        <ion-input type="text" [(ngModel)]="login.email" placeholder="Tu email"></ion-input>\n\n		      </ion-item>\n\n		    </ion-list>\n\n		  </div>\n\n		  <div class="buttonWrapper">\n\n		    <button class="buttonPinkOrange" ion-button round full (click)="next()">Comenzar</button>\n\n		  </div>\n\n	  </div>\n\n	  <div *ngIf="welcome1">\n\n		  <div class="welcome">Ingrese clave de acceso</div>\n\n		  <p>Esta cuenta está protegida por contraseña.</p>\n\n		  <div class="listWrapper" scroll="false">\n\n		    <ion-list>\n\n		      <ion-item>\n\n		        <ion-input type="password" [(ngModel)]="login.passwd" placeholder=""></ion-input>\n\n		      </ion-item>\n\n		    </ion-list>\n\n		  </div>\n\n		  <div class="buttonWrapper">\n\n		    <button class="buttonPinkOrange" ion-button round full (click)="withPassword()">Comenzar</button>\n\n		  </div>\n\n	  </div>\n\n\n\n	</ion-scroll>\n\n</ion-content>\n\n'/*ion-inline-end:"D:\Mobile\sateliteapp\src\pages\login\login.html"*/,
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__pata__["a" /* Pata */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__pata__["a" /* Pata */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_5__services_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__services_auth_service__["a" /* AuthService */]) === "function" && _f || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */],
+        __WEBPACK_IMPORTED_MODULE_4__pata__["a" /* Pata */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */],
+        __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */],
+        __WEBPACK_IMPORTED_MODULE_5__services_auth_service__["a" /* AuthService */]])
 ], LoginPage);
 
-var _a, _b, _c, _d, _e, _f;
 //# sourceMappingURL=login.js.map
 
 /***/ }),
