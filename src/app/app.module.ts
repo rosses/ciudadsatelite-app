@@ -45,7 +45,7 @@ import { JuntaVecinosPage } from '../pages/juntavecinos/juntavecinos';
 import { Searching } from '../pages/searching/searching';
 import { Lost } from '../pages/lost/lost';
 import { Owner } from '../pages/owner/owner';
-import { Doctor } from '../pages/doctor/doctor';
+import { Mapa } from '../pages/mapa/mapa';
 import { Clinic } from '../pages/clinic/clinic';
 import { StoreProfile } from '../pages/storeprofile/storeprofile';
 import { StoreProducts } from '../pages/storeproducts/storeproducts';
@@ -133,7 +133,7 @@ export function HttpLoaderFactory(http: Http) {
     ModalERR,
     Searching,
     Lost,
-    Doctor,
+    Mapa,
     Clinic,
     PetPreviewComponent,
     PetInfoFormComponent,
@@ -163,11 +163,11 @@ export function HttpLoaderFactory(http: Http) {
     }),
     OptionCoreModule.forRoot(environment.apiUrl),
     IonicStorageModule.forRoot({
-      name: "__mipata",
+      name: "__satelite",
       driverOrder: ['indexeddb','websql']
     }),
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyAIUiGU1E22l2VqgP5XXEK_Bt36n0eOcxE'
+      apiKey: 'AIzaSyBrUo6PdRjbF03o4_xeEoYl9kTD5V7pp7g'
     }),
     Ng2Rut
   ],
@@ -181,7 +181,7 @@ export function HttpLoaderFactory(http: Http) {
     MyPetsPage,
     Searching,
     Lost,
-    Doctor,
+    Mapa,
     Clinic,
     Owner,
     PetMediaOptionsPage,

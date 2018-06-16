@@ -14,6 +14,10 @@ export class DoctorService extends BaseService{
     super(http, storage);
   }
 
+  getMaps() {
+    return this.get('maps');
+  }
+
   getAll() {
     return this.get('categs');
   }

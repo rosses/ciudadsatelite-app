@@ -66705,133 +66705,6 @@ page-contacto ion-icon.ionicons {
   font-family: "Ionicons" !important;
 }
 
-page-doctor .content {
-  background-color: #FFF;
-}
-
-page-doctor agm-map {
-  height: calc(100vh - 60px);
-}
-
-page-doctor .scroll-content {
-  padding: 0 !important;
-}
-
-page-doctor .overcard {
-  z-index: 10000;
-  position: absolute;
-  width: 90%;
-}
-
-page-doctor .findme {
-  position: absolute;
-  z-index: 100;
-  right: 15px;
-  bottom: 15px;
-  max-width: 15vw;
-}
-
-page-doctor .findme img {
-  max-width: 100%;
-}
-
-page-doctor .overcard ion-icon {
-  font-family: "Ionicons" !important;
-}
-
-page-doctor .overcard ion-label {
-  z-index: 99999;
-  position: absolute;
-  padding-left: 14px;
-  color: gray;
-  padding-top: 0px;
-  font-size: 20px;
-  top: 0;
-  left: 0;
-}
-
-page-doctor .overcard ion-input {
-  padding-left: 15px;
-}
-
-page-doctor .search_result ion-scroll {
-  min-height: calc(100vh - 300px);
-}
-
-page-doctor .search_result .scroll-content {
-  margin-top: 0 !important;
-}
-
-page-doctor .search_result {
-  position: absolute;
-  z-index: 100;
-  top: 70px;
-  left: 0;
-  width: 100%;
-  background-color: white;
-  min-height: 200px;
-  max-height: calc(100vh - 300px);
-}
-
-page-doctor .search_result ul {
-  margin: 0;
-  padding: 0;
-}
-
-page-doctor .search_result ul li {
-  list-style: none;
-  font-size: 15px;
-  border-bottom: 1px solid gray;
-  padding: 15px;
-}
-
-page-doctor .info_vet {
-  position: absolute;
-  z-index: 100;
-  width: calc(100% - 40px);
-  margin-left: 20px;
-  bottom: 0px;
-}
-
-page-doctor .buttonWrapper {
-  margin-bottom: 15px;
-}
-
-page-doctor .info_vet .box {
-  padding: 25px;
-  background-color: white;
-}
-
-page-doctor .info_vet .buttonWrapper {
-  margin: auto;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-page-doctor .info_vet .buttonWrapper button {
-  margin: auto;
-  width: 80%;
-}
-
-page-doctor .close {
-  position: relative;
-  top: calc(-2rem);
-  left: calc(100% - 4rem);
-  font-size: 3.5rem;
-  text-align: center;
-  border-radius: 100%;
-  width: 4rem;
-  height: 4rem;
-  margin-bottom: -4rem;
-  color: white;
-  background: #E00072 !important;
-  /* Old browsers */
-  /* FF3.6-15 */
-  /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(135deg, #E00072 0%, #26bfca 100%) !important;
-  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-}
-
 page-categoria {
   background-color: #FFF;
 }
@@ -68008,6 +67881,141 @@ page-lost .over ion-select, page-lost .over ion-input {
   margin-top: 0;
   margin-bottom: 0;
   padding: 0 !important;
+}
+
+page-mapa .content {
+  background-color: #FFF;
+}
+
+page-mapa agm-map {
+  height: calc(100vh - 60px);
+}
+
+page-mapa .scroll-content {
+  padding: 0 !important;
+}
+
+page-mapa .overcard {
+  z-index: 10000;
+  position: absolute;
+  width: 90%;
+}
+
+page-mapa .findme {
+  position: absolute;
+  z-index: 100;
+  right: 15px;
+  bottom: 15px;
+  max-width: 15vw;
+}
+
+page-mapa .findme img {
+  max-width: 100%;
+}
+
+page-mapa .overcard ion-icon {
+  font-family: "Ionicons" !important;
+}
+
+page-mapa .overcard ion-label {
+  z-index: 99999;
+  position: absolute;
+  padding-left: 14px;
+  color: gray;
+  padding-top: 0px;
+  font-size: 20px;
+  top: 0;
+  left: 0;
+}
+
+page-mapa .overcard ion-input {
+  padding-left: 15px;
+}
+
+page-mapa .search_result ion-scroll {
+  min-height: calc(100vh - 300px);
+}
+
+page-mapa .search_result .scroll-content {
+  margin-top: 0 !important;
+}
+
+page-mapa .search_result {
+  position: absolute;
+  z-index: 100;
+  top: 70px;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  min-height: 200px;
+  max-height: calc(100vh - 300px);
+}
+
+page-mapa .search_result ul {
+  margin: 0;
+  padding: 0;
+}
+
+page-mapa .search_result ul li {
+  list-style: none;
+  font-size: 15px;
+  border-bottom: 1px solid gray;
+  padding: 15px;
+}
+
+page-mapa .info_vet {
+  position: absolute;
+  z-index: 100;
+  width: calc(100% - 40px);
+  margin-left: 20px;
+  bottom: 0px;
+}
+
+page-mapa .buttonWrapper {
+  margin-bottom: 15px;
+}
+
+page-mapa .info_vet .box {
+  padding: 25px;
+  background-color: white;
+}
+
+page-mapa .info_vet .box strong, page-mapa .info_vet .box b {
+  font-size: 18px;
+}
+
+page-mapa .info_vet .box small {
+  font-size: 15px;
+}
+
+page-mapa .info_vet .buttonWrapper {
+  margin: auto;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+page-mapa .info_vet .buttonWrapper button {
+  margin: auto;
+  width: 80%;
+}
+
+page-mapa .close {
+  position: relative;
+  top: calc(-2rem);
+  left: calc(100% - 4rem);
+  font-size: 3rem;
+  text-align: center;
+  border-radius: 100%;
+  width: 4rem;
+  height: 4rem;
+  margin-bottom: -4rem;
+  color: white;
+  background: #116362 !important;
+  /* Old browsers */
+  /* FF3.6-15 */
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(135deg, #116362 0%, #b2e098 100%) !important;
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 }
 
 page-my-pets .content {

@@ -18,7 +18,7 @@ import { ListPage } from '../pages/list/list';
 import { Searching } from '../pages/searching/searching';
 import { Lost } from '../pages/lost/lost';
 import { Clinic } from '../pages/clinic/clinic';
-import { Doctor } from '../pages/doctor/doctor';
+import { Mapa } from '../pages/mapa/mapa';
 import { StoreProfile } from '../pages/storeprofile/storeprofile';
 import { StoreProducts } from '../pages/storeproducts/storeproducts';
 import { StoreServices } from '../pages/storeservices/storeservices';
@@ -250,7 +250,8 @@ export class MyApp {
   reloadSide() {
 
     this.pages = [];
-    this.pages.push({ title: 'Inicio', component: HomePage, selected: true });
+    this.pages.push({ title: 'Categorias', component: HomePage, selected: true });
+    this.pages.push({ title: 'Mapa', component: Mapa, selected: false });
 
     if (this.active.profile_id == "2") { // Vendedor
       this.pages.push({ title: 'Perfil de tienda', component: StoreProfile, selected: false });

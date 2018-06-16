@@ -1,0 +1,66 @@
+<!--
+  Generated template for the MyPetsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>MAPA</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <!--
+  <ion-card class="overcard">
+    <ion-label> <ion-icon (click)="clearBuscar()" name="close"></ion-icon></ion-label>
+    <ion-item>
+      <ion-input (keyup)=moveTo(buscar) [(ngModel)]="buscar" type="text" placeholder="Buscar..."></ion-input>
+    </ion-item>
+  </ion-card>
+  
+  <div class="search_result" *ngIf="buscando.length > 0">
+    <ion-scroll>
+    <ul>
+      <li *ngFor="let b of buscando" (click)="gotoPlace(b)"><img src="assets/img/chevron.png" />&nbsp;&nbsp;{{b.description}}</li>
+    </ul>
+    </ion-scroll>
+  </div>
+  -->
+
+  <div class="findme" (click)="gotome()">
+    <img src="assets/img/findme.png" />
+  </div>
+
+  <agm-map [latitude]="lat" [longitude]="lng" [styles]="styles" [zoom]="16" [zoomControl]="false" [streetViewControl]="false" (onMapLoad)='loadAPIWrapper($event)'>
+    <agm-marker *ngFor="let pos of list" (markerClick)="mapclick(pos)" [iconUrl]="pos.icon" [latitude]="pos.lat" [longitude]="pos.lng">
+    </agm-marker>
+  </agm-map>
+  <!--
+  <agm-map *ngFor="let pos of list" [latitude]="lat" [longitude]="lng" [styles]="styles" [zoom]="15" [zoomControl]="false" [streetViewControl]="false" (onMapLoad)='loadAPIWrapper($event)'>
+    <agm-marker (markerClick)="mapclick(pos)" [iconUrl]="pos.icon" [latitude]="pos.lat" [longitude]="pos.lng">
+    </agm-marker>
+  </agm-map>
+  -->
+  <div class="info_vet" *ngIf="verDetalle">
+
+    <div class="buttonWrapper">
+      <button class="buttonPinkOrange" (click)="vermas(activo)" ion-button round>Más información</button>
+    </div>
+
+    <div class="close" (click)="close()">
+      <ion-icon name="close"></ion-icon>
+    </div>
+
+    <div class="box">
+      <b>{{activo.name}}</b>
+      <div *ngIf="isGps == 1">
+      <small>A {{showDistance(lat,lng,activo.lat,activo.lng)}} de tu ubicación actual</small>
+      </div>
+    </div>
+  </div>
+</ion-content>
+

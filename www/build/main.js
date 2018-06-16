@@ -3554,7 +3554,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_41__pages_searching_searching__ = __webpack_require__(425);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_42__pages_lost_lost__ = __webpack_require__(426);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_43__pages_owner_owner__ = __webpack_require__(167);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_44__pages_doctor_doctor__ = __webpack_require__(427);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_44__pages_mapa_mapa__ = __webpack_require__(438);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_45__pages_clinic_clinic__ = __webpack_require__(311);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_46__pages_storeprofile_storeprofile__ = __webpack_require__(299);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_47__pages_storeproducts_storeproducts__ = __webpack_require__(300);
@@ -3732,7 +3732,7 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_69__modals_err_err__["a" /* ModalERR */],
             __WEBPACK_IMPORTED_MODULE_41__pages_searching_searching__["a" /* Searching */],
             __WEBPACK_IMPORTED_MODULE_42__pages_lost_lost__["a" /* Lost */],
-            __WEBPACK_IMPORTED_MODULE_44__pages_doctor_doctor__["a" /* Doctor */],
+            __WEBPACK_IMPORTED_MODULE_44__pages_mapa_mapa__["a" /* Mapa */],
             __WEBPACK_IMPORTED_MODULE_45__pages_clinic_clinic__["a" /* Clinic */],
             __WEBPACK_IMPORTED_MODULE_60__components_pet_preview_pet_preview__["a" /* PetPreviewComponent */],
             __WEBPACK_IMPORTED_MODULE_61__components_pet_info_form_pet_info_form__["a" /* PetInfoFormComponent */],
@@ -3762,11 +3762,11 @@ AppModule = __decorate([
             }),
             __WEBPACK_IMPORTED_MODULE_6__option_core__["b" /* OptionCoreModule */].forRoot(__WEBPACK_IMPORTED_MODULE_67__environments_environment__["a" /* environment */].apiUrl),
             __WEBPACK_IMPORTED_MODULE_7__ionic_storage__["a" /* IonicStorageModule */].forRoot({
-                name: "__mipata",
+                name: "__satelite",
                 driverOrder: ['indexeddb', 'websql']
             }),
             __WEBPACK_IMPORTED_MODULE_8__agm_core__["a" /* AgmCoreModule */].forRoot({
-                apiKey: 'AIzaSyAIUiGU1E22l2VqgP5XXEK_Bt36n0eOcxE'
+                apiKey: 'AIzaSyBrUo6PdRjbF03o4_xeEoYl9kTD5V7pp7g'
             }),
             __WEBPACK_IMPORTED_MODULE_49_ng2_rut__["Ng2Rut"]
         ],
@@ -3780,7 +3780,7 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_24__pages_my_pets_my_pets__["a" /* MyPetsPage */],
             __WEBPACK_IMPORTED_MODULE_41__pages_searching_searching__["a" /* Searching */],
             __WEBPACK_IMPORTED_MODULE_42__pages_lost_lost__["a" /* Lost */],
-            __WEBPACK_IMPORTED_MODULE_44__pages_doctor_doctor__["a" /* Doctor */],
+            __WEBPACK_IMPORTED_MODULE_44__pages_mapa_mapa__["a" /* Mapa */],
             __WEBPACK_IMPORTED_MODULE_45__pages_clinic_clinic__["a" /* Clinic */],
             __WEBPACK_IMPORTED_MODULE_43__pages_owner_owner__["a" /* Owner */],
             __WEBPACK_IMPORTED_MODULE_51__pages_popovers_pet_media_options_pet_media_options__["a" /* PetMediaOptionsPage */],
@@ -3843,9 +3843,10 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_49_ng2_rut__["RutValidator"]
         ]
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_5__ngx_translate_core__["c" /* TranslateService */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_5__ngx_translate_core__["c" /* TranslateService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__ngx_translate_core__["c" /* TranslateService */]) === "function" && _a || Object])
 ], AppModule);
 
+var _a;
 //# sourceMappingURL=app.module.js.map
 
 /***/ }),
@@ -3896,6 +3897,9 @@ var DoctorService = (function (_super) {
         _this.storage = storage;
         return _this;
     }
+    DoctorService.prototype.getMaps = function () {
+        return this.get('maps');
+    };
     DoctorService.prototype.getAll = function () {
         return this.get('categs');
     };
@@ -3949,15 +3953,16 @@ DoctorService = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_login_login__ = __webpack_require__(87);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_contacto_contacto__ = __webpack_require__(165);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_home_home__ = __webpack_require__(42);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_storeprofile_storeprofile__ = __webpack_require__(299);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_storeproducts_storeproducts__ = __webpack_require__(300);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_storeservices_storeservices__ = __webpack_require__(301);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_juntavecinos_juntavecinos__ = __webpack_require__(302);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__services_user_service__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__services_auth_service__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pata__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__ionic_native_fcm__ = __webpack_require__(288);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__environments_environment__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_mapa_mapa__ = __webpack_require__(438);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_storeprofile_storeprofile__ = __webpack_require__(299);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_storeproducts_storeproducts__ = __webpack_require__(300);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_storeservices_storeservices__ = __webpack_require__(301);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_juntavecinos_juntavecinos__ = __webpack_require__(302);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__services_user_service__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__services_auth_service__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pata__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__ionic_native_fcm__ = __webpack_require__(288);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__environments_environment__ = __webpack_require__(12);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3967,6 +3972,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -4005,7 +4011,7 @@ var MyApp = (function () {
         this.rootPage = null;
         this.zones = [];
         this.initializeApp();
-        this.staticUrl = __WEBPACK_IMPORTED_MODULE_18__environments_environment__["a" /* environment */].staticUrl;
+        this.staticUrl = __WEBPACK_IMPORTED_MODULE_19__environments_environment__["a" /* environment */].staticUrl;
         this.userService.changeAvatar.subscribe(function (st) {
             console.log(st);
             _this.user.avatar = st;
@@ -4150,14 +4156,15 @@ var MyApp = (function () {
     };
     MyApp.prototype.reloadSide = function () {
         this.pages = [];
-        this.pages.push({ title: 'Inicio', component: __WEBPACK_IMPORTED_MODULE_9__pages_home_home__["a" /* HomePage */], selected: true });
+        this.pages.push({ title: 'Categorias', component: __WEBPACK_IMPORTED_MODULE_9__pages_home_home__["a" /* HomePage */], selected: true });
+        this.pages.push({ title: 'Mapa', component: __WEBPACK_IMPORTED_MODULE_10__pages_mapa_mapa__["a" /* Mapa */], selected: false });
         if (this.active.profile_id == "2") {
-            this.pages.push({ title: 'Perfil de tienda', component: __WEBPACK_IMPORTED_MODULE_10__pages_storeprofile_storeprofile__["a" /* StoreProfile */], selected: false });
-            this.pages.push({ title: 'Mis productos', component: __WEBPACK_IMPORTED_MODULE_11__pages_storeproducts_storeproducts__["a" /* StoreProducts */], selected: false });
-            this.pages.push({ title: 'Mis servicios', component: __WEBPACK_IMPORTED_MODULE_12__pages_storeservices_storeservices__["a" /* StoreServices */], selected: false });
+            this.pages.push({ title: 'Perfil de tienda', component: __WEBPACK_IMPORTED_MODULE_11__pages_storeprofile_storeprofile__["a" /* StoreProfile */], selected: false });
+            this.pages.push({ title: 'Mis productos', component: __WEBPACK_IMPORTED_MODULE_12__pages_storeproducts_storeproducts__["a" /* StoreProducts */], selected: false });
+            this.pages.push({ title: 'Mis servicios', component: __WEBPACK_IMPORTED_MODULE_13__pages_storeservices_storeservices__["a" /* StoreServices */], selected: false });
         }
         else {
-            this.pages.push({ title: 'Junta de vecinos', component: __WEBPACK_IMPORTED_MODULE_13__pages_juntavecinos_juntavecinos__["a" /* JuntaVecinosPage */], selected: false });
+            this.pages.push({ title: 'Junta de vecinos', component: __WEBPACK_IMPORTED_MODULE_14__pages_juntavecinos_juntavecinos__["a" /* JuntaVecinosPage */], selected: false });
         }
         this.zones = [];
         if (this.user.markets.length > 0) {
@@ -4217,12 +4224,12 @@ MyApp = __decorate([
         __WEBPACK_IMPORTED_MODULE_4__ngx_translate_core__["c" /* TranslateService */],
         __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* Config */],
         __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */],
-        __WEBPACK_IMPORTED_MODULE_16__pata__["a" /* Pata */],
+        __WEBPACK_IMPORTED_MODULE_17__pata__["a" /* Pata */],
         __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
-        __WEBPACK_IMPORTED_MODULE_14__services_user_service__["a" /* UserService */],
+        __WEBPACK_IMPORTED_MODULE_15__services_user_service__["a" /* UserService */],
         __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */],
-        __WEBPACK_IMPORTED_MODULE_15__services_auth_service__["a" /* AuthService */],
-        __WEBPACK_IMPORTED_MODULE_17__ionic_native_fcm__["a" /* FCM */],
+        __WEBPACK_IMPORTED_MODULE_16__services_auth_service__["a" /* AuthService */],
+        __WEBPACK_IMPORTED_MODULE_18__ionic_native_fcm__["a" /* FCM */],
         __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* MenuController */]])
 ], MyApp);
 
@@ -5284,176 +5291,6 @@ Lost = __decorate([
 
 /***/ }),
 
-/***/ 427:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Doctor; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__agm_core__ = __webpack_require__(61);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__ = __webpack_require__(46);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_common_http__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_clinic_clinic__ = __webpack_require__(311);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_doctor_service__ = __webpack_require__(36);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-
-
-var Doctor = (function () {
-    function Doctor(navCtrl, navParams, doctorService, geolocation, gMaps, toastCtrl, http) {
-        var _this = this;
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.doctorService = doctorService;
-        this.geolocation = geolocation;
-        this.gMaps = gMaps;
-        this.toastCtrl = toastCtrl;
-        this.http = http;
-        this.lat = -12.1215155;
-        this.lng = -77.0376026;
-        this.styles = [{ "featureType": "administrative", "elementType": "labels.text.fill", "stylers": [{ "color": "#6195a0" }] }, { "featureType": "landscape", "elementType": "all", "stylers": [{ "color": "#f2f2f2" }] }, { "featureType": "landscape", "elementType": "geometry.fill", "stylers": [{ "color": "#e7e5e3" }] }, { "featureType": "poi", "elementType": "all", "stylers": [{ "visibility": "off" }] }, { "featureType": "poi.park", "elementType": "geometry.fill", "stylers": [{ "color": "#e6f3d6" }, { "visibility": "on" }] }, { "featureType": "road", "elementType": "all", "stylers": [{ "saturation": "-100" }, { "lightness": 45 }, { "visibility": "simplified" }] }, { "featureType": "road.highway", "elementType": "all", "stylers": [{ "visibility": "simplified" }] }, { "featureType": "road.highway", "elementType": "geometry.fill", "stylers": [{ "color": "#e3d6c7" }, { "visibility": "simplified" }] }, { "featureType": "road.highway", "elementType": "labels.text", "stylers": [{ "color": "#4e4e4e" }] }, { "featureType": "road.arterial", "elementType": "geometry.fill", "stylers": [{ "color": "#f4f4f4" }] }, { "featureType": "road.arterial", "elementType": "labels.text.fill", "stylers": [{ "color": "#787878" }] }, { "featureType": "road.arterial", "elementType": "labels.icon", "stylers": [{ "visibility": "off" }] }, { "featureType": "transit", "elementType": "all", "stylers": [{ "visibility": "off" }] }, { "featureType": "water", "elementType": "all", "stylers": [{ "color": "#eaf6f8" }, { "visibility": "on" }] }, { "featureType": "water", "elementType": "geometry.fill", "stylers": [{ "color": "#eaf6f8" }] }];
-        this.list = [];
-        this.buscando = [];
-        this.buscar = '';
-        this.secureSearch = '';
-        this.activo = null;
-        this.verDetalle = false;
-        this.lat = -12.0732813;
-        this.lng = -77.0205312;
-        this.doctorService.getAll().subscribe(function (data) {
-            _this.list = data.data;
-            console.log(JSON.stringify(data));
-            console.log(JSON.stringify(data.data));
-            console.log(_this.list.length);
-            for (var i = 0; i < _this.list.length; i++) {
-                _this.list[i].lat = parseFloat(_this.list[i].lat);
-                _this.list[i].lng = parseFloat(_this.list[i].lng);
-                _this.list[i].icon = "assets/img/marker.png";
-            }
-        });
-    }
-    Doctor.prototype.clearBuscar = function () {
-        this.buscando = [];
-        this.lat = -12.0732813;
-        this.lng = -77.0205312;
-        this.buscar = '';
-    };
-    Doctor.prototype.gotome = function () {
-        var _this = this;
-        this.geolocation.getCurrentPosition().then(function (resp) {
-            _this.lat = resp.coords.latitude;
-            _this.lng = resp.coords.longitude;
-            //const position = new google.maps.LatLng(this.lat, this.lng);
-            //this.map.panTo(position);
-        }).catch(function (error) {
-            var toast = _this.toastCtrl.create({
-                message: 'No podemos activar tu GPS',
-                duration: 1500,
-                position: 'bottom',
-                showCloseButton: true,
-                closeButtonText: 'OK'
-            });
-            toast.present();
-        });
-    };
-    Doctor.prototype.search = function (event) {
-        console.log(event.target.value);
-    };
-    Doctor.prototype.mapclick = function (obj) {
-        this.activo = obj;
-        this.verDetalle = true;
-    };
-    Doctor.prototype.gotoPlace = function (o) {
-        var _this = this;
-        this.buscando = [];
-        this.buscar = o.description;
-        console.log(o);
-        this.http.get("http://www.enlanube.cl/apis/mipata.php?site=" + o.reference).subscribe(function (data) {
-            _this.lat = data.result.geometry.location.lat;
-            _this.lng = data.result.geometry.location.lng;
-        });
-    };
-    Doctor.prototype.close = function () {
-        this.verDetalle = false;
-    };
-    Doctor.prototype.moveTo = function (buscar) {
-        var _this = this;
-        this.secureSearch = buscar; // not used
-        if (buscar.length > 2) {
-            this.http.get("http://www.enlanube.cl/apis/mipata.php?buscar=" + buscar).subscribe(function (data) {
-                if (data.predictions) {
-                    _this.buscando = data.predictions;
-                }
-            });
-        }
-        else {
-            this.buscando = [];
-        }
-        // console.log('MOVETO:' + buscar);
-        // TODO: como no se conoce reply de API, se debe iterar los nombres, y mover el centro del mapa a esa coordenada.
-        // mover con:
-        /*setTimeout(() => {
-    
-            if (this.secureSearch == this.buscar) {
-                this.secureSearch = '';
-    
-                let toast = this.toastCtrl.create({
-                    message: 'No hay resultados para '+buscar,
-                    duration: 1500,
-                    position: 'bottom',
-                    showCloseButton: true,
-                    closeButtonText: 'OK'
-                });
-    
-                toast.onDidDismiss(() => {
-    
-                });
-    
-                toast.present();
-            }
-    
-        },1500);*/
-    };
-    Doctor.prototype.vermas = function (obj) {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_5__pages_clinic_clinic__["a" /* Clinic */], {
-            clinic: obj
-        });
-    };
-    Doctor.prototype.loadAPIWrapper = function (map) {
-        this.map = map;
-    };
-    return Doctor;
-}());
-Doctor = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-        selector: 'page-doctor',template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\pages\doctor\doctor.html"*/'<!--\n\n  Generated template for the MyPetsPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n  <ion-navbar>\n\n    <button ion-button menuToggle>\n\n      <span class="icon-menu"></span>\n\n    </button>\n\n    <ion-title>{{ \'APP_MENU.VETERINARY_CLINICS\' | translate }}</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n  <ion-card class="overcard">\n\n    <ion-label> <ion-icon (click)="clearBuscar()" name="close"></ion-icon></ion-label>\n\n    <ion-item>\n\n      <ion-input (keyup)=moveTo(buscar) [(ngModel)]="buscar" type="text" placeholder="Buscar..."></ion-input>\n\n    </ion-item>\n\n  </ion-card>\n\n  \n\n  <div class="search_result" *ngIf="buscando.length > 0">\n\n    <ion-scroll>\n\n    <ul>\n\n      <li *ngFor="let b of buscando" (click)="gotoPlace(b)"><img src="assets/img/chevron.png" />&nbsp;&nbsp;{{b.description}}</li>\n\n    </ul>\n\n    </ion-scroll>\n\n  </div>\n\n\n\n  <div class="findme" (click)="gotome()">\n\n    <img src="assets/img/findme.png" />\n\n  </div>\n\n\n\n  <agm-map [latitude]="lat" [longitude]="lng" [styles]="styles" [zoom]="12" [zoomControl]="false" [streetViewControl]="false" (onMapLoad)=\'loadAPIWrapper($event)\'>\n\n    <agm-marker *ngFor="let pos of list" (markerClick)="mapclick(pos)" [iconUrl]="pos.icon" [latitude]="pos.lat" [longitude]="pos.lng">\n\n    </agm-marker>\n\n  </agm-map>\n\n  <!--\n\n  <agm-map *ngFor="let pos of list" [latitude]="lat" [longitude]="lng" [styles]="styles" [zoom]="15" [zoomControl]="false" [streetViewControl]="false" (onMapLoad)=\'loadAPIWrapper($event)\'>\n\n    <agm-marker (markerClick)="mapclick(pos)" [iconUrl]="pos.icon" [latitude]="pos.lat" [longitude]="pos.lng">\n\n    </agm-marker>\n\n  </agm-map>\n\n  -->\n\n  <div class="info_vet" *ngIf="verDetalle">\n\n\n\n    <div class="buttonWrapper">\n\n      <button class="buttonPinkOrange" (click)="vermas(activo)" ion-button round>Más información</button>\n\n    </div>\n\n\n\n    <div class="close" (click)="close()">\n\n      <span class="icon-cerrar"></span>\n\n    </div>\n\n\n\n    <div class="box">\n\n      <b>{{activo.name}}</b>\n\n      <br />\n\n      <small>{{activo.description}}</small>\n\n    </div>\n\n  </div>\n\n</ion-content>\n\n\n\n'/*ion-inline-end:"D:\Mobile\sateliteapp\src\pages\doctor\doctor.html"*/,
-    }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */],
-        __WEBPACK_IMPORTED_MODULE_6__services_doctor_service__["a" /* DoctorService */],
-        __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__["a" /* Geolocation */],
-        __WEBPACK_IMPORTED_MODULE_2__agm_core__["b" /* GoogleMapsAPIWrapper */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ToastController */],
-        __WEBPACK_IMPORTED_MODULE_4__angular_common_http__["a" /* HttpClient */]])
-], Doctor);
-
-//# sourceMappingURL=doctor.js.map
-
-/***/ }),
-
 /***/ 430:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -6431,6 +6268,207 @@ QrCardComponent = __decorate([
 ], QrCardComponent);
 
 //# sourceMappingURL=qr-card.js.map
+
+/***/ }),
+
+/***/ 438:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Mapa; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__agm_core__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__ = __webpack_require__(46);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_common_http__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_home_store__ = __webpack_require__(295);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_doctor_service__ = __webpack_require__(36);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+var Mapa = (function () {
+    function Mapa(navCtrl, navParams, doctorService, geolocation, gMaps, toastCtrl, loadingCtrl, http) {
+        var _this = this;
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.doctorService = doctorService;
+        this.geolocation = geolocation;
+        this.gMaps = gMaps;
+        this.toastCtrl = toastCtrl;
+        this.loadingCtrl = loadingCtrl;
+        this.http = http;
+        this.lat = -12.1215155;
+        this.lng = -77.0376026;
+        this.styles = [{ "featureType": "administrative", "elementType": "labels.text.fill", "stylers": [{ "color": "#6195a0" }] }, { "featureType": "landscape", "elementType": "all", "stylers": [{ "color": "#f2f2f2" }] }, { "featureType": "landscape", "elementType": "geometry.fill", "stylers": [{ "color": "#e7e5e3" }] }, { "featureType": "poi", "elementType": "all", "stylers": [{ "visibility": "off" }] }, { "featureType": "poi.park", "elementType": "geometry.fill", "stylers": [{ "color": "#e6f3d6" }, { "visibility": "on" }] }, { "featureType": "road", "elementType": "all", "stylers": [{ "saturation": "-100" }, { "lightness": 45 }, { "visibility": "simplified" }] }, { "featureType": "road.highway", "elementType": "all", "stylers": [{ "visibility": "simplified" }] }, { "featureType": "road.highway", "elementType": "geometry.fill", "stylers": [{ "color": "#e3d6c7" }, { "visibility": "simplified" }] }, { "featureType": "road.highway", "elementType": "labels.text", "stylers": [{ "color": "#4e4e4e" }] }, { "featureType": "road.arterial", "elementType": "geometry.fill", "stylers": [{ "color": "#f4f4f4" }] }, { "featureType": "road.arterial", "elementType": "labels.text.fill", "stylers": [{ "color": "#787878" }] }, { "featureType": "road.arterial", "elementType": "labels.icon", "stylers": [{ "visibility": "off" }] }, { "featureType": "transit", "elementType": "all", "stylers": [{ "visibility": "off" }] }, { "featureType": "water", "elementType": "all", "stylers": [{ "color": "#eaf6f8" }, { "visibility": "on" }] }, { "featureType": "water", "elementType": "geometry.fill", "stylers": [{ "color": "#eaf6f8" }] }];
+        this.list = [];
+        this.buscando = [];
+        this.buscar = '';
+        this.secureSearch = '';
+        this.activo = null;
+        this.verDetalle = false;
+        this.isGps = 0;
+        this.lat = -33.5596087;
+        this.lng = -70.7867947;
+        this.isGps = 0;
+        this.gotome();
+        this.load = this.loadingCtrl.create();
+        this.load.present();
+        this.doctorService.getMaps().subscribe(function (data) {
+            _this.list = data.data;
+            for (var i = 0; i < _this.list.length; i++) {
+                _this.list[i].lat = parseFloat(_this.list[i].lat);
+                _this.list[i].lng = parseFloat(_this.list[i].lng);
+                if (_this.list[i].icon == '') {
+                    _this.list[i].icon = "assets/img/marker.png";
+                }
+            }
+            _this.load.dismiss();
+        });
+    }
+    Mapa.prototype.clearBuscar = function () {
+        this.buscando = [];
+        this.lat = -33.5596087;
+        this.lng = -70.7867947;
+        this.buscar = '';
+    };
+    Mapa.prototype.gotome = function () {
+        var _this = this;
+        this.geolocation.getCurrentPosition().then(function (resp) {
+            _this.lat = resp.coords.latitude;
+            _this.lng = resp.coords.longitude;
+            _this.isGps = 1;
+            console.log('Gps OK');
+            //const position = new google.maps.LatLng(this.lat, this.lng);
+            //this.map.panTo(position);
+        }).catch(function (error) {
+            var toast = _this.toastCtrl.create({
+                message: 'No podemos activar tu GPS, te hemos puesto en una ubicación central',
+                duration: 3500,
+                position: 'bottom',
+                showCloseButton: true,
+                closeButtonText: 'OK'
+            });
+            toast.present();
+            console.log('Gps Fail');
+        });
+    };
+    Mapa.prototype.search = function (event) {
+        console.log(event.target.value);
+    };
+    Mapa.prototype.mapclick = function (obj) {
+        this.activo = obj;
+        this.verDetalle = true;
+    };
+    Mapa.prototype.gotoPlace = function (o) {
+        var _this = this;
+        this.buscando = [];
+        this.buscar = o.description;
+        console.log(o);
+        this.http.get("http://www.enlanube.cl/apis/mipata.php?site=" + o.reference).subscribe(function (data) {
+            _this.lat = data.result.geometry.location.lat;
+            _this.lng = data.result.geometry.location.lng;
+        });
+    };
+    Mapa.prototype.close = function () {
+        this.verDetalle = false;
+    };
+    Mapa.prototype.moveTo = function (buscar) {
+        var _this = this;
+        this.secureSearch = buscar; // not used
+        if (buscar.length > 2) {
+            this.http.get("http://www.enlanube.cl/apis/mipata.php?buscar=" + buscar).subscribe(function (data) {
+                if (data.predictions) {
+                    _this.buscando = data.predictions;
+                }
+            });
+        }
+        else {
+            this.buscando = [];
+        }
+        // console.log('MOVETO:' + buscar);
+        // TODO: como no se conoce reply de API, se debe iterar los nombres, y mover el centro del mapa a esa coordenada.
+        // mover con:
+        /*setTimeout(() => {
+    
+            if (this.secureSearch == this.buscar) {
+                this.secureSearch = '';
+    
+                let toast = this.toastCtrl.create({
+                    message: 'No hay resultados para '+buscar,
+                    duration: 1500,
+                    position: 'bottom',
+                    showCloseButton: true,
+                    closeButtonText: 'OK'
+                });
+    
+                toast.onDidDismiss(() => {
+    
+                });
+    
+                toast.present();
+            }
+    
+        },1500);*/
+    };
+    Mapa.prototype.showDistance = function (lat1, lon1, lat2, lon2) {
+        var dif = this.calcCrow(lat1, lon1, lat2, lon2);
+        if (dif < 1) {
+            return Math.round(dif * 1000) + " mts";
+        }
+        else {
+            return (Math.round(dif * 10) / 10) + " kms";
+        }
+    };
+    Mapa.prototype.calcCrow = function (lat1, lon1, lat2, lon2) {
+        var R = 6371;
+        var dLat = this.toRad(lat2 - lat1);
+        var dLon = this.toRad(lon2 - lon1);
+        var lat1 = this.toRad(lat1);
+        var lat2 = this.toRad(lat2);
+        var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        var d = R * c;
+        return d;
+    };
+    Mapa.prototype.toRad = function (Value) {
+        return Value * Math.PI / 180;
+    };
+    Mapa.prototype.vermas = function (obj) {
+        /*this.navCtrl.push(Clinic, {
+          clinic: obj
+        });*/
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_5__pages_home_store__["a" /* Store */], {
+            store: obj
+        });
+    };
+    Mapa.prototype.loadAPIWrapper = function (map) {
+        this.map = map;
+    };
+    return Mapa;
+}());
+Mapa = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: 'page-mapa',template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\pages\mapa\mapa.html"*/'<!--\n\n  Generated template for the MyPetsPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n  <ion-navbar>\n\n    <button ion-button menuToggle>\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n    <ion-title>MAPA</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n  <!--\n\n  <ion-card class="overcard">\n\n    <ion-label> <ion-icon (click)="clearBuscar()" name="close"></ion-icon></ion-label>\n\n    <ion-item>\n\n      <ion-input (keyup)=moveTo(buscar) [(ngModel)]="buscar" type="text" placeholder="Buscar..."></ion-input>\n\n    </ion-item>\n\n  </ion-card>\n\n  \n\n  <div class="search_result" *ngIf="buscando.length > 0">\n\n    <ion-scroll>\n\n    <ul>\n\n      <li *ngFor="let b of buscando" (click)="gotoPlace(b)"><img src="assets/img/chevron.png" />&nbsp;&nbsp;{{b.description}}</li>\n\n    </ul>\n\n    </ion-scroll>\n\n  </div>\n\n  -->\n\n\n\n  <div class="findme" (click)="gotome()">\n\n    <img src="assets/img/findme.png" />\n\n  </div>\n\n\n\n  <agm-map [latitude]="lat" [longitude]="lng" [styles]="styles" [zoom]="16" [zoomControl]="false" [streetViewControl]="false" (onMapLoad)=\'loadAPIWrapper($event)\'>\n\n    <agm-marker *ngFor="let pos of list" (markerClick)="mapclick(pos)" [iconUrl]="pos.icon" [latitude]="pos.lat" [longitude]="pos.lng">\n\n    </agm-marker>\n\n  </agm-map>\n\n  <!--\n\n  <agm-map *ngFor="let pos of list" [latitude]="lat" [longitude]="lng" [styles]="styles" [zoom]="15" [zoomControl]="false" [streetViewControl]="false" (onMapLoad)=\'loadAPIWrapper($event)\'>\n\n    <agm-marker (markerClick)="mapclick(pos)" [iconUrl]="pos.icon" [latitude]="pos.lat" [longitude]="pos.lng">\n\n    </agm-marker>\n\n  </agm-map>\n\n  -->\n\n  <div class="info_vet" *ngIf="verDetalle">\n\n\n\n    <div class="buttonWrapper">\n\n      <button class="buttonPinkOrange" (click)="vermas(activo)" ion-button round>Más información</button>\n\n    </div>\n\n\n\n    <div class="close" (click)="close()">\n\n      <ion-icon name="close"></ion-icon>\n\n    </div>\n\n\n\n    <div class="box">\n\n      <b>{{activo.name}}</b>\n\n      <div *ngIf="isGps == 1">\n\n      <small>A {{showDistance(lat,lng,activo.lat,activo.lng)}} de tu ubicación actual</small>\n\n      </div>\n\n    </div>\n\n  </div>\n\n</ion-content>\n\n\n\n'/*ion-inline-end:"D:\Mobile\sateliteapp\src\pages\mapa\mapa.html"*/,
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_6__services_doctor_service__["a" /* DoctorService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__services_doctor_service__["a" /* DoctorService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__["a" /* Geolocation */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__["a" /* Geolocation */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_2__agm_core__["b" /* GoogleMapsAPIWrapper */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__agm_core__["b" /* GoogleMapsAPIWrapper */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ToastController */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_4__angular_common_http__["a" /* HttpClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__angular_common_http__["a" /* HttpClient */]) === "function" && _h || Object])
+], Mapa);
+
+var _a, _b, _c, _d, _e, _f, _g, _h;
+//# sourceMappingURL=mapa.js.map
 
 /***/ }),
 
