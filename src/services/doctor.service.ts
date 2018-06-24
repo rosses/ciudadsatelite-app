@@ -81,4 +81,16 @@ export class DoctorService extends BaseService{
     });
   }
 
+  addQty(id:number) {
+    this.post('store/see/'+id).subscribe((data: any)=> { console.log('addQty', data); });
+  }
+
+  addPd(id:number) {
+    this.post('store/pd/'+id).subscribe((data: any)=> { console.log('addPd', data); });
+  }
+
+  addSs(id:number) {
+    this.post('store/ss/'+id).subscribe((data: any)=> { console.log('addSs', data); });
+  }
+
 }

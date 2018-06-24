@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{detail.name}}</ion-title>
+    <ion-buttons end>
+        <button ion-button icon-only (click)="closeModal()">
+            <ion-icon item-right name="ios-close-outline"></ion-icon>
+        </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+    <div class="media" [style.background-image]="'url(' + (detail.avatar != '' && detail.avatar != null ? detail.avatar : 'assets/img/default/avatar.png' ) + ')'" style="background-size: cover;"></div>
+
+    <div class="pd20">
+    
+	    <h4>{{detail.name}}</h4>
+	    <h4 text-right *ngIf="detail.price > 0">$ {{detail.price | number:'1.0-0'}}</h4>
+	    <hr />
+		<div text-right>
+			<strong>Visto: </strong> {{detail.qty}} veces
+		</div>
+	    <hr />
+	    <p [innerHTML]="detail.description"></p>
+
+    </div>
+</ion-content>

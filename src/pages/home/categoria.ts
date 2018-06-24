@@ -63,6 +63,7 @@ export class Categoria {
   }
 
   goToStore(store: any) {
+    this.doctorService.addQty(store.id);
     this.navCtrl.push(Store, { store: store });
   }
   
@@ -115,6 +116,7 @@ export class Categoria {
     this.searchServices = [];
     this.search='';
     this.isSearching = false;
+    this.doctorService.addQty(store.id);
     this.navCtrl.push(Store, { store: store });
   }
   showMap(selStore:any) {

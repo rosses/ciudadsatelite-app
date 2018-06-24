@@ -46,10 +46,10 @@
 
         <ion-item *ngFor="let result of searchStores" (click)="goToStore(result);">
           <ion-row>
-            <ion-col col-2>
+            <ion-col col-4>
               <img src="{{result.icon}}" />
             </ion-col>
-            <ion-col col-10>
+            <ion-col col-8>
                 <strong>{{result.name}}</strong>
                 {{result.address}} {{(result.local != "" ? "Loc. "+result.local : "")}}
             </ion-col>
@@ -62,10 +62,10 @@
 
         <ion-item *ngFor="let result of searchProducts" (click)="goToStore(result.store);">
           <ion-row>
-            <ion-col col-2>
+            <ion-col col-4>
               <img src="{{result.avatar}}" />
             </ion-col>
-            <ion-col col-10>
+            <ion-col col-8>
                 <strong>{{result.name}}</strong>
                 <strong *ngIf="result.price != 0">$ {{result.price | number:'1.0-0' }}</strong>
                 Encontrado en <b>{{result.store.name}}</b>
@@ -79,10 +79,10 @@
 
         <ion-item *ngFor="let result of searchServices" (click)="goToStore(result.store);">
           <ion-row>
-            <ion-col col-2>
+            <ion-col col-4>
               <img src="{{result.avatar}}" />
             </ion-col>
-            <ion-col col-10>
+            <ion-col col-8>
                 <strong>{{result.name}}</strong>
                 <strong *ngIf="result.price != 0">$ {{result.price | number:'1.0-0' }}</strong>
                 Encontrado en <b>{{result.store.name}}</b>

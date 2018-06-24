@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, AlertController, NavParams, Platform, ToastController, LoadingController, PopoverController, Slides } from 'ionic-angular';
+import { NavController, AlertController, NavParams, Platform, ToastController, LoadingController, ModalController, PopoverController, Slides } from 'ionic-angular';
 import { GoogleMapsAPIWrapper  } from '@agm/core';
 import { Geolocation } from '@ionic-native/geolocation';
 import { HttpClient } from '@angular/common/http';
@@ -9,6 +9,8 @@ import { Contacts, Contact, ContactFieldType, ContactFindOptions, ContactField, 
 
 import { DoctorService } from '../../services/doctor.service';
 import { Storage } from '@ionic/storage';
+import { ModalDetail } from '../../modals/detail/detail';
+
 import { Pata } from '../../pata';
 
 declare let cordova: any;
@@ -46,6 +48,7 @@ export class Store {
     private storage: Storage,
     private loadingCtrl: LoadingController,
     private contacts: Contacts,
+    public modalCtrl: ModalController,
     private appAvailability: AppAvailability, 
     private platform: Platform,
     public service: Pata,
@@ -83,6 +86,24 @@ export class Store {
     };
 
     this.launchNavigator.navigate([parseFloat(this.store.lat), parseFloat(this.store.lng)], options);
+
+  }
+
+  detail(detail: any, type: string) { 
+    
+    console.log('detail open: '+type+' | '+detail.id);
+    if (type == 'service') {
+      this.doctorService.addSs(detail.id);
+    }
+    else if (type == 'product') {
+     this.doctorService.addPd(detail.id);
+    }
+
+    let dtModal = this.modalCtrl.create(ModalDetail, { detail: detail });
+    dtModal.present();
+    dtModal.onDidDismiss(data => {
+     
+    });
 
   }
   email() {

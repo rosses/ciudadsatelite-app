@@ -66145,6 +66145,29 @@ news-preview .descriptionContainer .date {
   font-weight: 400;
 }
 
+page-modalDetail .media {
+  background-position: center;
+  height: 30vh;
+}
+
+page-modalDetail .scroll-content {
+  background-color: #FFF;
+}
+
+page-modalDetail .pd20 {
+  padding: 20px;
+}
+
+page-modalDetail ion-title {
+  padding: 0px !important;
+  padding-right: 40px !important;
+  padding-left: 20px !important;
+}
+
+page-modalDetail p {
+  text-align: justify;
+}
+
 page-modalERR ion-content {
   background-color: transparent !important;
 }
@@ -66442,10 +66465,15 @@ page-categoria .list-store .item h3 {
 
 page-categoria .list-store .mts {
   line-height: 14px;
+  font-size: 12px;
 }
 
 page-categoria .search-results .item-inner {
   border: 0 !important;
+}
+
+page-categoria .search-results strong {
+  display: block;
 }
 
 page-categoria .no-items {
@@ -66555,6 +66583,10 @@ page-home ion-refresher-content {
 
 page-home .search-results .item-inner {
   border: 0 !important;
+}
+
+page-home .search-results strong {
+  display: block;
 }
 
 page-home .list > .item-block:first-child {
@@ -66956,6 +66988,10 @@ page-store .background-masker.news-icon2 {
   left: 85%;
   width: 5%;
   height: 30px;
+}
+
+page-store .distance {
+  font-size: 12px;
 }
 
 page-juntavecinos .content {

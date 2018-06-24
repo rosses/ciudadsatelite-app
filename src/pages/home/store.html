@@ -36,7 +36,7 @@
           <p class="opening">{{store.open_news}}</p>
         </ion-col>
         <ion-col col-4 text-right>
-          <div *ngIf="lat != 0 && lng != 0">
+          <div *ngIf="lat != 0 && lng != 0" class="distance">
             <strong>{{showDistance(lat,lng,store.lat,store.lng)}}</strong>
           </div>
         </ion-col>
@@ -109,7 +109,7 @@
 
     <div *ngIf="products.length > 0">
       <ion-slides spaceBetween="20" slidesPerView="1.5">
-        <ion-slide *ngFor="let product of products" [ngStyle]="{'background-image': 'url('+(product.avatar == '' ? 'assets/img/default/no-pictures.png' : product.avatar)+')'}">
+        <ion-slide (click)="detail(product, 'product')" *ngFor="let product of products" [ngStyle]="{'background-image': 'url('+(product.avatar == '' ? 'assets/img/default/no-pictures.png' : product.avatar)+')'}">
           <div class="slide-product">
             <div class="slide-title">{{product.name}}</div>
             <div class="slide-price" *ngIf="product.price > 0">$ {{product.price | number:'1.0-0' }}</div>
@@ -129,7 +129,7 @@
 
     <div *ngIf="services.length > 0">
       <ion-slides spaceBetween="20" slidesPerView="1.5">
-        <ion-slide *ngFor="let service of services" [ngStyle]="{'background-image': 'url('+(service.avatar == '' ? 'assets/img/default/no-pictures.png' : service.avatar)+')'}">
+        <ion-slide (click)="detail(service, 'service')" *ngFor="let service of services" [ngStyle]="{'background-image': 'url('+(service.avatar == '' ? 'assets/img/default/no-pictures.png' : service.avatar)+')'}">
           <div class="slide-product">
             <div class="slide-title">{{service.name}}</div>
             <div class="slide-price" *ngIf="service.price > 0">$ {{service.price | number:'1.0-0' }}</div>
@@ -175,7 +175,7 @@
 
       <div *ngIf="products.length > 0">
         <ion-row class="store-grid">
-          <ion-col col-6 *ngFor="let product of products">
+          <ion-col (click)="detail(product, 'product')" col-6 *ngFor="let product of products">
             <img src="{{product.avatar == '' ? 'assets/img/default/no-pictures.png' : product.avatar}}" />
             <div class="slide-product">
               <div class="slide-title">{{product.name}}</div>
@@ -196,6 +196,7 @@
       </ion-card>
 
       <div *ngIf="services.length > 0">
+        <!--
         <ion-row class="store-services" *ngFor="let service of services">
           <ion-col col-8 class="tab-service-name">
             <strong>{{service.name}}</strong>
@@ -207,6 +208,14 @@
             <p [innerHtml]="service.description"></p>
           </ion-col>
         </ion-row>
+        -->
+        <ion-col (click)="detail(service, 'service')" col-6 *ngFor="let service of services">
+          <img src="{{service.avatar == '' ? 'assets/img/default/no-pictures.png' : product.avatar}}" />
+          <div class="slide-product">
+            <div class="slide-title">{{service.name}}</div>
+            <div class="slide-price" *ngIf="service.price > 0">$ {{service.price | number:'1.0-0' }}</div>
+          </div>
+        </ion-col>
       </div>
 
     </div>

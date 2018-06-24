@@ -28,9 +28,11 @@ page-categoria {
   }
   .list-store .mts {
     line-height: 14px;
+    font-size: 12px;
   }
 
   .search-results .item-inner { border: 0 !important; }
+  .search-results strong { display: block; }
 
   .no-items {
     text-align:center;

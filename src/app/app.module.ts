@@ -61,6 +61,7 @@ import { environment } from '../environments/environment';
 // Modals
 import { ModalOK } from '../modals/ok/ok';
 import { ModalERR } from '../modals/err/err';
+import { ModalDetail } from '../modals/detail/detail';
 import {SocialSharing} from "@ionic-native/social-sharing";
 import {DatePipe} from "@angular/common";
 import {EmailComposer} from "@ionic-native/email-composer";
@@ -89,6 +90,7 @@ export function HttpLoaderFactory(http: Http) {
     JuntaVecinosPage,
     ModalOK,
     ModalERR,
+    ModalDetail,
     Mapa,
     NewsPreviewComponent,
     Autosize,
@@ -142,6 +144,7 @@ export function HttpLoaderFactory(http: Http) {
     NewsPreviewComponent,
     ModalOK,
     ModalERR,
+    ModalDetail,
     Profile
   ],
   providers: [

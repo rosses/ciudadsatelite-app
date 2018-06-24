@@ -49,6 +49,7 @@ export class HomePage {
   }
 
   goToStore(store: any) {
+    this.doctorService.addQty(store.id);
     this.navCtrl.push(Store, { store: store });
   }
 
