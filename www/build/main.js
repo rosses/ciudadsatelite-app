@@ -1292,10 +1292,10 @@ var Profile = (function () {
                 console.log('dismiss event');
                 _this.storage.get("MP-Profile").then(function (val) {
                     console.log('new profile', val);
-                    _this.me = val;
+                    //this.me = val;
                     _this.loaded = true;
                     if (_this.me.avatar != null && _this.me.avatar != "") {
-                        _this.me.avatar = _this.me.avatar.replace('/public/', '');
+                        _this.me.avatar = _this.me.avatar;
                     }
                     _this.changeAvatar(_this.me.avatar);
                 });
@@ -6729,7 +6729,7 @@ var ProfileMedia = (function () {
     
                   self0.userService.getProfile().subscribe(
                     (result)=>{
-                      result.avatar = environment.staticUrl+uri.replace('/public/','');
+                      result.avatar = uri.url;
                       self0.storage.set("MP-Profile", result);
                       self0.viewCtrl.dismiss(true);
                     },

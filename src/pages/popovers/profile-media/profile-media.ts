@@ -191,7 +191,7 @@ export class ProfileMedia {
 
               self0.userService.getProfile().subscribe(
                 (result)=>{
-                  result.avatar = environment.staticUrl+uri.replace('/public/','');
+                  result.avatar = uri.url;
                   self0.storage.set("MP-Profile", result);
                   self0.viewCtrl.dismiss(true);
                 },
