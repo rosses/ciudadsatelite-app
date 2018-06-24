@@ -7,21 +7,21 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>751567943339-02mac9e859b5bgq86pkqcdbruaft93u5.apps.googleusercontent.com</string>
+	<string>898266993467-8es647op69e1lo9aqkncon0qamclfdqc.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.751567943339-02mac9e859b5bgq86pkqcdbruaft93u5</string>
+	<string>com.googleusercontent.apps.898266993467-8es647op69e1lo9aqkncon0qamclfdqc</string>
 	<key>API_KEY</key>
-	<string>AIzaSyByQxLYI5gWvy5kAzOtgnATtfhNif51m7k</string>
+	<string>AIzaSyD6pgoj3q6xHI2kpCn-FOi1vDOVAyPvmRg</string>
 	<key>GCM_SENDER_ID</key>
-	<string>751567943339</string>
+	<string>898266993467</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.camiongo.app</string>
+	<string>com.ciudadsatelite.app</string>
 	<key>PROJECT_ID</key>
-	<string>camiongo2018</string>
+	<string>ciudad-satelite-app</string>
 	<key>STORAGE_BUCKET</key>
-	<string>camiongo2018.appspot.com</string>
+	<string>ciudad-satelite-app.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<true></true>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -33,8 +33,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:751567943339:ios:bbce984711d73b57</string>
+	<string>1:898266993467:ios:362d2b053423c2ad</string>
 	<key>DATABASE_URL</key>
-	<string>https://camiongo2018.firebaseio.com</string>
+	<string>https://ciudad-satelite-app.firebaseio.com</string>
 </dict>
 </plist>
