@@ -62,19 +62,19 @@
     </platform>
     <allow-navigation href="*" />
     <plugin name="cordova-plugin-camera" spec="3.0.0">
-        <param name="CAMERA_USAGE_DESCRIPTION" value="Esta app necesita acceso a tu camara" />
-        <variable name="CAMERA_USAGE_DESCRIPTION" value="Esta app necesita acceso a tu camara" />
+        <param name="CAMERA_USAGE_DESCRIPTION" value="Vamos a tomar una fotografia para la app" />
+        <variable name="CAMERA_USAGE_DESCRIPTION" value="Vamos a tomar una fotografia para la app" />
     </plugin>
     <plugin name="cordova-plugin-media-capture" spec="1.4.3">
-        <variable name="CAMERA_USAGE_DESCRIPTION" value="Esta app necesita usar tu camara" />
+        <variable name="CAMERA_USAGE_DESCRIPTION" value="Vamos a tomar una fotografia para la app" />
         <variable name="MICROPHONE_USAGE_DESCRIPTION" value="Esta app necesita usar el microfono" />
-        <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value="Esta app necesita usar tus fotos" />
+        <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value="Escoge una foto de tu libreria para actualizar en la app" />
     </plugin>
     <plugin name="cordova-plugin-console" spec="1.1.0" />
     <plugin name="cordova-plugin-datepicker" spec="0.9.3" />
     <plugin name="cordova-plugin-device" spec="1.1.7" />
     <plugin name="cordova-plugin-email-composer" spec="0.8.15" />
-    <plugin name="cordova-plugin-fcm" spec="2.1.2" />
+    <plugin source="git" spec="https://github.com/rosses/cordova-plugin-fcm.git#sateliteapp" />
     <plugin name="cordova-plugin-geolocation" spec="3.0.0">
         <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="Satelite App necesita saber donde estas" />
     </plugin>
@@ -86,7 +86,7 @@
     <plugin name="ionic-plugin-keyboard" spec="2.2.1" />
     <plugin name="mx.ferreyra.callnumber" spec="~0.0.2" />
     <platform name="ios">
-        <resource-file src="GoogleService-Info.plist" target="resources/GoogleService-Info.plist" overwrite="true" />
+        <resource-file src="GoogleService-Info.plist" />
         <icon height="57" src="resources/ios/icon/icon.png" width="57" />
         <icon height="114" src="resources/ios/icon/icon@2x.png" width="114" />
         <icon height="40" src="resources/ios/icon/icon-40.png" width="40" />
@@ -159,7 +159,7 @@
     <plugin name="cordova-plugin-appavailability" spec="^0.4.2" />
     <plugin name="uk.co.workingedge.phonegap.plugin.launchnavigator" spec="^4.2.1">
         <variable name="OKHTTP_VERSION" value="3.+" />
-        <variable name="LOCATION_USAGE_DESCRIPTION" value="This app requires access to your location for navigation purposes" />
+        <variable name="LOCATION_USAGE_DESCRIPTION" value="Esta app quiere indicarte puntos de interés cercanos" />
     </plugin>
     <plugin source="git" spec="https://github.com/ranjitpandit/whatsapp-phonegap-plugin.git" />
 </widget>
