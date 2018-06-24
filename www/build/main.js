@@ -3759,7 +3759,7 @@ var Store = (function () {
         }
         this.appAvailability.check(app).then(function (yes) {
             if (_this.platform.is('ios')) {
-                window.open('fb://profile/' + _this.store.facebook, '_system', 'location=no');
+                window.open('fb://page/' + _this.store.facebook, '_system', 'location=no');
             }
             else {
                 window.open('fb://facewebmodal/f?href=https://www.facebook.com/' + _this.store.facebook, '_system', 'location=no');

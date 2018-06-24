@@ -265,7 +265,7 @@ export class Store {
 
     this.appAvailability.check(app).then((yes: boolean) => {
       if (this.platform.is('ios')) {
-        window.open('fb://profile/'+this.store.facebook, '_system', 'location=no');
+        window.open('fb://page/'+this.store.facebook, '_system', 'location=no');
       } else {
         window.open('fb://facewebmodal/f?href=https://www.facebook.com/'+this.store.facebook, '_system', 'location=no');
       }
