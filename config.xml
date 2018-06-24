@@ -164,4 +164,5 @@
         <variable name="LOCATION_USAGE_DESCRIPTION" value="Esta app quiere indicarte puntos de interés cercanos" />
     </plugin>
     <plugin source="git" spec="https://github.com/ranjitpandit/whatsapp-phonegap-plugin.git" />
+    <plugin name="cordova-plugin-badge" spec="^0.8.7" />
 </widget>

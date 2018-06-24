@@ -4,6 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { TranslateService } from '@ngx-translate/core';
 import { Storage } from '@ionic/storage';
+import { Badge } from '@ionic-native/badge';
 
 import { Profile } from '../pages/profile/profile';
 import { LoginPage } from '../pages/login/login';
@@ -52,7 +53,8 @@ export class MyApp {
     private loadingController: LoadingController,
     private authService:AuthService,
     private fcm: FCM,
-    public menu: MenuController
+    public menu: MenuController,
+    private badge: Badge
   ){
     this.initializeApp();
     this.staticUrl = environment.staticUrl;
@@ -99,9 +101,27 @@ export class MyApp {
           //alert('Push:' + JSON.stringify(data));
           if(data.wasTapped){
             console.log("Received in background", data);
+            this.userService.setReadPush(data.click_id).subscribe((ok) => {
+              this.userService.getNotificationStatus().subscribe((cdata: any) => {
+                console.log('cdata', cdata);
+                let number = parseInt(cdata.total);
+                if (isNaN(number)) {
+                  // nothing
+                  console.log('Notification number is NaN, no updated');
+                }
+                else if (number == 0) {
+                  this.badge.clear();  
+                }
+                else {
+                  this.badge.set(number);
+                }
+                
+              });
+            });
           } else {
             console.log("Received in foreground", data);
           };
+
         })
 
         this.fcm.onTokenRefresh().subscribe(token=>{

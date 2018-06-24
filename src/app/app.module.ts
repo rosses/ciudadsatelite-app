@@ -16,6 +16,7 @@ import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-na
 import { DatePicker } from '@ionic-native/date-picker';
 import { FCM } from '@ionic-native/fcm';
 import { Device } from '@ionic-native/device';
+import { Badge } from '@ionic-native/badge';
 import { Autosize} from '../components/autosize';
 import { SafePipe} from '../components/safepipe';
 import { MyApp } from './app.component';
@@ -164,6 +165,7 @@ export function HttpLoaderFactory(http: Http) {
     AppAvailability,
     LaunchNavigator,
     DatePicker,
+    Badge,
     FCM,
     Device,
     { provide: LOCALE_ID, useValue: "es-ES" },

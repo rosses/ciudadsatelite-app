@@ -54,6 +54,15 @@ export class UserService extends BaseService{
     return Observable.fromPromise(this.storage.get('MP-Profile'));
   }
 
+
+  setReadPush(id: string) {
+    return this.post('users/notification/'+id);
+  }
+
+  getNotificationStatus() {
+    return this.get('users/notification');
+  }
+
   getId(id: number) {
     return this.get('users/profile/'+id);
   }

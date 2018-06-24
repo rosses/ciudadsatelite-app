@@ -23,6 +23,7 @@
     "@angular/platform-browser-dynamic": "4.3.3",
     "@angular/router": "4.3.3",
     "@ionic-native/app-availability": "^4.7.0",
+    "@ionic-native/badge": "^4.8.0",
     "@ionic-native/barcode-scanner": "4.5.3",
     "@ionic-native/call-number": "4.5.3",
     "@ionic-native/camera": "4.4.2",
@@ -49,6 +50,7 @@
     "cordova-ios": "4.5.4",
     "cordova-plugin-actionsheet": "^2.3.3",
     "cordova-plugin-appavailability": "^0.4.2",
+    "cordova-plugin-badge": "^0.8.7",
     "cordova-plugin-camera": "^3.0.0",
     "cordova-plugin-compat": "^1.2.0",
     "cordova-plugin-console": "^1.1.0",
@@ -109,7 +111,8 @@
       "uk.co.workingedge.phonegap.plugin.launchnavigator": {
         "OKHTTP_VERSION": "3.+",
         "LOCATION_USAGE_DESCRIPTION": "This app requires access to your location for navigation purposes"
-      }
+      },
+      "cordova-plugin-badge": {}
     },
     "dependencies": {
       "@agm/core": "1.0.0-beta.2",
