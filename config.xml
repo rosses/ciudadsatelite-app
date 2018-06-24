@@ -36,6 +36,7 @@
     <preference name="ShowSplashScreenSpinner" value="false" />
     <platform name="android">
         <resource-file src="google-services.json" target="google-services.json" />
+        <resource-file src="fcm_push_icon.png" target="res/fcm_push_icon.png" />
         <preference name="loadUrlTimeoutValue" value="700000" />
         <allow-intent href="market:*" />
         <feature name="Whatsapp">
