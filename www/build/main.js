@@ -1089,7 +1089,7 @@ var LoginPage = (function () {
     }
     LoginPage.prototype.next = function () {
         var _this = this;
-        var emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        var emailRegex = /\S+@\S+\.\S+/;
         if (this.login.name == "") {
             this.service.logError({}, "Por favor ingresa tu nombre");
         }
