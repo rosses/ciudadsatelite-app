@@ -122,8 +122,9 @@ export class Profile {
     });
     popover.onDidDismiss((change?:any) => {
       if (change) {
-
+        console.log('dismiss event');
         this.storage.get("MP-Profile").then((val) => {
+          console.log('new profile', val);
           this.me = val;
           this.loaded = true;
           if (this.me.avatar != null && this.me.avatar != "") {
@@ -138,6 +139,7 @@ export class Profile {
   }
 
   changeAvatar(avatar:string) {
+    console.log('change avatar listerner', avatar);
     this.userService.changeAvatar.emit(avatar);
   }
 

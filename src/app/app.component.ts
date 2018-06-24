@@ -72,7 +72,7 @@ export class MyApp {
     this.staticUrl = environment.staticUrl;
 
     this.userService.changeAvatar.subscribe((st) => {
-      console.log(st);
+      console.log('change_avatar_main_fire', st);
       this.user.avatar = st;
     });
 

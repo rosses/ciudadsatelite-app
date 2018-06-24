@@ -139,12 +139,15 @@ export class ProfileMedia {
         }
         else {
           self0.service.showOk("Foto actualizada con éxito");
-
+          console.log('uri',uri);
           self0.userService.getProfile().subscribe(
             (result)=>{
+              console.log('result', result);
               result.avatar = uri.url;
               self0.storage.set("MP-Profile", result);
+              console.log('set profile OK -> dismiss');
               self0.viewCtrl.dismiss(true);
+              console.log('dismissed!');
             },
             err => {
               console.log(JSON.stringify(err));
