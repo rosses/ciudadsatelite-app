@@ -8,6 +8,8 @@ page-home {
   }
   .has-refresher > .scroll-content { border:0; }
   ion-refresher-content { padding: 20px; }
+
+  .search-results .item-inner { border: 0 !important; }
   .list > .item-block:first-child { border-top: 0 !important; }
   .list > .item-block:last-child, .list > .item-wrapper:last-child .item-block { border-bottom: 0 !important; }
   .item ion-avatar ion-img, .item ion-avatar img { border-radius: 0 !important; }

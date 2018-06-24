@@ -37,7 +37,7 @@
       &quot;{{search}}&quot;
     </div>
 
-    <div *ngIf="(searchStores.length > 0 || searchProducts.length > 0 || searchServices.length > 0) && !isSearchingLoad">
+    <div class="search-results" *ngIf="(searchStores.length > 0 || searchProducts.length > 0 || searchServices.length > 0) && !isSearchingLoad">
 
       <ion-list>
         <ion-list-header *ngIf="searchStores.length > 0">
@@ -45,15 +45,15 @@
         </ion-list-header>
 
         <ion-item *ngFor="let result of searchStores" (click)="goToStore(result);">
-          <ion-col col-2>
-            <img src="{{result.icon}}" />
-          </ion-col>
-          <ion-col col-10>
-            <ion-label>
-              <strong>{{result.name}}</strong><br />
-              {{result.address}} {{(result.local != "" ? "Loc. "+result.local : "")}}
-            </ion-label>
-          </ion-col>
+          <ion-row>
+            <ion-col col-2>
+              <img src="{{result.icon}}" />
+            </ion-col>
+            <ion-col col-10>
+                <strong>{{result.name}}</strong>
+                {{result.address}} {{(result.local != "" ? "Loc. "+result.local : "")}}
+            </ion-col>
+          </ion-row>
         </ion-item>
 
         <ion-list-header *ngIf="searchProducts.length > 0">
@@ -61,15 +61,16 @@
         </ion-list-header>
 
         <ion-item *ngFor="let result of searchProducts" (click)="goToStore(result.store);">
-          <ion-col col-2>
-            <img src="{{result.icon}}" />
-          </ion-col>
-          <ion-col col-10>
-            <ion-label>
-              <strong>{{result.name}}</strong><br />
-              {{result.address}} {{(result.local != "" ? "Loc. "+result.local : "")}}
-            </ion-label>
-          </ion-col>
+          <ion-row>
+            <ion-col col-2>
+              <img src="{{result.avatar}}" />
+            </ion-col>
+            <ion-col col-10>
+                <strong>{{result.name}}</strong>
+                <strong *ngIf="result.price != 0">$ {{result.price | number:'1.0-0' }}</strong>
+                Encontrado en <b>{{result.store.name}}</b>
+            </ion-col>
+          </ion-row>
         </ion-item>
 
         <ion-list-header *ngIf="searchServices.length > 0">
@@ -77,16 +78,18 @@
         </ion-list-header>
 
         <ion-item *ngFor="let result of searchServices" (click)="goToStore(result.store);">
-          <ion-col col-2>
-            <img src="{{result.icon}}" />
-          </ion-col>
-          <ion-col col-10>
-            <ion-label>
-              <strong>{{result.store.name}}</strong><br />
-              {{result.name}} / $ {{result.price | number:'1.0-0' }}
-            </ion-label>
-          </ion-col>
+          <ion-row>
+            <ion-col col-2>
+              <img src="{{result.avatar}}" />
+            </ion-col>
+            <ion-col col-10>
+                <strong>{{result.name}}</strong>
+                <strong *ngIf="result.price != 0">$ {{result.price | number:'1.0-0' }}</strong>
+                Encontrado en <b>{{result.store.name}}</b>
+            </ion-col>
+          </ion-row>
         </ion-item>
+
       </ion-list>
 
 
@@ -106,7 +109,7 @@
   <ion-refresher-content pullingText="actualizar..." refreshingText="actualizando..."></ion-refresher-content>
 </ion-refresher>
 
-<div *ngIf="isLoading">
+<div *ngIf="isLoading" class="pd20">
   <div class="timeline-wrapper">
       <div class="timeline-item forceh">
         <div class="animated-background">
@@ -135,7 +138,7 @@
 
 <div *ngIf="!isLoading && !searchActive">
 
-  <ion-list class="list-store">
+  <ion-list class="list-store pd20">
     <ion-item *ngFor="let store of stores" (click)="verStore(store)" text-wrap>
       <ion-avatar item-start>
         <img src="{{store.avatar != '' ? store.avatar : 'assets/img/default/store.png'}}" />

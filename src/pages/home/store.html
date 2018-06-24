@@ -104,8 +104,7 @@
 
     <div *ngIf="products.length > 0">
       <ion-slides spaceBetween="20" slidesPerView="1.5">
-        <ion-slide *ngFor="let product of products">
-          <img src="{{product.avatar == '' ? 'assets/img/default/no-pictures.png' : product.avatar}}" />
+        <ion-slide *ngFor="let product of products" [ngStyle]="{'background-image': 'url('+(product.avatar == '' ? 'assets/img/default/no-pictures.png' : product.avatar)+')'}">
           <div class="slide-product">
             <div class="slide-title">{{product.name}}</div>
             <div class="slide-price">$ {{product.price | number:'1.0-0' }}</div>
@@ -132,7 +131,7 @@
           $ {{service.price | number:'1.0-0' }}
         </ion-col>
         <ion-col col-12>
-          <p>{{service.description}}</p>
+          <p [innerHtml]="service.description"></p>
         </ion-col>
       </ion-row>
     </div>
@@ -190,7 +189,7 @@
             $ {{service.price | number:'1.0-0' }}
           </ion-col>
           <ion-col col-12 class="tab-service-name">
-            <p>{{service.description}}</p>
+            <p [innerHtml]="service.description"></p>
           </ion-col>
         </ion-row>
       </div>

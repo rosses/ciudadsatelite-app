@@ -54,4 +54,31 @@ export class DoctorService extends BaseService{
     return this.get('masterdata');
   }
 
+
+  // JJVV
+  getWall() {
+    return this.get('jjvv');
+  }
+  getFaqs(id: number) {
+    return this.get('faqs/'+id)
+  }
+  getContent(id: number) {
+    return this.get('content/'+id)
+  }
+  sendContacto(obj:any) {
+    return this.post('jjvv/contact', {
+      name: obj.name,
+      email: obj.email,
+      message: obj.message
+    });
+  }
+
+  sendDenuncia(obj:any) {
+    return this.post('jjvv/denuncia', {
+      name: obj.name,
+      email: obj.email,
+      message: obj.message
+    });
+  }
+
 }

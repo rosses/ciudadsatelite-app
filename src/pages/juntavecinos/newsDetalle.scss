@@ -11,17 +11,13 @@ page-newsDetalle {
     background: none;
   }
 
-  .scroll-content {
-    margin-top: 0 !important;
-    background: map-get($colors, bck-grey);
-  }
-
   .content {
     background-color: map-get($colors, light);
   }
 
   .scroll-content {
     padding: 0 !important;
+    background: map-get($colors, bck-grey);
   }
 
   .card {

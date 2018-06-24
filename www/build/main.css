@@ -66713,10 +66713,6 @@ page-categoria {
   background-color: #FFF;
 }
 
-page-categoria .scroll-content {
-  padding: 20px;
-}
-
 page-categoria .has-refresher > .scroll-content {
   border: 0;
 }
@@ -66771,6 +66767,10 @@ page-categoria .list-store .mts {
   line-height: 14px;
 }
 
+page-categoria .search-results .item-inner {
+  border: 0 !important;
+}
+
 page-categoria .no-items {
   text-align: center;
   font-size: 18px;
@@ -66783,6 +66783,10 @@ page-categoria .no-items ion-icon {
 
 page-categoria ion-card button, page-categoria ion-card button ion-icon {
   color: cornflowerblue !important;
+}
+
+page-categoria .pd20 {
+  padding: 20px;
 }
 
 page-categoria .timeline-item {
@@ -66870,6 +66874,10 @@ page-home .has-refresher > .scroll-content {
 
 page-home ion-refresher-content {
   padding: 20px;
+}
+
+page-home .search-results .item-inner {
+  border: 0 !important;
 }
 
 page-home .list > .item-block:first-child {
@@ -67096,6 +67104,8 @@ page-store ion-slide {
   border-top: 1px solid #ABABAB;
   border-left: 1px solid #ABABAB;
   border-bottom: 1px solid #ABABAB;
+  min-height: 180px;
+  background-size: cover;
 }
 
 page-store .slide-product {
@@ -67364,8 +67374,13 @@ page-juntavecinos .background-masker.news-title {
   height: 10px;
 }
 
+page-juntavecinos .buttonWrapper {
+  display: inline-block;
+}
+
 page-juntavecinos .buttonWrapper button {
   min-width: 90px;
+  height: 30px;
 }
 
 page-juntavecinos h2 {
@@ -67373,10 +67388,24 @@ page-juntavecinos h2 {
   margin: 0;
 }
 
+page-juntavecinos .error-box {
+  padding: 20px;
+  text-align: center;
+}
+
+page-juntavecinos .subheader {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+page-juntavecinos .subheader h2 {
+  display: inline-block;
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
 page-juntavecinos .grid ion-col {
   text-align: center;
-  margin-top: 15px;
-  margin-bottom: 15px;
 }
 
 page-juntavecinos .grid button {
@@ -67396,6 +67425,46 @@ page-juntavecinos .grid button img {
   border-radius: 50%;
   max-width: 75%;
   border: 3px solid #9eeeb1;
+}
+
+page-juntavecinos .content-custom {
+  padding: 20px;
+  text-align: justify;
+}
+
+page-juntavecinos ion-list.faqs ion-item {
+  background-color: transparent;
+  padding-left: 0;
+  position: relative;
+}
+
+page-juntavecinos ion-list.faqs ion-label {
+  font-weight: bold;
+}
+
+page-juntavecinos ion-list.faqs ion-label div {
+  text-transform: none;
+  font-size: 0.8em;
+  white-space: normal;
+  text-align: justify;
+  font-weight: normal;
+}
+
+page-juntavecinos ion-list.faqs ion-icon {
+  font-size: 25px;
+  padding: 0;
+  text-align: center;
+  position: absolute;
+  right: 3px;
+  top: 18px;
+}
+
+page-juntavecinos ion-list.faqs ion-icon:before {
+  font-weight: bold;
+}
+
+page-juntavecinos .formContainer .list > .item-block:first-child {
+  border-top: 0;
 }
 
 page-newsDetalle {
@@ -67422,17 +67491,13 @@ page-newsDetalle .header-md::after {
   background: none;
 }
 
-page-newsDetalle .scroll-content {
-  margin-top: 0 !important;
-  background: #F0F1F1;
-}
-
 page-newsDetalle .content {
   background-color: #FFF;
 }
 
 page-newsDetalle .scroll-content {
   padding: 0 !important;
+  background: #F0F1F1;
 }
 
 page-newsDetalle .card {

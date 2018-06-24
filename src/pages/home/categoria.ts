@@ -46,7 +46,7 @@ export class Categoria {
     private storage: Storage,
     private launchNavigator: LaunchNavigator
   ) {
-
+    console.log('constructor!!!');
     this.categ = this.navParams.get("categ");
     this.title = this.categ.name;
 

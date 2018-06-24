@@ -79,17 +79,33 @@ page-juntavecinos {
       width: 100%;
       height: 10px;
   }
+  .buttonWrapper {
+    display: inline-block;
+  }
   .buttonWrapper button {
     min-width: 90px;
+    height: 30px;
   }
   h2 {
     font-size: 25px;
     margin:0;
   }
+  .error-box {
+    padding: 20px;
+    text-align:center;
+  }
+  .subheader {
+  padding-left: 20px;
+  padding-right: 20px;
+  }
+  .subheader h2 {
+    display: inline-block;
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
   .grid ion-col {
     text-align: center;
-    margin-top: 15px;
-    margin-bottom: 15px;
+
   }
   .grid button {
     padding:0;
@@ -105,6 +121,46 @@ page-juntavecinos {
     border-radius: 50%;
     max-width: 75%;
     border: 3px solid #9eeeb1;
+  }
+
+  .content-custom {
+    padding: 20px;
+    text-align:justify;
+  }
+
+
+
+  ion-list.faqs {
+    ion-item {
+      background-color: transparent;
+      padding-left: 0;
+      position: relative;
+    }
+    ion-label {
+      font-weight: bold;
+      div {
+        text-transform: none;
+        font-size: 0.8em;
+        white-space: normal;
+        text-align: justify;
+        font-weight: normal;
+      }
+    }
+    ion-icon  {
+      font-size: 25px;
+      padding: 0;
+      text-align: center;
+      position: absolute;
+      right: 3px;
+      top: 18px;
+      &:before {
+        font-weight: bold;
+      }
+    }
+  }
+
+  .formContainer .list > .item-block:first-child {
+    border-top: 0;
   }
 }
 

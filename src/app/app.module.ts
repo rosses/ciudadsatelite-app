@@ -16,7 +16,8 @@ import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-na
 import { DatePicker } from '@ionic-native/date-picker';
 import { FCM } from '@ionic-native/fcm';
 import { Device } from '@ionic-native/device';
-
+import { Autosize} from '../components/autosize';
+import { SafePipe} from '../components/safepipe';
 import { MyApp } from './app.component';
 
 // Pages
@@ -139,7 +140,9 @@ export function HttpLoaderFactory(http: Http) {
     PetInfoFormComponent,
     NewsPreviewComponent,
     QrCardComponent,
-    ChangePasswordPage
+    ChangePasswordPage,
+    Autosize,
+    SafePipe
   ],
   imports: [
     BrowserModule,

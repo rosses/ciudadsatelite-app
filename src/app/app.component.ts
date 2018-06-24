@@ -80,8 +80,9 @@ export class MyApp {
   }
 
   initializeApp() {
-
+    console.log('initialize');
     this.platform.ready().then(() => {
+      console.log('ready');
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
@@ -149,13 +150,16 @@ export class MyApp {
         })
       });
       */
-
-      this.storage.get("MP-FirstTime").then((val) => {
+      console.log('get MP-FT');
+      /*this.storage.get("MP-FirstTime").then((val) => {*/
         /*if (val == true) {*/
+
           this.storage.get("MP-FirstTime").then((val) => {
+            console.log('MP-FT Res: ', val);
+            console.log('get Token');
             this.storage.get("token").then((token) => {
               if (token) {
-
+                console.log('token true / getProfile()');
                 this.userService.getProfile().subscribe((result:any)=>{
                     this.user = result;
                     this.userService.getId(result.id).subscribe((ok:any) => {
@@ -196,13 +200,16 @@ export class MyApp {
                 this.loadingHidden();
               }
             });
+          }, () => {
+            this.rootPage = LoginPage; 
+            this.loadingHidden();
           });
         /*}
         else {
           this.rootPage = LoginPage; //OnboardingPage;
           this.loadingHidden();
         }*/
-      })
+      /*})*/
 
     });
 
@@ -220,11 +227,11 @@ export class MyApp {
 
     setTimeout(() => { 
 
-    },2000);
+    },200);
 
     setTimeout(() => { 
       document.getElementById("custom-overlay").style.display = "none";
-    },1000);
+    },100);
 
     this.nav.setRoot(HomePage);
 
@@ -234,8 +241,8 @@ export class MyApp {
       document.getElementById("loader-spinner").classList.add("animated-start");
       setTimeout(() => {
         document.getElementById("custom-overlay").style.display = "none";
-      }, 500);
-    },500);
+      }, 200);
+    },200);
     
   }
 

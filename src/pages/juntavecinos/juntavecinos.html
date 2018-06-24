@@ -18,7 +18,7 @@
         </ion-col>
         <ion-col col-8 text-center>
           <h2>{{headers.name}}</h2>
-          <p>{{headers.subtitle}}</p>
+          <p [innerHTML]="sanitizer.bypassSecurityTrustHtml(headers.subtitle)"></p>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -34,20 +34,85 @@
     </div>
 
     <div *ngIf="active != 0">
-      <hr />
-      <ion-grid>
+      <ion-grid class="subheader">
         <ion-row>
-          <ion-col col-3>
+          <ion-col col-2>
             <img src="{{image}}" />
           </ion-col>
-          <ion-col col-9 text-center>
+          <ion-col col-7 text-left>
             <h2>{{section}}</h2>
+          </ion-col>
+          <ion-col col-3 text-right>
             <div class="buttonWrapper">
               <button (click)="changeBack()" class="buttonPinkOrange" ion-button round>Volver</button>
             </div>
           </ion-col>
         </ion-row>
       </ion-grid>
+
+      <div *ngIf="actionLoaded">
+        <!-- Action 1: Wall -->
+        <div class="error-box" *ngIf="active == 1 && wall.length == 0"><h4>No fue posible recuperar las publicaciones. Intente más tarde.</h4></div>
+        <news-preview *ngFor="let n of wall" [news]="n"></news-preview>
+
+        <!-- Contenidos HTML -->
+        <div *ngIf="content!=''" class="content-custom" [innerHTML]="sanitizer.bypassSecurityTrustHtml(content)"></div>
+        
+        <!-- Faqs -->
+        <ion-list *ngIf="faqs.length > 0" class="faqs">
+          <ion-item padding *ngFor="let d of faqs; let i = index"><ion-icon color="primary" item-right [name]="d.icon" (click)="toggleDetails(d)"></ion-icon>
+            {{i + 1}}.- {{d.title}}
+            <div *ngIf="d.showDetails" [innerHTML]="sanitizer.bypassSecurityTrustHtml(d.content)"></div>
+          </ion-item>
+        </ion-list>
+
+        <!-- Formulario de denuncias -->
+        <div class="formContainer" *ngIf="denunciaForm">
+          <ion-list>
+            <ion-item>
+              <ion-label stacked>Nombre</ion-label>
+              <ion-input type="text" readonly [(ngModel)]="denuncia.name"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label stacked>Email</ion-label>
+              <ion-input type="email" readonly [(ngModel)]="denuncia.email"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label stacked>Mensaje</ion-label>
+              <ion-textarea autosize [(ngModel)]="denuncia.message"></ion-textarea>
+            </ion-item>
+          </ion-list>
+
+          <div class="buttonWrapper">
+            <button (click)="sendDenuncia()" class="buttonPinkOrange" ion-button round>Enviar el mensaje</button>
+          </div>
+
+        </div>
+        
+        <!-- Formulario de contacto -->
+        <div class="formContainer" *ngIf="contactoForm">
+          <ion-list>
+            <ion-item>
+              <ion-label stacked>Nombre</ion-label>
+              <ion-input type="text" readonly [(ngModel)]="contacto.name"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label stacked>Email</ion-label>
+              <ion-input type="email" readonly [(ngModel)]="contacto.email"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label stacked>Mensaje</ion-label>
+              <ion-textarea autosize [(ngModel)]="contacto.message"></ion-textarea>
+            </ion-item>
+          </ion-list>
+
+          <div class="buttonWrapper">
+            <button (click)="sendContacto()" class="buttonPinkOrange" ion-button round>Enviar el mensaje</button>
+          </div>
+
+        </div>
+
+      </div>
     </div>
 
   </div>

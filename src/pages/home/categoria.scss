@@ -2,10 +2,6 @@ page-categoria {
   
   background-color: #FFF;
 
-  .scroll-content {
-    padding: 20px;
-  }
-
   .has-refresher > .scroll-content { border:0; }
   ion-refresher-content { padding: 20px; }
   .list > .item-block:first-child { border-top: 0 !important; }
@@ -34,6 +30,8 @@ page-categoria {
     line-height: 14px;
   }
 
+  .search-results .item-inner { border: 0 !important; }
+
   .no-items {
     text-align:center;
     font-size: 18px;
@@ -45,7 +43,9 @@ page-categoria {
   ion-card button, ion-card button ion-icon {
     color: cornflowerblue !important;
   }
-
+  .pd20 {
+    padding: 20px;
+  }
   .timeline-item {
       background: #fff;
       border: 0;

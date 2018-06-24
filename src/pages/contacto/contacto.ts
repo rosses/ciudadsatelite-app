@@ -50,7 +50,7 @@ export class Contacto {
   send() {
 
       if (this.message.length < 4) {
-        this.service.showOk("Por favor especifique un mensaje más largo");
+        this.service.logError(null,"Por favor especifique un mensaje más largo");
       }
       else {
         let loading = this.loadingCtrl.create({
@@ -72,7 +72,6 @@ export class Contacto {
             this.message = '';
           }
           else {
-            loading.dismiss();
             this.service.logError(null, "No fue posible enviar el mensaje, intente nuevamente");
           }
         }, (error) => {
