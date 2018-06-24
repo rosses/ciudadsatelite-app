@@ -6,7 +6,6 @@ import { HomePage } from '../home/home';
 import { Pata } from '../../pata';
 
 import { AuthService } from '../../services/auth.service';
-import { SignupPage } from "../signup/signup";
 
 @Component({
   selector: 'page-login',
@@ -109,10 +108,6 @@ export class LoginPage {
       );
 
     }
-  }
-
-  gotoSignup(){
-    this.navCtrl.push(SignupPage);
   }
 
 }

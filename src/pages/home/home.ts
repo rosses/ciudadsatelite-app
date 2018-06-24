@@ -4,9 +4,7 @@ import { GoogleMapsAPIWrapper  } from '@agm/core';
 import { Geolocation } from '@ionic-native/geolocation';
 import { HttpClient } from '@angular/common/http';
 
-import { Clinic } from '../../pages/clinic/clinic';
 import { Store } from '../../pages/home/store';
-import { AdsMedia } from '../../pages/popovers/ads/ads';
 import { DoctorService } from '../../services/doctor.service';
 import { Storage } from '@ionic/storage';
 import { Categoria } from '../../pages/home/categoria';

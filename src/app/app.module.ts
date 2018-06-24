@@ -24,54 +24,30 @@ import { MyApp } from './app.component';
 import { Profile } from '../pages/profile/profile';
 import { HomePage } from '../pages/home/home';
 import { NewsDetalle } from '../pages/juntavecinos/newsDetalle';
-import { ListPage } from '../pages/list/list';
-import { PetPage } from '../pages/pet/pet';
-import { MyPetsPage } from '../pages/my-pets/my-pets';
-import { OnboardingPage } from '../pages/onboarding/onboarding';
 import { LoginPage } from '../pages/login/login';
-import { SignupPage } from '../pages/signup/signup';
-import { SignupPage2 } from '../pages/signup/signup2';
-import { SignupPage3 } from '../pages/signup/signup3';
 import { Categoria } from '../pages/home/categoria';
 import { Store } from '../pages/home/store';
 import { Contacto } from '../pages/contacto/contacto';
-import { RequerimientosPage } from '../pages/requerimientos/requerimientos';
-import { NuevoReq1 } from '../pages/requerimientos/nuevoreq1';
-import { NuevoReq2 } from '../pages/requerimientos/nuevoreq2';
-import { NuevoReq3 } from '../pages/requerimientos/nuevoreq3';
-import { CamionesPage } from '../pages/camiones/camiones';
-import { ConductoresPage } from '../pages/conductores/conductores';
-import { ServiciosPage } from '../pages/servicios/servicios';
 import { JuntaVecinosPage } from '../pages/juntavecinos/juntavecinos';
-import { Searching } from '../pages/searching/searching';
-import { Lost } from '../pages/lost/lost';
-import { Owner } from '../pages/owner/owner';
-import { Mapa } from '../pages/mapa/mapa';
-import { Clinic } from '../pages/clinic/clinic';
 import { StoreProfile } from '../pages/storeprofile/storeprofile';
 import { StoreProducts } from '../pages/storeproducts/storeproducts';
 import { StoreServices } from '../pages/storeservices/storeservices';
 import { Ng2Rut, RutValidator } from 'ng2-rut';
+import { Mapa } from '../pages/mapa/mapa';
+
 import { Pata } from '../pata';
 
 // Popovers
-import { PetMediaOptionsPage } from '../pages/popovers/pet-media-options/pet-media-options';
-import { PetStatePage } from '../pages/popovers/pet-state/pet-state';
 import { ProfileMedia } from '../pages/popovers/profile-media/profile-media';
-import { AdsMedia } from '../pages/popovers/ads/ads';
 
 // Services
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
-import { PetService } from '../services/pet.service';
 import { NewsService } from '../services/news.service';
 import { DoctorService } from '../services/doctor.service';
 
 // Components
-import { PetPreviewComponent } from '../components/pet-preview/pet-preview';
-import { PetInfoFormComponent } from '../components/pet-info-form/pet-info-form';
 import { NewsPreviewComponent } from '../components/news-preview/news-preview';
-import { QrCardComponent } from '../components/qr-card/qr-card';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -86,7 +62,6 @@ import { environment } from '../environments/environment';
 import { ModalOK } from '../modals/ok/ok';
 import { ModalERR } from '../modals/err/err';
 import {SocialSharing} from "@ionic-native/social-sharing";
-import {ChangePasswordPage} from "../pages/change-password/change-password";
 import {DatePipe} from "@angular/common";
 import {EmailComposer} from "@ionic-native/email-composer";
 import {CallNumber} from "@ionic-native/call-number";
@@ -101,46 +76,21 @@ export function HttpLoaderFactory(http: Http) {
   declarations: [
     MyApp,
     HomePage,
-    ListPage,
-    PetPage,
-    MyPetsPage,
     NewsDetalle,
-    PetMediaOptionsPage,
-    PetStatePage,
     ProfileMedia,
-    OnboardingPage,
     LoginPage,
     Profile,
-    Owner,
     Contacto,
-    SignupPage,
-    SignupPage2,
-    SignupPage3,
     Categoria,
     Store,
-    CamionesPage,
-    AdsMedia,
     StoreProfile,
     StoreProducts,
     StoreServices,
-    RequerimientosPage,
-    NuevoReq1,
-    NuevoReq2,
-    NuevoReq3,
-    ConductoresPage,
-    ServiciosPage,
     JuntaVecinosPage,
     ModalOK,
     ModalERR,
-    Searching,
-    Lost,
     Mapa,
-    Clinic,
-    PetPreviewComponent,
-    PetInfoFormComponent,
     NewsPreviewComponent,
-    QrCardComponent,
-    ChangePasswordPage,
     Autosize,
     SafePipe
   ],
@@ -178,51 +128,25 @@ export function HttpLoaderFactory(http: Http) {
   entryComponents: [
     MyApp,
     HomePage,
-    ListPage,
-    PetPage,
     NewsDetalle,
-    MyPetsPage,
-    Searching,
-    Lost,
     Mapa,
-    Clinic,
-    Owner,
-    PetMediaOptionsPage,
-    PetStatePage,
     ProfileMedia,
-    OnboardingPage,
     LoginPage,
     Contacto,
-    SignupPage,
-    SignupPage2,
-    SignupPage3,
     Categoria,
     Store,
-    CamionesPage,
-    AdsMedia,
     StoreProfile,
     StoreProducts,
     StoreServices,
-    RequerimientosPage,
-    NuevoReq1,
-    NuevoReq2,
-    NuevoReq3,
-    ConductoresPage,
-    ServiciosPage,
     JuntaVecinosPage,
-    PetPreviewComponent,
-    PetInfoFormComponent,
     NewsPreviewComponent,
-    QrCardComponent,
     ModalOK,
     ModalERR,
-    Profile,
-    ChangePasswordPage
+    Profile
   ],
   providers: [
     AuthService,
     UserService,
-    PetService,
     NewsService,
     DoctorService,
     StatusBar,

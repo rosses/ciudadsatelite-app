@@ -77,6 +77,11 @@
         <img src="assets/img/twitter.png" />
       </button>
     </ion-col>
+    <ion-col col-2 *ngIf="store.phone != ''">
+      <button (click)="call()" block>
+        <img src="assets/img/call.png" />
+      </button>
+    </ion-col>
   </ion-row>
   <hr />
   <ion-row>
@@ -123,17 +128,27 @@
     -->
 
     <div *ngIf="services.length > 0">
+      <ion-slides spaceBetween="20" slidesPerView="1.5">
+        <ion-slide *ngFor="let service of services" [ngStyle]="{'background-image': 'url('+(service.avatar == '' ? 'assets/img/default/no-pictures.png' : service.avatar)+')'}">
+          <div class="slide-product">
+            <div class="slide-title">{{service.name}}</div>
+            <div class="slide-price" *ngIf="service.price > 0">$ {{service.price | number:'1.0-0' }}</div>
+          </div>
+        </ion-slide>
+      </ion-slides>
+      <!--
       <ion-row class="store-services" *ngFor="let service of services">
         <ion-col col-8 class="tab-service-name">
           <strong>{{service.name}}</strong>
         </ion-col>
         <ion-col col-4 class="tab-service-price">
-          <span *ngIf="product.price > 0">$ {{service.price | number:'1.0-0' }}</span>
+          <span *ngIf="service.price > 0">$ {{service.price | number:'1.0-0' }}</span>
         </ion-col>
         <ion-col col-12>
           <p [innerHtml]="service.description"></p>
         </ion-col>
       </ion-row>
+      -->
     </div>
   </div>
 
@@ -186,7 +201,7 @@
             <strong>{{service.name}}</strong>
           </ion-col>
           <ion-col col-4 class="tab-service-price">
-            <span *ngIf="product.price > 0">$ {{service.price | number:'1.0-0' }}</span>
+            <span *ngIf="service.price > 0">$ {{service.price | number:'1.0-0' }}</span>
           </ion-col>
           <ion-col col-12 class="tab-service-name">
             <p [innerHtml]="service.description"></p>

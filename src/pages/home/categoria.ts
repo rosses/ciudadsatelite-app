@@ -5,10 +5,8 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { HttpClient } from '@angular/common/http';
 import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
 
-
 import { Contacto } from '../../pages/contacto/contacto';
 import { Store } from '../../pages/home/store';
-import { AdsMedia } from '../../pages/popovers/ads/ads';
 import { DoctorService } from '../../services/doctor.service';
 import { Storage } from '@ionic/storage';
 

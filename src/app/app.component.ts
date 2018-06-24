@@ -7,30 +7,16 @@ import { Storage } from '@ionic/storage';
 
 import { Profile } from '../pages/profile/profile';
 import { LoginPage } from '../pages/login/login';
-import { SignupPage } from '../pages/signup/signup';
-import { SignupPage2 } from '../pages/signup/signup2';
-import { SignupPage3 } from '../pages/signup/signup3';
 import { Contacto } from '../pages/contacto/contacto';
 import { HomePage } from '../pages/home/home';
-import { OnboardingPage } from '../pages/onboarding/onboarding';
-import { MyPetsPage } from '../pages/my-pets/my-pets';
-import { ListPage } from '../pages/list/list';
-import { Searching } from '../pages/searching/searching';
-import { Lost } from '../pages/lost/lost';
-import { Clinic } from '../pages/clinic/clinic';
 import { Mapa } from '../pages/mapa/mapa';
 import { StoreProfile } from '../pages/storeprofile/storeprofile';
 import { StoreProducts } from '../pages/storeproducts/storeproducts';
 import { StoreServices } from '../pages/storeservices/storeservices';
-import { RequerimientosPage } from '../pages/requerimientos/requerimientos';
-import { CamionesPage } from '../pages/camiones/camiones';
-import { ConductoresPage } from '../pages/conductores/conductores';
-import { ServiciosPage } from '../pages/servicios/servicios';
 import { JuntaVecinosPage } from '../pages/juntavecinos/juntavecinos';
 
 
-import { MimaskotUser } from '../models/mimaskot-user.model';
-import {UserService} from "../services/user.service";
+import { UserService } from "../services/user.service";
 import { AuthService } from '../services/auth.service';
 import { Pata } from '../pata';
 import { FCM } from '@ionic-native/fcm';

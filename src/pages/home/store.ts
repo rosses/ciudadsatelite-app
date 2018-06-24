@@ -7,7 +7,6 @@ import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-na
 import { AppAvailability } from '@ionic-native/app-availability';
 import { Contacts, Contact, ContactFieldType, ContactFindOptions, ContactField, ContactName } from '@ionic-native/contacts';
 
-import { AdsMedia } from '../../pages/popovers/ads/ads';
 import { DoctorService } from '../../services/doctor.service';
 import { Storage } from '@ionic/storage';
 import { Pata } from '../../pata';
@@ -90,7 +89,9 @@ export class Store {
     window.open('mailto:'+this.store.email, '_system', 'location=no');
   }
 
-
+  call() {
+    document.location.href = "tel:"+this.store.phone;
+  }
   showDistance(lat1: number, lon1: number, lat2: number, lon2: number) {
     var dif = this.calcCrow(lat1, lon1, lat2, lon2);
     if (dif < 1) {

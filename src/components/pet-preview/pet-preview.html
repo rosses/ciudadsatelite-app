@@ -1,9 +1,0 @@
-<!-- Generated template for the PetPreviewComponent component -->
-<div *ngIf="add">
-  <div class="image" [style.background-image]="'url(assets/img/add.png)'" style="background-size: cover;"></div>
-  <div class="name">agregar mascota</div>
-</div>
-<div (click)="goToDetail()" *ngIf="!add">
-  <div class="image" [style.background-image]="'url(' + (pet.avatar != '' ? encodeURL(staticUrl+pet.avatar) : 'assets/img/default/mascota.png' ) + ')'" style="background-size: cover;"></div>
-  <div class="name">{{ pet.name }}</div>
-</div>

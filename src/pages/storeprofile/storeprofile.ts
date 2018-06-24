@@ -9,7 +9,6 @@ import { ProfileMedia } from '../popovers/profile-media/profile-media';
 
 import { environment } from "../../environments/environment"
 import {DatePicker} from "@ionic-native/date-picker";
-import {ChangePasswordPage} from "../change-password/change-password";
 import {DatePipe} from "@angular/common";
 import {HomePage} from "../home/home";
 
@@ -158,17 +157,6 @@ export class StoreProfile {
     );
   }
 
-  changePassword(){
-    let profileModal = this.modalCtrl.create(ChangePasswordPage, {});
-    profileModal.onDidDismiss(data => {
-      if(data){
-        this.service.showOk();
-      }else{
-        //this.service.showOk();
-      }
-    });
-    profileModal.present();
-  }
 
   formatDate(date){
     return date;
