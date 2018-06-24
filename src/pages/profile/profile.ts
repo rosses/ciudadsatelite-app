@@ -122,15 +122,17 @@ export class Profile {
     });
     popover.onDidDismiss((change?:any) => {
       if (change) {
-        console.log('dismiss event');
+        
         this.storage.get("MP-Profile").then((val) => {
-          console.log('new profile', val);
-          //this.me = val;
-          this.loaded = true;
-          if (this.me.avatar != null && this.me.avatar != "") {
-            this.me.avatar = this.me.avatar;
-          }
-          this.changeAvatar(this.me.avatar);
+          this.userService.getId(val.id).subscribe((ok:any) => {
+            
+            this.me = val;
+            this.loaded = true;
+            if (this.me.avatar != null && this.me.avatar != "") {
+              this.me.avatar = this.me.avatar;
+            }
+            this.changeAvatar(this.me.avatar);
+          });
         });
       }
       this.removeBlur();

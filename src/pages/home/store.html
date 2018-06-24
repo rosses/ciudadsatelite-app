@@ -107,7 +107,7 @@
         <ion-slide *ngFor="let product of products" [ngStyle]="{'background-image': 'url('+(product.avatar == '' ? 'assets/img/default/no-pictures.png' : product.avatar)+')'}">
           <div class="slide-product">
             <div class="slide-title">{{product.name}}</div>
-            <div class="slide-price">$ {{product.price | number:'1.0-0' }}</div>
+            <div class="slide-price" *ngIf="product.price > 0">$ {{product.price | number:'1.0-0' }}</div>
           </div>
         </ion-slide>
       </ion-slides>
@@ -128,7 +128,7 @@
           <strong>{{service.name}}</strong>
         </ion-col>
         <ion-col col-4 class="tab-service-price">
-          $ {{service.price | number:'1.0-0' }}
+          <span *ngIf="product.price > 0">$ {{service.price | number:'1.0-0' }}</span>
         </ion-col>
         <ion-col col-12>
           <p [innerHtml]="service.description"></p>
@@ -164,7 +164,7 @@
             <img src="{{product.avatar == '' ? 'assets/img/default/no-pictures.png' : product.avatar}}" />
             <div class="slide-product">
               <div class="slide-title">{{product.name}}</div>
-              <div class="slide-price">$ {{product.price | number:'1.0-0' }}</div>
+              <div class="slide-price" *ngIf="product.price > 0">$ {{product.price | number:'1.0-0' }}</div>
             </div>
           </ion-col>
          </ion-row>
@@ -186,7 +186,7 @@
             <strong>{{service.name}}</strong>
           </ion-col>
           <ion-col col-4 class="tab-service-price">
-            $ {{service.price | number:'1.0-0' }}
+            <span *ngIf="product.price > 0">$ {{service.price | number:'1.0-0' }}</span>
           </ion-col>
           <ion-col col-12 class="tab-service-name">
             <p [innerHtml]="service.description"></p>
