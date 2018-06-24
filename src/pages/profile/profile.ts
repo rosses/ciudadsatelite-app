@@ -27,6 +27,7 @@ export class Profile {
   loaded: boolean = false;
   states: any = [];
   cities: any = [];
+  passwd: string = '';
 
   constructor(public navCtrl: NavController,
               public storage: Storage,
@@ -86,7 +87,8 @@ export class Profile {
         state: this.me.address.state,
         city: this.me.address.city,
         email: this.me.email,
-        phone: this.me.phone
+        phone: this.me.phone,
+        passwd: this.passwd
       });
 
       updateOperation.subscribe((ok: any) => {
