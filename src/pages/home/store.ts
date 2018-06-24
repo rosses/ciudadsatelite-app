@@ -286,7 +286,7 @@ export class Store {
     }
 
     this.appAvailability.check(app).then((yes: boolean) => {
-      window.open('instagram://user?username='+this.store.facebook, '_system', 'location=no');
+      window.open('instagram://user?username='+this.store.instagram, '_system', 'location=no');
     },
     (no: boolean) => {
       window.open('https://www.instagram.com/'+this.store.instagram, '_system');
