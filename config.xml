@@ -35,7 +35,7 @@
     <preference name="AutoHideSplashScreen" value="false" />
     <preference name="ShowSplashScreenSpinner" value="false" />
     <platform name="android">
-        <resource-file src="google-services.json" target="google-services.json" />
+        <resource-file src="google-services.json" target="google-services.json" overwrite="true" />
         <preference name="loadUrlTimeoutValue" value="700000" />
         <allow-intent href="market:*" />
         <feature name="Whatsapp">
