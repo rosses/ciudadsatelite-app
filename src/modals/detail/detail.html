@@ -9,8 +9,10 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
-    <div class="media" [style.background-image]="'url(' + (detail.avatar != '' && detail.avatar != null ? detail.avatar : 'assets/img/default/avatar.png' ) + ')'" style="background-size: cover;"></div>
-
+    <!--<div class="media" [style.background-image]="'url(' + (detail.avatar != '' && detail.avatar != null ? detail.avatar : 'assets/img/default/avatar.png' ) + ')'" style="background-size: cover;"></div>-->
+    <div class="top">
+        <img src="{{(detail.avatar != '' && detail.avatar != null ? detail.avatar : 'assets/img/default/avatar.png' )}}" />
+    </div>
     <div class="pd20">
     
 	    <h4>{{detail.name}}</h4>

@@ -66181,6 +66181,11 @@ page-modalDetail p {
   text-align: justify;
 }
 
+page-modalDetail .top img {
+  width: 100%;
+  max-width: 100%;
+}
+
 page-modalERR ion-content {
   background-color: transparent !important;
 }
