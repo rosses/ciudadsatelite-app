@@ -16,7 +16,7 @@
   <div *ngIf="!isLoading">
 
     <ion-list>
-      <ion-item text-wrap *ngFor="let noti of notificaciones">
+      <ion-item text-wrap *ngFor="let noti of notificaciones" (click)="goToAction(noti.type, noti.reference)">
         <ion-row>
           <ion-col col-2>
             <ion-icon *ngIf="noti.readed == 1" class="off" name="radio-button-off"></ion-icon>
@@ -26,7 +26,7 @@
             <strong>{{noti.title}}</strong>  <small>{{noti.created_at | date:'dd/MM/yy H:mm'}}</small> <br />
             {{noti.message}}
           </ion-col>
-          <ion-col col-2 *ngIf="noti.type != ''" (click)="goToAction(noti.type, noti.reference)">
+          <ion-col col-2 *ngIf="noti.type != ''">
             <ion-icon name="arrow-forward"></ion-icon>
           </ion-col>
         </ion-row>
