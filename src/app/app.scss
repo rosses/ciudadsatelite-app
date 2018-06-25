@@ -495,5 +495,17 @@ ion-backdrop {
 }
 */
 
+strong.badges {
+  display: inline-block;
+  text-align: center;
+  width: 20px;
+  height: 20px;
+  background-color: #FF0000;
+  padding: 1px;
+  border-radius: 50%;
+  line-height: 20px;
+  font-size: 12px;
+  color: #FFF;
+}
 .bar-buttons[end] { min-width: 44px !important; }
 .search-top span { font-size: 20px !important; }

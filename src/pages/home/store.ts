@@ -56,7 +56,6 @@ export class Store {
   ) {
 
     this.store = this.navParams.get("store");
-    this.name = this.store.name;
 
     this.load = this.loadingCtrl.create();
     this.load.present();
@@ -64,6 +63,7 @@ export class Store {
     this.doctorService.getStore(this.store.id).subscribe((data: any)=> {
       this.isLoading=false;
       this.store=data.data;
+      this.name = this.store.name;
       this.products=data.products;
       this.services=data.services;
       this.load.dismiss();

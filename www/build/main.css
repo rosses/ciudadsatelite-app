@@ -66103,6 +66103,19 @@ ion-backdrop {
   }
 }
 */
+strong.badges {
+  display: inline-block;
+  text-align: center;
+  width: 20px;
+  height: 20px;
+  background-color: #FF0000;
+  padding: 1px;
+  border-radius: 50%;
+  line-height: 20px;
+  font-size: 12px;
+  color: #FFF;
+}
+
 .bar-buttons[end] {
   min-width: 44px !important;
 }
@@ -66476,6 +66489,12 @@ page-categoria .search-results strong {
   display: block;
 }
 
+page-categoria .search-results .media_x {
+  height: 80px;
+  background-size: cover;
+  background-position: center;
+}
+
 page-categoria .no-items {
   text-align: center;
   font-size: 18px;
@@ -66587,6 +66606,12 @@ page-home .search-results .item-inner {
 
 page-home .search-results strong {
   display: block;
+}
+
+page-home .search-results .media_x {
+  height: 80px;
+  background-size: cover;
+  background-position: center;
 }
 
 page-home .list > .item-block:first-child {
@@ -67678,6 +67703,99 @@ page-mapa .close {
   /* Chrome10-25,Safari5.1-6 */
   background: linear-gradient(135deg, #116362 0%, #b2e098 100%) !important;
   /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+page-notificaciones .timeline-item {
+  background: #fff;
+  border: 0;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 472px;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  /*border-bottom: 1px solid #CCC;*/
+}
+
+page-notificaciones ion-toolbar .toolbar-background {
+  background-color: #FFF !important;
+}
+
+page-notificaciones .content {
+  background-color: #FFF;
+}
+
+page-notificaciones .timeline-wrapper {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+page-notificaciones .forceh {
+  min-height: 150px;
+}
+
+@keyframes placeHolderShimmer {
+  0% {
+    background-position: -468px 0;
+  }
+  100% {
+    background-position: 468px 0;
+  }
+}
+
+page-notificaciones .animated-background {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-name: placeHolderShimmer;
+  animation-name: placeHolderShimmer;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  background: #f6f7f8;
+  background: -webkit-gradient(linear, left top, right top, color-stop(8%, #eeeeee), color-stop(18%, #dddddd), color-stop(33%, #eeeeee));
+  background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+  background-size: 800px 104px;
+  height: 130px;
+  position: relative;
+}
+
+page-notificaciones .background-masker {
+  background: #fff;
+  position: absolute;
+}
+
+page-notificaciones .background-masker.news-img {
+  top: 100px;
+  left: 0px;
+  width: 100%;
+  height: 10px;
+}
+
+page-notificaciones .background-masker.news-date {
+  top: 130px;
+  left: 0px;
+  width: 100%;
+  height: 10px;
+}
+
+page-notificaciones .background-masker.news-date2 {
+  top: 110px;
+  left: 60%;
+  width: 40%;
+  height: 20px;
+}
+
+page-notificaciones .background-masker.news-title {
+  top: 160px;
+  left: 0px;
+  width: 100%;
+  height: 10px;
+}
+
+page-notificaciones .on, page-notificaciones .off {
+  color: #37c4ce;
 }
 
 page-profile-media {

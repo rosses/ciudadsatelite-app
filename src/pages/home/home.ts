@@ -3,9 +3,11 @@ import { NavController, NavParams, ToastController, PopoverController } from 'io
 import { GoogleMapsAPIWrapper  } from '@agm/core';
 import { Geolocation } from '@ionic-native/geolocation';
 import { HttpClient } from '@angular/common/http';
+import { Badge } from '@ionic-native/badge';
 
 import { Store } from '../../pages/home/store';
 import { DoctorService } from '../../services/doctor.service';
+import { UserService } from '../../services/user.service';
 import { Storage } from '@ionic/storage';
 import { Categoria } from '../../pages/home/categoria';
 import { JuntaVecinosPage } from '../../pages/juntavecinos/juntavecinos';
@@ -31,13 +33,15 @@ export class HomePage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    private userService: UserService,
     private doctorService: DoctorService,
     private geolocation: Geolocation,
     public gMaps: GoogleMapsAPIWrapper,
     private toastCtrl: ToastController,
     public popoverCtrl: PopoverController,
     public http: HttpClient,
-    private storage: Storage
+    private storage: Storage,
+    private badge: Badge
   ) {
 
     setTimeout(() => {
@@ -45,7 +49,26 @@ export class HomePage {
         this.isLoading=false;
         this.categs=data.data;
       });
-    },2000);
+    },1000);
+
+    this.userService.getNotificationStatus().subscribe((cdata: any) => {
+      console.log('cdata', cdata);
+      let number = parseInt(cdata.total);
+      if (isNaN(number)) {
+        // nothing
+        console.log('Notification number is NaN, no updated');
+      }
+      else if (number == 0) {
+        this.userService.changeNotifications.emit(number);
+        this.badge.clear();  
+      }
+      else {
+        this.userService.changeNotifications.emit(number);
+        this.badge.set(number);
+      }
+      
+    });
+
   }
 
   goToStore(store: any) {

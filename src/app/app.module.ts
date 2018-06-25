@@ -27,6 +27,7 @@ import { HomePage } from '../pages/home/home';
 import { NewsDetalle } from '../pages/juntavecinos/newsDetalle';
 import { LoginPage } from '../pages/login/login';
 import { Categoria } from '../pages/home/categoria';
+import { Notificaciones } from '../pages/notificaciones/notificaciones';
 import { Store } from '../pages/home/store';
 import { Contacto } from '../pages/contacto/contacto';
 import { JuntaVecinosPage } from '../pages/juntavecinos/juntavecinos';
@@ -84,6 +85,7 @@ export function HttpLoaderFactory(http: Http) {
     Profile,
     Contacto,
     Categoria,
+    Notificaciones,
     Store,
     StoreProfile,
     StoreProducts,
@@ -137,6 +139,7 @@ export function HttpLoaderFactory(http: Http) {
     LoginPage,
     Contacto,
     Categoria,
+    Notificaciones,
     Store,
     StoreProfile,
     StoreProducts,

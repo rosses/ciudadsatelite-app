@@ -16,6 +16,7 @@ import 'rxjs/add/observable/fromPromise';
 export class UserService extends BaseService{
 
   public changeAvatar: EventEmitter<any> = new EventEmitter();
+  public changeNotifications: EventEmitter<any> = new EventEmitter();
   public push: string = '';
 
   constructor(public http: HttpClient, public storage: Storage, private device: Device) {
@@ -61,6 +62,10 @@ export class UserService extends BaseService{
 
   getNotificationStatus() {
     return this.get('users/notification');
+  }
+
+  getNotifications() {
+    return this.get('users/notificationlist');
   }
 
   getId(id: number) {

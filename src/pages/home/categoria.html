@@ -47,7 +47,7 @@
         <ion-item *ngFor="let result of searchStores" (click)="goToStore(result);">
           <ion-row>
             <ion-col col-4>
-              <img src="{{result.icon}}" />
+              <div class="media_x" [style.background-image]="'url(' + (result.avatar != '' && result.avatar != null ? result.avatar : 'assets/img/default/store.png' ) + ')'" style="background-size: cover;"></div>
             </ion-col>
             <ion-col col-8>
                 <strong>{{result.name}}</strong>
@@ -63,7 +63,7 @@
         <ion-item *ngFor="let result of searchProducts" (click)="goToStore(result.store);">
           <ion-row>
             <ion-col col-4>
-              <img src="{{result.avatar}}" />
+              <div class="media_x" [style.background-image]="'url(' + (result.avatar != '' && result.avatar != null ? result.avatar : 'assets/img/default/store.png' ) + ')'" style="background-size: cover;"></div>
             </ion-col>
             <ion-col col-8>
                 <strong>{{result.name}}</strong>
@@ -80,7 +80,7 @@
         <ion-item *ngFor="let result of searchServices" (click)="goToStore(result.store);">
           <ion-row>
             <ion-col col-4>
-              <img src="{{result.avatar}}" />
+              <div class="media_x" [style.background-image]="'url(' + (result.avatar != '' && result.avatar != null ? result.avatar : 'assets/img/default/store.png' ) + ')'" style="background-size: cover;"></div>
             </ion-col>
             <ion-col col-8>
                 <strong>{{result.name}}</strong>

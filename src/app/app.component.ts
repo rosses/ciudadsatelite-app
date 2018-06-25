@@ -15,7 +15,8 @@ import { StoreProfile } from '../pages/storeprofile/storeprofile';
 import { StoreProducts } from '../pages/storeproducts/storeproducts';
 import { StoreServices } from '../pages/storeservices/storeservices';
 import { JuntaVecinosPage } from '../pages/juntavecinos/juntavecinos';
-
+import { Notificaciones } from '../pages/notificaciones/notificaciones';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 import { UserService } from "../services/user.service";
 import { AuthService } from '../services/auth.service';
@@ -39,6 +40,7 @@ export class MyApp {
   active: any;
   zones: any = [];
   loading: any; 
+  notifications: number = 0;
 
   constructor(
     public platform: Platform,
@@ -53,6 +55,7 @@ export class MyApp {
     private loadingController: LoadingController,
     private authService:AuthService,
     private fcm: FCM,
+    private sanitizer: DomSanitizer,
     public menu: MenuController,
     private badge: Badge
   ){
@@ -62,6 +65,11 @@ export class MyApp {
     this.userService.changeAvatar.subscribe((st) => {
       console.log('change_avatar_main_fire', st);
       this.user.avatar = st;
+    });
+
+    this.userService.changeNotifications.subscribe((st) => {
+      console.log('changeNotifications fire', st);
+      this.notifications = st;
     });
 
 
@@ -106,20 +114,40 @@ export class MyApp {
                 console.log('cdata', cdata);
                 let number = parseInt(cdata.total);
                 if (isNaN(number)) {
-                  // nothing
                   console.log('Notification number is NaN, no updated');
                 }
                 else if (number == 0) {
+                  this.notifications = number;
                   this.badge.clear();  
                 }
                 else {
+                  this.notifications = number;
                   this.badge.set(number);
+                }
+
+                if (data.type != '' && data.reference != '') {
+                  this.nav.setRoot(Notificaciones, {preloadType: data.type, preloadReference: data.reference});
                 }
                 
               });
             });
           } else {
             console.log("Received in foreground", data);
+            this.userService.getNotificationStatus().subscribe((cdata: any) => {
+              console.log('cdata', cdata);
+              let number = parseInt(cdata.total);
+              if (isNaN(number)) {
+                console.log('Notification number is NaN, no updated');
+              }
+              else if (number == 0) {
+                this.notifications = number;
+                this.badge.clear();  
+              }
+              else {
+                this.notifications = number;
+                this.badge.set(number);
+              }
+            });
           };
 
         })
@@ -265,6 +293,7 @@ export class MyApp {
     this.pages = [];
     this.pages.push({ title: 'Categorias', component: HomePage, selected: true });
     this.pages.push({ title: 'Mapa', component: Mapa, selected: false });
+    this.pages.push({ title: 'Notificaciones  <strong class="badges"></strong>', component: Mapa, selected: false });
 
     if (this.active.profile_id == "2") { // Vendedor
       this.pages.push({ title: 'Perfil de tienda', component: StoreProfile, selected: false });
@@ -296,7 +325,12 @@ export class MyApp {
   openPage(page) {
     this.nav.setRoot(page.component);
   }
-
+  openPageComponent(id: number) {
+    if (id == 1) { this.nav.setRoot(HomePage); }
+    else if (id == 2) { this.nav.setRoot(Mapa); }
+    else if (id == 3) { this.nav.setRoot(Notificaciones); } 
+    else if (id == 4) { this.nav.setRoot(JuntaVecinosPage); }   
+  }
   closeSession() {
   let alert = this.alertCtrl.create({
     title: 'Hasta pronto',

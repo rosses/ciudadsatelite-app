@@ -7,9 +7,25 @@
     <button menuClose (click)="profile()" ion-button round color="light">MI PERFIL</button>
   </div>
 
+  <!--
   <div menuClose *ngFor="let p of pages" class="link" [ngClass]="{'selected' : p.selected}" (click)="openPage(p)">
-    <span>{{p.title}}</span>
+    <span [innerHTML]="sanitizer.bypassSecurityTrustHtml(p.title)"></span>
   </div>
+  -->
+
+  <div menuClose class="link" (click)="openPageComponent(1)">
+    <span>Categorias</span>
+  </div>
+  <div menuClose class="link" (click)="openPageComponent(2)">
+    <span>Mapa</span>
+  </div>
+  <div menuClose class="link" (click)="openPageComponent(3)">
+    <span>Notificaciones <strong class="badges" *ngIf="notifications > 0">{{notifications}}</strong></span>
+  </div>
+  <div menuClose class="link" (click)="openPageComponent(4)">
+    <span>Junta de Vecinos</span>
+  </div>
+
   
   <div menuClose *ngFor="let zone of zones" class="link destacado" [ngClass]="{'selected' : selected}" (click)="switchActive(zone)">
     <span><strong>Administrar</strong><br />{{zone.name}}</span>
