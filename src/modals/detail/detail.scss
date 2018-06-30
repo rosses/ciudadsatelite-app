@@ -19,4 +19,17 @@ page-modalDetail {
 	}
 
 	.top img { width: 100%; max-width: 100%; }
+
+	.swiper-pagination {
+		background-color: #FFF;
+	}
+	.buttonWrapper {
+		float: right;
+		margin-right: 15px;
+		display: inline-block;
+	}
+	.buttonWrapper button {
+		min-width: 90px;
+		height: 30px;
+	}
 }

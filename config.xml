@@ -34,6 +34,9 @@
     <preference name="SplashScreenDelay" value="0" />
     <preference name="AutoHideSplashScreen" value="false" />
     <preference name="ShowSplashScreenSpinner" value="false" />
+    <preference name="YouTubeDataApiKey" value="AIzaSyBrUo6PdRjbF03o4_xeEoYl9kTD5V7pp7g" />
+
+
     <platform name="android">
         <resource-file src="google-services.json" target="google-services.json" />
         <resource-file src="fcm_push_icon.png" target="res/fcm_push_icon.png" />
@@ -167,4 +170,5 @@
     <plugin name="cordova-plugin-badge" spec="^0.8.7" />
     <plugin name="call-number" spec="1.0.1" />
     <plugin name="cordova-plugin-inappbrowser" spec="^3.0.0" />
+    <plugin name="cordova-plugin-youtube-video-player" spec="^1.0.6" />
 </widget>

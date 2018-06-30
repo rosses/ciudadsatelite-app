@@ -21,7 +21,7 @@ import { Autosize} from '../components/autosize';
 import { SafePipe} from '../components/safepipe';
 import { IonicImageViewerModule } from 'ionic-img-viewer';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
-
+import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
 
 import { MyApp } from './app.component';
 
@@ -171,6 +171,7 @@ export function HttpLoaderFactory(http: Http) {
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     Pata,
     InAppBrowser,
+    YoutubeVideoPlayer,
     BarcodeScanner,
     Geolocation,
     Camera,

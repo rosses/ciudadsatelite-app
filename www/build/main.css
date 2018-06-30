@@ -66256,6 +66256,21 @@ page-modalDetail .top img {
   max-width: 100%;
 }
 
+page-modalDetail .swiper-pagination {
+  background-color: #FFF;
+}
+
+page-modalDetail .buttonWrapper {
+  float: right;
+  margin-right: 15px;
+  display: inline-block;
+}
+
+page-modalDetail .buttonWrapper button {
+  min-width: 90px;
+  height: 30px;
+}
+
 page-modalERR ion-content {
   background-color: transparent !important;
 }
