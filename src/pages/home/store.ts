@@ -164,7 +164,7 @@ export class Store {
       let contactsfound;
 
       let fields:ContactFieldType[];
-      
+
       const options = new ContactFindOptions();
       options.filter = this.store.name;
       options.multiple = true;
@@ -173,9 +173,11 @@ export class Store {
       this.contacts.find(["displayName", "phoneNumbers","photos"], options).then((contactos) => {
         console.log(contactos);
         let create = 0;
-        if (contactos.length > 0) {
-          this.load.dismiss();
-          this.goWhatsapp();
+        if (contactos.length > 0) {        
+          setTimeout(() => { 
+            this.load.dismiss();
+            this.goWhatsapp();
+          }, 2000);
         } else {
 
           var contact = this.contacts.create();
@@ -191,8 +193,10 @@ export class Store {
           contact.phoneNumbers = numberSection;
           
           contact.save().then((value) => {
-            this.load.dismiss();
-            this.goWhatsapp();
+            setTimeout(() => { 
+              this.load.dismiss();
+              this.goWhatsapp();
+            }, 2000);
           }, (error) => {
             this.load.dismiss();
             this.service.logError("No hemos podido acceder a tu agenda e ir a WhatsApp.");
@@ -233,7 +237,8 @@ export class Store {
               cordova.plugins.Whatsapp.send(this.store.whatsapp);
             }
             else if (this.platform.is('ios')) {
-              window.open('whatsapp://send', '_system', 'location=no');
+              window.open('https://wa.me/'+this.store.whatsapp.replace('+',''), '_system');
+              /*window.open('whatsapp://send?text=Hola&phone='+this.store.whatsapp+'&abid='+this.store.whatsapp, '_system', 'location=no');*/
             }
           }
         }
