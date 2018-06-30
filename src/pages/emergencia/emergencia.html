@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Números Útiles</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  
+  <div *ngIf="!isLoading">
+    <div *ngIf="active == 0">
+      <ion-grid class="grid">
+        <ion-row>
+          <ion-col col-4 *ngFor="let s of sections">
+            <button (click)="callToNumber(s)"> <div> <img src="{{s.icon}}" /> <br> <label>{{s.name}}</label> </div> </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+
+  </div>
+
+
+</ion-content>

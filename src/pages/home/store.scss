@@ -81,6 +81,7 @@ page-store {
     border-bottom: 1px solid #ABABAB;
     min-height: 180px;
     background-size: cover;
+    background-position: center; 
   }
   .slide-product {
     position: absolute;
@@ -136,10 +137,17 @@ page-store {
     border-right: 1px solid gray;
   }
   .store-grid .slide-product {
-    width: calc(100% - 5px);
+    width: calc(100%);    
   }
   .store-grid ion-col {
     border-bottom: 1px solid gray;
+  }
+
+  .store-grid > ion-col {
+    min-height: 180px;
+    background-size: cover;
+    background-position: center; 
+    padding: 0;
   }
 
   .store-services {

@@ -1,0 +1,52 @@
+page-emergencia {
+
+  .content {
+    background-color: map-get($colors, light);
+  }
+
+  .scroll-content {
+    padding: 0 !important;
+  }
+
+  .timeline-item {
+      background: #fff;
+      border: 0;
+      padding: 0;
+
+      margin: 0 auto;
+      max-width: 472px;
+      margin-top: 15px;
+      margin-bottom: 10px;
+      /*border-bottom: 1px solid #CCC;*/
+  }
+  ion-toolbar .toolbar-background {
+    background-color: #FFF !important;
+  }
+  
+  .grid {
+    margin-top: 25px;
+  }
+  .grid ion-col {
+    text-align: center;
+
+  }
+  .grid button {
+    padding:0;
+    background-color: transparent !important;
+  }
+  .grid button.activated img {
+    border: 3px solid #116362;
+  }
+  .grid button label { 
+    font-size: 15px;
+  }
+  .grid button img {
+    border-radius: 50%;
+    max-width: 75%;
+    border: 3px solid #9eeeb1;
+  }
+
+
+
+}
+

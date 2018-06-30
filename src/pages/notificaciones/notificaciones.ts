@@ -8,6 +8,7 @@ import { environment } from "../../environments/environment"
 import { Pata } from '../../pata';
 import { Store } from '../../pages/home/store';
 import { ModalDetail } from '../../modals/detail/detail';
+import { Badge } from '@ionic-native/badge';
 
 @Component({
   selector: 'page-notificaciones',
@@ -27,6 +28,7 @@ export class Notificaciones {
     public modalCtrl: ModalController,
     public service: Pata,
     public navParams: NavParams,
+    private badge: Badge,
     private sanitizer: DomSanitizer
   ) {
     
@@ -37,6 +39,20 @@ export class Notificaciones {
       this.notificaciones = cdata.data;
       this.isLoading = false;
       this.x.dismiss();
+      
+      let number = parseInt(cdata.total);
+      if (isNaN(number)) {
+        // nothing
+        console.log('Notification number is NaN, no updated');
+      }
+      else if (number == 0) {
+        this.userService.changeNotifications.emit(number);
+        this.badge.clear();  
+      }
+      else {
+        this.userService.changeNotifications.emit(number);
+        this.badge.set(number);
+      }
 
       if (this.navParams.get("preloadType") && this.navParams.get("preloadReference")) {
         this.goToAction(this.navParams.get("preloadType"), this.navParams.get("preloadReference"));
@@ -54,7 +70,8 @@ export class Notificaciones {
     });
   }
 
-  goToAction(type:string, reference: number) {
+  goToAction(type:string, reference: number, idpush?: any) {
+    if (idpush) { this.userService.setReadPush(idpush).subscribe((t) => { console.log('setReadPush '+t); }); }
     if (type=='store') {
       this.doctorService.addQty(reference);
       this.navCtrl.push(Store, { store: {id: reference} });

@@ -25,7 +25,9 @@
   <div menuClose class="link" (click)="openPageComponent(4)">
     <span>Junta de Vecinos</span>
   </div>
-
+  <div menuClose class="link" (click)="openPageComponent(5)">
+    <span>Teléfonos Útiles</span>
+  </div>
   
   <div menuClose *ngFor="let zone of zones" class="link destacado" [ngClass]="{'selected' : selected}" (click)="switchActive(zone)">
     <span><strong>Administrar</strong><br />{{zone.name}}</span>

@@ -10,6 +10,7 @@ import { Contacts, Contact, ContactFieldType, ContactFindOptions, ContactField, 
 import { DoctorService } from '../../services/doctor.service';
 import { Storage } from '@ionic/storage';
 import { ModalDetail } from '../../modals/detail/detail';
+import { CallNumber } from '@ionic-native/call-number';
 
 import { Pata } from '../../pata';
 
@@ -52,7 +53,8 @@ export class Store {
     private appAvailability: AppAvailability, 
     private platform: Platform,
     public service: Pata,
-    private launchNavigator: LaunchNavigator
+    private launchNavigator: LaunchNavigator,
+    private callNumber: CallNumber
   ) {
 
     this.store = this.navParams.get("store");
@@ -111,7 +113,9 @@ export class Store {
   }
 
   call() {
-    document.location.href = "tel:"+this.store.phone;
+    this.callNumber.callNumber(this.store.phone, true)
+      .then(res => console.log('Launched dialer!', res))
+      .catch(err => console.log('Error launching dialer', err));
   }
   showDistance(lat1: number, lon1: number, lat2: number, lon2: number) {
     var dif = this.calcCrow(lat1, lon1, lat2, lon2);

@@ -1,6 +1,7 @@
 import { Component, Renderer2, OnDestroy } from '@angular/core';
 import { NavController, ViewController, NavParams } from 'ionic-angular';
 import { environment } from "../../environments/environment"
+import { ImageViewerController } from 'ionic-img-viewer';
 
 @Component({
   selector: 'page-modalDetail',

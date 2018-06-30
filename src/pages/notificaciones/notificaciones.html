@@ -16,7 +16,7 @@
   <div *ngIf="!isLoading">
 
     <ion-list>
-      <ion-item text-wrap *ngFor="let noti of notificaciones" (click)="goToAction(noti.type, noti.reference)">
+      <ion-item text-wrap *ngFor="let noti of notificaciones" (click)="goToAction(noti.type, noti.reference, noti.id)">
         <ion-row>
           <ion-col col-2>
             <ion-icon *ngIf="noti.readed == 1" class="off" name="radio-button-off"></ion-icon>

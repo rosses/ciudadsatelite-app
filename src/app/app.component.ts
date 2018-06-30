@@ -10,6 +10,7 @@ import { Profile } from '../pages/profile/profile';
 import { LoginPage } from '../pages/login/login';
 import { Contacto } from '../pages/contacto/contacto';
 import { HomePage } from '../pages/home/home';
+import { Emergencia } from '../pages/emergencia/emergencia';
 import { Mapa } from '../pages/mapa/mapa';
 import { StoreProfile } from '../pages/storeprofile/storeprofile';
 import { StoreProducts } from '../pages/storeproducts/storeproducts';
@@ -330,6 +331,7 @@ export class MyApp {
     else if (id == 2) { this.nav.setRoot(Mapa); }
     else if (id == 3) { this.nav.setRoot(Notificaciones); } 
     else if (id == 4) { this.nav.setRoot(JuntaVecinosPage); }   
+    else if (id == 5) { this.nav.setRoot(Emergencia); }   
   }
   closeSession() {
   let alert = this.alertCtrl.create({

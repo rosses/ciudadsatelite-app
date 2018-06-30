@@ -19,11 +19,14 @@ import { Device } from '@ionic-native/device';
 import { Badge } from '@ionic-native/badge';
 import { Autosize} from '../components/autosize';
 import { SafePipe} from '../components/safepipe';
+import { IonicImageViewerModule } from 'ionic-img-viewer';
+
 import { MyApp } from './app.component';
 
 // Pages
 import { Profile } from '../pages/profile/profile';
 import { HomePage } from '../pages/home/home';
+import { Emergencia } from '../pages/emergencia/emergencia';
 import { NewsDetalle } from '../pages/juntavecinos/newsDetalle';
 import { LoginPage } from '../pages/login/login';
 import { Categoria } from '../pages/home/categoria';
@@ -79,6 +82,7 @@ export function HttpLoaderFactory(http: Http) {
   declarations: [
     MyApp,
     HomePage,
+    Emergencia,
     NewsDetalle,
     ProfileMedia,
     LoginPage,
@@ -112,6 +116,7 @@ export function HttpLoaderFactory(http: Http) {
     }),
     HttpModule,
     HttpClientModule,
+    IonicImageViewerModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -133,6 +138,7 @@ export function HttpLoaderFactory(http: Http) {
   entryComponents: [
     MyApp,
     HomePage,
+    Emergencia,
     NewsDetalle,
     Mapa,
     ProfileMedia,
@@ -157,6 +163,7 @@ export function HttpLoaderFactory(http: Http) {
     NewsService,
     DoctorService,
     StatusBar,
+    CallNumber,
     SplashScreen,
     GoogleMapsAPIWrapper,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
@@ -175,7 +182,6 @@ export function HttpLoaderFactory(http: Http) {
     SocialSharing,
     DatePipe,
     EmailComposer,
-    CallNumber,
     RutValidator
 
   ]
