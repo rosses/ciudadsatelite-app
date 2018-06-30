@@ -164,13 +164,13 @@ export class Store {
       let contactsfound;
 
       let fields:ContactFieldType[];
-
+      
       const options = new ContactFindOptions();
       options.filter = this.store.name;
       options.multiple = true;
       options.hasPhoneNumber = true;
 
-      this.contacts.find(fields, options).then((contactos) => {
+      this.contacts.find(["displayName", "phoneNumbers","photos"], options).then((contactos) => {
         console.log(contactos);
         let create = 0;
         if (contactos.length > 0) {
