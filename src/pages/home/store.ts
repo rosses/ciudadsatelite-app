@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
 import { AppAvailability } from '@ionic-native/app-availability';
 import { Contacts, Contact, ContactFieldType, ContactFindOptions, ContactField, ContactName } from '@ionic-native/contacts';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 import { DoctorService } from '../../services/doctor.service';
 import { Storage } from '@ionic/storage';
@@ -54,7 +55,8 @@ export class Store {
     private platform: Platform,
     public service: Pata,
     private launchNavigator: LaunchNavigator,
-    private callNumber: CallNumber
+    private callNumber: CallNumber,
+    private iab: InAppBrowser
   ) {
 
     this.store = this.navParams.get("store");
@@ -269,9 +271,19 @@ export class Store {
 
     this.appAvailability.check(app).then((yes: boolean) => {
       if (this.platform.is('ios')) {
-        window.open('fb://page/'+this.store.facebook, '_system', 'location=no');
+        if (this.store.fb_ios != "") {
+          window.open(this.store.fb_ios, '_system', 'location=no');
+        }
+        else {
+          window.open('fb://page/'+this.store.facebook, '_system', 'location=no');
+        }
       } else {
-        window.open('fb://facewebmodal/f?href=https://www.facebook.com/'+this.store.facebook, '_system', 'location=no');
+        if (this.store.fb_android != "") {
+          window.open(this.store.fb_android, '_system', 'location=no'); 
+        } 
+        else {
+          window.open('fb://facewebmodal/f?href=https://www.facebook.com/'+this.store.facebook, '_system', 'location=no');
+        }
       }
     },
     (no: boolean) => {

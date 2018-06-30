@@ -166,4 +166,5 @@
     <plugin source="git" spec="https://github.com/ranjitpandit/whatsapp-phonegap-plugin.git" />
     <plugin name="cordova-plugin-badge" spec="^0.8.7" />
     <plugin name="call-number" spec="1.0.1" />
+    <plugin name="cordova-plugin-inappbrowser" spec="^3.0.0" />
 </widget>

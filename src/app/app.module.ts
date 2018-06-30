@@ -20,6 +20,8 @@ import { Badge } from '@ionic-native/badge';
 import { Autosize} from '../components/autosize';
 import { SafePipe} from '../components/safepipe';
 import { IonicImageViewerModule } from 'ionic-img-viewer';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+
 
 import { MyApp } from './app.component';
 
@@ -168,6 +170,7 @@ export function HttpLoaderFactory(http: Http) {
     GoogleMapsAPIWrapper,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     Pata,
+    InAppBrowser,
     BarcodeScanner,
     Geolocation,
     Camera,
