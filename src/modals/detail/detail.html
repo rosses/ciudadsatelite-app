@@ -12,17 +12,19 @@
     <!--<div class="media" [style.background-image]="'url(' + (detail.avatar != '' && detail.avatar != null ? detail.avatar : 'assets/img/default/avatar.png' ) + ')'" style="background-size: cover;"></div>-->
     <div class="top">
 
-        <ion-slides pager>
+        <ion-slides pager zoom>
           <!--
           <ion-slide *ngIf="detail.video!=''">
             <iframe width="100%" height="315" [src]="secure(secureYoutube(detail.video))" frameborder="0" allowfullscreen></iframe>
           </ion-slide>
           -->
+
+          <!-- imageViewer -->
           <ion-slide>
-            <img src="{{(detail.avatar != '' && detail.avatar != null ? detail.avatar : 'assets/img/default/avatar.png' )}}" imageViewer />
+            <img src="{{(detail.avatar != '' && detail.avatar != null ? detail.avatar : 'assets/img/default/avatar.png' )}}" />
           </ion-slide>
           <ion-slide *ngFor="let extra of detail.extras">
-            <img src="{{(extra.file != '' && extra.file != null ? extra.file : 'assets/img/default/avatar.png' )}}" imageViewer />
+            <img src="{{(extra.file != '' && extra.file != null ? extra.file : 'assets/img/default/avatar.png' )}}" />
           </ion-slide>
         </ion-slides>
 		<div class="buttonWrapper" *ngIf="detail.video!=''">

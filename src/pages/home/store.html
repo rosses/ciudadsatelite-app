@@ -84,15 +84,15 @@
     </ion-col>
   </ion-row>
   <hr />
-  <ion-row *ngIf="store.credit_card == 1">
+  <ion-row *ngIf="store.credit_card == 1" class="store-conditions">
     <ion-col col-1><ion-icon name="card"></ion-icon></ion-col>
     <ion-col col-11><b>Redcompra</b></ion-col>
   </ion-row>
-  <ion-row *ngIf="store.delivery == 1">
+  <ion-row *ngIf="store.delivery == 1" class="store-conditions">
     <ion-col col-1><ion-icon name="paper-plane"></ion-icon></ion-col>
     <ion-col col-11><b>Delivery</b></ion-col>
   </ion-row>
-  <ion-row *ngIf="store.credit_card_delivery == 1">
+  <ion-row *ngIf="store.credit_card_delivery == 1" class="store-conditions">
     <ion-col col-1><ion-icon name="bicycle"></ion-icon></ion-col>
     <ion-col col-11><b>Delivery + Redcompra</b></ion-col>
   </ion-row>

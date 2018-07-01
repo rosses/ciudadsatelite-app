@@ -66972,6 +66972,10 @@ page-store ion-card button, page-store ion-card button ion-icon {
   color: cornflowerblue !important;
 }
 
+page-store .store-conditions ion-icon {
+  font-size: 25px;
+}
+
 page-store ion-slide {
   -webkit-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.75);
   box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.75);

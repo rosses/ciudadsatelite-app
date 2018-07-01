@@ -158,7 +158,7 @@ export class Store {
     }
 
     this.appAvailability.check(app).then((yes: boolean) => {
-
+      this.load = this.loadingCtrl.create();
       this.load.present();
 
       let contactsfound;
@@ -175,7 +175,6 @@ export class Store {
         let create = 0;
         if (contactos.length > 0) {        
           setTimeout(() => { 
-            this.load.dismiss();
             this.goWhatsapp();
           }, 2000);
         } else {
@@ -194,7 +193,6 @@ export class Store {
           
           contact.save().then((value) => {
             setTimeout(() => { 
-              this.load.dismiss();
               this.goWhatsapp();
             }, 2000);
           }, (error) => {
@@ -218,7 +216,7 @@ export class Store {
   }
 
   goWhatsapp() {
-
+    this.load.dismiss();
     let alert = this.alertCtrl.create({
       title: 'Contacto creado',
       message: 'Se ha creado el contacto '+this.store.name+' ¿Desea continuar a WhatsApp?',
@@ -227,14 +225,15 @@ export class Store {
           text: 'Cancelar',
           role: 'cancel',
           handler: () => {
-            
+            alert.dismiss();
           }
         },
         {
           text: 'OK',
           handler: () => {
             if (this.platform.is('android')) {
-              cordova.plugins.Whatsapp.send(this.store.whatsapp);
+              //cordova.plugins.Whatsapp.send(this.store.whatsapp);
+              window.open('https://wa.me/'+this.store.whatsapp.replace('+',''), '_system');
             }
             else if (this.platform.is('ios')) {
               window.open('https://wa.me/'+this.store.whatsapp.replace('+',''), '_system');
