@@ -1,9 +1,10 @@
 import { Component, Renderer2, OnDestroy } from '@angular/core';
-import { NavController, Loading, LoadingController, ViewController, NavParams } from 'ionic-angular';
+import { NavController, Loading, LoadingController, ViewController, NavParams, ModalController } from 'ionic-angular';
 import { environment } from "../../environments/environment"
 import { ImageViewerController } from 'ionic-img-viewer';
 import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
+import { ModalGal } from '../../modals/gal/gal';
 
 @Component({
   selector: 'page-modalDetail',
@@ -20,13 +21,33 @@ export class ModalDetail implements OnDestroy {
     public loadingCtrl: LoadingController,
     private renderer: Renderer2,
     private domSanitizer: DomSanitizer,
-    private youtube: YoutubeVideoPlayer
+    private youtube: YoutubeVideoPlayer,
+    public modalCtrl: ModalController
   ) {
     this.detail = params.get('detail');
   }
 
   closeModal() {
     this.viewCtrl.dismiss();
+  }
+
+  ionGal() {
+    if (this.detail.avatar) {
+
+      let arr = [];
+      arr.push(this.detail.avatar);
+      for (let x=0;x<this.detail.extras.length;x++) {
+        arr.push(this.detail.extras[x].file);
+      }
+      
+      let galModal = this.modalCtrl.create(ModalGal, { arr: arr });
+      galModal.present();
+      galModal.onDidDismiss(data => {
+       
+      });
+
+    }
+
   }
 
   secure(url: string) {

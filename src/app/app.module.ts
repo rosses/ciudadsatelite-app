@@ -69,6 +69,7 @@ import { environment } from '../environments/environment';
 import { ModalOK } from '../modals/ok/ok';
 import { ModalERR } from '../modals/err/err';
 import { ModalDetail } from '../modals/detail/detail';
+import { ModalGal } from '../modals/gal/gal';
 import {SocialSharing} from "@ionic-native/social-sharing";
 import {DatePipe} from "@angular/common";
 import {EmailComposer} from "@ionic-native/email-composer";
@@ -100,6 +101,7 @@ export function HttpLoaderFactory(http: Http) {
     ModalOK,
     ModalERR,
     ModalDetail,
+    ModalGal,
     Mapa,
     NewsPreviewComponent,
     Autosize,
@@ -157,6 +159,7 @@ export function HttpLoaderFactory(http: Http) {
     ModalOK,
     ModalERR,
     ModalDetail,
+    ModalGal,
     Profile
   ],
   providers: [

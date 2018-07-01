@@ -25,6 +25,7 @@ import { Pata } from '../pata';
 import { FCM } from '@ionic-native/fcm';
 
 import { environment } from "../environments/environment"
+import {IonicApp } from 'ionic-angular';
 
 
 @Component({
@@ -58,7 +59,8 @@ export class MyApp {
     private fcm: FCM,
     private sanitizer: DomSanitizer,
     public menu: MenuController,
-    private badge: Badge
+    private badge: Badge,
+    private ionicApp: IonicApp
   ){
     this.initializeApp();
     this.staticUrl = environment.staticUrl;
@@ -94,12 +96,20 @@ export class MyApp {
       if (this.platform.is('cordova')) {
 
         this.platform.registerBackButtonAction(() => {
-          if(this.menu.isOpen()){
-             this.menu.close()
+          let activeModal=this.ionicApp._modalPortal.getActive();
+          if(activeModal){
+            activeModal.dismiss();
+            return;
+          }
+          else if(this.menu.isOpen()){
+            this.menu.close()
+            return;
           }
           else if(this.nav.canGoBack()){
             this.nav.pop();
-          }else{
+            return;
+          }
+          else{
             //don't do anything
           }
         });

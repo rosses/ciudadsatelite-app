@@ -66313,6 +66313,61 @@ page-modalERR button.buttonPinkOrange.small {
   height: 40px !important;
 }
 
+page-modalGal .media {
+  background-position: center;
+  height: 30vh;
+}
+
+page-modalGal .scroll-content {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+page-modalGal .pd20 {
+  padding: 20px;
+}
+
+page-modalGal ion-title {
+  padding: 0px !important;
+  padding-right: 40px !important;
+  padding-left: 20px !important;
+}
+
+page-modalGal p {
+  text-align: justify;
+}
+
+page-modalGal .top img {
+  width: 100%;
+  max-width: 100%;
+}
+
+page-modalGal .swiper-pagination {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+page-modalGal .buttonWrapper {
+  float: right;
+  margin-right: 15px;
+  display: inline-block;
+}
+
+page-modalGal .buttonWrapper button {
+  min-width: 90px;
+  height: 30px;
+}
+
+page-modalGal .noheader {
+  background-color: white;
+}
+
+page-modalGal .noheader .toolbar-background {
+  background-color: white;
+}
+
+page-modalGal .noheader ion-icon {
+  color: gray;
+}
+
 page-modalOK ion-content {
   background-color: transparent !important;
 }
