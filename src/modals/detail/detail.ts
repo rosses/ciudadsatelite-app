@@ -1,5 +1,5 @@
-import { Component, Renderer2, OnDestroy } from '@angular/core';
-import { NavController, Loading, LoadingController, ViewController, NavParams, ModalController } from 'ionic-angular';
+import { Component, Renderer2, OnDestroy, ViewChild } from '@angular/core';
+import { NavController, Loading, LoadingController, ViewController, NavParams, ModalController, Slides } from 'ionic-angular';
 import { environment } from "../../environments/environment"
 import { ImageViewerController } from 'ionic-img-viewer';
 import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
@@ -11,6 +11,8 @@ import { ModalGal } from '../../modals/gal/gal';
   templateUrl: 'detail.html'
 })
 export class ModalDetail implements OnDestroy {
+  
+  @ViewChild(Slides) slides: Slides;
   
   public detail: any;
   loading: Loading;
@@ -31,7 +33,7 @@ export class ModalDetail implements OnDestroy {
     this.viewCtrl.dismiss();
   }
 
-  ionGal() {
+  ionGal(indice: number) {
     if (this.detail.avatar) {
 
       let arr = [];
@@ -40,7 +42,7 @@ export class ModalDetail implements OnDestroy {
         arr.push(this.detail.extras[x].file);
       }
       
-      let galModal = this.modalCtrl.create(ModalGal, { arr: arr });
+      let galModal = this.modalCtrl.create(ModalGal, { arr: arr, ini: this.slides.getActiveIndex() });
       galModal.present();
       galModal.onDidDismiss(data => {
        

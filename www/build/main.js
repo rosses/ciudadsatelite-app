@@ -847,14 +847,14 @@ var ModalDetail = (function () {
     ModalDetail.prototype.closeModal = function () {
         this.viewCtrl.dismiss();
     };
-    ModalDetail.prototype.ionGal = function () {
+    ModalDetail.prototype.ionGal = function (indice) {
         if (this.detail.avatar) {
             var arr = [];
             arr.push(this.detail.avatar);
             for (var x = 0; x < this.detail.extras.length; x++) {
                 arr.push(this.detail.extras[x].file);
             }
-            var galModal = this.modalCtrl.create(__WEBPACK_IMPORTED_MODULE_4__modals_gal_gal__["a" /* ModalGal */], { arr: arr });
+            var galModal = this.modalCtrl.create(__WEBPACK_IMPORTED_MODULE_4__modals_gal_gal__["a" /* ModalGal */], { arr: arr, ini: this.slides.getActiveIndex() });
             galModal.present();
             galModal.onDidDismiss(function (data) {
             });
@@ -873,14 +873,23 @@ var ModalDetail = (function () {
     };
     return ModalDetail;
 }());
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["v" /* Slides */]),
+    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["v" /* Slides */])
+], ModalDetail.prototype, "slides", void 0);
 ModalDetail = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'page-modalDetail',template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\modals\detail\detail.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>{{detail.name}}</ion-title>\n\n    <ion-buttons end>\n\n        <button ion-button icon-only (click)="closeModal()">\n\n            <ion-icon item-right name="ios-close-outline"></ion-icon>\n\n        </button>\n\n    </ion-buttons>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n    <!--<div class="media" [style.background-image]="\'url(\' + (detail.avatar != \'\' && detail.avatar != null ? detail.avatar : \'assets/img/default/avatar.png\' ) + \')\'" style="background-size: cover;"></div>-->\n\n    <div class="top">\n\n\n\n      <ion-slides pager (click)="ionGal()">\n\n        <!--\n\n        <ion-slide *ngIf="detail.video!=\'\'">\n\n          <iframe width="100%" height="315" [src]="secure(secureYoutube(detail.video))" frameborder="0" allowfullscreen></iframe>\n\n        </ion-slide>\n\n        imageViewer\n\n        -->\n\n        <ion-slide>\n\n          <img src="{{(detail.avatar != \'\' && detail.avatar != null ? detail.avatar : \'assets/img/default/avatar.png\' )}}" />\n\n        </ion-slide>\n\n        <ion-slide *ngFor="let extra of detail.extras">\n\n          <img src="{{(extra.file != \'\' && extra.file != null ? extra.file : \'assets/img/default/avatar.png\' )}}" />\n\n        </ion-slide>\n\n      </ion-slides>\n\n      \n\n  		<div class="buttonWrapper" *ngIf="detail.video!=\'\'">\n\n  		  <button (click)="playVideo()" class="buttonPinkOrange" ion-button round>Ver video</button>\n\n  		</div>\n\n\n\n    </div>\n\n    <div class="pd20">\n\n    \n\n	    <h4>{{detail.name}}</h4>\n\n	    <h4 text-right *ngIf="detail.price > 0">$ {{detail.price | number:\'1.0-0\'}}</h4>\n\n	    <hr />\n\n		<div text-right>\n\n			<strong>Visto: </strong> {{detail.qty}} veces\n\n		</div>\n\n	    <hr />\n\n	    <p [innerHTML]="detail.description"></p>\n\n\n\n    </div>\n\n</ion-content>\n\n'/*ion-inline-end:"D:\Mobile\sateliteapp\src\modals\detail\detail.html"*/
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["y" /* ViewController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["y" /* ViewController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["r" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["r" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* LoadingController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["Renderer2"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["Renderer2"]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser__["c" /* DomSanitizer */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser__["c" /* DomSanitizer */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_native_youtube_video_player__["a" /* YoutubeVideoPlayer */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_native_youtube_video_player__["a" /* YoutubeVideoPlayer */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ModalController */]) === "function" && _g || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["y" /* ViewController */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["r" /* NavParams */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* LoadingController */],
+        __WEBPACK_IMPORTED_MODULE_0__angular_core__["Renderer2"],
+        __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser__["c" /* DomSanitizer */],
+        __WEBPACK_IMPORTED_MODULE_3__ionic_native_youtube_video_player__["a" /* YoutubeVideoPlayer */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ModalController */]])
 ], ModalDetail);
 
-var _a, _b, _c, _d, _e, _f, _g;
 //# sourceMappingURL=detail.js.map
 
 /***/ }),
@@ -3689,8 +3698,13 @@ var ModalGal = (function () {
         this.renderer = renderer;
         this.domSanitizer = domSanitizer;
         this.arr = [];
+        this.ini = 0;
         this.arr = params.get('arr');
+        this.ini = params.get('ini');
     }
+    ModalGal.prototype.ngAfterViewInit = function () {
+        //console.log('afv',this.sliders);
+    };
     ModalGal.prototype.closeModal = function () {
         this.viewCtrl.dismiss();
     };
@@ -3698,14 +3712,25 @@ var ModalGal = (function () {
     };
     return ModalGal;
 }());
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["v" /* Slides */]),
+    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["v" /* Slides */])
+], ModalGal.prototype, "slides2", void 0);
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChildren"])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["v" /* Slides */]),
+    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["QueryList"])
+], ModalGal.prototype, "sliders", void 0);
 ModalGal = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-        selector: 'page-modalGal',template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\modals\gal\gal.html"*/'<ion-header class="noheader">\n\n  <ion-navbar>\n\n    <ion-buttons end>\n\n        <button ion-button icon-only (click)="closeModal()">\n\n            <ion-icon item-right name="ios-close-outline"></ion-icon>\n\n        </button>\n\n    </ion-buttons>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content (tap)="closeModal()">\n\n  <ion-slides pager="true" zoom="true" centeredSlides="true">\n\n    <ion-slide *ngFor="let arr of arr">\n\n      <img src="{{arr}}" />\n\n    </ion-slide>\n\n  </ion-slides>\n\n</ion-content>\n\n'/*ion-inline-end:"D:\Mobile\sateliteapp\src\modals\gal\gal.html"*/
+        selector: 'page-modalGal',template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\modals\gal\gal.html"*/'<ion-header class="noheader">\n\n  <ion-navbar>\n\n    <ion-buttons end>\n\n        <button ion-button icon-only (click)="closeModal()">\n\n            <ion-icon item-right name="ios-close-outline"></ion-icon>\n\n        </button>\n\n    </ion-buttons>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content (tap)="closeModal()">\n\n  <ion-slides pager="true" zoom="true" centeredSlides="true" [initialSlide]="ini">\n\n    <ion-slide *ngFor="let arr of arr">\n\n      <div class="swiper-zoom-container">\n\n        <img src="{{arr}}" />\n\n      </div>\n\n    </ion-slide>\n\n  </ion-slides>\n\n</ion-content>\n\n'/*ion-inline-end:"D:\Mobile\sateliteapp\src\modals\gal\gal.html"*/
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["y" /* ViewController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["y" /* ViewController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["r" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["r" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* LoadingController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["Renderer2"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["Renderer2"]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser__["c" /* DomSanitizer */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser__["c" /* DomSanitizer */]) === "function" && _e || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["y" /* ViewController */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["r" /* NavParams */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* LoadingController */],
+        __WEBPACK_IMPORTED_MODULE_0__angular_core__["Renderer2"],
+        __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser__["c" /* DomSanitizer */]])
 ], ModalGal);
 
-var _a, _b, _c, _d, _e;
 //# sourceMappingURL=gal.js.map
 
 /***/ }),

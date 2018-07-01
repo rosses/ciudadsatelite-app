@@ -8,9 +8,11 @@
   </ion-navbar>
 </ion-header>
 <ion-content (tap)="closeModal()">
-  <ion-slides pager="true" zoom="true" centeredSlides="true">
+  <ion-slides pager="true" zoom="true" centeredSlides="true" [initialSlide]="ini">
     <ion-slide *ngFor="let arr of arr">
-      <img src="{{arr}}" />
+      <div class="swiper-zoom-container">
+        <img src="{{arr}}" />
+      </div>
     </ion-slide>
   </ion-slides>
 </ion-content>
