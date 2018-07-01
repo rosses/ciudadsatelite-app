@@ -103,11 +103,13 @@ export class Store {
      this.doctorService.addPd(detail.id);
     }
 
-    let dtModal = this.modalCtrl.create(ModalDetail, { detail: detail });
+    this.navCtrl.push(ModalDetail, { detail: detail });
+    
+    /*let dtModal = this.modalCtrl.create(ModalDetail, { detail: detail });
     dtModal.present();
     dtModal.onDidDismiss(data => {
      
-    });
+    });*/
 
   }
   email() {

@@ -23,6 +23,7 @@ import { UserService } from "../services/user.service";
 import { AuthService } from '../services/auth.service';
 import { Pata } from '../pata';
 import { FCM } from '@ionic-native/fcm';
+import { NativeStorage } from '@ionic-native/native-storage';
 
 import { environment } from "../environments/environment"
 import {IonicApp } from 'ionic-angular';
@@ -60,6 +61,7 @@ export class MyApp {
     private sanitizer: DomSanitizer,
     public menu: MenuController,
     private badge: Badge,
+    private nativeStorage: NativeStorage,
     private ionicApp: IonicApp
   ){
     this.initializeApp();
@@ -190,79 +192,62 @@ export class MyApp {
         }
 
       });
-
-      /*
-      Translate
-      this.pages.forEach((page) => {
-        this.translate.get(page.titleTranslationKey).subscribe((translation) => {
-          page.title = translation;
-        })
-      });
-      */
-      console.log('get MP-FT');
-      /*this.storage.get("MP-FirstTime").then((val) => {*/
-        /*if (val == true) {*/
-
-          this.storage.get("MP-FirstTime").then((val) => {
-            console.log('MP-FT Res: ', val);
-            console.log('get Token');
-            this.storage.get("token").then((token) => {
-              if (token) {
-                console.log('token true / getProfile()');
-                this.userService.getProfile().subscribe((result:any)=>{
-                    this.user = result;
-                    this.userService.getId(result.id).subscribe((ok:any) => {
-
-                      this.user = ok.data;
-                      if (this.user.avatar == null || this.user.avatar == "") {
-                        this.user.avatar = "assets/img/default/avatar.png";
-                      }
-
-                      this.storage.get("active").then((active) => {
-                        this.active = active;
-                        this.reloadSide(); 
-                      }, (err) => {
-                        this.active = ok.data.types[0];
-                        this.storage.set("active", this.active);
-                        this.reloadSide(); 
-                      });                     
-                      
-                      this.userService.sendPushToServer();
-                      this.rootPage = HomePage;
-                      this.loadingHidden();
-
-
-                    }, (err) => {
-                      this.service.logError(null, "No fue posible recuperar tu perfil. Por favor accede nuevamente.");
-                      this.rootPage = LoginPage;
-                      this.loadingHidden();
-                    });
-
-
-                }, (err) => {
-                  this.rootPage = LoginPage;
-                  this.loadingHidden();
-                });
-
-              } else {
-                this.rootPage = LoginPage; 
-                this.loadingHidden();
-              }
-            });
-          }, () => {
-            this.rootPage = LoginPage; 
+      this.storage.get("token").then((token) => {
+        if (token) {
+          this.startWithToken(token);
+        } else {
+          console.log('Token is clean, check nativeStorage');
+          this.nativeStorage.getItem('token').then((token2) => {
+            console.log('Token recovered');
+            this.storage.set("token", token2);
+            this.startWithToken(token2);
+          }, (err) => { 
+            console.log('nativeStorage not available');
+            this.rootPage = LoginPage;
             this.loadingHidden();
           });
-        /*}
-        else {
-          this.rootPage = LoginPage; //OnboardingPage;
-          this.loadingHidden();
-        }*/
-      /*})*/
 
+        }
+      }, () => {
+        console.log('Fail in storage element'); 
+        this.rootPage = LoginPage; 
+        this.loadingHidden();
+      });
     });
 
   }
+
+  startWithToken(token: string) {
+    this.userService.getProfileMe().subscribe((result:any)=> {
+
+      if (result.res == "OK") {
+        this.storage.set("MP-Profile", result.data);
+        this.user = result.data;
+
+        if (this.user.avatar == null || this.user.avatar == "") {
+          this.user.avatar = "assets/img/default/avatar.png";
+        }
+
+        this.active = this.user.types[0];
+        this.reloadSide(); 
+        // FCM
+        this.userService.sendPushToServer();
+        // Start
+        this.rootPage = HomePage;
+        this.loadingHidden();
+      } else {
+        this.service.logError(null, "No sesión de usuario está caducada. Por favor accede nuevamente");
+        this.rootPage = LoginPage;
+        this.loadingHidden();
+      }
+    }, () => {
+      this.service.logError(null, "No fue posible recuperar tu perfil. Por favor accede nuevamente.");
+      this.rootPage = LoginPage;
+      this.loadingHidden();
+    });
+
+  }
+
   switchActive(zone:any) {
 
     console.log("switch zone: ",zone);
@@ -275,12 +260,8 @@ export class MyApp {
     this.reloadSide(); 
 
     setTimeout(() => { 
-
-    },200);
-
-    setTimeout(() => { 
       document.getElementById("custom-overlay").style.display = "none";
-    },100);
+    },500);
 
     this.nav.setRoot(HomePage);
 
@@ -325,15 +306,6 @@ export class MyApp {
         this.zones.push(this.user.markets[i]);
       }
     }
-    /*
-    if (this.user.types.length > 1) {
-      for (let i=0; i < this.user.types.length ; i++) {
-        if (this.user.types[i].profile_id != this.active.profile_id ) {
-          this.zones.push(this.user.types[i]);
-        }
-      }
-    }
-    */
 
   }
 
@@ -363,6 +335,7 @@ export class MyApp {
           this.storage.remove("token");
           this.storage.remove("MP-Profile");
           this.storage.remove("active");
+          this.nativeStorage.remove("token");
           this.nav.setRoot(LoginPage);
         }
       }

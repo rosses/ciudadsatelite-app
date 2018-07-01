@@ -22,11 +22,11 @@ export class Profile {
   @ViewChild('datepicker') datepicker;
 
   me: any;
-  isBlurred: boolean = false;
   loaded: boolean = false;
   states: any = [];
   cities: any = [];
   passwd: string = '';
+  loading: any;
 
   constructor(public navCtrl: NavController,
               public storage: Storage,
@@ -41,25 +41,23 @@ export class Profile {
               public datePipe: DatePipe)
   {
 
-    this.storage.get("MP-Profile").then((val) => {
-      this.userService.getId(val.id).subscribe((ok:any) => {
-        this.me = ok.data;
-        this.loaded = true;
-        if (this.me.avatar == null && this.me.avatar == "") {
-          this.me.avatar = "assets/img/default/avatar.png";
-        }
-        this.changeAvatar(this.me.avatar);
+    this.userService.getProfileMe().subscribe((ok:any) => {
+      this.me = ok.data;
+      this.loaded = true;
+      if (this.me.avatar == null && this.me.avatar == "") {
+        this.me.avatar = "assets/img/default/avatar.png";
+      }
+      this.changeAvatar(this.me.avatar);
 
-        this.authService.getStates().subscribe((data:any) => {
-          this.states = data.data;
-        });
-
-        this.authService.getCities(this.me.address.state).subscribe((data:any) => {
-          this.cities = data.data;
-        });
-      }, (err) => {
-        this.service.logError(null, "No fue posible recuperar tu perfil. Verifica la disponibilidad de internet");
+      this.authService.getStates().subscribe((data:any) => {
+        this.states = data.data;
       });
+
+      this.authService.getCities(this.me.address.state).subscribe((data:any) => {
+        this.cities = data.data;
+      });
+    }, (err) => {
+      this.service.logError(null, "No fue posible recuperar tu perfil. Verifica la disponibilidad de internet");
     });
 
   }
@@ -72,15 +70,12 @@ export class Profile {
   }
 
   save() {
-      let loading = this.loadingCtrl.create({
+      this.loading = this.loadingCtrl.create({
         content: 'guardando...'
       });
 
-      loading.present();
+      this.loading.present();
       
-
-      //this.storage.get('MP-Profile').then((val) => {
-
       let updateOperation = this.userService.update({
         name: this.me.first_name,
         state: this.me.address.state,
@@ -91,27 +86,19 @@ export class Profile {
       });
 
       updateOperation.subscribe((ok: any) => {
-        loading.dismiss();
+        this.loading.dismiss();
         if (ok.res == "OK") {
           this.service.showOk();
         }
         else {
-          loading.dismiss();
           this.service.logError(null, "No fue posible guardar sus datos, intente nuevamente");
         }
       }, (error) => {
-        console.log('in error profile');
-        loading.dismiss();
+        this.loading.dismiss();
         this.service.logError(null, "No fue posible guardar sus datos, intente nuevamente");
       });
 
-      //});
-      
-      //this.service.logError(null, "No fue posible guardar sus datos, intente nuevamente");
-  }
 
-  removeBlur() {
-    this.isBlurred = false;
   }
 
   presentMediaOptionsPopover(event) {
@@ -120,23 +107,17 @@ export class Profile {
       ev: event
     });
     popover.onDidDismiss((change?:any) => {
-      if (change) {
-        
-        this.storage.get("MP-Profile").then((val) => {
-          this.userService.getId(val.id).subscribe((ok:any) => {
-            
-            this.me = val;
-            this.loaded = true;
-            if (this.me.avatar != null && this.me.avatar != "") {
-              this.me.avatar = this.me.avatar;
-            }
-            this.changeAvatar(this.me.avatar);
-          });
-        });
+      if (change) {     
+        this.me = change;
+        if (this.me.avatar == null || this.me.avatar == "") {
+          this.me.avatar = "assets/img/default/avatar.png";
+        }
+        this.storage.set("MP-Profile", change);
+        this.changeAvatar(this.me.avatar);
+        this.loaded = true;
       }
-      this.removeBlur();
     });
-    this.isBlurred = true;
+
   }
 
   changeAvatar(avatar:string) {

@@ -72,6 +72,10 @@ export class UserService extends BaseService{
     return this.get('users/profile/'+id);
   }
 
+  getProfileMe() {
+    return this.get('users/profile');
+  }
+
   getStore() {
     return this.get('store/profile/');
   }

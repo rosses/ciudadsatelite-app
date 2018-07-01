@@ -22,6 +22,8 @@ import { SafePipe} from '../components/safepipe';
 import { IonicImageViewerModule } from 'ionic-img-viewer';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
+import { NativeStorage } from '@ionic-native/native-storage';
+
 
 import { MyApp } from './app.component';
 
@@ -175,6 +177,7 @@ export function HttpLoaderFactory(http: Http) {
     Pata,
     InAppBrowser,
     YoutubeVideoPlayer,
+    NativeStorage,
     BarcodeScanner,
     Geolocation,
     Camera,
