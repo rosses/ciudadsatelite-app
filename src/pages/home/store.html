@@ -36,7 +36,7 @@
           <p class="opening">{{store.open_news}}</p>
         </ion-col>
         <ion-col col-4 text-right>
-          <div *ngIf="lat != 0 && lng != 0" class="distance">
+          <div *ngIf="lat != 0 && lng != 0 && store.lat != '' && store.lng != ''" class="distance">
             <strong>{{showDistance(lat,lng,store.lat,store.lng)}}</strong>
           </div>
         </ion-col>
