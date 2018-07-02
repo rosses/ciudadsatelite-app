@@ -62,11 +62,11 @@
         <splash density="port-xhdpi" src="resources/android/splash/drawable-port-xhdpi-screen.png" />
         <splash density="port-xxhdpi" src="resources/android/splash/drawable-port-xxhdpi-screen.png" />
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
-
+        <!--
         <edit-config file="AndroidManifest.xml" mode="merge" target="/manifest/application">
             <application android:icon="@mipmap/ic_launcher" android:roundIcon="@mipmap/ic_launcher_round" />
         </edit-config>
-
+                
         <resource-file src="res/new/drawable/ic_launcher_background.xml" target="res/drawable/ic_launcher_background.xml" />
         <resource-file src="res/new/drawable/ic_launcher_foreground.xml" target="res/drawable/ic_launcher_foreground.xml" />
         <resource-file src="res/new/mipmap-anydpi-v26/ic_launcher.xml" target="res/mipmap-anydpi-v26/ic_launcher.xml" />
@@ -81,7 +81,7 @@
         <resource-file src="res/new/mipmap-xxhdpi/ic_launcher_round.png" target="res/mipmap-xxhdpi/ic_launcher_round.png" />
         <resource-file src="res/new/mipmap-xxxhdpi/ic_launcher.png" target="res/mipmap-xxxhdpi/ic_launcher.png" />
         <resource-file src="res/new/mipmap-xxxhdpi/ic_launcher_round.png" target="res/mipmap-xxxhdpi/ic_launcher_round.png" />
-
+        -->
     </platform>
     <allow-navigation href="*" />
     <plugin name="cordova-plugin-camera" spec="3.0.0">
