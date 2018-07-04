@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, LoadingController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-
+import { NativeStorage } from '@ionic-native/native-storage';
 import { HomePage } from '../home/home';
 import { Pata } from '../../pata';
 
@@ -30,6 +30,7 @@ export class LoginPage {
     public service: Pata,
     public loadingCtrl: LoadingController,
     public storage: Storage,
+    private nativeStorage: NativeStorage,
     private auth: AuthService
   ){
   	this.login = {
@@ -58,6 +59,7 @@ export class LoginPage {
           this.loading.dismiss();
 
           if (data.res == "OK"){
+          	this.nativeStorage.setItem("token", data.token);
             this.auth.setToken(data.token);
             this.storage.set("MP-Profile", data.profile);
             this.navCtrl.setRoot(HomePage);
@@ -93,6 +95,7 @@ export class LoginPage {
           this.loading.dismiss();
           
           if (data.res == "OK"){
+          	this.nativeStorage.setItem("token", data.token);
             this.auth.setToken(data.token);
             this.storage.set("MP-Profile", data.profile);
             this.navCtrl.setRoot(HomePage);
