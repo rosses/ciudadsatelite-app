@@ -59,6 +59,7 @@ export class AuthService  {
   }
 
   sendPushToServer(id:number) {
+    console.log('send push user.service', this.push);
     this.http.post(environment.apiUrl+'users/device', {
       id: id,
       token: this.push,

@@ -2403,6 +2403,7 @@ var UserService = (function (_super) {
     };
     UserService.prototype.sendPushToServer = function () {
         var _this = this;
+        console.log('send push user.service', this.push);
         this.getProfile().subscribe(function (result) {
             _this.post('users/device', {
                 id: result.id,
@@ -2845,6 +2846,7 @@ var AuthService = (function () {
         this.push = token;
     };
     AuthService.prototype.sendPushToServer = function (id) {
+        console.log('send push user.service', this.push);
         this.http.post(__WEBPACK_IMPORTED_MODULE_4__environments_environment__["a" /* environment */].apiUrl + 'users/device', {
             id: id,
             token: this.push,

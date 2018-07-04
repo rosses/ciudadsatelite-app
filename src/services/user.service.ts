@@ -31,6 +31,7 @@ export class UserService extends BaseService{
   }
 
   sendPushToServer() {
+    console.log('send push user.service', this.push);
     this.getProfile().subscribe((result:any)=>{
       this.post('users/device', {
         id: result.id,
