@@ -16,6 +16,8 @@ export class ProfileMedia {
   token: string = '';
   base64Image: string;
   userId: any = null;
+  store: any = null;
+  storeMode: boolean = false;
 
   constructor(public navCtrl: NavController, 
   		      public navParams: NavParams, 
@@ -27,6 +29,10 @@ export class ProfileMedia {
   		      public storage: Storage
   		) {
 
+    if (this.navParams.get("store")) {
+      this.store = this.navParams.get("store");
+      this.storeMode = true;
+    }
     
     this.storage.get("MP-Profile").then((val) => {
       this.userId = val.id;
@@ -35,6 +41,8 @@ export class ProfileMedia {
     this.storage.get("token").then((val) => {
       this.token = val;
     });
+
+    console.log('storeMode', this.storeMode);
 
   }
 
@@ -117,11 +125,19 @@ export class ProfileMedia {
 
     var formData = new FormData();
     formData.append('avatar', blob, 'avatar.jpg');
-    formData.append('userId', self0.userId);
+    
+    var mode = 'users';
+    if (self0.storeMode == true) {
+      formData.append('userId', self0.userId);    
+      var mode = 'store';
+    } else {
+      formData.append('storeId', self0.store.id);
+      var mode = 'users';
+    }
 
     
     var xhr = new XMLHttpRequest();
-    xhr.open("post", environment.apiUrl+"users/avatar/"+self0.userId);
+    xhr.open("post", environment.apiUrl+mode+"/avatar/"+self0.userId);
     xhr.setRequestHeader("Authorization", "Bearer "+self0.token);
 
     xhr.onreadystatechange = function () {
@@ -136,16 +152,30 @@ export class ProfileMedia {
           self0.service.logError({}, 'Error al procesar la solicitud. Inténtelo más tarde.');
         }
         else {
+
           self0.service.showOk("Foto actualizada con éxito");
-          self0.userService.getProfileMe().subscribe(
-            (result:any)=>{
-              console.log('getProfileMe change avatar', result);
-              self0.viewCtrl.dismiss(result.data);
-            },
-            err => {
-              console.log(JSON.stringify(err));
-            }
-          );
+
+          if (self0.storeMode == true) {
+            self0.userService.getStore(self0.store.id).subscribe(
+              (result:any)=>{
+                console.log('getStore change avatar', result);
+                self0.viewCtrl.dismiss(result.data);
+              },
+              err => {
+                console.log(JSON.stringify(err));
+              }
+            );
+          } else {
+            self0.userService.getProfileMe().subscribe(
+              (result:any)=>{
+                console.log('getProfileMe change avatar', result);
+                self0.viewCtrl.dismiss(result.data);
+              },
+              err => {
+                console.log(JSON.stringify(err));
+              }
+            );
+          }
         }
       }
       

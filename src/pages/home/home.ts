@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController, PopoverController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { NavController, NavParams, ToastController, PopoverController, Content } from 'ionic-angular';
 import { GoogleMapsAPIWrapper  } from '@agm/core';
 import { Geolocation } from '@ionic-native/geolocation';
 import { HttpClient } from '@angular/common/http';
@@ -17,6 +17,8 @@ import { JuntaVecinosPage } from '../../pages/juntavecinos/juntavecinos';
   templateUrl: 'home.html'
 })
 export class HomePage {
+  
+  @ViewChild(Content) content: Content;
 
   public isLoading: boolean = true;
   public categs: any = [];
@@ -118,6 +120,7 @@ export class HomePage {
     } else {
       this.searchActive = true;
     }
+    this.content.resize();
   }
 
   doRefresh(refresher) {

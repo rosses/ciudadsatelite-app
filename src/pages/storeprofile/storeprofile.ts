@@ -22,10 +22,12 @@ export class StoreProfile {
   @ViewChild('datepicker') datepicker;
 
   store: any;
-  isBlurred: boolean = false;
+  timers: any;
+  main: any;
   loaded: boolean = false;
   states: any = [];
   cities: any = [];
+  tabs: string = 'home';
 
   constructor(public navCtrl: NavController,
               public storage: Storage,
@@ -40,32 +42,65 @@ export class StoreProfile {
               public datePipe: DatePipe)
   {
 
-    //this.storage.get("MP-Profile").then((val) => {
+    let loading = this.loadingCtrl.create({
+      content: 'cargando...'
+    });
 
-      this.userService.getStore().subscribe((ok:any) => {
-        this.store = ok.data;
-        this.loaded = true;
-        if (this.store.avatar == null && this.store.avatar == "") {
-          this.store.avatar = "assets/img/default/avatar.png";
-        }
-        this.changeAvatar(this.store.avatar);
+    loading.present();
 
-        this.authService.getStates().subscribe((data:any) => {
-          this.states = data.data;
-        });
+    this.store = this.navParams.get("store");
 
-        this.authService.getCities(this.store.state).subscribe((data:any) => {
-          this.cities = data.data;
-        });
+    this.userService.getStore(this.store.id).subscribe((ok:any) => {
+      this.store = ok.data;
+      this.timers = ok.timers;
+      this.main = ok.main;
+      this.loaded = true;
+      if (this.store.avatar == null && this.store.avatar == "") {
+        this.store.avatar = "assets/img/default/avatar.png";
+      }
+      //this.changeAvatar(this.store.avatar);
 
-      }, (err) => {
-        this.service.logError(null, "No fue posible recuperar perfil de tienda. Verifica la disponibilidad de internet");
+      this.authService.getStates().subscribe((data:any) => {
+        this.states = data.data;
       });
 
-    //});
+      this.authService.getCities(this.main.state).subscribe((data:any) => {
+        this.cities = data.data;
+      });
+
+      loading.dismiss();
+
+    }, (err) => {
+      this.service.logError(null, "No fue posible recuperar perfil de tienda. Verifica la disponibilidad de internet");
+    });
+
+
 
   }
 
+  mainCreditCardToggle() {
+    if (this.main.credit_card == '1') { 
+      this.main.credit_card = '0';
+    } else {
+      this.main.credit_card = '1';
+    }
+  }
+
+  mainCreditCardDeliveryToggle() {
+    if (this.main.credit_card_delivery == '1') { 
+      this.main.credit_card_delivery = '0';
+    } else {
+      this.main.credit_card_delivery = '1';
+    }
+  }
+
+  mainDeliveryToggle() {
+    if (this.main.delivery == '1') { 
+      this.main.delivery = '0';
+    } else {
+      this.main.delivery = '1';
+    }
+  }  
 
   refreshDistrito(e: any) {
     this.authService.getCities(this.store.state).subscribe((data:any) => {
@@ -83,13 +118,15 @@ export class StoreProfile {
 
       let updateOperation = this.userService.updateStore({
         name: this.store.name,
-        state: this.store.state,
-        city: this.store.city,
         email: this.store.email,
         phone: this.store.phone,
-        address: this.store.address,
+        facebook: this.store.facebook,
+        instagram: this.store.instagram,
         whatsapp: this.store.whatsapp,
-        website: this.store.website
+        twitter: this.store.twitter,
+        website: this.store.website,
+        timers: JSON.stringify(this.timers),
+        main: JSON.stringify(this.main)
       }, this.store.id);
 
       updateOperation.subscribe((ok: any) => {
@@ -105,39 +142,27 @@ export class StoreProfile {
         loading.dismiss();
         this.service.logError(null, "No fue posible guardar sus datos, intente nuevamente");
       });
-
-      
-  }
-
-  removeBlur() {
-    this.isBlurred = false;
   }
 
   presentMediaOptionsPopover(event) {
-    let popover = this.popoverCtrl.create(ProfileMedia);
+    let popover = this.popoverCtrl.create(ProfileMedia, { store: this.store });
     popover.present({
       ev: event
     });
     popover.onDidDismiss((change?:any) => {
-      if (change) {
-        /*
-        this.storage.get("MP-Profile").then((val) => {
-          this.store = val;
-          this.loaded = true;
-          if (this.store.avatar != null && this.store.avatar != "") {
-            this.store.avatar = this.store.avatar.replace('/public/','');
-          }
-          this.changeAvatar(this.store.avatar);
-        });
-        */
+      if (change) {  
+        this.store = change;
+        if (this.store.avatar == null || this.store.avatar == "") {
+          this.store.avatar = "assets/img/default/avatar.png";
+        }
+        this.changeStoreAvatar(this.store.avatar);
+        this.loaded = true;
       }
-      this.removeBlur();
     });
-    this.isBlurred = true;
   }
 
-  changeAvatar(avatar:string) {
-    this.userService.changeAvatar.emit(avatar);
+  changeStoreAvatar(avatar:string) {
+    this.userService.changeStoreAvatar.emit(avatar);
   }
 
   /** Birthday Date Picker */

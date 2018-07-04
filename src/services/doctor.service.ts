@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Platform } from 'ionic-angular';
+import { NativeStorage } from '@ionic-native/native-storage';
 import { Storage } from '@ionic/storage';
 
 import { BaseService } from "./base.service"
@@ -10,8 +12,8 @@ import 'rxjs/add/observable/fromPromise';
 @Injectable()
 export class DoctorService extends BaseService{
 
-  constructor(public http: HttpClient, public storage: Storage) {
-    super(http, storage);
+  constructor(public http: HttpClient, public storage: Storage, public platform: Platform, public nativeStorage: NativeStorage) {
+    super(http, storage, platform, nativeStorage);
   }
 
   getMaps() {

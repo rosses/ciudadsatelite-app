@@ -66,6 +66,5 @@ export class ModalDetail implements OnDestroy {
     
   }
 
-
 }
 

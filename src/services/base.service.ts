@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Platform } from 'ionic-angular';
+import { NativeStorage } from '@ionic-native/native-storage';
 import { Storage } from '@ionic/storage';
-
 import { environment } from '../environments/environment';
 
 import { Observable } from 'rxjs/Observable';
@@ -9,11 +10,16 @@ import 'rxjs/add/observable/fromPromise';
 
 export class BaseService {
 
-  constructor(public http: HttpClient, public storage: Storage) {}
+  constructor(public http: HttpClient, public storage: Storage, public platform: Platform, public nativeStorage: NativeStorage) {}
 
   /** get token */
   private getAuthToken() {
-    return Observable.fromPromise(this.storage.get('token'));
+    if (this.platform.is('cordova')) {
+      return Observable.fromPromise(this.nativeStorage.getItem('token'));
+    }
+    else {
+      return Observable.fromPromise(this.storage.get('token'));
+    }
   }
 
   /** GET */

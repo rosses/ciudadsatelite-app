@@ -38,6 +38,14 @@ export class ModalGal implements OnDestroy {
     
   }
 
-
+  onSwipe(event:any) {
+    // left or right swipe...
+  }
+  onSwipeUp(event:any) {
+    this.viewCtrl.dismiss(); 
+  }
+  onSwipeDown(event:any) {
+    this.viewCtrl.dismiss();
+  }
 }
 

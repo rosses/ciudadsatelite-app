@@ -24,6 +24,7 @@ declare let cordova: any;
 export class Store {
 
   public isLoading: boolean = true;
+  public rootMode: boolean = false;
   public store: any;
   public name: string = '';
   public products: any = [];
@@ -60,6 +61,7 @@ export class Store {
   ) {
 
     this.store = this.navParams.get("store");
+    this.rootMode = (this.navParams.get("rootMode") ? true : false);
 
     this.load = this.loadingCtrl.create();
     this.load.present();

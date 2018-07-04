@@ -12,6 +12,7 @@ import { Contacto } from '../pages/contacto/contacto';
 import { HomePage } from '../pages/home/home';
 import { Emergencia } from '../pages/emergencia/emergencia';
 import { Mapa } from '../pages/mapa/mapa';
+import { Store } from '../pages/home/store';
 import { StoreProfile } from '../pages/storeprofile/storeprofile';
 import { StoreProducts } from '../pages/storeproducts/storeproducts';
 import { StoreServices } from '../pages/storeservices/storeservices';
@@ -41,6 +42,7 @@ export class MyApp {
 
   user: any;
   active: any;
+  marketProfile: boolean = false;
   zones: any = [];
   loading: any; 
   notifications: number = 0;
@@ -70,6 +72,11 @@ export class MyApp {
     this.userService.changeAvatar.subscribe((st) => {
       console.log('change_avatar_main_fire', st);
       this.user.avatar = st;
+    });
+
+    this.userService.changeStoreAvatar.subscribe((st) => {
+      console.log('change_avatar_store_fire', st);
+      this.active.avatar = st;
     });
 
     this.userService.changeNotifications.subscribe((st) => {
@@ -126,27 +133,28 @@ export class MyApp {
           //alert('Push:' + JSON.stringify(data));
           if(data.wasTapped){
             console.log("Received in background", data);
-            this.userService.setReadPush(data.click_id).subscribe((ok) => {
-              this.userService.getNotificationStatus().subscribe((cdata: any) => {
-                console.log('cdata', cdata);
-                let number = parseInt(cdata.total);
-                if (isNaN(number)) {
-                  console.log('Notification number is NaN, no updated');
-                }
-                else if (number == 0) {
-                  this.notifications = number;
-                  this.badge.clear();  
-                }
-                else {
-                  this.notifications = number;
-                  this.badge.set(number);
-                }
+            this.userService.setReadPush(data.click_id).subscribe((ok: any) => {
+              if (ok.res == 'OK') {
+                this.userService.getNotificationStatus().subscribe((cdata: any) => {
+                  console.log('cdata', cdata);
+                  let number = parseInt(cdata.total);
+                  if (isNaN(number)) {
+                    console.log('Notification number is NaN, no updated');
+                  }
+                  else if (number == 0) {
+                    this.notifications = number;
+                    this.badge.clear();  
+                  }
+                  else {
+                    this.notifications = number;
+                    this.badge.set(number);
+                  }
 
-                if (data.type != '' && data.reference != '') {
-                  this.nav.setRoot(Notificaciones, {preloadType: data.type, preloadReference: data.reference});
-                }
-                
-              });
+                  if (data.type != '' && data.reference != '') {
+                    this.nav.setRoot(Notificaciones, {preloadType: data.type, preloadReference: data.reference});
+                  }
+                });
+              }
             });
           } else {
             console.log("Received in foreground", data);
@@ -183,7 +191,7 @@ export class MyApp {
             data.profile.avatar = "assets/img/default/avatar.png";
           }
           this.user = data.profile;
-          this.active = data.profile.types[0];
+          this.active = data.profile;
           this.storage.set("active", this.active);
 
           this.reloadSide(); 
@@ -228,7 +236,7 @@ export class MyApp {
           this.user.avatar = "assets/img/default/avatar.png";
         }
 
-        this.active = this.user.types[0];
+        this.active = this.user;
         this.reloadSide(); 
         // FCM
         this.userService.sendPushToServer();
@@ -248,12 +256,17 @@ export class MyApp {
 
   }
 
-  switchActive(zone:any) {
+  switchActive(zone?:any) {
 
-    console.log("switch zone: ",zone);
-
-    this.active = zone;
-    this.storage.set("active", this.active);
+    if (zone) {
+      this.active = zone;
+      this.storage.set("active", this.active);
+      this.marketProfile = true;
+    } else {
+      this.active = this.user;
+      this.storage.set("active", this.user);
+      this.marketProfile = false;
+    }
 
     document.getElementById("custom-overlay").style.display = "";
 
@@ -276,8 +289,13 @@ export class MyApp {
     
   }
 
-  profile() {
+  profile(useMarketProfile) {
+   if (useMarketProfile) {
+    this.nav.setRoot(StoreProfile, { store: this.active });
+   }
+   else {
     this.nav.setRoot(Profile);
+   }
   }
 
   contacto() {
@@ -285,11 +303,9 @@ export class MyApp {
   }
 
   reloadSide() {
-
+    /*
     this.pages = [];
     this.pages.push({ title: 'Categorias', component: HomePage, selected: true });
-    this.pages.push({ title: 'Mapa', component: Mapa, selected: false });
-    this.pages.push({ title: 'Notificaciones  <strong class="badges"></strong>', component: Mapa, selected: false });
 
     if (this.active.profile_id == "2") { // Vendedor
       this.pages.push({ title: 'Perfil de tienda', component: StoreProfile, selected: false });
@@ -297,9 +313,11 @@ export class MyApp {
       this.pages.push({ title: 'Mis servicios', component: StoreServices, selected: false });
     }
     else {
+      this.pages.push({ title: 'Mapa', component: Mapa, selected: false });
+      this.pages.push({ title: 'Notificaciones  <strong class="badges"></strong>', component: Mapa, selected: false });
       this.pages.push({ title: 'Junta de vecinos', component: JuntaVecinosPage, selected: false });
     }
-
+    */
     this.zones = [];
     if (this.user.markets.length > 0) {
       for (let i=0; i < this.user.markets.length ; i++) {
@@ -318,6 +336,9 @@ export class MyApp {
     else if (id == 3) { this.nav.setRoot(Notificaciones); } 
     else if (id == 4) { this.nav.setRoot(JuntaVecinosPage); }   
     else if (id == 5) { this.nav.setRoot(Emergencia); }   
+    else if (id == 10) { this.nav.setRoot(Store, { store: this.active, rootMode: true }); }   
+    else if (id == 11) { this.nav.setRoot(StoreProducts, { store: this.active }); }
+    else if (id == 12) { this.nav.setRoot(StoreServices, { store: this.active }); }
   }
   closeSession() {
   let alert = this.alertCtrl.create({

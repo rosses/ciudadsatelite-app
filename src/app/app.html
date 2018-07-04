@@ -1,10 +1,17 @@
 <ion-menu [content]="content" id="leftMenu" class="sidenav">
 
-  <div class="profile" *ngIf="user">
-    <div class="image" [style.background-image]="'url(' + user.avatar + ')'" style="background-size: cover"></div>
-    <div class="name">{{ user.first_name }} {{ user.last_name }} {{ user.company }}</div>
-    <div class="scope" *ngIf="active">{{ active.name }} </div>
+  <div class="profile" *ngIf="!marketProfile">
+    <div class="image" [style.background-image]="'url(' + user?.avatar + ')'" style="background-size: cover"></div>
+    <div class="name">{{ user?.first_name }} {{ user?.last_name }} {{ user?.company }}</div>
+    <!--<div class="scope" *ngIf="active">{{ active.name }} </div>-->
     <button menuClose (click)="profile()" ion-button round color="light">MI PERFIL</button>
+  </div>
+
+  <div class="profile" *ngIf="marketProfile">
+    <div class="image" [style.background-image]="'url(' + active?.avatar + ')'" style="background-size: cover"></div>
+    <div class="name">{{ active?.name }}</div>
+    <!--<div class="scope" *ngIf="active">{{ active.name }} </div>-->
+    <button menuClose (click)="profile(true)" ion-button round color="light">EDITAR TIENDA</button>
   </div>
 
   <!--
@@ -16,23 +23,40 @@
   <div menuClose class="link" (click)="openPageComponent(1)">
     <span>Categorias</span>
   </div>
-  <div menuClose class="link" (click)="openPageComponent(2)">
+  <div *ngIf="!marketProfile" menuClose class="link" (click)="openPageComponent(2)">
     <span>Mapa</span>
   </div>
-  <div menuClose class="link" (click)="openPageComponent(3)">
+  <div *ngIf="!marketProfile" menuClose class="link" (click)="openPageComponent(3)">
     <span>Notificaciones <strong class="badges" *ngIf="notifications > 0">{{notifications}}</strong></span>
   </div>
-  <div menuClose class="link" (click)="openPageComponent(4)">
+  <div *ngIf="!marketProfile" menuClose class="link" (click)="openPageComponent(4)">
     <span>Junta de Vecinos</span>
   </div>
-  <div menuClose class="link" (click)="openPageComponent(5)">
+  <div *ngIf="!marketProfile" menuClose class="link" (click)="openPageComponent(5)">
     <span>Teléfonos Útiles</span>
   </div>
-  
-  <div menuClose *ngFor="let zone of zones" class="link destacado" [ngClass]="{'selected' : selected}" (click)="switchActive(zone)">
-    <span><strong>Administrar</strong><br />{{zone.name}}</span>
+  <div *ngIf="marketProfile" menuClose class="link" (click)="openPageComponent(10)">
+    <span>Ver mi tienda</span>
   </div>
+  <div *ngIf="marketProfile" menuClose class="link" (click)="openPageComponent(11)">
+    <span>Mis productos</span>
+  </div>
+  <div *ngIf="marketProfile" menuClose class="link" (click)="openPageComponent(12)">
+    <span>Mis servicios</span>
+  </div>
+  
+  <!-- Marketplaces -->
+  <div *ngIf="!marketProfile">
+    <div menuClose *ngFor="let zone of zones" class="link destacado" [ngClass]="{'selected' : selected}" (click)="switchActive(zone)">
+      <span><strong>Administrar</strong><br />{{zone.name}}</span>
+    </div>
+  </div>
+  <!-- End Marketplaces -->
 
+  <div menuClose *ngIf="marketProfile" class="link destacado" [ngClass]="{'selected' : selected}" (click)="switchActive()">
+    <span><strong>Volver a</strong><br />{{user.first_name}}</span>
+  </div>
+  
   <div menuClose class="link" (click)="contacto()">
     <span>Contacto</span>
   </div>

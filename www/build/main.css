@@ -65801,7 +65801,22 @@ ion-header .searchbar .toolbar-background {
 }
 
 .search-container, .search-container2 {
-  margin-top: 70px;
+  /*margin-top: 70px;*/
+}
+
+.search-results .list-header {
+  margin-bottom: 0px;
+}
+
+.search-results .list-header ion-label {
+  font-size: 16px;
+  margin-bottom: 0;
+}
+
+.search-results ion-col, .search-results strong {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .search-container ion-icon, .search-container2 ion-icon {
@@ -66319,7 +66334,8 @@ page-modalGal .media {
 }
 
 page-modalGal .scroll-content {
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: #000;
+  /*rgba(255,255,255,0.9);*/
 }
 
 page-modalGal .pd20 {
@@ -66342,7 +66358,8 @@ page-modalGal .top img {
 }
 
 page-modalGal .swiper-pagination {
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: #000;
+  /*rgba(255,255,255,0.9);*/
 }
 
 page-modalGal .buttonWrapper {
@@ -66357,15 +66374,23 @@ page-modalGal .buttonWrapper button {
 }
 
 page-modalGal .noheader {
-  background-color: white;
+  background-color: #000;
 }
 
 page-modalGal .noheader .toolbar-background {
-  background-color: white;
+  background-color: #000;
 }
 
 page-modalGal .noheader ion-icon {
   color: gray;
+}
+
+page-modalGal .swiper-pagination-bullet {
+  background-color: #DDD;
+}
+
+page-modalGal .swiper-pagination-bullet-active {
+  background-color: #FFF;
 }
 
 page-modalOK ion-content {
@@ -68229,160 +68254,13 @@ page-profile ion-icon.ionicons {
 }
 
 page-storeproducts .scroll-content {
-  background: #F0F1F1;
-}
-
-page-storeproducts .mediaSlideContainer {
-  position: relative;
-}
-
-page-storeproducts ion-select {
-  padding-left: 0px !important;
-}
-
-page-storeproducts .text-input {
-  margin-left: 0px !important;
-}
-
-page-storeproducts .item-inner {
-  border-bottom: 0 !important;
-  -webkit-box-shadow: none !important;
-  box-shadow: none !important;
-}
-
-page-storeproducts .text-input[disabled] {
-  opacity: 1 !important;
-}
-
-page-storeproducts .welcome {
-  position: relative;
-  padding: 16px 20px;
-  font-weight: 500;
-  font-size: 1.5rem;
-  color: #3D404B;
-  text-transform: uppercase;
-  padding-bottom: 0;
-}
-
-page-storeproducts .welcome button.options {
-  right: 20px;
-  top: 12px;
-  z-index: 1;
-}
-
-page-storeproducts .name {
-  position: relative;
-  padding: 16px 20px;
-  font-weight: 500;
-  font-size: 1.8rem;
-  color: #3D404B;
-  text-transform: uppercase;
-  padding-bottom: 0;
-}
-
-page-storeproducts .name button.options {
-  right: 20px;
-  top: 12px;
-  z-index: 1;
-}
-
-page-storeproducts .media {
-  width: 100%;
-  height: 18.4rem;
-  background-position: center;
-}
-
-page-storeproducts .back-button-icon-ios {
-  font-size: 2.4rem;
-}
-
-page-storeproducts .back-button {
-  color: black;
-  width: 3.2rem;
-  height: 3.2rem;
-  background: white;
-  border-radius: 100%;
-  position: relative;
-  left: 10px;
-  min-width: 3.2rem;
-  padding: 0;
-}
-
-page-storeproducts .back-button-icon-md {
-  padding: 0;
-}
-
-page-storeproducts .camera {
-  border-radius: 100%;
-  width: 3.5rem;
-  height: 3.5rem;
-}
-
-page-storeproducts .camera ion-icon {
-  font-family: "Ionicons" !important;
-  color: white;
-  font-size: 26px !important;
-  margin-top: -.1px !important;
+  background: #FFF;
+  /*map-get($colors, bck-grey);*/
 }
 
 page-storeproducts .swiper-pagination-bullet-active {
   background-color: white;
   opacity: 1 !important;
-}
-
-page-storeproducts .swiper-pagination-bullet {
-  background: white;
-  opacity: .5;
-  width: 12px;
-  height: 12px;
-}
-
-page-storeproducts .subTitle {
-  padding: 20px;
-  padding-bottom: 0;
-}
-
-page-storeproducts button.button-round {
-  position: absolute;
-  font-weight: 400;
-  font-size: 1.4rem;
-  padding: 0.5rem 2.3rem;
-  height: auto;
-  text-transform: initial;
-}
-
-page-storeproducts ion-buttons {
-  margin-right: 16px;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  background-color: transparent;
-}
-
-page-storeproducts ion-buttons:hover {
-  webkit-box-shadow: none;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  background-color: transparent;
-}
-
-page-storeproducts .button[icon-only] {
-  background-color: transparent;
-  -webkit-box-shadow: none;
-  box-none: none;
-}
-
-page-storeproducts .button[icon-only]:hover {
-  background-color: transparent;
-  -webkit-box-shadow: none;
-  box-none: none;
-}
-
-page-storeproducts .header .toolbar .button-inner {
-  font-size: 2rem !important;
-}
-
-page-storeproducts ion-icon.ionicons {
-  font-family: "Ionicons" !important;
 }
 
 page-storeprofile .scroll-content {
@@ -68409,6 +68287,61 @@ page-storeprofile .item-inner {
 
 page-storeprofile .text-input[disabled] {
   opacity: 1 !important;
+}
+
+page-storeprofile .timers ion-row {
+  border-bottom: 1px solid #D3D3D3;
+}
+
+page-storeprofile .headers ion-col {
+  text-align: left;
+  display: inline-block;
+  font-weight: 400;
+  color: #545761;
+  width: 12rem;
+  -webkit-box-flex: initial;
+  -webkit-flex: initial;
+  -ms-flex: initial;
+  flex: initial;
+  font-size: 1.2rem;
+}
+
+page-storeprofile ion-col .datetime {
+  padding: 0;
+  margin-top: 12px;
+  margin-bottom: 8px;
+  display: inline-block;
+  font-weight: 400;
+  color: #545761;
+  width: 12rem;
+  -webkit-box-flex: initial;
+  -webkit-flex: initial;
+  -ms-flex: initial;
+  flex: initial;
+  font-size: 1.2rem;
+}
+
+page-storeprofile ion-col .label {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  display: inline-block;
+  font-weight: 400;
+  color: #545761;
+  width: 12rem;
+  -webkit-box-flex: initial;
+  -webkit-flex: initial;
+  -ms-flex: initial;
+  flex: initial;
+  font-size: 1.2rem;
+}
+
+page-storeprofile .formContainer {
+  padding-top: 0;
+  padding-bottom: 10px;
+}
+
+page-storeprofile .formContainer .buttonWrapper button {
+  margin-top: 0;
 }
 
 page-storeprofile .welcome {
@@ -68441,6 +68374,11 @@ page-storeprofile .name button.options {
   right: 20px;
   top: 12px;
   z-index: 1;
+}
+
+page-storeprofile .name .button {
+  position: relative;
+  float: right;
 }
 
 page-storeprofile .media {
@@ -68532,10 +68470,6 @@ page-storeprofile .button[icon-only]:hover {
   background-color: transparent;
   -webkit-box-shadow: none;
   box-none: none;
-}
-
-page-storeprofile .header .toolbar .button-inner {
-  font-size: 2rem !important;
 }
 
 page-storeprofile ion-icon.ionicons {

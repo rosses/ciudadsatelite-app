@@ -1,19 +1,18 @@
 <ion-header>
   <ion-navbar>
-    <button ion-button icon-only (click)="gotoHome()" class="my-style-for-modal">
-      <ion-icon class="ionicons" name="arrow-back"></ion-icon>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>PERFIL DE TIENDA</ion-title>
+    <ion-title class="no-padding">PERFIL TIENDA</ion-title>
     <ion-buttons end>
-    <button (click)="presentMediaOptionsPopover($event)" class="buttonPinkOrange camera">
-      <ion-icon ios="ios-camera-outline" md="ios-camera-outline"></ion-icon>
-    </button>
+      <button (click)="presentMediaOptionsPopover($event)" class="buttonPinkOrange camera">
+        <ion-icon ios="ios-camera-outline" md="ios-camera-outline"></ion-icon>
+      </button>
     </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
-<ion-content [ngClass]="{'blurred' : isBlurred}">
+<ion-content>
 
   <div *ngIf="loaded">
     <div class="mediaSlideContainer">
@@ -21,57 +20,190 @@
     </div>
     <div class="name">
       {{ store.name }}
+      <button (click)="save()" class="buttonPinkOrange" ion-button round>Guardar</button>
     </div>
-    <div class="welcome">
+    <!--<div class="welcome">
       Información de mi tienda
+    </div>-->
+    <div padding>
+      <ion-segment [(ngModel)]="tabs">
+        <ion-segment-button value="home">
+          Tienda
+        </ion-segment-button>
+        <ion-segment-button value="sucursal">
+          Ubicación
+        </ion-segment-button>
+        <ion-segment-button value="timers">
+          Horarios
+        </ion-segment-button>
+      </ion-segment>
     </div>
 
-    <div class="formContainer">
-      <ion-item>
-        <ion-label fixed>Nombre</ion-label>
-        <ion-input type="text" [(ngModel)]="store.name"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label fixed>Email tienda</ion-label>
-        <ion-input type="text" [(ngModel)]="store.email"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label fixed>Dirección</ion-label>
-        <ion-input type="text" [(ngModel)]="store.address"></ion-input>
-      </ion-item>
+  </div>
 
-      <ion-item>
-        <ion-label fixed>Villa</ion-label>
-        <ion-select [(ngModel)]="store.state" (ionChange)="refreshDistrito($event)">
-          <ion-option *ngFor="let state of states" [value]="state.id">{{state.name}}</ion-option>
-        </ion-select>
-      </ion-item>
-      <ion-item>
-        <ion-label fixed>Sector</ion-label>
-        <ion-select [(ngModel)]="store.city">
-          <ion-option *ngFor="let city of cities" [value]="city.id">{{city.name}}</ion-option>
-        </ion-select>
-      </ion-item>
-      <ion-item>
-        <ion-label fixed>Telefono</ion-label>
-        <ion-input type="tel" [(ngModel)]="store.phone"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label fixed>WhatsApp</ion-label>
-        <ion-input type="tel" [(ngModel)]="store.whatsapp"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label fixed>Sitio Web</ion-label>
-        <ion-input type="tel" [(ngModel)]="store.website"></ion-input>
-      </ion-item>      
-      <!--
-      <ion-item>
-        <ion-label fixed>Contraseña</ion-label>
-        <ion-label fixed><button (click)="changePassword()" class="buttonPinkOrange" style="top: 7px; left: 124px;" ion-button round>Cambiar</button></ion-label>
-      </ion-item>
-      -->
-      <div class="buttonWrapper">
-        <button (click)="save()" class="buttonPinkOrange" ion-button round>{{ 'PET.UPDATE_INFO' | translate }}</button>
+  <div [ngSwitch]="tabs">
+    <div *ngSwitchCase="'home'">
+      <div class="formContainer">
+        <ion-item>
+          <ion-label fixed>Nombre Tienda</ion-label>
+          <ion-input type="text" [(ngModel)]="store.name"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label fixed>Email Tienda</ion-label>
+          <ion-input type="text" [(ngModel)]="store.email"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label fixed>Telefono</ion-label>
+          <ion-input type="tel" [(ngModel)]="store.phone"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label fixed>Sitio Web</ion-label>
+          <ion-input type="text" [(ngModel)]="store.website"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label fixed>WhatsApp</ion-label>
+          <ion-input type="tel" [(ngModel)]="store.whatsapp"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label fixed>Facebook</ion-label>
+          <ion-input type="text" [(ngModel)]="store.facebook"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label fixed>Twitter</ion-label>
+          <ion-input type="text" [(ngModel)]="store.twitter"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label fixed>Instagram</ion-label>
+          <ion-input type="text" [(ngModel)]="store.instagram"></ion-input>
+        </ion-item>
+      </div>
+    </div>
+    <div *ngSwitchCase="'sucursal'">
+      <div class="formContainer">
+        <ion-item>
+          <ion-label fixed>Dirección</ion-label>
+          <ion-input type="text" [(ngModel)]="main.address"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label fixed>Num. Local</ion-label>
+          <ion-input type="text" [(ngModel)]="main.local"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label fixed>Villa</ion-label>
+          <ion-select [(ngModel)]="main.state" (ionChange)="refreshDistrito($event)">
+            <ion-option *ngFor="let state of states" [value]="state.id">{{state.name}}</ion-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label fixed>Sector</ion-label>
+          <ion-select [(ngModel)]="main.city">
+            <ion-option *ngFor="let city of cities" [value]="city.id">{{city.name}}</ion-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label fixed>Redcompra</ion-label>
+          <ion-checkbox [checked]="main.credit_card == '1'" (ionChange)="mainCreditCardToggle()"></ion-checkbox>
+        </ion-item>
+        <ion-item>
+          <ion-label fixed>Delivery</ion-label>
+          <ion-checkbox [checked]="main.delivery == '1'" (ionChange)="mainDeliveryToggle()"></ion-checkbox>
+        </ion-item>
+        <ion-item>
+          <ion-label fixed>Delivery + Redcompra</ion-label>
+          <ion-checkbox [checked]="main.credit_card_delivery == '1'" (ionChange)="mainCreditCardDeliveryToggle()"></ion-checkbox>
+        </ion-item>
+      </div>
+    </div>
+    <div *ngSwitchCase="'timers'">
+      <div padding class="timers">
+        <ion-row class="headers">
+          <ion-col col-4>
+            <strong>Día</strong>
+          </ion-col>
+          <ion-col col-4>
+            <strong>Apertura</strong>
+          </ion-col>
+          <ion-col col-4>
+            <strong>Cierre</strong>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-4>
+            <ion-label>Lunes</ion-label>
+          </ion-col>
+          <ion-col col-4>
+            <ion-datetime displayFormat="HH:mm" doneText="Aceptar" cancelText="Cancelar" minuteValues="0,30" [(ngModel)]="timers[1].open_ok"></ion-datetime>
+          </ion-col>
+          <ion-col col-4>
+            <ion-datetime displayFormat="HH:mm" doneText="Aceptar" cancelText="Cancelar" minuteValues="0,30" [(ngModel)]="timers[1].close_ok"></ion-datetime>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-4>
+            <ion-label>Martes</ion-label>
+          </ion-col>
+          <ion-col col-4>
+            <ion-datetime displayFormat="HH:mm" doneText="Aceptar" cancelText="Cancelar" minuteValues="0,30" [(ngModel)]="timers[2].open_ok"></ion-datetime>
+          </ion-col>
+          <ion-col col-4>
+            <ion-datetime displayFormat="HH:mm" doneText="Aceptar" cancelText="Cancelar" minuteValues="0,30" [(ngModel)]="timers[2].close_ok"></ion-datetime>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-4>
+            <ion-label>Miércoles</ion-label>
+          </ion-col>
+          <ion-col col-4>
+            <ion-datetime displayFormat="HH:mm" doneText="Aceptar" cancelText="Cancelar" minuteValues="0,30" [(ngModel)]="timers[3].open_ok"></ion-datetime>
+          </ion-col>
+          <ion-col col-4>
+            <ion-datetime displayFormat="HH:mm" doneText="Aceptar" cancelText="Cancelar" minuteValues="0,30" [(ngModel)]="timers[3].close_ok"></ion-datetime>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-4>
+            <ion-label>Jueves</ion-label>
+          </ion-col>
+          <ion-col col-4>
+            <ion-datetime displayFormat="HH:mm" doneText="Aceptar" cancelText="Cancelar" minuteValues="0,30" [(ngModel)]="timers[4].open_ok"></ion-datetime>
+          </ion-col>
+          <ion-col col-4>
+            <ion-datetime displayFormat="HH:mm" doneText="Aceptar" cancelText="Cancelar" minuteValues="0,30" [(ngModel)]="timers[4].close_ok"></ion-datetime>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-4>
+            <ion-label>Viernes</ion-label>
+          </ion-col>
+          <ion-col col-4>
+            <ion-datetime displayFormat="HH:mm" doneText="Aceptar" cancelText="Cancelar" minuteValues="0,30" [(ngModel)]="timers[5].open_ok"></ion-datetime>
+          </ion-col>
+          <ion-col col-4>
+            <ion-datetime displayFormat="HH:mm" doneText="Aceptar" cancelText="Cancelar" minuteValues="0,30" [(ngModel)]="timers[5].close_ok"></ion-datetime>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-4>
+            <ion-label>Sábado</ion-label>
+          </ion-col>
+          <ion-col col-4>
+            <ion-datetime displayFormat="HH:mm" doneText="Aceptar" cancelText="Cancelar" minuteValues="0,30" [(ngModel)]="timers[6].open_ok"></ion-datetime>
+          </ion-col>
+          <ion-col col-4>
+            <ion-datetime displayFormat="HH:mm" doneText="Aceptar" cancelText="Cancelar" minuteValues="0,30" [(ngModel)]="timers[6].close_ok"></ion-datetime>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-4>
+            <ion-label>Domingo</ion-label>
+          </ion-col>
+          <ion-col col-4>
+            <ion-datetime displayFormat="HH:mm" doneText="Aceptar" cancelText="Cancelar" minuteValues="0,30" [(ngModel)]="timers[0].open_ok"></ion-datetime>
+          </ion-col>
+          <ion-col col-4>
+            <ion-datetime displayFormat="HH:mm" doneText="Aceptar" cancelText="Cancelar" minuteValues="0,30" [(ngModel)]="timers[0].close_ok"></ion-datetime>
+          </ion-col>
+        </ion-row>
       </div>
     </div>
   </div>

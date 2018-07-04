@@ -1,5 +1,7 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Platform } from 'ionic-angular';
+import { NativeStorage } from '@ionic-native/native-storage';
 import { Storage } from '@ionic/storage';
 import { Device } from '@ionic-native/device';
 
@@ -16,11 +18,12 @@ import 'rxjs/add/observable/fromPromise';
 export class UserService extends BaseService{
 
   public changeAvatar: EventEmitter<any> = new EventEmitter();
+  public changeStoreAvatar: EventEmitter<any> = new EventEmitter();
   public changeNotifications: EventEmitter<any> = new EventEmitter();
   public push: string = '';
 
-  constructor(public http: HttpClient, public storage: Storage, private device: Device) {
-    super(http, storage);
+  constructor(public http: HttpClient, public storage: Storage, public device: Device, public platform: Platform, public nativeStorage: NativeStorage) {
+    super(http, storage, platform, nativeStorage);
   }
 
   setPush(token) {
@@ -76,8 +79,8 @@ export class UserService extends BaseService{
     return this.get('users/profile');
   }
 
-  getStore() {
-    return this.get('store/profile/');
+  getStore(id:number) {
+    return this.get('store/profile/'+id);
   }
 
   update(obj: any) {

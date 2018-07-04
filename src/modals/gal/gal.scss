@@ -4,7 +4,7 @@ page-modalGal {
 		height: 30vh;
 	}
 	.scroll-content {
-		background-color: rgba(255,255,255,0.9);
+		background-color: #000; /*rgba(255,255,255,0.9);*/
 	}
 	.pd20 {
 		padding: 20px;
@@ -21,7 +21,7 @@ page-modalGal {
 	.top img { width: 100%; max-width: 100%; }
 
 	.swiper-pagination {
-		background-color: rgba(255,255,255,0.9);
+		background-color: #000; /*rgba(255,255,255,0.9);*/
 	}
 	.buttonWrapper {
 		float: right;
@@ -34,12 +34,18 @@ page-modalGal {
 	}
 
 	.noheader {
-		background-color: white;
+		background-color: #000;
 	}
 	.noheader .toolbar-background {
-		background-color: white;
+		background-color: #000;
 	}
 	.noheader ion-icon {
 		color: gray;
+	}
+	.swiper-pagination-bullet {
+		background-color: #DDD;
+	}
+	.swiper-pagination-bullet-active {
+		background-color: #FFF;
 	}
 }

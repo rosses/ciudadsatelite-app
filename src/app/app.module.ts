@@ -19,6 +19,7 @@ import { Device } from '@ionic-native/device';
 import { Badge } from '@ionic-native/badge';
 import { Autosize} from '../components/autosize';
 import { SafePipe} from '../components/safepipe';
+import { SwipeVertical} from '../components/swipe-vertical.directive';
 import { IonicImageViewerModule } from 'ionic-img-viewer';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
@@ -107,7 +108,8 @@ export function HttpLoaderFactory(http: Http) {
     Mapa,
     NewsPreviewComponent,
     Autosize,
-    SafePipe
+    SafePipe,
+    SwipeVertical
   ],
   imports: [
     BrowserModule,

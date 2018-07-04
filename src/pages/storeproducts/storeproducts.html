@@ -1,19 +1,13 @@
 <ion-header>
   <ion-navbar>
-    <button ion-button icon-only (click)="gotoHome()" class="my-style-for-modal">
-      <ion-icon class="ionicons" name="arrow-back"></ion-icon>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>MIS PRODUCTOS</ion-title>
-    <ion-buttons end>
-    <button class="">
-      <ion-icon name="add"></ion-icon>
-    </button>
-    </ion-buttons>
+    <ion-title class="no-padding">MIS PRODUCTOS</ion-title>
   </ion-navbar>
-
 </ion-header>
 
-<ion-content [ngClass]="{'blurred' : isBlurred}">
+<ion-content>
 
   <div *ngIf="loaded">
 

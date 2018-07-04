@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController, PopoverController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { NavController, NavParams, ToastController, PopoverController, Content } from 'ionic-angular';
 import { GoogleMapsAPIWrapper  } from '@agm/core';
 import { Geolocation } from '@ionic-native/geolocation';
 import { HttpClient } from '@angular/common/http';
@@ -15,6 +15,8 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'categoria.html'
 })
 export class Categoria {
+  
+  @ViewChild(Content) content: Content;
 
   public isLoading: boolean = true;
   public categ: any;
@@ -171,6 +173,7 @@ export class Categoria {
     } else {
       this.searchActive = true;
     }
+    this.content.resize();
   }
 
 
