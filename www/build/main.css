@@ -67078,15 +67078,17 @@ page-store .slide-product {
 page-store .slide-title {
   font-weight: normal;
   color: black;
-  font-size: 22px;
-  line-height: 22px;
+  font-size: 18px;
+  line-height: 18px;
   display: block;
   text-align: left;
   padding: 10px;
   padding-bottom: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  /*
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    */
 }
 
 page-store .slide-price {
@@ -67123,15 +67125,15 @@ page-store .toolbar-ios .segment-button {
 }
 
 page-store .store-grid ion-col:nth-child(odd) {
-  border-right: 1px solid gray;
+  /*border-right: 1px solid gray;*/
 }
 
 page-store .store-grid .slide-product {
-  width: calc(100%);
+  width: 100%;
 }
 
 page-store .store-grid ion-col {
-  border-bottom: 1px solid gray;
+  border: 1px solid #DDD;
 }
 
 page-store .store-grid > ion-col {
@@ -67139,6 +67141,28 @@ page-store .store-grid > ion-col {
   background-size: cover;
   background-position: center;
   padding: 0;
+}
+
+page-store .store-grid > ion-col:nth-child(odd) {
+  margin-right: 6px;
+}
+
+page-store .store-grid > ion-col:nth-child(even) {
+  margin-left: 6px;
+}
+
+page-store .store-grid > [col-6] {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 calc(50% - 6px);
+  -ms-flex: 0 0 calc(50% - 6px);
+  flex: 0 0 calc(50% - 6px);
+  width: calc(50% - 6px);
+  max-width: calc(50% - 6px);
+  margin-bottom: 8px;
+}
+
+page-store .store-grid .slide-title {
+  padding-bottom: 5px;
 }
 
 page-store .store-services {

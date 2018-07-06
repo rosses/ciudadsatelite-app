@@ -115,6 +115,7 @@
       </div>
     </div>
     <div *ngSwitchCase="'timers'">
+      <p padding>Si el horario de cierre es menor al horario de apertura se entenderá que tu negocio cierra pasado las 00:00</p>
       <div padding class="timers">
         <ion-row class="headers">
           <ion-col col-4>
@@ -202,6 +203,17 @@
           </ion-col>
           <ion-col col-4>
             <ion-datetime displayFormat="HH:mm" doneText="Aceptar" cancelText="Cancelar" minuteValues="0,30" [(ngModel)]="timers[0].close_ok"></ion-datetime>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-4>
+            <ion-label>Festivos</ion-label>
+          </ion-col>
+          <ion-col col-4>
+            <ion-datetime displayFormat="HH:mm" doneText="Aceptar" cancelText="Cancelar" minuteValues="0,30" [(ngModel)]="timers[7].open_ok"></ion-datetime>
+          </ion-col>
+          <ion-col col-4>
+            <ion-datetime displayFormat="HH:mm" doneText="Aceptar" cancelText="Cancelar" minuteValues="0,30" [(ngModel)]="timers[7].close_ok"></ion-datetime>
           </ion-col>
         </ion-row>
       </div>
