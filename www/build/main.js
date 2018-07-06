@@ -2112,7 +2112,8 @@ var StoreProducts = (function () {
         this.editMode = true;
     };
     StoreProducts.prototype.editar = function (product) {
-        this.edit = product;
+        this.edit = Object.assign({}, product);
+        ;
         this.editMode = true;
     };
     StoreProducts.prototype.cancel = function () {

@@ -79,7 +79,7 @@ export class StoreServices {
   }
 
   editar(service: any) {
-    this.edit = service;
+    this.edit = Object.assign({}, service);
     this.editMode = true;
   }
 
