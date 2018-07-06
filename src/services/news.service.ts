@@ -28,4 +28,8 @@ export class NewsService extends BaseService{
     return this.get('sections/'+id);
   }
 
+  getPhones() {
+    return this.get('phones'); 
+  }
+
 }

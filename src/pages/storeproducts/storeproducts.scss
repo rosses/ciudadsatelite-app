@@ -2,10 +2,100 @@ page-storeproducts {
   .scroll-content {
     background: #FFF; /*map-get($colors, bck-grey);*/
   }
-  .swiper-pagination-bullet-active {
-    background-color: white;
-    opacity: 1 !important;
+  ion-buttons[end] .button-inner {
+  	font-size: 20px !important;
   }
 
+  .nothing {
+  	margin-bottom: 20px;
+  }
+  .nothing ion-icon {
+  	font-size: 80px;
+  	color: #116362;
+  }
+  .nothing button span {
+  	padding: 10px;
+  	font-size: 14px;
+  }
 
+  .admin-items .avatar {
+  	width: 40px;
+  	height: 40px;
+  	background-size: cover;
+  	background-position: center;
+  	overflow: hidden;
+  	border: 1px solid gray;
+  }
+  .inter-items .avatar {
+  	width: 60px;
+  	height: 60px;
+  	background-size: cover;
+  	background-position: center;
+  	overflow: hidden;
+  	border: 1px solid gray;
+  }
+
+  .inter-items ion-icon {
+  	font-size: 30px;
+  }
+  
+  ion-list-header {
+  }
+  ion-list-header ion-label {
+  	font-size: 20px;
+  	margin-bottom: 0px !important;
+  	padding-bottom: 0px !important;
+  }
+
+  .name {
+    position: relative;
+    padding: 16px 20px;
+    font-weight: 500;
+    font-size: 1.8rem;
+    color: map-get($colors, font-bold);
+    text-transform: uppercase;
+    padding-bottom: 0;
+
+    button.options {
+      right: 20px;
+      top: 12px;
+      z-index: 1;
+    }
+  }
+  .tools {
+    margin-top: 40px !important;
+    margin-bottom: 0px !important;
+  }
+
+  .formContainer .item-inner { border-bottom: 0 !important; box-shadow: none !important; } 
+  .name .button.right {
+    position: relative;
+    float: right;
+    margin-top: -5px;
+  }
+  .name .button.left {
+    position: relative;
+    float: left;
+    margin-top: -5px;
+  }
+
+  ion-select {
+    padding-left: 0px !important;
+  }
+  .text-input {
+    margin-left: 0px !important;
+  }
+  ion-col .label {
+    margin-top: 8px;
+    margin-bottom: 8px;
+    display: inline-block;
+    font-weight: 400;
+    color: #545761;
+    width: 12rem;
+    -webkit-box-flex: initial;
+    -webkit-flex: initial;
+    -ms-flex: initial;
+    flex: initial;
+    font-size: 1.2rem;
+  }
 }

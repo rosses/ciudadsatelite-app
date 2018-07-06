@@ -24,7 +24,7 @@ import { IonicImageViewerModule } from 'ionic-img-viewer';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
 import { NativeStorage } from '@ionic-native/native-storage';
-
+import { NgxEditorModule } from 'ngx-editor';
 
 import { MyApp } from './app.component';
 
@@ -44,7 +44,6 @@ import { StoreProducts } from '../pages/storeproducts/storeproducts';
 import { StoreServices } from '../pages/storeservices/storeservices';
 import { Ng2Rut, RutValidator } from 'ng2-rut';
 import { Mapa } from '../pages/mapa/mapa';
-
 import { Pata } from '../pata';
 
 // Popovers
@@ -77,7 +76,6 @@ import {SocialSharing} from "@ionic-native/social-sharing";
 import {DatePipe} from "@angular/common";
 import {EmailComposer} from "@ionic-native/email-composer";
 import {CallNumber} from "@ionic-native/call-number";
-
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
 export function HttpLoaderFactory(http: Http) {
@@ -140,7 +138,8 @@ export function HttpLoaderFactory(http: Http) {
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBrUo6PdRjbF03o4_xeEoYl9kTD5V7pp7g'
     }),
-    Ng2Rut
+    Ng2Rut,
+    NgxEditorModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

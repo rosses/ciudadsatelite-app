@@ -1,38 +1,50 @@
 page-storeservices {
   .scroll-content {
-    background: map-get($colors, bck-grey);
+    background: #FFF; /*map-get($colors, bck-grey);*/
+  }
+  ion-buttons[end] .button-inner {
+    font-size: 20px !important;
   }
 
-  .mediaSlideContainer {
-    position: relative;
+  .nothing {
+    margin-bottom: 20px;
   }
-  ion-select {
-    padding-left: 0px !important;
+  .nothing ion-icon {
+    font-size: 80px;
+    color: #116362;
   }
-  .text-input {
-    margin-left: 0px !important;
-  }
-
-  .item-inner { border-bottom: 0 !important; box-shadow: none !important; }
-
-  .text-input[disabled] {
-    opacity: 1 !important;
+  .nothing button span {
+    padding: 10px;
+    font-size: 14px;
   }
 
-  .welcome {
-    position: relative;
-    padding: 16px 20px;
-    font-weight: 500;
-    font-size: 1.5rem;
-    color: map-get($colors, font-bold);
-    text-transform: uppercase;
-    padding-bottom: 0;
+  .admin-items .avatar {
+    width: 40px;
+    height: 40px;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    border: 1px solid gray;
+  }
+  .inter-items .avatar {
+    width: 60px;
+    height: 60px;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    border: 1px solid gray;
+  }
 
-    button.options {
-      right: 20px;
-      top: 12px;
-      z-index: 1;
-    }
+  .inter-items ion-icon {
+    font-size: 30px;
+  }
+  
+  ion-list-header {
+  }
+  ion-list-header ion-label {
+    font-size: 20px;
+    margin-bottom: 0px !important;
+    padding-bottom: 0px !important;
   }
 
   .name {
@@ -50,104 +62,42 @@ page-storeservices {
       z-index: 1;
     }
   }
-
-  .media {
-    width: 100%;
-    height: 18.4rem;
-    background-position: center;
+  .tools {
+    margin-top: 40px !important;
+    margin-bottom: 0px !important;
   }
 
-  .back-button-icon-ios {
-    font-size: 2.4rem;
-  }
-
-  .back-button {
-    color: black;
-    width: 3.2rem;
-    height: 3.2rem;
-    background: white;
-    border-radius: 100%;
+  .formContainer .item-inner { border-bottom: 0 !important; box-shadow: none !important; } 
+  .name .button.right {
     position: relative;
-    left: 10px;
-    min-width: 3.2rem;
-    padding: 0;
+    float: right;
+    margin-top: -5px;
+  }
+  .name .button.left {
+    position: relative;
+    float: left;
+    margin-top: -5px;
   }
 
-  .back-button-icon-md {
-    padding: 0;
+  ion-select {
+    padding-left: 0px !important;
   }
-
-  .camera {
-    border-radius: 100%;
-    width: 3.5rem;
-    height: 3.5rem;
+  .text-input {
+    margin-left: 0px !important;
   }
-  .camera ion-icon {
-    font-family: "Ionicons" !important;
-    color: white;
-    font-size: 26px !important;
-    margin-top: -.1px !important;
-  }
-
-  .swiper-pagination-bullet-active {
-    background-color: white;
-    opacity: 1 !important;
-  }
-
-  .swiper-pagination-bullet {
-    background: white;
-    opacity: .5;
-    width: 12px;
-    height: 12px;
-  }
-
-  .subTitle {
-    padding: 20px;
-    padding-bottom: 0;
-  }
-
-  button.button-round {
-    position: absolute;
+  ion-col .label {
+    margin-top: 8px;
+    margin-bottom: 8px;
+    display: inline-block;
     font-weight: 400;
-    font-size: 1.4rem;
-    padding: 0.5rem 2.3rem;
-    height: auto;
-    text-transform: initial;
+    color: #545761;
+    width: 12rem;
+    -webkit-box-flex: initial;
+    -webkit-flex: initial;
+    -ms-flex: initial;
+    flex: initial;
+    font-size: 1.2rem;
   }
-
-  ion-buttons {
-    margin-right: 16px;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    background-color: transparent;
-  }
-
-  ion-buttons:hover {
-    webkit-box-shadow: none;
-    box-shadow: none;
-    background-color: transparent;
-  }
-
-  .button[icon-only] {
-    background-color: transparent;
-    -webkit-box-shadow: none;
-    box-none: none;
-  }
-
-  .button[icon-only]:hover {
-    background-color: transparent;
-    -webkit-box-shadow: none;
-    box-none: none;
-  }
-
-  .header .toolbar .button-inner {
-    font-size: 2rem !important;
-  }
-
-  ion-icon.ionicons {
-    font-family: "Ionicons" !important;
-  }
-
 }
 
 

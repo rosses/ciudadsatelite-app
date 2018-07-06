@@ -1,16 +1,16 @@
 import {Component, ViewChild} from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { NavController, NavParams, PopoverController, LoadingController, ModalController } from 'ionic-angular';
+import { FormsModule } from '@angular/forms';
+import { NavController, NavParams, PopoverController, LoadingController, ModalController, AlertController } from 'ionic-angular';
 
-import { UserService } from '../../services/user.service';
-import { AuthService } from '../../services/auth.service';
+import { DoctorService } from '../../services/doctor.service';
 import { Pata } from '../../pata';
 import { ProfileMedia } from '../popovers/profile-media/profile-media';
-
 import { environment } from "../../environments/environment"
-import {DatePicker} from "@ionic-native/date-picker";
-import {DatePipe} from "@angular/common";
-import {HomePage} from "../home/home";
+import { Camera, CameraOptions } from '@ionic-native/camera';
+
+import { QuillEditorComponent } from 'ngx-quill/src/quill-editor.component';
+import Quill from 'quill';
 
 
 @Component({
@@ -19,137 +19,276 @@ import {HomePage} from "../home/home";
 })
 export class StoreProducts {
 
-  @ViewChild('datepicker') datepicker;
-
-  store: any;
-  isBlurred: boolean = false;
   loaded: boolean = false;
-  states: any = [];
-  cities: any = [];
+  products: any = [];
+  store: any;
   loading: any;
+  editMode: boolean = false;
+  edit: any;
+  tabs: string = 'info';
+  base64Image: string = '';
+  activeUpload: string = '';
+  editorConfig: any = {
+    "editable": true,
+    "height": "auto",
+    "minHeight": "200",
+    "width": "auto",
+    "minWidth": "0",
+    "toolbar": [
+        ["bold", "italic", "underline", "fontName", "fontSize"]
+    ]
+  }
 
   constructor(public navCtrl: NavController,
               public storage: Storage,
               public navParams: NavParams,
+              private alertCtrl: AlertController,
               public popoverCtrl: PopoverController,
               private loadingCtrl: LoadingController,
               public service: Pata,
-              public userService: UserService,
-              public authService: AuthService,
-              private datePicker: DatePicker,
-              public modalCtrl: ModalController,
-              public datePipe: DatePipe)
+              public doctorService: DoctorService,
+              private camera: Camera,
+              public modalCtrl: ModalController)
   {
 
-      this.loading = this.loadingCtrl.create({
-        content: 'cargando listado...'
-      });
-
-      this.loading.present();
-
-      setTimeout(() => {
-        this.loading.dismiss();
-      },2000);
+    this.store = this.navParams.get("store");
+    this.cargarProductos();
 
   }
 
+  add() {
+    this.edit = {
+      aux1: '',
+      aux2: '',
+      aux3: '',
+      avatar: '',
+      created_at: '',
+      deleted: '0',
+      description: '',
+      id: '0',
+      marketplace_id: this.store.id,
+      name: '',
+      offer: '0',
+      price: '0',
+      qty: '',
+      tags: '',
+      updated_at: '',
+      video: ''
+    };
+    this.editMode = true;
+  }
 
-  refreshDistrito(e: any) {
-    this.authService.getCities(this.store.state).subscribe((data:any) => {
-      this.cities = data.data;
+  editar(product: any) {
+    this.edit = product;
+    this.editMode = true;
+  }
+
+  cancel() {
+    this.editMode = false;
+  }
+
+
+  cargarProductos() {
+    this.loading = this.loadingCtrl.create({
+      content: 'cargando productos...'
+    });
+
+    this.loading.present();
+    this.loaded = false;
+    this.doctorService.getProducts(this.store.id).subscribe((data:any)=> {
+      this.loaded = true;
+      this.products = data.data;
+      this.loading.dismiss();
     });
   }
-
+  mainOfferToggle() {
+    if (this.edit.offer == '0') {
+      this.edit.offer = '1';
+    } else {
+      this.edit.offer = '0';
+    }
+  }
   save() {
       let loading = this.loadingCtrl.create({
         content: 'guardando...'
       });
 
       loading.present();
-      
-
-      let updateOperation = this.userService.updateStore({
-        name: this.store.name,
-        state: this.store.state,
-        city: this.store.city,
-        email: this.store.email,
-        phone: this.store.phone,
-        address: this.store.address,
-        whatsapp: this.store.whatsapp,
-        website: this.store.website
-      }, this.store.id);
+           
+      let updateOperation = this.doctorService.setProduct(this.edit);
 
       updateOperation.subscribe((ok: any) => {
         loading.dismiss();
         if (ok.res == "OK") {
           this.service.showOk();
+          this.editMode = false;
+          this.cargarProductos();
         }
         else {
           loading.dismiss();
-          this.service.logError(null, "No fue posible guardar sus datos, intente nuevamente");
+          this.service.logError(null, "No fue posible guardar, intente nuevamente");
         }
       }, (error) => {
         loading.dismiss();
-        this.service.logError(null, "No fue posible guardar sus datos, intente nuevamente");
-      });
-
-      
+        this.service.logError(null, "No fue posible guardar, intente nuevamente");
+      });  
   }
 
-  removeBlur() {
-    this.isBlurred = false;
-  }
-
-  presentMediaOptionsPopover(event) {
-    let popover = this.popoverCtrl.create(ProfileMedia);
-    popover.present({
-      ev: event
-    });
-    popover.onDidDismiss((change?:any) => {
-      if (change) {
-        /*
-        this.storage.get("MP-Profile").then((val) => {
-          this.store = val;
-          this.loaded = true;
-          if (this.store.avatar != null && this.store.avatar != "") {
-            this.store.avatar = this.store.avatar.replace('/public/','');
+  delete(product:any) {
+    let alert = this.alertCtrl.create({
+      title: '¿Confirma eliminación?',
+      message: 'Vas a eliminar el producto',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
           }
-          this.changeAvatar(this.store.avatar);
-        });
-        */
-      }
-      this.removeBlur();
+        },
+        {
+          text: 'Eliminar',
+          handler: () => {
+
+            this.doctorService.delProduct(product.id).subscribe((data:any) => {
+              this.service.showOk();
+              this.cargarProductos();
+            });
+
+          }
+        }
+      ]
     });
-    this.isBlurred = true;
+    alert.present();
+  }
+  public takePicture(element:string) {
+    this.activeUpload = element;
+    this.camera.getPicture({
+        destinationType: this.camera.DestinationType.DATA_URL,
+        targetWidth: 300,
+        targetHeight: 300,
+        correctOrientation: true
+    }).then((imageData) => {
+        this.processTake(imageData);
+    }, (err) => {      
+        console.log(err);
+    });
   }
 
-  changeAvatar(avatar:string) {
-    this.userService.changeAvatar.emit(avatar);
+  private openGallery (element:string): void {
+    this.activeUpload = element;
+    let cameraOptions = {
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      destinationType: this.camera.DestinationType.DATA_URL,      
+      quality: 60,
+      targetWidth: 320,
+      targetHeight: 320,
+      encodingType: this.camera.EncodingType.JPEG,      
+      correctOrientation: true
+    }
+    this.camera.getPicture(cameraOptions)
+      .then(file_uri => {
+        this.processTake(file_uri);
+      }, 
+      err => {
+        console.log(err)
+      }); 
+ 
+  }
+  private dataURItoBlob(dataURI) {
+    var byteString;
+
+    if (dataURI.split(',')[0].indexOf('base64') >= 0)
+      byteString = atob(dataURI.split(',')[1]);
+    else
+      byteString = (dataURI.split(',')[1]);
+
+    var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+    var ia = new Uint8Array(byteString.length);
+    for (var i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+    return new Blob([ia], {
+      type: mimeString
+    });
   }
 
-  /** Birthday Date Picker */
-  openDatepicker(){
-    this.datePicker.show({
-      date: new Date(),
-      mode: 'date',
-      androidTheme: this.datePicker.ANDROID_THEMES.THEME_HOLO_DARK
-    }).then(
-      date => {
-        let d = this.datePipe.transform(date, 'dd/MM/yyyy');
-        console.log('Got date: ', d);
-        this.store.birthday = d;
-      },err => {
-        console.log('Error occurred while getting date: ', err)
-      }
-    );
+  public processTake(imageData) {
+
+    this.base64Image = "data:image/jpeg;base64," + imageData;
+    this.loading = this.loadingCtrl.create({content:'subiendo...'});
+    this.loading.present();   
+
+    var self0 = this;
+    var blob = this.dataURItoBlob(this.base64Image);
+
+    var objURL = window.URL.createObjectURL(blob);
+    var image = new Image();
+    image.src = objURL;
+    window.URL.revokeObjectURL(objURL);
+
+    var url = window.URL.createObjectURL(blob);
+
+    var formData = new FormData();
+    formData.append('avatar', blob, 'avatar.jpg');
+    
+    var xhr = new XMLHttpRequest();
+    xhr.open("post", environment.apiUrl+"uploadService");
+    xhr.setRequestHeader("Authorization", "Bearer "+this.storage.get("token"));
+
+    xhr.onreadystatechange = function () {
+
+      if(xhr.readyState === 4 && xhr.status === 200) {
+        let ari = xhr.responseText;
+        let uri = JSON.parse(ari);
+
+        self0.loading.dismiss();
+
+        if (uri.res == "ERR") {
+          self0.service.logError({}, 'Error al procesar la solicitud. Inténtelo más tarde.');
+        }
+        else {
+          self0.edit
+          let alert = self0.alertCtrl.create({
+          title: 'Listo!',
+          subTitle: 'Foto precargada con éxito',
+          buttons: ['OK']
+          });
+          alert.present();
+          self0.changeImage(uri.url);
+        }
+      } 
+    };
+    xhr.send(formData);
   }
 
-
-  formatDate(date){
-    return date;
+  changeImage(url:string) {
+    if (this.activeUpload == 'avatar') {
+       this.edit.avatar = url;
+    }
+    else if (this.activeUpload == 'aux1') {
+       this.edit.aux1 = url;
+    }
+    else if (this.activeUpload == 'aux2') {
+       this.edit.aux2 = url;
+    }
+    else if (this.activeUpload == 'aux3') {
+       this.edit.aux3 = url;
+    }
   }
 
-  gotoHome(){
-    this.navCtrl.setRoot(HomePage);
-  }
+  b64toBlob(b64, onsuccess, onerror) {
+      var img = new Image();
+      img.onerror = onerror;
+      img.onload = function onload() {
+          var canvas = document.createElement('canvas');
+          canvas.width = img.width;
+          canvas.height = img.height;
+          var ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          canvas.toBlob(onsuccess);
+      };
+      img.src = b64;
+  }  
+
 }

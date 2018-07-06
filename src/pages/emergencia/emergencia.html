@@ -7,20 +7,23 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content>
-  
+<ion-content> 
   <div *ngIf="!isLoading">
-    <div *ngIf="active == 0">
-      <ion-grid class="grid">
-        <ion-row>
-          <ion-col col-4 *ngFor="let s of sections">
-            <button (click)="callToNumber(s)"> <div> <img src="{{s.icon}}" /> <br> <label>{{s.name}}</label> </div> </button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </div>
-
+    <ion-item-group *ngFor="let s of sections">
+      <ion-item-divider> {{s.title}} </ion-item-divider>
+      <ion-item *ngFor="let x of s.subs" (click)="callToNumber(x.number)">
+        <ion-icon name="call" item-start></ion-icon>
+        {{x.title}}
+      </ion-item>
+    </ion-item-group>
+    <!--
+    <ion-grid class="grid">
+      <ion-row>
+        <ion-col col-4 *ngFor="let s of sections">
+          <button (click)="callToNumber(s)"> <div> <img src="{{s.icon}}" /> <br> <label>{{s.name}}</label> </div> </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    -->
   </div>
-
-
 </ion-content>

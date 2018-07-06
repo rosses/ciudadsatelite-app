@@ -32,9 +32,9 @@
 	    <h4>{{detail.name}}</h4>
 	    <h4 text-right *ngIf="detail.price > 0">$ {{detail.price | number:'1.0-0'}}</h4>
 	    <hr />
-		<div text-right>
+		  <!--<div text-right>
 			<strong>Visto: </strong> {{detail.qty}} veces
-		</div>
+		  </div>-->
 	    <hr />
 	    <p [innerHTML]="detail.description"></p>
 

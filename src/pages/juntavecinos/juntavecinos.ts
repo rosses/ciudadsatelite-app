@@ -85,13 +85,6 @@ export class JuntaVecinosPage {
         this.actionLoaded = true;
       });
     }
-    else if (o.id == 2 || o.id == 3) {
-      this.doctorService.getContent(o.id).subscribe((data: any)=> {
-        this.content = data.data;
-        this.load.dismiss();
-        this.actionLoaded = true;
-      });
-    }
     else if (o.id == 4) {
       this.doctorService.getFaqs(0).subscribe((data: any)=> {
         this.faqs = data.data;
@@ -110,7 +103,11 @@ export class JuntaVecinosPage {
       this.load.dismiss();
     }
     else {
-      this.load.dismiss();
+      this.doctorService.getContent(o.id).subscribe((data: any)=> {
+        this.content = data.data;
+        this.load.dismiss();
+        this.actionLoaded = true;
+      });
     }
 
   }

@@ -16,8 +16,6 @@ import { CallNumber } from '@ionic-native/call-number';
 })
 export class Emergencia {
   sections: any = [];
-  headers: any = [];
-  active: number = 0;
   public staticUrl: string;
   public isLoading: boolean = true;
   public openTab: string = 'news';
@@ -38,11 +36,10 @@ export class Emergencia {
     this.load = this.loadingCtrl.create();
     this.load.present();
 
-    this.newsService.getSections(1).subscribe(
+    this.newsService.getPhones().subscribe(
       (data:any) =>{
         this.isLoading = false;
-        this.sections = data.data;
-        this.headers = data.headers;
+        this.sections = data;
         this.load.dismiss();
       },
       error => {

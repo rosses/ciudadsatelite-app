@@ -62,10 +62,10 @@ export class DoctorService extends BaseService{
     return this.get('jjvv');
   }
   getFaqs(id: number) {
-    return this.get('faqs/'+id)
+    return this.get('faqs/'+id);
   }
   getContent(id: number) {
-    return this.get('content/'+id)
+    return this.get('content/'+id);
   }
   sendContacto(obj:any) {
     return this.post('jjvv/contact', {
@@ -93,6 +93,26 @@ export class DoctorService extends BaseService{
 
   addSs(id:number) {
     this.post('store/ss/'+id).subscribe((data: any)=> { console.log('addSs', data); });
+  }
+
+  // store admin
+  getProducts(id:number) {
+    return this.get('store/products/'+id)
+  }
+  setProduct(product) {
+    return this.post('store/products/save', product);
+  }
+  delProduct(id:number) {
+    return this.post('store/products/delete', { id: id });
+  }
+  getServices(id:number) {
+    return this.get('store/services/'+id)
+  }
+  setService(product) {
+    return this.post('store/services/save', product);
+  }
+  delService(id:number) {
+    return this.post('store/services/delete', { id: id });
   }
 
 }
