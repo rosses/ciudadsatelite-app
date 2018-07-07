@@ -128,16 +128,21 @@ export class ProfileMedia {
     
     var mode = 'users';
     if (self0.storeMode == true) {
-      formData.append('userId', self0.userId);    
+      formData.append('storeId', self0.store.id);
       var mode = 'store';
     } else {
-      formData.append('storeId', self0.store.id);
+      formData.append('userId', self0.userId);   
       var mode = 'users';
     }
 
     
     var xhr = new XMLHttpRequest();
-    xhr.open("post", environment.apiUrl+mode+"/avatar/"+self0.userId);
+    if (self0.storeMode == true) {
+      xhr.open("post", environment.apiUrl+mode+"/avatar/"+self0.store.id);
+    }
+    else {
+      xhr.open("post", environment.apiUrl+mode+"/avatar/"+self0.userId); 
+    }
     xhr.setRequestHeader("Authorization", "Bearer "+self0.token);
 
     xhr.onreadystatechange = function () {
