@@ -54,6 +54,10 @@ export class AuthService  {
     return req;
   }
 
+  public requestPassword(email: string) {
+    return this.http.post(environment.apiUrl+'resetPassword', { email: email });
+  }
+
   setPush(token) {
     this.push = token;
   }

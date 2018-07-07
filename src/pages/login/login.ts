@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { HomePage } from '../home/home';
@@ -31,7 +31,8 @@ export class LoginPage {
     public loadingCtrl: LoadingController,
     public storage: Storage,
     private nativeStorage: NativeStorage,
-    private auth: AuthService
+    private auth: AuthService,
+    private alertCtrl: AlertController
   ){
   	this.login = {
   		name: '',
@@ -80,6 +81,36 @@ export class LoginPage {
 
   	}
 
+  }
+
+  recoverPassword() {
+    let alert = this.alertCtrl.create({
+      title: 'Reinicio de clave',
+      message: 'Enviaremos una nueva clave a tu email '+this.login.email+', ¿deseas continuar?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            
+          }
+        },
+        {
+          text: 'Confirmar',
+          handler: () => {
+            this.auth.requestPassword(this.login.email).subscribe((data:any) => {
+              if (data.res == "ERR") {
+                this.service.logError({}, "Clave no puede estar vacío");
+              }
+              else {
+                this.service.showOk("Hemos enviado una nueva clave a tu correo "+this.login.email);
+              }
+            });
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
   withPassword() {

@@ -66286,6 +66286,20 @@ page-modalDetail .buttonWrapper button {
   height: 30px;
 }
 
+page-modalDetail .offer {
+  background-color: #fff2c6;
+  padding: 3px;
+  margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+  width: 100%;
+  text-align: right;
+}
+
+page-modalDetail h4 {
+  margin: 0;
+}
+
 page-modalERR ion-content {
   background-color: transparent !important;
 }
@@ -67189,6 +67203,34 @@ page-store .tab-service-price {
   text-align: right;
 }
 
+page-store .swiper-container {
+  overflow: visible !important;
+}
+
+page-store .offer {
+  background-color: #fff2c6;
+  padding: 3px;
+  font-size: 11px;
+  font-weight: bold;
+  position: absolute;
+  width: 100%;
+  text-align: right;
+  top: 0;
+  left: 0;
+}
+
+page-store .offerLogo {
+  position: absolute;
+  left: -10px;
+  top: 0px;
+  width: 48px;
+  height: 48px;
+}
+
+page-store .offerLogo img {
+  max-width: 100%;
+}
+
 @keyframes placeHolderShimmer {
   0% {
     background-position: -468px 0;
@@ -67666,6 +67708,11 @@ page-login .content {
   text-align: center;
   color: #088AF7;
   background: transparent;
+}
+
+page-login .forceDark {
+  background-color: #01acaf;
+  border-radius: 5px;
 }
 
 page-login .logo {

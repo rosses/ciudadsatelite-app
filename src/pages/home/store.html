@@ -113,6 +113,8 @@
     <div *ngIf="products.length > 0">
       <ion-slides spaceBetween="20" slidesPerView="1.5">
         <ion-slide (click)="detail(product, 'product')" *ngFor="let product of products" [ngStyle]="{'background-image': 'url('+(product.avatar == '' ? 'assets/img/default/no-pictures.png' : product.avatar)+')'}">
+      	  <div class="offer" *ngIf="product.offer == '1'">Exclusivo App</div>
+      	  <div class="offerLogo" *ngIf="product.offer == '1'"><img src="assets/img/tag.png" /></div>
           <div class="slide-product">
             <div class="slide-title">{{product.name}}</div>
             <div class="slide-price" *ngIf="product.price > 0">$ {{product.price | number:'1.0-0' }}</div>
@@ -133,6 +135,8 @@
     <div *ngIf="services.length > 0">
       <ion-slides spaceBetween="20" slidesPerView="1.5">
         <ion-slide (click)="detail(service, 'service')" *ngFor="let service of services" [ngStyle]="{'background-image': 'url('+(service.avatar == '' ? 'assets/img/default/no-pictures.png' : service.avatar)+')'}">
+      	  <div class="offer" *ngIf="service.offer == '1'">Exclusivo App</div>
+      	  <div class="offerLogo" *ngIf="service.offer == '1'"><img src="assets/img/tag.png" /></div>
           <div class="slide-product">
             <div class="slide-title">{{service.name}}</div>
             <div class="slide-price" *ngIf="service.price > 0">$ {{service.price | number:'1.0-0' }}</div>
@@ -179,6 +183,8 @@
       <div *ngIf="products.length > 0">
         <ion-row class="store-grid">
           <ion-col (click)="detail(product, 'product')" col-6 *ngFor="let product of products" [ngStyle]="{'background-image': 'url('+(product.avatar == '' ? 'assets/img/default/no-pictures.png' : product.avatar)+')'}">
+      	  <div class="offer" *ngIf="product.offer == '1'">Exclusivo App</div>
+      	  <div class="offerLogo" *ngIf="product.offer == '1'"><img src="assets/img/tag.png" /></div>
             <div class="slide-product">
               <div class="slide-title">{{product.name}}</div>
               <div class="slide-price" *ngIf="product.price > 0">$ {{product.price | number:'1.0-0' }}</div>
@@ -213,6 +219,8 @@
         -->
        <ion-row class="store-grid">
         <ion-col (click)="detail(service, 'service')" col-6 *ngFor="let service of services" [ngStyle]="{'background-image': 'url('+(service.avatar == '' ? 'assets/img/default/no-pictures.png' : service.avatar)+')'}">
+      	  <div class="offer" *ngIf="service.offer == '1'">Exclusivo App</div>
+      	  <div class="offerLogo" *ngIf="service.offer == '1'"><img src="assets/img/tag.png" /></div>
           <div class="slide-product">
             <div class="slide-title">{{service.name}}</div>
             <div class="slide-price" *ngIf="service.price > 0">$ {{service.price | number:'1.0-0' }}</div>
