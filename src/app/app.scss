@@ -521,3 +521,7 @@ strong.badges {
 }
 .bar-buttons[end] { min-width: 44px !important; }
 .search-top span { font-size: 20px !important; }
+
+.ql-editor, .ngx-editor-textarea,  {
+    -webkit-user-select: text;
+}

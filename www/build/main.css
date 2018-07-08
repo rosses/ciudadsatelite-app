@@ -66209,6 +66209,10 @@ strong.badges {
   font-size: 20px !important;
 }
 
+.ql-editor, .ngx-editor-textarea {
+  -webkit-user-select: text;
+}
+
 news-preview .wrapper {
   margin: 6px 20px 20px 20px;
 }
