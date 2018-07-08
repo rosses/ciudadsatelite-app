@@ -4,7 +4,8 @@
     <div class="image" [style.background-image]="'url(' + user?.avatar + ')'" style="background-size: cover"></div>
     <div class="name">{{ user?.first_name }} {{ user?.last_name }} {{ user?.company }}</div>
     <!--<div class="scope" *ngIf="active">{{ active.name }} </div>-->
-    <button menuClose (click)="profile()" ion-button round color="light">MI PERFIL</button>
+    <button *ngIf="user?.id != '0'" menuClose (click)="profile()" ion-button round color="light">MI PERFIL</button>
+    <button *ngIf="user?.id == '0'" menuClose (click)="createAccount()" ion-button round color="light">CREAR CUENTA</button>
   </div>
 
   <div class="profile" *ngIf="marketProfile">
@@ -26,7 +27,7 @@
   <div *ngIf="!marketProfile" menuClose class="link" (click)="openPageComponent(2)">
     <span>Mapa</span>
   </div>
-  <div *ngIf="!marketProfile" menuClose class="link" (click)="openPageComponent(3)">
+  <div *ngIf="user?.id != '0' && !marketProfile" menuClose class="link" (click)="openPageComponent(3)">
     <span>Notificaciones <strong class="badges" *ngIf="notifications > 0">{{notifications}}</strong></span>
   </div>
   <div *ngIf="!marketProfile" menuClose class="link" (click)="openPageComponent(4)">
@@ -61,7 +62,7 @@
     <span>Contacto</span>
   </div>
 
-  <div menuClose class="link" (click)="closeSession()">
+  <div *ngIf="user?.id != '0'" menuClose class="link" (click)="closeSession()">
     <span>{{'APP_MENU.CLOSE' | translate }}</span>
   </div>
 </ion-menu>

@@ -25,6 +25,7 @@ export class Contacto {
   name: string = '';
   email: string = '';
   message: string = '';
+  oread: boolean = false;
 
   constructor(public navCtrl: NavController,
               public storage: Storage,
@@ -40,8 +41,11 @@ export class Contacto {
   {
 
     this.storage.get("MP-Profile").then((data) => {
-      this.name = data.first_name;
-      this.email = data.email;
+      if (data.id != "0") {
+        this.name = data.first_name;
+        this.email = data.email;
+        this.oread = true;
+      }
     });
 
   }
@@ -50,6 +54,12 @@ export class Contacto {
 
       if (this.message.length < 4) {
         this.service.logError(null,"Por favor especifique un mensaje más largo");
+      }
+      else if (this.name.length < 4) {
+       this.service.logError(null,"Por favor especifique un nombre más largo"); 
+      }
+      else if (this.email.length < 4) {
+       this.service.logError(null,"Por favor especifique un email más largo"); 
       }
       else {
         let loading = this.loadingCtrl.create({

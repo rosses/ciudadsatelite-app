@@ -39,7 +39,7 @@
     <div text-center class="nothing" *ngIf="products.length == 0">
       <h2><ion-icon name="help-buoy"></ion-icon></h2>
       <h4>No tienes productos</h4>
-      <button ion-button color="dark" outline>Crear un producto</button>
+      <button ion-button color="dark" (click)="add()" outline>Crear un producto</button>
     </div>
 
 

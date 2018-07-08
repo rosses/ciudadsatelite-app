@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, AlertController, Platform } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { HomePage } from '../home/home';
@@ -21,6 +21,10 @@ export class LoginPage {
     passwd: ''
   };
 
+  public android: boolean = false;
+  public ios: boolean = false;
+  public iosSkip: number = 0;
+
   public welcome0: boolean = true;
   public welcome1: boolean = false;
 
@@ -32,15 +36,44 @@ export class LoginPage {
     public storage: Storage,
     private nativeStorage: NativeStorage,
     private auth: AuthService,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    public platform: Platform
   ){
   	this.login = {
   		name: '',
   		email: '',
       passwd: ''
   	};
+
+    if (this.navParams.get("iosSkip")) {
+      this.iosSkip = this.navParams.get("iosSkip");
+    }
+
+    if (this.platform.is('ios')) {
+      /*this.ios = true;
+      this.login.name = 'Anónimo';
+      this.login.email = 'noemail@ciudadsatelite.app';
+      this.next();
+      */
+      this.android = true;
+      this.iosSkip = 1;
+    }
+    else {
+      this.android = true;
+    }
   }
 
+
+  volver() {
+    this.welcome1 = false;
+    this.welcome0 = true;
+  }
+  initWithoutAccount() {
+    this.iosSkip = 0;
+    this.login.name = 'Anónimo';
+    this.login.email = 'noemail@ciudadsatelite.app';
+    this.next();
+  }
   next() {
   	let emailRegex = /\S+@\S+\.\S+/;
 

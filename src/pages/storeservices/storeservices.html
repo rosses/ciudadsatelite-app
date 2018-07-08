@@ -39,7 +39,7 @@
     <div text-center class="nothing" *ngIf="services.length == 0">
       <h2><ion-icon name="help-buoy"></ion-icon></h2>
       <h4>No tienes servicios</h4>
-      <button ion-button color="dark" outline>Crear un servicio</button>
+      <button ion-button color="dark" outline (click)="add()">Crear un servicio</button>
     </div>
 
 

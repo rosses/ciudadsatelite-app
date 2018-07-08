@@ -289,6 +289,10 @@ export class MyApp {
     
   }
 
+
+  createAccount() {
+    this.nav.setRoot(LoginPage, { iosSkip : 1 });
+  }
   profile(useMarketProfile) {
    if (useMarketProfile) {
     this.nav.setRoot(StoreProfile, { store: this.active });

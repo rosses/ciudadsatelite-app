@@ -67712,7 +67712,8 @@ page-login .content {
 
 page-login .forceDark {
   background-color: #01acaf;
-  border-radius: 5px;
+  border-radius: 64px;
+  width: 100%;
 }
 
 page-login .logo {

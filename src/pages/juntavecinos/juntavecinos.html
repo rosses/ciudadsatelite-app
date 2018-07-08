@@ -71,11 +71,11 @@
           <ion-list>
             <ion-item>
               <ion-label stacked>Nombre</ion-label>
-              <ion-input type="text" readonly [(ngModel)]="denuncia.name"></ion-input>
+              <ion-input type="text" [readonly]="oread" [(ngModel)]="denuncia.name"></ion-input>
             </ion-item>
             <ion-item>
               <ion-label stacked>Email</ion-label>
-              <ion-input type="email" readonly [(ngModel)]="denuncia.email"></ion-input>
+              <ion-input type="email" [readonly]="oread" [(ngModel)]="denuncia.email"></ion-input>
             </ion-item>
             <ion-item>
               <ion-label stacked>Mensaje</ion-label>
@@ -94,11 +94,11 @@
           <ion-list>
             <ion-item>
               <ion-label stacked>Nombre</ion-label>
-              <ion-input type="text" readonly [(ngModel)]="contacto.name"></ion-input>
+              <ion-input type="text" [readonly]="oread" [(ngModel)]="contacto.name"></ion-input>
             </ion-item>
             <ion-item>
               <ion-label stacked>Email</ion-label>
-              <ion-input type="email" readonly [(ngModel)]="contacto.email"></ion-input>
+              <ion-input type="email" [readonly]="oread" [(ngModel)]="contacto.email"></ion-input>
             </ion-item>
             <ion-item>
               <ion-label stacked>Mensaje</ion-label>

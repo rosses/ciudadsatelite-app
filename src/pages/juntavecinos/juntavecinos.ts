@@ -20,6 +20,7 @@ export class JuntaVecinosPage {
   section: string = '';
   image: string = '';
   title: string = '';
+  oread: boolean = false;
   public staticUrl: string;
   public isLoading: boolean = true;
   public openTab: string = 'news';
@@ -61,10 +62,13 @@ export class JuntaVecinosPage {
     );
 
     this.storage.get("MP-Profile").then((data) => {
-      this.denuncia.name = data.first_name;
-      this.contacto.name = data.first_name;
-      this.denuncia.email = data.email;
-      this.contacto.email = data.email;
+      if (data.id != '0') {
+        this.oread = true;
+        this.denuncia.name = data.first_name;
+        this.contacto.name = data.first_name;
+        this.denuncia.email = data.email;
+        this.contacto.email = data.email;
+      }
     });
     
   }
@@ -140,6 +144,12 @@ export class JuntaVecinosPage {
       if (this.denuncia.message.length < 4) {
         this.service.logError(null,"Por favor especifique un mensaje más largo");
       }
+      else if (this.denuncia.name.length < 4) {
+        this.service.logError(null,"Por favor especifique un nombre más largo");
+      }
+      else if (this.denuncia.email.length < 4) {
+        this.service.logError(null,"Por favor especifique un email más largo");
+      }
       else {
         let loading = this.loadingCtrl.create({
           content: 'enviando...'
@@ -173,6 +183,12 @@ export class JuntaVecinosPage {
 
       if (this.contacto.message.length < 4) {
         this.service.logError(null, "Por favor especifique un mensaje más largo");
+      }
+      else if (this.contacto.name.length < 4) {
+        this.service.logError(null,"Por favor especifique un nombre más largo");
+      }
+      else if (this.contacto.email.length < 4) {
+        this.service.logError(null,"Por favor especifique un email más largo");
       }
       else {
         let loading = this.loadingCtrl.create({
