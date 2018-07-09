@@ -165,8 +165,8 @@ export class StoreProducts {
     this.activeUpload = element;
     this.camera.getPicture({
         destinationType: this.camera.DestinationType.DATA_URL,
-        targetWidth: 300,
-        targetHeight: 300,
+        targetWidth: 1000,
+        targetHeight: 1000,
         correctOrientation: true
     }).then((imageData) => {
         this.processTake(imageData);
@@ -180,9 +180,9 @@ export class StoreProducts {
     let cameraOptions = {
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
       destinationType: this.camera.DestinationType.DATA_URL,      
-      quality: 60,
-      targetWidth: 320,
-      targetHeight: 320,
+      quality: 100,
+      targetWidth: 1000,
+      targetHeight: 1000,
       encodingType: this.camera.EncodingType.JPEG,      
       correctOrientation: true
     }

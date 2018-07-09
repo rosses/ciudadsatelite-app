@@ -25,6 +25,7 @@ import { AuthService } from '../services/auth.service';
 import { Pata } from '../pata';
 import { FCM } from '@ionic-native/fcm';
 import { NativeStorage } from '@ionic-native/native-storage';
+import { Market } from '@ionic-native/market';
 
 import { environment } from "../environments/environment"
 import {IonicApp } from 'ionic-angular';
@@ -63,6 +64,7 @@ export class MyApp {
     private sanitizer: DomSanitizer,
     public menu: MenuController,
     private badge: Badge,
+    private market: Market,
     private nativeStorage: NativeStorage,
     private ionicApp: IonicApp
   ){
@@ -102,6 +104,38 @@ export class MyApp {
         this.splashScreen.hide();
       },0);
 
+
+      this.authService.getVersionInfo().subscribe((data:any) => {
+        if (data.res == "ERR") {
+          let uriLink = "";
+          if (this.platform.is('ios')) {
+            uriLink = "https://itunes.apple.com/cl/app/ciudad-sat%C3%A9lite-app/id1409007736?mt=8";
+          }
+          else if (this.platform.is('android')) {
+            uriLink = "https://play.google.com/store/apps/details?id=";
+          }
+
+          let alert = this.alertCtrl.create({
+            title: 'Actualiza tu App',
+            message: data.msg,
+            buttons: [
+              {
+                text: 'Actualizar',
+                handler: () => {
+                  if (this.platform.is('ios')) {
+                    this.market.open('1409007736');
+                  }
+                  else if (this.platform.is('android')) {
+                    this.market.open('com.ciudadsatelite.app');
+                  }
+                }
+              }
+            ]
+          });
+          alert.present();
+        }          
+      });
+
       if (this.platform.is('cordova')) {
 
         this.platform.registerBackButtonAction(() => {
@@ -120,6 +154,15 @@ export class MyApp {
           }
           else{
             //don't do anything
+            if (this.nav.getActive().component == LoginPage) {
+              this.platform.exitApp();
+            }
+            else if (this.nav.getActive().component != HomePage) {
+              this.nav.setRoot(HomePage);
+            }
+            else {
+               this.platform.exitApp();
+            }
           }
         });
 

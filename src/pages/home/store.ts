@@ -73,6 +73,10 @@ export class Store {
       this.products=data.products;
       this.services=data.services;
       this.load.dismiss();
+
+      if (this.products.length == 0 && this.services.length > 0) {
+        this.openTab = 'services';
+      }
     });
 
 

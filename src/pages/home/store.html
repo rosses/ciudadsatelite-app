@@ -163,22 +163,23 @@
 
     <ion-toolbar>
       <ion-segment [(ngModel)]="openTab" color="primary">
-        <ion-segment-button value="products">
+        <ion-segment-button value="products" *ngIf="products.length > 0">
           Productos
         </ion-segment-button>
-        <ion-segment-button value="services">
+        <ion-segment-button value="services" *ngIf="services.length > 0">
           Servicios
         </ion-segment-button>
       </ion-segment>
     </ion-toolbar>
   
     <div *ngIf="openTab == 'products'">
-
+      <!--
       <ion-card *ngIf="products.length == 0">
         <ion-card-header class="no-items">
           No se han publicado productos
         </ion-card-header>
       </ion-card>
+      -->
 
       <div *ngIf="products.length > 0">
         <ion-row class="store-grid">
@@ -197,11 +198,13 @@
 
     <div *ngIf="openTab == 'services'">
       
+      <!--
       <ion-card *ngIf="services.length == 0">
         <ion-card-header class="no-items">
           No se han publicado servicios
         </ion-card-header>
       </ion-card>
+      -->
 
       <div *ngIf="services.length > 0">
         <!--

@@ -77,6 +77,11 @@ export class AuthService  {
     });
   }
 
+  getVersionInfo() {
+    return this.http.post(environment.apiUrl+'version', {
+      appversion: environment.version
+    });
+  }
   /** logout */
   logout() {}
 }

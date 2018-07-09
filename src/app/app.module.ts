@@ -25,6 +25,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { NgxEditorModule } from 'ngx-editor';
+import { Market } from '@ionic-native/market';
 
 import { MyApp } from './app.component';
 
@@ -182,6 +183,7 @@ export function HttpLoaderFactory(http: Http) {
     BarcodeScanner,
     Geolocation,
     Camera,
+    Market,
     Contacts,
     AppAvailability,
     LaunchNavigator,

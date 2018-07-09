@@ -805,9 +805,9 @@ webpackEmptyAsyncContext.id = 368;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map__ = __webpack_require__(137);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_catch__ = __webpack_require__(863);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_catch__ = __webpack_require__(864);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_catch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_catch__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_observable_forkJoin__ = __webpack_require__(865);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_observable_forkJoin__ = __webpack_require__(866);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_observable_forkJoin___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_rxjs_add_observable_forkJoin__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__modals_ok_ok__ = __webpack_require__(502);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__modals_err_err__ = __webpack_require__(503);
@@ -2357,8 +2357,8 @@ var StoreProducts = (function () {
         this.activeUpload = element;
         this.camera.getPicture({
             destinationType: this.camera.DestinationType.DATA_URL,
-            targetWidth: 300,
-            targetHeight: 300,
+            targetWidth: 1000,
+            targetHeight: 1000,
             correctOrientation: true
         }).then(function (imageData) {
             _this.processTake(imageData);
@@ -2372,9 +2372,9 @@ var StoreProducts = (function () {
         var cameraOptions = {
             sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
             destinationType: this.camera.DestinationType.DATA_URL,
-            quality: 60,
-            targetWidth: 320,
-            targetHeight: 320,
+            quality: 100,
+            targetWidth: 1000,
+            targetHeight: 1000,
             encodingType: this.camera.EncodingType.JPEG,
             correctOrientation: true
         };
@@ -2649,8 +2649,8 @@ var StoreServices = (function () {
         this.activeUpload = element;
         this.camera.getPicture({
             destinationType: this.camera.DestinationType.DATA_URL,
-            targetWidth: 300,
-            targetHeight: 300,
+            targetWidth: 1000,
+            targetHeight: 1000,
             correctOrientation: true
         }).then(function (imageData) {
             _this.processTake(imageData);
@@ -2664,9 +2664,9 @@ var StoreServices = (function () {
         var cameraOptions = {
             sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
             destinationType: this.camera.DestinationType.DATA_URL,
-            quality: 60,
-            targetWidth: 320,
-            targetHeight: 320,
+            quality: 100,
+            targetWidth: 1000,
+            targetHeight: 1000,
             encodingType: this.camera.EncodingType.JPEG,
             correctOrientation: true
         };
@@ -3178,42 +3178,43 @@ DoctorService = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__ionic_native_youtube_video_player__ = __webpack_require__(445);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__ionic_native_native_storage__ = __webpack_require__(84);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_26_ngx_editor__ = __webpack_require__(747);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__app_component__ = __webpack_require__(860);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__pages_profile_profile__ = __webpack_require__(501);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__pages_home_home__ = __webpack_require__(90);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__pages_emergencia_emergencia__ = __webpack_require__(508);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__pages_juntavecinos_newsDetalle__ = __webpack_require__(514);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__pages_login_login__ = __webpack_require__(507);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__pages_home_categoria__ = __webpack_require__(506);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__pages_notificaciones_notificaciones__ = __webpack_require__(513);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__pages_home_store__ = __webpack_require__(91);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__pages_contacto_contacto__ = __webpack_require__(294);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__pages_juntavecinos_juntavecinos__ = __webpack_require__(295);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38__pages_storeprofile_storeprofile__ = __webpack_require__(510);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39__pages_storeproducts_storeproducts__ = __webpack_require__(511);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_40__pages_storeservices_storeservices__ = __webpack_require__(512);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_41_ng2_rut__ = __webpack_require__(867);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_41_ng2_rut___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_41_ng2_rut__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_42__pages_mapa_mapa__ = __webpack_require__(509);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_43__pata__ = __webpack_require__(43);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_44__pages_popovers_profile_media_profile_media__ = __webpack_require__(292);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_45__services_auth_service__ = __webpack_require__(89);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_46__services_user_service__ = __webpack_require__(69);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_47__services_news_service__ = __webpack_require__(117);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_48__services_doctor_service__ = __webpack_require__(57);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_49__components_news_preview_news_preview__ = __webpack_require__(869);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_50__ionic_native_status_bar__ = __webpack_require__(499);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_51__ionic_native_splash_screen__ = __webpack_require__(500);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_52__ngx_translate_http_loader__ = __webpack_require__(871);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_53__environments_environment__ = __webpack_require__(52);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_54__modals_ok_ok__ = __webpack_require__(502);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_55__modals_err_err__ = __webpack_require__(503);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_56__modals_detail_detail__ = __webpack_require__(504);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_57__modals_gal_gal__ = __webpack_require__(505);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_58__ionic_native_social_sharing__ = __webpack_require__(515);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_59__angular_common__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_60__ionic_native_email_composer__ = __webpack_require__(873);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_61__ionic_native_call_number__ = __webpack_require__(293);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__ionic_native_market__ = __webpack_require__(860);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__app_component__ = __webpack_require__(861);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__pages_profile_profile__ = __webpack_require__(501);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__pages_home_home__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__pages_emergencia_emergencia__ = __webpack_require__(508);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__pages_juntavecinos_newsDetalle__ = __webpack_require__(514);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__pages_login_login__ = __webpack_require__(507);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__pages_home_categoria__ = __webpack_require__(506);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__pages_notificaciones_notificaciones__ = __webpack_require__(513);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__pages_home_store__ = __webpack_require__(91);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__pages_contacto_contacto__ = __webpack_require__(294);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38__pages_juntavecinos_juntavecinos__ = __webpack_require__(295);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39__pages_storeprofile_storeprofile__ = __webpack_require__(510);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_40__pages_storeproducts_storeproducts__ = __webpack_require__(511);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_41__pages_storeservices_storeservices__ = __webpack_require__(512);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_42_ng2_rut__ = __webpack_require__(868);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_42_ng2_rut___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_42_ng2_rut__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_43__pages_mapa_mapa__ = __webpack_require__(509);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_44__pata__ = __webpack_require__(43);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_45__pages_popovers_profile_media_profile_media__ = __webpack_require__(292);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_46__services_auth_service__ = __webpack_require__(89);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_47__services_user_service__ = __webpack_require__(69);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_48__services_news_service__ = __webpack_require__(117);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_49__services_doctor_service__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_50__components_news_preview_news_preview__ = __webpack_require__(870);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_51__ionic_native_status_bar__ = __webpack_require__(499);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_52__ionic_native_splash_screen__ = __webpack_require__(500);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_53__ngx_translate_http_loader__ = __webpack_require__(872);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_54__environments_environment__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_55__modals_ok_ok__ = __webpack_require__(502);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_56__modals_err_err__ = __webpack_require__(503);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_57__modals_detail_detail__ = __webpack_require__(504);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_58__modals_gal_gal__ = __webpack_require__(505);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_59__ionic_native_social_sharing__ = __webpack_require__(515);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_60__angular_common__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_61__ionic_native_email_composer__ = __webpack_require__(874);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_62__ionic_native_call_number__ = __webpack_require__(293);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3223,6 +3224,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -3295,7 +3297,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
 function HttpLoaderFactory(http) {
-    return new __WEBPACK_IMPORTED_MODULE_52__ngx_translate_http_loader__["a" /* TranslateHttpLoader */](http, './assets/i18n/', '.json');
+    return new __WEBPACK_IMPORTED_MODULE_53__ngx_translate_http_loader__["a" /* TranslateHttpLoader */](http, './assets/i18n/', '.json');
 }
 var AppModule = (function () {
     function AppModule(translate) {
@@ -3312,34 +3314,34 @@ var AppModule = (function () {
 AppModule = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["NgModule"])({
         declarations: [
-            __WEBPACK_IMPORTED_MODULE_27__app_component__["a" /* MyApp */],
-            __WEBPACK_IMPORTED_MODULE_29__pages_home_home__["a" /* HomePage */],
-            __WEBPACK_IMPORTED_MODULE_30__pages_emergencia_emergencia__["a" /* Emergencia */],
-            __WEBPACK_IMPORTED_MODULE_31__pages_juntavecinos_newsDetalle__["a" /* NewsDetalle */],
-            __WEBPACK_IMPORTED_MODULE_44__pages_popovers_profile_media_profile_media__["a" /* ProfileMedia */],
-            __WEBPACK_IMPORTED_MODULE_32__pages_login_login__["a" /* LoginPage */],
-            __WEBPACK_IMPORTED_MODULE_28__pages_profile_profile__["a" /* Profile */],
-            __WEBPACK_IMPORTED_MODULE_36__pages_contacto_contacto__["a" /* Contacto */],
-            __WEBPACK_IMPORTED_MODULE_33__pages_home_categoria__["a" /* Categoria */],
-            __WEBPACK_IMPORTED_MODULE_34__pages_notificaciones_notificaciones__["a" /* Notificaciones */],
-            __WEBPACK_IMPORTED_MODULE_35__pages_home_store__["a" /* Store */],
-            __WEBPACK_IMPORTED_MODULE_38__pages_storeprofile_storeprofile__["a" /* StoreProfile */],
-            __WEBPACK_IMPORTED_MODULE_39__pages_storeproducts_storeproducts__["a" /* StoreProducts */],
-            __WEBPACK_IMPORTED_MODULE_40__pages_storeservices_storeservices__["a" /* StoreServices */],
-            __WEBPACK_IMPORTED_MODULE_37__pages_juntavecinos_juntavecinos__["a" /* JuntaVecinosPage */],
-            __WEBPACK_IMPORTED_MODULE_54__modals_ok_ok__["a" /* ModalOK */],
-            __WEBPACK_IMPORTED_MODULE_55__modals_err_err__["a" /* ModalERR */],
-            __WEBPACK_IMPORTED_MODULE_56__modals_detail_detail__["a" /* ModalDetail */],
-            __WEBPACK_IMPORTED_MODULE_57__modals_gal_gal__["a" /* ModalGal */],
-            __WEBPACK_IMPORTED_MODULE_42__pages_mapa_mapa__["a" /* Mapa */],
-            __WEBPACK_IMPORTED_MODULE_49__components_news_preview_news_preview__["a" /* NewsPreviewComponent */],
+            __WEBPACK_IMPORTED_MODULE_28__app_component__["a" /* MyApp */],
+            __WEBPACK_IMPORTED_MODULE_30__pages_home_home__["a" /* HomePage */],
+            __WEBPACK_IMPORTED_MODULE_31__pages_emergencia_emergencia__["a" /* Emergencia */],
+            __WEBPACK_IMPORTED_MODULE_32__pages_juntavecinos_newsDetalle__["a" /* NewsDetalle */],
+            __WEBPACK_IMPORTED_MODULE_45__pages_popovers_profile_media_profile_media__["a" /* ProfileMedia */],
+            __WEBPACK_IMPORTED_MODULE_33__pages_login_login__["a" /* LoginPage */],
+            __WEBPACK_IMPORTED_MODULE_29__pages_profile_profile__["a" /* Profile */],
+            __WEBPACK_IMPORTED_MODULE_37__pages_contacto_contacto__["a" /* Contacto */],
+            __WEBPACK_IMPORTED_MODULE_34__pages_home_categoria__["a" /* Categoria */],
+            __WEBPACK_IMPORTED_MODULE_35__pages_notificaciones_notificaciones__["a" /* Notificaciones */],
+            __WEBPACK_IMPORTED_MODULE_36__pages_home_store__["a" /* Store */],
+            __WEBPACK_IMPORTED_MODULE_39__pages_storeprofile_storeprofile__["a" /* StoreProfile */],
+            __WEBPACK_IMPORTED_MODULE_40__pages_storeproducts_storeproducts__["a" /* StoreProducts */],
+            __WEBPACK_IMPORTED_MODULE_41__pages_storeservices_storeservices__["a" /* StoreServices */],
+            __WEBPACK_IMPORTED_MODULE_38__pages_juntavecinos_juntavecinos__["a" /* JuntaVecinosPage */],
+            __WEBPACK_IMPORTED_MODULE_55__modals_ok_ok__["a" /* ModalOK */],
+            __WEBPACK_IMPORTED_MODULE_56__modals_err_err__["a" /* ModalERR */],
+            __WEBPACK_IMPORTED_MODULE_57__modals_detail_detail__["a" /* ModalDetail */],
+            __WEBPACK_IMPORTED_MODULE_58__modals_gal_gal__["a" /* ModalGal */],
+            __WEBPACK_IMPORTED_MODULE_43__pages_mapa_mapa__["a" /* Mapa */],
+            __WEBPACK_IMPORTED_MODULE_50__components_news_preview_news_preview__["a" /* NewsPreviewComponent */],
             __WEBPACK_IMPORTED_MODULE_19__components_autosize__["a" /* Autosize */],
             __WEBPACK_IMPORTED_MODULE_20__components_safepipe__["a" /* SafePipe */],
             __WEBPACK_IMPORTED_MODULE_21__components_swipe_vertical_directive__["a" /* SwipeVertical */]
         ],
         imports: [
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
-            __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["m" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_27__app_component__["a" /* MyApp */], {
+            __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["m" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_28__app_component__["a" /* MyApp */], {
                 backButtonText: '',
                 backButtonIcon: 'ios-arrow-back',
                 iconMode: 'ios',
@@ -3358,7 +3360,7 @@ AppModule = __decorate([
                     deps: [__WEBPACK_IMPORTED_MODULE_3__angular_http__["c" /* Http */]]
                 }
             }),
-            __WEBPACK_IMPORTED_MODULE_6__option_core__["b" /* OptionCoreModule */].forRoot(__WEBPACK_IMPORTED_MODULE_53__environments_environment__["a" /* environment */].apiUrl),
+            __WEBPACK_IMPORTED_MODULE_6__option_core__["b" /* OptionCoreModule */].forRoot(__WEBPACK_IMPORTED_MODULE_54__environments_environment__["a" /* environment */].apiUrl),
             __WEBPACK_IMPORTED_MODULE_7__ionic_storage__["a" /* IonicStorageModule */].forRoot({
                 name: "__satelite",
                 driverOrder: ['indexeddb', 'websql']
@@ -3366,50 +3368,51 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_8__agm_core__["a" /* AgmCoreModule */].forRoot({
                 apiKey: 'AIzaSyBrUo6PdRjbF03o4_xeEoYl9kTD5V7pp7g'
             }),
-            __WEBPACK_IMPORTED_MODULE_41_ng2_rut__["Ng2Rut"],
+            __WEBPACK_IMPORTED_MODULE_42_ng2_rut__["Ng2Rut"],
             __WEBPACK_IMPORTED_MODULE_26_ngx_editor__["a" /* NgxEditorModule */]
         ],
         bootstrap: [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* IonicApp */]],
         entryComponents: [
-            __WEBPACK_IMPORTED_MODULE_27__app_component__["a" /* MyApp */],
-            __WEBPACK_IMPORTED_MODULE_29__pages_home_home__["a" /* HomePage */],
-            __WEBPACK_IMPORTED_MODULE_30__pages_emergencia_emergencia__["a" /* Emergencia */],
-            __WEBPACK_IMPORTED_MODULE_31__pages_juntavecinos_newsDetalle__["a" /* NewsDetalle */],
-            __WEBPACK_IMPORTED_MODULE_42__pages_mapa_mapa__["a" /* Mapa */],
-            __WEBPACK_IMPORTED_MODULE_44__pages_popovers_profile_media_profile_media__["a" /* ProfileMedia */],
-            __WEBPACK_IMPORTED_MODULE_32__pages_login_login__["a" /* LoginPage */],
-            __WEBPACK_IMPORTED_MODULE_36__pages_contacto_contacto__["a" /* Contacto */],
-            __WEBPACK_IMPORTED_MODULE_33__pages_home_categoria__["a" /* Categoria */],
-            __WEBPACK_IMPORTED_MODULE_34__pages_notificaciones_notificaciones__["a" /* Notificaciones */],
-            __WEBPACK_IMPORTED_MODULE_35__pages_home_store__["a" /* Store */],
-            __WEBPACK_IMPORTED_MODULE_38__pages_storeprofile_storeprofile__["a" /* StoreProfile */],
-            __WEBPACK_IMPORTED_MODULE_39__pages_storeproducts_storeproducts__["a" /* StoreProducts */],
-            __WEBPACK_IMPORTED_MODULE_40__pages_storeservices_storeservices__["a" /* StoreServices */],
-            __WEBPACK_IMPORTED_MODULE_37__pages_juntavecinos_juntavecinos__["a" /* JuntaVecinosPage */],
-            __WEBPACK_IMPORTED_MODULE_49__components_news_preview_news_preview__["a" /* NewsPreviewComponent */],
-            __WEBPACK_IMPORTED_MODULE_54__modals_ok_ok__["a" /* ModalOK */],
-            __WEBPACK_IMPORTED_MODULE_55__modals_err_err__["a" /* ModalERR */],
-            __WEBPACK_IMPORTED_MODULE_56__modals_detail_detail__["a" /* ModalDetail */],
-            __WEBPACK_IMPORTED_MODULE_57__modals_gal_gal__["a" /* ModalGal */],
-            __WEBPACK_IMPORTED_MODULE_28__pages_profile_profile__["a" /* Profile */]
+            __WEBPACK_IMPORTED_MODULE_28__app_component__["a" /* MyApp */],
+            __WEBPACK_IMPORTED_MODULE_30__pages_home_home__["a" /* HomePage */],
+            __WEBPACK_IMPORTED_MODULE_31__pages_emergencia_emergencia__["a" /* Emergencia */],
+            __WEBPACK_IMPORTED_MODULE_32__pages_juntavecinos_newsDetalle__["a" /* NewsDetalle */],
+            __WEBPACK_IMPORTED_MODULE_43__pages_mapa_mapa__["a" /* Mapa */],
+            __WEBPACK_IMPORTED_MODULE_45__pages_popovers_profile_media_profile_media__["a" /* ProfileMedia */],
+            __WEBPACK_IMPORTED_MODULE_33__pages_login_login__["a" /* LoginPage */],
+            __WEBPACK_IMPORTED_MODULE_37__pages_contacto_contacto__["a" /* Contacto */],
+            __WEBPACK_IMPORTED_MODULE_34__pages_home_categoria__["a" /* Categoria */],
+            __WEBPACK_IMPORTED_MODULE_35__pages_notificaciones_notificaciones__["a" /* Notificaciones */],
+            __WEBPACK_IMPORTED_MODULE_36__pages_home_store__["a" /* Store */],
+            __WEBPACK_IMPORTED_MODULE_39__pages_storeprofile_storeprofile__["a" /* StoreProfile */],
+            __WEBPACK_IMPORTED_MODULE_40__pages_storeproducts_storeproducts__["a" /* StoreProducts */],
+            __WEBPACK_IMPORTED_MODULE_41__pages_storeservices_storeservices__["a" /* StoreServices */],
+            __WEBPACK_IMPORTED_MODULE_38__pages_juntavecinos_juntavecinos__["a" /* JuntaVecinosPage */],
+            __WEBPACK_IMPORTED_MODULE_50__components_news_preview_news_preview__["a" /* NewsPreviewComponent */],
+            __WEBPACK_IMPORTED_MODULE_55__modals_ok_ok__["a" /* ModalOK */],
+            __WEBPACK_IMPORTED_MODULE_56__modals_err_err__["a" /* ModalERR */],
+            __WEBPACK_IMPORTED_MODULE_57__modals_detail_detail__["a" /* ModalDetail */],
+            __WEBPACK_IMPORTED_MODULE_58__modals_gal_gal__["a" /* ModalGal */],
+            __WEBPACK_IMPORTED_MODULE_29__pages_profile_profile__["a" /* Profile */]
         ],
         providers: [
-            __WEBPACK_IMPORTED_MODULE_45__services_auth_service__["a" /* AuthService */],
-            __WEBPACK_IMPORTED_MODULE_46__services_user_service__["a" /* UserService */],
-            __WEBPACK_IMPORTED_MODULE_47__services_news_service__["a" /* NewsService */],
-            __WEBPACK_IMPORTED_MODULE_48__services_doctor_service__["a" /* DoctorService */],
-            __WEBPACK_IMPORTED_MODULE_50__ionic_native_status_bar__["a" /* StatusBar */],
-            __WEBPACK_IMPORTED_MODULE_61__ionic_native_call_number__["a" /* CallNumber */],
-            __WEBPACK_IMPORTED_MODULE_51__ionic_native_splash_screen__["a" /* SplashScreen */],
+            __WEBPACK_IMPORTED_MODULE_46__services_auth_service__["a" /* AuthService */],
+            __WEBPACK_IMPORTED_MODULE_47__services_user_service__["a" /* UserService */],
+            __WEBPACK_IMPORTED_MODULE_48__services_news_service__["a" /* NewsService */],
+            __WEBPACK_IMPORTED_MODULE_49__services_doctor_service__["a" /* DoctorService */],
+            __WEBPACK_IMPORTED_MODULE_51__ionic_native_status_bar__["a" /* StatusBar */],
+            __WEBPACK_IMPORTED_MODULE_62__ionic_native_call_number__["a" /* CallNumber */],
+            __WEBPACK_IMPORTED_MODULE_52__ionic_native_splash_screen__["a" /* SplashScreen */],
             __WEBPACK_IMPORTED_MODULE_8__agm_core__["b" /* GoogleMapsAPIWrapper */],
             { provide: __WEBPACK_IMPORTED_MODULE_1__angular_core__["ErrorHandler"], useClass: __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["l" /* IonicErrorHandler */] },
-            __WEBPACK_IMPORTED_MODULE_43__pata__["a" /* Pata */],
+            __WEBPACK_IMPORTED_MODULE_44__pata__["a" /* Pata */],
             __WEBPACK_IMPORTED_MODULE_23__ionic_native_in_app_browser__["a" /* InAppBrowser */],
             __WEBPACK_IMPORTED_MODULE_24__ionic_native_youtube_video_player__["a" /* YoutubeVideoPlayer */],
             __WEBPACK_IMPORTED_MODULE_25__ionic_native_native_storage__["a" /* NativeStorage */],
             __WEBPACK_IMPORTED_MODULE_9__ionic_native_barcode_scanner__["a" /* BarcodeScanner */],
             __WEBPACK_IMPORTED_MODULE_10__ionic_native_geolocation__["a" /* Geolocation */],
             __WEBPACK_IMPORTED_MODULE_12__ionic_native_camera__["a" /* Camera */],
+            __WEBPACK_IMPORTED_MODULE_27__ionic_native_market__["a" /* Market */],
             __WEBPACK_IMPORTED_MODULE_13__ionic_native_contacts__["c" /* Contacts */],
             __WEBPACK_IMPORTED_MODULE_11__ionic_native_app_availability__["a" /* AppAvailability */],
             __WEBPACK_IMPORTED_MODULE_14__ionic_native_launch_navigator__["a" /* LaunchNavigator */],
@@ -3418,10 +3421,10 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_16__ionic_native_fcm__["a" /* FCM */],
             __WEBPACK_IMPORTED_MODULE_17__ionic_native_device__["a" /* Device */],
             { provide: __WEBPACK_IMPORTED_MODULE_1__angular_core__["LOCALE_ID"], useValue: "es-ES" },
-            __WEBPACK_IMPORTED_MODULE_58__ionic_native_social_sharing__["a" /* SocialSharing */],
-            __WEBPACK_IMPORTED_MODULE_59__angular_common__["d" /* DatePipe */],
-            __WEBPACK_IMPORTED_MODULE_60__ionic_native_email_composer__["a" /* EmailComposer */],
-            __WEBPACK_IMPORTED_MODULE_41_ng2_rut__["RutValidator"]
+            __WEBPACK_IMPORTED_MODULE_59__ionic_native_social_sharing__["a" /* SocialSharing */],
+            __WEBPACK_IMPORTED_MODULE_60__angular_common__["d" /* DatePipe */],
+            __WEBPACK_IMPORTED_MODULE_61__ionic_native_email_composer__["a" /* EmailComposer */],
+            __WEBPACK_IMPORTED_MODULE_42_ng2_rut__["RutValidator"]
         ]
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_5__ngx_translate_core__["c" /* TranslateService */]])
@@ -3738,7 +3741,7 @@ SwipeVertical = __decorate([
 
 /***/ }),
 
-/***/ 860:
+/***/ 861:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3768,7 +3771,8 @@ SwipeVertical = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__pata__ = __webpack_require__(43);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__ionic_native_fcm__ = __webpack_require__(441);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__ionic_native_native_storage__ = __webpack_require__(84);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__environments_environment__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__ionic_native_market__ = __webpack_require__(860);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__environments_environment__ = __webpack_require__(52);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3805,8 +3809,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var MyApp = (function () {
-    function MyApp(platform, statusBar, splashScreen, translate, config, storage, service, alertCtrl, userService, loadingController, authService, fcm, sanitizer, menu, badge, nativeStorage, ionicApp) {
+    function MyApp(platform, statusBar, splashScreen, translate, config, storage, service, alertCtrl, userService, loadingController, authService, fcm, sanitizer, menu, badge, market, nativeStorage, ionicApp) {
         var _this = this;
         this.platform = platform;
         this.statusBar = statusBar;
@@ -3823,6 +3828,7 @@ var MyApp = (function () {
         this.sanitizer = sanitizer;
         this.menu = menu;
         this.badge = badge;
+        this.market = market;
         this.nativeStorage = nativeStorage;
         this.ionicApp = ionicApp;
         this.rootPage = null;
@@ -3830,7 +3836,7 @@ var MyApp = (function () {
         this.zones = [];
         this.notifications = 0;
         this.initializeApp();
-        this.staticUrl = __WEBPACK_IMPORTED_MODULE_25__environments_environment__["a" /* environment */].staticUrl;
+        this.staticUrl = __WEBPACK_IMPORTED_MODULE_26__environments_environment__["a" /* environment */].staticUrl;
         this.userService.changeAvatar.subscribe(function (st) {
             console.log('change_avatar_main_fire', st);
             _this.user.avatar = st;
@@ -3859,6 +3865,35 @@ var MyApp = (function () {
             setTimeout(function () {
                 _this.splashScreen.hide();
             }, 0);
+            _this.authService.getVersionInfo().subscribe(function (data) {
+                if (data.res == "ERR") {
+                    var uriLink = "";
+                    if (_this.platform.is('ios')) {
+                        uriLink = "https://itunes.apple.com/cl/app/ciudad-sat%C3%A9lite-app/id1409007736?mt=8";
+                    }
+                    else if (_this.platform.is('android')) {
+                        uriLink = "https://play.google.com/store/apps/details?id=";
+                    }
+                    var alert = _this.alertCtrl.create({
+                        title: 'Actualiza tu App',
+                        message: data.msg,
+                        buttons: [
+                            {
+                                text: 'Actualizar',
+                                handler: function () {
+                                    if (_this.platform.is('ios')) {
+                                        _this.market.open('1409007736');
+                                    }
+                                    else if (_this.platform.is('android')) {
+                                        _this.market.open('com.ciudadsatelite.app');
+                                    }
+                                }
+                            }
+                        ]
+                    });
+                    alert.present();
+                }
+            });
             if (_this.platform.is('cordova')) {
                 _this.platform.registerBackButtonAction(function () {
                     var activeModal = _this.ionicApp._modalPortal.getActive();
@@ -3876,6 +3911,15 @@ var MyApp = (function () {
                     }
                     else {
                         //don't do anything
+                        if (_this.nav.getActive().component == __WEBPACK_IMPORTED_MODULE_8__pages_login_login__["a" /* LoginPage */]) {
+                            _this.platform.exitApp();
+                        }
+                        else if (_this.nav.getActive().component != __WEBPACK_IMPORTED_MODULE_10__pages_home_home__["a" /* HomePage */]) {
+                            _this.nav.setRoot(__WEBPACK_IMPORTED_MODULE_10__pages_home_home__["a" /* HomePage */]);
+                        }
+                        else {
+                            _this.platform.exitApp();
+                        }
                     }
                 });
                 _this.fcm.getToken().then(function (token) {
@@ -4121,42 +4165,27 @@ var MyApp = (function () {
 }());
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* Nav */]),
-    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* Nav */])
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* Nav */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* Nav */]) === "function" && _a || Object)
 ], MyApp.prototype, "nav", void 0);
 MyApp = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\app\app.html"*/'<ion-menu [content]="content" id="leftMenu" class="sidenav">\n\n\n\n  <div class="profile" *ngIf="!marketProfile">\n\n    <div class="image" [style.background-image]="\'url(\' + user?.avatar + \')\'" style="background-size: cover"></div>\n\n    <div class="name">{{ user?.first_name }} {{ user?.last_name }} {{ user?.company }}</div>\n\n    <!--<div class="scope" *ngIf="active">{{ active.name }} </div>-->\n\n    <button *ngIf="user?.id != \'0\'" menuClose (click)="profile()" ion-button round color="light">MI PERFIL</button>\n\n    <button *ngIf="user?.id == \'0\'" menuClose (click)="createAccount()" ion-button round color="light">CREAR CUENTA</button>\n\n  </div>\n\n\n\n  <div class="profile" *ngIf="marketProfile">\n\n    <div class="image" [style.background-image]="\'url(\' + active?.avatar + \')\'" style="background-size: cover"></div>\n\n    <div class="name">{{ active?.name }}</div>\n\n    <!--<div class="scope" *ngIf="active">{{ active.name }} </div>-->\n\n    <button menuClose (click)="profile(true)" ion-button round color="light">EDITAR TIENDA</button>\n\n  </div>\n\n\n\n  <!--\n\n  <div menuClose *ngFor="let p of pages" class="link" [ngClass]="{\'selected\' : p.selected}" (click)="openPage(p)">\n\n    <span [innerHTML]="sanitizer.bypassSecurityTrustHtml(p.title)"></span>\n\n  </div>\n\n  -->\n\n\n\n  <div menuClose class="link" (click)="openPageComponent(1)">\n\n    <span>Categorias</span>\n\n  </div>\n\n  <div *ngIf="!marketProfile" menuClose class="link" (click)="openPageComponent(2)">\n\n    <span>Mapa</span>\n\n  </div>\n\n  <div *ngIf="user?.id != \'0\' && !marketProfile" menuClose class="link" (click)="openPageComponent(3)">\n\n    <span>Notificaciones <strong class="badges" *ngIf="notifications > 0">{{notifications}}</strong></span>\n\n  </div>\n\n  <div *ngIf="!marketProfile" menuClose class="link" (click)="openPageComponent(4)">\n\n    <span>Junta de Vecinos</span>\n\n  </div>\n\n  <div *ngIf="!marketProfile" menuClose class="link" (click)="openPageComponent(5)">\n\n    <span>Teléfonos Útiles</span>\n\n  </div>\n\n  <div *ngIf="marketProfile" menuClose class="link" (click)="openPageComponent(10)">\n\n    <span>Ver mi tienda</span>\n\n  </div>\n\n  <div *ngIf="marketProfile" menuClose class="link" (click)="openPageComponent(11)">\n\n    <span>Mis productos</span>\n\n  </div>\n\n  <div *ngIf="marketProfile" menuClose class="link" (click)="openPageComponent(12)">\n\n    <span>Mis servicios</span>\n\n  </div>\n\n  \n\n  <!-- Marketplaces -->\n\n  <div *ngIf="!marketProfile">\n\n    <div menuClose *ngFor="let zone of zones" class="link destacado" [ngClass]="{\'selected\' : selected}" (click)="switchActive(zone)">\n\n      <span><strong>Administrar</strong><br />{{zone.name}}</span>\n\n    </div>\n\n  </div>\n\n  <!-- End Marketplaces -->\n\n\n\n  <div menuClose *ngIf="marketProfile" class="link destacado" [ngClass]="{\'selected\' : selected}" (click)="switchActive()">\n\n    <span><strong>Volver a</strong><br />{{user.first_name}}</span>\n\n  </div>\n\n  \n\n  <div menuClose class="link" (click)="contacto()">\n\n    <span>Contacto</span>\n\n  </div>\n\n\n\n  <div *ngIf="user?.id != \'0\'" menuClose class="link" (click)="closeSession()">\n\n    <span>{{\'APP_MENU.CLOSE\' | translate }}</span>\n\n  </div>\n\n</ion-menu>\n\n\n\n<!-- Disable swipe-to-go-back because it\'s poor UX to combine STGB with side menus -->\n\n<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>\n\n'/*ion-inline-end:"D:\Mobile\sateliteapp\src\app\app.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["u" /* Platform */],
-        __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */],
-        __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */],
-        __WEBPACK_IMPORTED_MODULE_4__ngx_translate_core__["c" /* TranslateService */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Config */],
-        __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */],
-        __WEBPACK_IMPORTED_MODULE_22__pata__["a" /* Pata */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
-        __WEBPACK_IMPORTED_MODULE_20__services_user_service__["a" /* UserService */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* LoadingController */],
-        __WEBPACK_IMPORTED_MODULE_21__services_auth_service__["a" /* AuthService */],
-        __WEBPACK_IMPORTED_MODULE_23__ionic_native_fcm__["a" /* FCM */],
-        __WEBPACK_IMPORTED_MODULE_19__angular_platform_browser__["c" /* DomSanitizer */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* MenuController */],
-        __WEBPACK_IMPORTED_MODULE_6__ionic_native_badge__["a" /* Badge */],
-        __WEBPACK_IMPORTED_MODULE_24__ionic_native_native_storage__["a" /* NativeStorage */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* IonicApp */]])
+    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["u" /* Platform */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["u" /* Platform */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_4__ngx_translate_core__["c" /* TranslateService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__ngx_translate_core__["c" /* TranslateService */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Config */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Config */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_22__pata__["a" /* Pata */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_22__pata__["a" /* Pata */]) === "function" && _h || Object, typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _j || Object, typeof (_k = typeof __WEBPACK_IMPORTED_MODULE_20__services_user_service__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_20__services_user_service__["a" /* UserService */]) === "function" && _k || Object, typeof (_l = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* LoadingController */]) === "function" && _l || Object, typeof (_m = typeof __WEBPACK_IMPORTED_MODULE_21__services_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_21__services_auth_service__["a" /* AuthService */]) === "function" && _m || Object, typeof (_o = typeof __WEBPACK_IMPORTED_MODULE_23__ionic_native_fcm__["a" /* FCM */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_23__ionic_native_fcm__["a" /* FCM */]) === "function" && _o || Object, typeof (_p = typeof __WEBPACK_IMPORTED_MODULE_19__angular_platform_browser__["c" /* DomSanitizer */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_19__angular_platform_browser__["c" /* DomSanitizer */]) === "function" && _p || Object, typeof (_q = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* MenuController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* MenuController */]) === "function" && _q || Object, typeof (_r = typeof __WEBPACK_IMPORTED_MODULE_6__ionic_native_badge__["a" /* Badge */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__ionic_native_badge__["a" /* Badge */]) === "function" && _r || Object, typeof (_s = typeof __WEBPACK_IMPORTED_MODULE_25__ionic_native_market__["a" /* Market */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_25__ionic_native_market__["a" /* Market */]) === "function" && _s || Object, typeof (_t = typeof __WEBPACK_IMPORTED_MODULE_24__ionic_native_native_storage__["a" /* NativeStorage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_24__ionic_native_native_storage__["a" /* NativeStorage */]) === "function" && _t || Object, typeof (_u = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* IonicApp */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* IonicApp */]) === "function" && _u || Object])
 ], MyApp);
 
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u;
 //# sourceMappingURL=app.component.js.map
 
 /***/ }),
 
-/***/ 869:
+/***/ 870:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NewsPreviewComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models_news_model__ = __webpack_require__(870);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models_news_model__ = __webpack_require__(871);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pages_juntavecinos_newsDetalle__ = __webpack_require__(514);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__environments_environment__ = __webpack_require__(52);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_news_service__ = __webpack_require__(117);
@@ -4222,7 +4251,7 @@ NewsPreviewComponent = __decorate([
 
 /***/ }),
 
-/***/ 870:
+/***/ 871:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4353,6 +4382,11 @@ var AuthService = (function () {
             console.log('push ok', ok);
         }, function (err) {
             console.log('push err', err);
+        });
+    };
+    AuthService.prototype.getVersionInfo = function () {
+        return this.http.post(__WEBPACK_IMPORTED_MODULE_4__environments_environment__["a" /* environment */].apiUrl + 'version', {
+            appversion: __WEBPACK_IMPORTED_MODULE_4__environments_environment__["a" /* environment */].version
         });
     };
     /** logout */
@@ -4636,6 +4670,9 @@ var Store = (function () {
             _this.products = data.products;
             _this.services = data.services;
             _this.load.dismiss();
+            if (_this.products.length == 0 && _this.services.length > 0) {
+                _this.openTab = 'services';
+            }
         });
         this.geolocation.getCurrentPosition().then(function (resp) {
             _this.lat = resp.coords.latitude;
@@ -4848,33 +4885,16 @@ var Store = (function () {
 }());
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["w" /* Slides */]),
-    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["w" /* Slides */])
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["w" /* Slides */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["w" /* Slides */]) === "function" && _a || Object)
 ], Store.prototype, "slides", void 0);
 Store = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-        selector: 'page-store',template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\pages\home\store.html"*/'<!--\n\n  Generated template for the MyPetsPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n  <ion-navbar>\n\n    <button ion-button menuToggle *ngIf="rootMode">\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n    <ion-title>{{name}}</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n\n\n<div *ngIf="!isLoading">\n\n\n\n  <ion-list class="list-store">\n\n    <ion-item text-wrap>\n\n      <ion-avatar item-start>\n\n        <img src="{{store.avatar != \'\' ? store.avatar : \'assets/img/default/store.png\'}}" />\n\n      </ion-avatar>\n\n      <ion-row>\n\n        <ion-col col-10>\n\n          <h2>{{store.name}}</h2>\n\n          <h3>{{store.address}} {{(store.local != "" ? "Loc. "+store.local : "")}}</h3>\n\n        </ion-col>\n\n        <ion-col col-2 text-right class="location">\n\n          <div class="vertical-align-content" *ngIf="store.lat != \'\' && store.lng != \'\'">\n\n            <img src="assets/img/map-location.png" (click)="showMap()" />\n\n          </div>\n\n        </ion-col>\n\n      </ion-row>\n\n      <ion-row>\n\n        <ion-col col-8>\n\n          <p class="opening {{store.open_color}}"><strong>{{store.open_now}}</strong></p>\n\n          <p class="opening">{{store.open_news}}</p>\n\n        </ion-col>\n\n        <ion-col col-4 text-right>\n\n          <div *ngIf="lat != 0 && lng != 0 && store.lat != \'\' && store.lng != \'\'" class="distance">\n\n            <strong>{{showDistance(lat,lng,store.lat,store.lng)}}</strong>\n\n          </div>\n\n        </ion-col>\n\n      </ion-row>\n\n    </ion-item>\n\n  </ion-list>\n\n  <hr />\n\n\n\n  <!-- Social networks --> \n\n  <ion-row class="to-right social">\n\n    <ion-col col-2 *ngIf="store.email != \'\'">\n\n      <button (click)="email()" block>\n\n        <img src="assets/img/arroba.png" />\n\n      </button>\n\n    </ion-col>\n\n    <ion-col col-2 *ngIf="store.whatsapp != \'\'">\n\n      <button (click)="whatsapp()" block>\n\n        <img src="assets/img/whatsapp.png" />\n\n      </button>\n\n    </ion-col>\n\n    <ion-col col-2 *ngIf="store.website != \'\'">\n\n      <button (click)="website()" block>\n\n        <img src="assets/img/www.png" />\n\n      </button>\n\n    </ion-col>\n\n    <ion-col col-2 *ngIf="store.facebook != \'\'">\n\n      <button (click)="facebook()" block>\n\n        <img src="assets/img/facebook.png" />\n\n      </button>\n\n    </ion-col>\n\n    <ion-col col-2 *ngIf="store.instagram != \'\'">\n\n      <button (click)="instagram()" block>\n\n        <img src="assets/img/instagram.png" />\n\n      </button>\n\n    </ion-col>\n\n    <ion-col col-2 *ngIf="store.twitter != \'\'">\n\n      <button (click)="twitter()" block>\n\n        <img src="assets/img/twitter.png" />\n\n      </button>\n\n    </ion-col>\n\n    <ion-col col-2 *ngIf="store.phone != \'\'">\n\n      <button (click)="call()" block>\n\n        <img src="assets/img/call.png" />\n\n      </button>\n\n    </ion-col>\n\n  </ion-row>\n\n  <hr />\n\n  <ion-row *ngIf="store.credit_card == 1" class="store-conditions">\n\n    <ion-col col-1><ion-icon name="card"></ion-icon></ion-col>\n\n    <ion-col col-11><b>Redcompra</b></ion-col>\n\n  </ion-row>\n\n  <ion-row *ngIf="store.delivery == 1" class="store-conditions">\n\n    <ion-col col-1><ion-icon name="paper-plane"></ion-icon></ion-col>\n\n    <ion-col col-11><b>Delivery</b></ion-col>\n\n  </ion-row>\n\n  <ion-row *ngIf="store.credit_card_delivery == 1" class="store-conditions">\n\n    <ion-col col-1><ion-icon name="bicycle"></ion-icon></ion-col>\n\n    <ion-col col-11><b>Delivery + Redcompra</b></ion-col>\n\n  </ion-row>\n\n\n\n  <div *ngIf="store.showcase == 1" class="showcase1">\n\n\n\n    <h2 *ngIf="products.length > 0">Productos</h2>\n\n    <!--<ion-card *ngIf="products.length == 0">\n\n      <ion-card-header class="no-items">\n\n        No se han publicado productos\n\n      </ion-card-header>\n\n    </ion-card>\n\n    -->\n\n\n\n    <div *ngIf="products.length > 0">\n\n      <ion-slides spaceBetween="20" slidesPerView="1.5">\n\n        <ion-slide (click)="detail(product, \'product\')" *ngFor="let product of products" [ngStyle]="{\'background-image\': \'url(\'+(product.avatar == \'\' ? \'assets/img/default/no-pictures.png\' : product.avatar)+\')\'}">\n\n      	  <div class="offer" *ngIf="product.offer == \'1\'">Exclusivo App</div>\n\n      	  <div class="offerLogo" *ngIf="product.offer == \'1\'"><img src="assets/img/tag.png" /></div>\n\n          <div class="slide-product">\n\n            <div class="slide-title">{{product.name}}</div>\n\n            <div class="slide-price" *ngIf="product.price > 0">$ {{product.price | number:\'1.0-0\' }}</div>\n\n          </div>\n\n        </ion-slide>\n\n      </ion-slides>\n\n    </div>\n\n\n\n    <h2 *ngIf="services.length > 0">Servicios</h2>\n\n    <!--\n\n    <ion-card *ngIf="services.length == 0">\n\n      <ion-card-header class="no-items">\n\n        No se han publicado servicios\n\n      </ion-card-header>\n\n    </ion-card>\n\n    -->\n\n\n\n    <div *ngIf="services.length > 0">\n\n      <ion-slides spaceBetween="20" slidesPerView="1.5">\n\n        <ion-slide (click)="detail(service, \'service\')" *ngFor="let service of services" [ngStyle]="{\'background-image\': \'url(\'+(service.avatar == \'\' ? \'assets/img/default/no-pictures.png\' : service.avatar)+\')\'}">\n\n      	  <div class="offer" *ngIf="service.offer == \'1\'">Exclusivo App</div>\n\n      	  <div class="offerLogo" *ngIf="service.offer == \'1\'"><img src="assets/img/tag.png" /></div>\n\n          <div class="slide-product">\n\n            <div class="slide-title">{{service.name}}</div>\n\n            <div class="slide-price" *ngIf="service.price > 0">$ {{service.price | number:\'1.0-0\' }}</div>\n\n          </div>\n\n        </ion-slide>\n\n      </ion-slides>\n\n      <!--\n\n      <ion-row class="store-services" *ngFor="let service of services">\n\n        <ion-col col-8 class="tab-service-name">\n\n          <strong>{{service.name}}</strong>\n\n        </ion-col>\n\n        <ion-col col-4 class="tab-service-price">\n\n          <span *ngIf="service.price > 0">$ {{service.price | number:\'1.0-0\' }}</span>\n\n        </ion-col>\n\n        <ion-col col-12>\n\n          <p [innerHtml]="service.description"></p>\n\n        </ion-col>\n\n      </ion-row>\n\n      -->\n\n    </div>\n\n  </div>\n\n\n\n  <div *ngIf="store.showcase == 2">\n\n\n\n    <ion-toolbar>\n\n      <ion-segment [(ngModel)]="openTab" color="primary">\n\n        <ion-segment-button value="products">\n\n          Productos\n\n        </ion-segment-button>\n\n        <ion-segment-button value="services">\n\n          Servicios\n\n        </ion-segment-button>\n\n      </ion-segment>\n\n    </ion-toolbar>\n\n  \n\n    <div *ngIf="openTab == \'products\'">\n\n\n\n      <ion-card *ngIf="products.length == 0">\n\n        <ion-card-header class="no-items">\n\n          No se han publicado productos\n\n        </ion-card-header>\n\n      </ion-card>\n\n\n\n      <div *ngIf="products.length > 0">\n\n        <ion-row class="store-grid">\n\n          <ion-col (click)="detail(product, \'product\')" col-6 *ngFor="let product of products" [ngStyle]="{\'background-image\': \'url(\'+(product.avatar == \'\' ? \'assets/img/default/no-pictures.png\' : product.avatar)+\')\'}">\n\n      	  <div class="offer" *ngIf="product.offer == \'1\'">Exclusivo App</div>\n\n      	  <div class="offerLogo" *ngIf="product.offer == \'1\'"><img src="assets/img/tag.png" /></div>\n\n            <div class="slide-product">\n\n              <div class="slide-title">{{product.name}}</div>\n\n              <div class="slide-price" *ngIf="product.price > 0">$ {{product.price | number:\'1.0-0\' }}</div>\n\n            </div>\n\n          </ion-col>\n\n         </ion-row>\n\n      </div>\n\n\n\n    </div>\n\n\n\n    <div *ngIf="openTab == \'services\'">\n\n      \n\n      <ion-card *ngIf="services.length == 0">\n\n        <ion-card-header class="no-items">\n\n          No se han publicado servicios\n\n        </ion-card-header>\n\n      </ion-card>\n\n\n\n      <div *ngIf="services.length > 0">\n\n        <!--\n\n        <ion-row class="store-services" *ngFor="let service of services">\n\n          <ion-col col-8 class="tab-service-name">\n\n            <strong>{{service.name}}</strong>\n\n          </ion-col>\n\n          <ion-col col-4 class="tab-service-price">\n\n            <span *ngIf="service.price > 0">$ {{service.price | number:\'1.0-0\' }}</span>\n\n          </ion-col>\n\n          <ion-col col-12 class="tab-service-name">\n\n            <p [innerHtml]="service.description"></p>\n\n          </ion-col>\n\n        </ion-row>\n\n        -->\n\n       <ion-row class="store-grid">\n\n        <ion-col (click)="detail(service, \'service\')" col-6 *ngFor="let service of services" [ngStyle]="{\'background-image\': \'url(\'+(service.avatar == \'\' ? \'assets/img/default/no-pictures.png\' : service.avatar)+\')\'}">\n\n      	  <div class="offer" *ngIf="service.offer == \'1\'">Exclusivo App</div>\n\n      	  <div class="offerLogo" *ngIf="service.offer == \'1\'"><img src="assets/img/tag.png" /></div>\n\n          <div class="slide-product">\n\n            <div class="slide-title">{{service.name}}</div>\n\n            <div class="slide-price" *ngIf="service.price > 0">$ {{service.price | number:\'1.0-0\' }}</div>\n\n          </div>\n\n        </ion-col>\n\n       </ion-row>\n\n      </div>\n\n\n\n    </div>\n\n\n\n  </div>\n\n\n\n</div>\n\n</ion-content>'/*ion-inline-end:"D:\Mobile\sateliteapp\src\pages\home\store.html"*/
+        selector: 'page-store',template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\pages\home\store.html"*/'<!--\n\n  Generated template for the MyPetsPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n  <ion-navbar>\n\n    <button ion-button menuToggle *ngIf="rootMode">\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n    <ion-title>{{name}}</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n\n\n<div *ngIf="!isLoading">\n\n\n\n  <ion-list class="list-store">\n\n    <ion-item text-wrap>\n\n      <ion-avatar item-start>\n\n        <img src="{{store.avatar != \'\' ? store.avatar : \'assets/img/default/store.png\'}}" />\n\n      </ion-avatar>\n\n      <ion-row>\n\n        <ion-col col-10>\n\n          <h2>{{store.name}}</h2>\n\n          <h3>{{store.address}} {{(store.local != "" ? "Loc. "+store.local : "")}}</h3>\n\n        </ion-col>\n\n        <ion-col col-2 text-right class="location">\n\n          <div class="vertical-align-content" *ngIf="store.lat != \'\' && store.lng != \'\'">\n\n            <img src="assets/img/map-location.png" (click)="showMap()" />\n\n          </div>\n\n        </ion-col>\n\n      </ion-row>\n\n      <ion-row>\n\n        <ion-col col-8>\n\n          <p class="opening {{store.open_color}}"><strong>{{store.open_now}}</strong></p>\n\n          <p class="opening">{{store.open_news}}</p>\n\n        </ion-col>\n\n        <ion-col col-4 text-right>\n\n          <div *ngIf="lat != 0 && lng != 0 && store.lat != \'\' && store.lng != \'\'" class="distance">\n\n            <strong>{{showDistance(lat,lng,store.lat,store.lng)}}</strong>\n\n          </div>\n\n        </ion-col>\n\n      </ion-row>\n\n    </ion-item>\n\n  </ion-list>\n\n  <hr />\n\n\n\n  <!-- Social networks --> \n\n  <ion-row class="to-right social">\n\n    <ion-col col-2 *ngIf="store.email != \'\'">\n\n      <button (click)="email()" block>\n\n        <img src="assets/img/arroba.png" />\n\n      </button>\n\n    </ion-col>\n\n    <ion-col col-2 *ngIf="store.whatsapp != \'\'">\n\n      <button (click)="whatsapp()" block>\n\n        <img src="assets/img/whatsapp.png" />\n\n      </button>\n\n    </ion-col>\n\n    <ion-col col-2 *ngIf="store.website != \'\'">\n\n      <button (click)="website()" block>\n\n        <img src="assets/img/www.png" />\n\n      </button>\n\n    </ion-col>\n\n    <ion-col col-2 *ngIf="store.facebook != \'\'">\n\n      <button (click)="facebook()" block>\n\n        <img src="assets/img/facebook.png" />\n\n      </button>\n\n    </ion-col>\n\n    <ion-col col-2 *ngIf="store.instagram != \'\'">\n\n      <button (click)="instagram()" block>\n\n        <img src="assets/img/instagram.png" />\n\n      </button>\n\n    </ion-col>\n\n    <ion-col col-2 *ngIf="store.twitter != \'\'">\n\n      <button (click)="twitter()" block>\n\n        <img src="assets/img/twitter.png" />\n\n      </button>\n\n    </ion-col>\n\n    <ion-col col-2 *ngIf="store.phone != \'\'">\n\n      <button (click)="call()" block>\n\n        <img src="assets/img/call.png" />\n\n      </button>\n\n    </ion-col>\n\n  </ion-row>\n\n  <hr />\n\n  <ion-row *ngIf="store.credit_card == 1" class="store-conditions">\n\n    <ion-col col-1><ion-icon name="card"></ion-icon></ion-col>\n\n    <ion-col col-11><b>Redcompra</b></ion-col>\n\n  </ion-row>\n\n  <ion-row *ngIf="store.delivery == 1" class="store-conditions">\n\n    <ion-col col-1><ion-icon name="paper-plane"></ion-icon></ion-col>\n\n    <ion-col col-11><b>Delivery</b></ion-col>\n\n  </ion-row>\n\n  <ion-row *ngIf="store.credit_card_delivery == 1" class="store-conditions">\n\n    <ion-col col-1><ion-icon name="bicycle"></ion-icon></ion-col>\n\n    <ion-col col-11><b>Delivery + Redcompra</b></ion-col>\n\n  </ion-row>\n\n\n\n  <div *ngIf="store.showcase == 1" class="showcase1">\n\n\n\n    <h2 *ngIf="products.length > 0">Productos</h2>\n\n    <!--<ion-card *ngIf="products.length == 0">\n\n      <ion-card-header class="no-items">\n\n        No se han publicado productos\n\n      </ion-card-header>\n\n    </ion-card>\n\n    -->\n\n\n\n    <div *ngIf="products.length > 0">\n\n      <ion-slides spaceBetween="20" slidesPerView="1.5">\n\n        <ion-slide (click)="detail(product, \'product\')" *ngFor="let product of products" [ngStyle]="{\'background-image\': \'url(\'+(product.avatar == \'\' ? \'assets/img/default/no-pictures.png\' : product.avatar)+\')\'}">\n\n      	  <div class="offer" *ngIf="product.offer == \'1\'">Exclusivo App</div>\n\n      	  <div class="offerLogo" *ngIf="product.offer == \'1\'"><img src="assets/img/tag.png" /></div>\n\n          <div class="slide-product">\n\n            <div class="slide-title">{{product.name}}</div>\n\n            <div class="slide-price" *ngIf="product.price > 0">$ {{product.price | number:\'1.0-0\' }}</div>\n\n          </div>\n\n        </ion-slide>\n\n      </ion-slides>\n\n    </div>\n\n\n\n    <h2 *ngIf="services.length > 0">Servicios</h2>\n\n    <!--\n\n    <ion-card *ngIf="services.length == 0">\n\n      <ion-card-header class="no-items">\n\n        No se han publicado servicios\n\n      </ion-card-header>\n\n    </ion-card>\n\n    -->\n\n\n\n    <div *ngIf="services.length > 0">\n\n      <ion-slides spaceBetween="20" slidesPerView="1.5">\n\n        <ion-slide (click)="detail(service, \'service\')" *ngFor="let service of services" [ngStyle]="{\'background-image\': \'url(\'+(service.avatar == \'\' ? \'assets/img/default/no-pictures.png\' : service.avatar)+\')\'}">\n\n      	  <div class="offer" *ngIf="service.offer == \'1\'">Exclusivo App</div>\n\n      	  <div class="offerLogo" *ngIf="service.offer == \'1\'"><img src="assets/img/tag.png" /></div>\n\n          <div class="slide-product">\n\n            <div class="slide-title">{{service.name}}</div>\n\n            <div class="slide-price" *ngIf="service.price > 0">$ {{service.price | number:\'1.0-0\' }}</div>\n\n          </div>\n\n        </ion-slide>\n\n      </ion-slides>\n\n      <!--\n\n      <ion-row class="store-services" *ngFor="let service of services">\n\n        <ion-col col-8 class="tab-service-name">\n\n          <strong>{{service.name}}</strong>\n\n        </ion-col>\n\n        <ion-col col-4 class="tab-service-price">\n\n          <span *ngIf="service.price > 0">$ {{service.price | number:\'1.0-0\' }}</span>\n\n        </ion-col>\n\n        <ion-col col-12>\n\n          <p [innerHtml]="service.description"></p>\n\n        </ion-col>\n\n      </ion-row>\n\n      -->\n\n    </div>\n\n  </div>\n\n\n\n  <div *ngIf="store.showcase == 2">\n\n\n\n    <ion-toolbar>\n\n      <ion-segment [(ngModel)]="openTab" color="primary">\n\n        <ion-segment-button value="products" *ngIf="products.length > 0">\n\n          Productos\n\n        </ion-segment-button>\n\n        <ion-segment-button value="services" *ngIf="services.length > 0">\n\n          Servicios\n\n        </ion-segment-button>\n\n      </ion-segment>\n\n    </ion-toolbar>\n\n  \n\n    <div *ngIf="openTab == \'products\'">\n\n      <!--\n\n      <ion-card *ngIf="products.length == 0">\n\n        <ion-card-header class="no-items">\n\n          No se han publicado productos\n\n        </ion-card-header>\n\n      </ion-card>\n\n      -->\n\n\n\n      <div *ngIf="products.length > 0">\n\n        <ion-row class="store-grid">\n\n          <ion-col (click)="detail(product, \'product\')" col-6 *ngFor="let product of products" [ngStyle]="{\'background-image\': \'url(\'+(product.avatar == \'\' ? \'assets/img/default/no-pictures.png\' : product.avatar)+\')\'}">\n\n      	  <div class="offer" *ngIf="product.offer == \'1\'">Exclusivo App</div>\n\n      	  <div class="offerLogo" *ngIf="product.offer == \'1\'"><img src="assets/img/tag.png" /></div>\n\n            <div class="slide-product">\n\n              <div class="slide-title">{{product.name}}</div>\n\n              <div class="slide-price" *ngIf="product.price > 0">$ {{product.price | number:\'1.0-0\' }}</div>\n\n            </div>\n\n          </ion-col>\n\n         </ion-row>\n\n      </div>\n\n\n\n    </div>\n\n\n\n    <div *ngIf="openTab == \'services\'">\n\n      \n\n      <!--\n\n      <ion-card *ngIf="services.length == 0">\n\n        <ion-card-header class="no-items">\n\n          No se han publicado servicios\n\n        </ion-card-header>\n\n      </ion-card>\n\n      -->\n\n\n\n      <div *ngIf="services.length > 0">\n\n        <!--\n\n        <ion-row class="store-services" *ngFor="let service of services">\n\n          <ion-col col-8 class="tab-service-name">\n\n            <strong>{{service.name}}</strong>\n\n          </ion-col>\n\n          <ion-col col-4 class="tab-service-price">\n\n            <span *ngIf="service.price > 0">$ {{service.price | number:\'1.0-0\' }}</span>\n\n          </ion-col>\n\n          <ion-col col-12 class="tab-service-name">\n\n            <p [innerHtml]="service.description"></p>\n\n          </ion-col>\n\n        </ion-row>\n\n        -->\n\n       <ion-row class="store-grid">\n\n        <ion-col (click)="detail(service, \'service\')" col-6 *ngFor="let service of services" [ngStyle]="{\'background-image\': \'url(\'+(service.avatar == \'\' ? \'assets/img/default/no-pictures.png\' : service.avatar)+\')\'}">\n\n      	  <div class="offer" *ngIf="service.offer == \'1\'">Exclusivo App</div>\n\n      	  <div class="offerLogo" *ngIf="service.offer == \'1\'"><img src="assets/img/tag.png" /></div>\n\n          <div class="slide-product">\n\n            <div class="slide-title">{{service.name}}</div>\n\n            <div class="slide-price" *ngIf="service.price > 0">$ {{service.price | number:\'1.0-0\' }}</div>\n\n          </div>\n\n        </ion-col>\n\n       </ion-row>\n\n      </div>\n\n\n\n    </div>\n\n\n\n  </div>\n\n\n\n</div>\n\n</ion-content>'/*ion-inline-end:"D:\Mobile\sateliteapp\src\pages\home\store.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["r" /* NavController */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["s" /* NavParams */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
-        __WEBPACK_IMPORTED_MODULE_9__services_doctor_service__["a" /* DoctorService */],
-        __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__["a" /* Geolocation */],
-        __WEBPACK_IMPORTED_MODULE_2__agm_core__["b" /* GoogleMapsAPIWrapper */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["x" /* ToastController */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["v" /* PopoverController */],
-        __WEBPACK_IMPORTED_MODULE_4__angular_common_http__["a" /* HttpClient */],
-        __WEBPACK_IMPORTED_MODULE_10__ionic_storage__["b" /* Storage */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* LoadingController */],
-        __WEBPACK_IMPORTED_MODULE_7__ionic_native_contacts__["c" /* Contacts */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* ModalController */],
-        __WEBPACK_IMPORTED_MODULE_6__ionic_native_app_availability__["a" /* AppAvailability */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["u" /* Platform */],
-        __WEBPACK_IMPORTED_MODULE_13__pata__["a" /* Pata */],
-        __WEBPACK_IMPORTED_MODULE_5__ionic_native_launch_navigator__["a" /* LaunchNavigator */],
-        __WEBPACK_IMPORTED_MODULE_12__ionic_native_call_number__["a" /* CallNumber */],
-        __WEBPACK_IMPORTED_MODULE_8__ionic_native_in_app_browser__["a" /* InAppBrowser */]])
+    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["r" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["r" /* NavController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["s" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["s" /* NavParams */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_9__services_doctor_service__["a" /* DoctorService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_9__services_doctor_service__["a" /* DoctorService */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__["a" /* Geolocation */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__["a" /* Geolocation */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_2__agm_core__["b" /* GoogleMapsAPIWrapper */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__agm_core__["b" /* GoogleMapsAPIWrapper */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["x" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["x" /* ToastController */]) === "function" && _h || Object, typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["v" /* PopoverController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["v" /* PopoverController */]) === "function" && _j || Object, typeof (_k = typeof __WEBPACK_IMPORTED_MODULE_4__angular_common_http__["a" /* HttpClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__angular_common_http__["a" /* HttpClient */]) === "function" && _k || Object, typeof (_l = typeof __WEBPACK_IMPORTED_MODULE_10__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_10__ionic_storage__["b" /* Storage */]) === "function" && _l || Object, typeof (_m = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* LoadingController */]) === "function" && _m || Object, typeof (_o = typeof __WEBPACK_IMPORTED_MODULE_7__ionic_native_contacts__["c" /* Contacts */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7__ionic_native_contacts__["c" /* Contacts */]) === "function" && _o || Object, typeof (_p = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* ModalController */]) === "function" && _p || Object, typeof (_q = typeof __WEBPACK_IMPORTED_MODULE_6__ionic_native_app_availability__["a" /* AppAvailability */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__ionic_native_app_availability__["a" /* AppAvailability */]) === "function" && _q || Object, typeof (_r = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["u" /* Platform */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["u" /* Platform */]) === "function" && _r || Object, typeof (_s = typeof __WEBPACK_IMPORTED_MODULE_13__pata__["a" /* Pata */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_13__pata__["a" /* Pata */]) === "function" && _s || Object, typeof (_t = typeof __WEBPACK_IMPORTED_MODULE_5__ionic_native_launch_navigator__["a" /* LaunchNavigator */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__ionic_native_launch_navigator__["a" /* LaunchNavigator */]) === "function" && _t || Object, typeof (_u = typeof __WEBPACK_IMPORTED_MODULE_12__ionic_native_call_number__["a" /* CallNumber */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_12__ionic_native_call_number__["a" /* CallNumber */]) === "function" && _u || Object, typeof (_v = typeof __WEBPACK_IMPORTED_MODULE_8__ionic_native_in_app_browser__["a" /* InAppBrowser */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_8__ionic_native_in_app_browser__["a" /* InAppBrowser */]) === "function" && _v || Object])
 ], Store);
 
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v;
 //# sourceMappingURL=store.js.map
 
 /***/ })
