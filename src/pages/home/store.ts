@@ -34,6 +34,7 @@ export class Store {
   public openTab: string = 'products';
   public lat: number = 0;
   public lng: number = 0;
+  public totalRate: number = 0;
   public comentarios: string = '';
   public editorConfig: any = {
     "editable": true,
@@ -102,7 +103,9 @@ export class Store {
       this.comments=data.comments;
       this.load.dismiss();
 
+      this.totalRate = parseInt(data.totalRate) || 0;
       this.store.rate = Math.round(parseFloat(this.store.rate));
+      console.log(this.store.rate);
 
       if (isreload == 0) {
         if (this.products.length == 0 && this.services.length > 0) {
@@ -110,6 +113,10 @@ export class Store {
         }
       }
     });
+  }
+
+  onChangeRating(e:any) {
+    console.log(e);
   }
 
   enviarComentario() {
