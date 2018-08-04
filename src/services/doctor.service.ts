@@ -114,5 +114,11 @@ export class DoctorService extends BaseService{
   delService(id:number) {
     return this.post('store/services/delete', { id: id });
   }
+  addComment(obj: any) {
+    return this.post('store/comments/add', {
+      store: obj.store,
+      comment: obj.comment
+    }); 
+  }
 
 }

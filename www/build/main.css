@@ -67321,6 +67321,45 @@ page-store .distance {
   font-size: 12px;
 }
 
+page-store ul.rating {
+  padding: 0;
+  margin: 0;
+}
+
+page-store ul.rating li {
+  color: #ffb400;
+}
+
+page-store ul.rating[_ngcontent-c0] li[_ngcontent-c0] {
+  padding: 2px 4px;
+}
+
+page-store ion-avatar {
+  margin: 0 !important;
+}
+
+page-store ion-avatar .media {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  top: 18px;
+  position: absolute;
+  left: 0;
+  color: #DEDDDD;
+}
+
+page-store .comentarios p {
+  color: black;
+}
+
+page-store .comentarios h2 {
+  font-size: 16px;
+}
+
+page-store .comentarios p.small {
+  font-size: 12px;
+}
+
 page-juntavecinos .content {
   background-color: #FFF;
 }
@@ -67867,6 +67906,10 @@ page-login .text-input:-ms-input-placeholder {
   page-login .text-input {
     margin: 2rem 8px 1.1rem 0;
   }
+}
+
+page-login ion-label {
+  color: #088AF7;
 }
 
 button.signup {

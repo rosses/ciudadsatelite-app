@@ -35,7 +35,7 @@ export class StoreServices {
     "width": "auto",
     "minWidth": "0",
     "toolbar": [
-        ["bold", "italic", "underline", "fontName", "fontSize"]
+        ["bold", "italic", "underline"]
     ]
   }
 

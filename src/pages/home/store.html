@@ -43,6 +43,15 @@
             <strong>{{showDistance(lat,lng,store.lat,store.lng)}}</strong>
           </div>
         </ion-col>
+        <ion-col col-12>
+          <rating [(ngModel)]="store.rate" 
+                  max="5"  
+                  emptyStarIconName="star-outline" 
+                  halfStarIconName="star-half" 
+                  starIconName="star" 
+                  nullable="false"> 
+          </rating>
+        </ion-col>
       </ion-row>
     </ion-item>
   </ion-list>
@@ -157,6 +166,40 @@
       </ion-row>
       -->
     </div>
+
+
+    <h2>Comentarios</h2>
+    
+
+    <h6>Deja tu comentario</h6>
+    <app-ngx-editor [config]="editorConfig" [placeholder]="'Escriba aqui...'" [(ngModel)]="comentarios"></app-ngx-editor>
+    <div align="right">
+      <button ion-button (click)="enviarComentario();">Enviar</button>
+    </div>
+    <hr />
+
+    <ion-card *ngIf="comments.length == 0">
+      <ion-card-header class="no-items">
+        No se han publicado comentarios
+      </ion-card-header>
+    </ion-card>
+    
+
+    <div *ngIf="comments.length > 0">
+      
+      <ion-list class="comentarios">
+        <ion-item *ngFor="let comment of comments">
+          <ion-avatar item-start>
+            <div class="media" [style.background-image]="'url(' + (comment.avatar != '' && comment.avatar != null ? comment.avatar : 'assets/img/default/avatar.png' ) + ')'" style="background-size: cover;"></div>
+          </ion-avatar>
+          <h2>{{comment.first_name}}</h2>
+          <p class="small">Publicado: {{comment.created_at | date:'dd/MM/yyyy HH:mm' }}</p>
+          <p [innerHTML]="comment.comment"></p>
+        </ion-item>
+      </ion-list>
+
+    </div>
+
   </div>
 
   <div *ngIf="store.showcase == 2">
@@ -168,6 +211,9 @@
         </ion-segment-button>
         <ion-segment-button value="services" *ngIf="services.length > 0">
           Servicios
+        </ion-segment-button>
+        <ion-segment-button value="comments">
+          Comentarios
         </ion-segment-button>
       </ion-segment>
     </ion-toolbar>
@@ -231,6 +277,39 @@
         </ion-col>
        </ion-row>
       </div>
+
+    </div>
+    <div *ngIf="openTab == 'comments'">
+
+      <h6>Deja tu comentario</h6>
+      <app-ngx-editor [config]="editorConfig" [placeholder]="'Escriba aqui...'" [(ngModel)]="comentarios"></app-ngx-editor>
+      <div align="right">
+        <button ion-button (click)="enviarComentario();">Enviar</button>
+      </div>
+      <hr />
+
+      <ion-card *ngIf="comments.length == 0">
+        <ion-card-header class="no-items">
+          No se han publicado comentarios
+        </ion-card-header>
+      </ion-card>
+      
+
+      <div *ngIf="comments.length > 0">
+        
+        <ion-list class="comentarios">
+          <ion-item *ngFor="let comment of comments">
+            <ion-avatar item-start>
+              <div class="media" [style.background-image]="'url(' + (comment.avatar != '' && comment.avatar != null ? comment.avatar : 'assets/img/default/avatar.png' ) + ')'" style="background-size: cover;"></div>
+            </ion-avatar>
+            <h2>{{comment.first_name}}</h2>
+            <p class="small">Publicado: {{comment.created_at | date:'dd/MM/yyyy HH:mm' }}</p>
+            <p [innerHTML]="comment.comment"></p>
+          </ion-item>
+        </ion-list>
+
+      </div>
+
 
     </div>
 

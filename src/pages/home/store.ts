@@ -28,12 +28,23 @@ export class Store {
   public store: any;
   public name: string = '';
   public products: any = [];
+  public comments: any = [];
   public services: any = [];
   public load: any;
   public openTab: string = 'products';
   public lat: number = 0;
   public lng: number = 0;
-
+  public comentarios: string = '';
+  public editorConfig: any = {
+    "editable": true,
+    "height": "auto",
+    "minHeight": "50",
+    "width": "auto",
+    "minWidth": "0",
+    "toolbar": [
+        ["bold", "italic", "underline"]
+    ]
+  }
 
   @ViewChild(Slides) slides: Slides;
 
@@ -63,22 +74,6 @@ export class Store {
     this.store = this.navParams.get("store");
     this.rootMode = (this.navParams.get("rootMode") ? true : false);
 
-    this.load = this.loadingCtrl.create();
-    this.load.present();
-
-    this.doctorService.getStore(this.store.id).subscribe((data: any)=> {
-      this.isLoading=false;
-      this.store=data.data;
-      this.name = this.store.name;
-      this.products=data.products;
-      this.services=data.services;
-      this.load.dismiss();
-
-      if (this.products.length == 0 && this.services.length > 0) {
-        this.openTab = 'services';
-      }
-    });
-
 
     this.geolocation.getCurrentPosition().then((resp) => {
      this.lat = resp.coords.latitude;
@@ -87,6 +82,52 @@ export class Store {
       
     });
 
+    this.reloadStore(0);
+
+  }
+
+  reloadStore(isreload: number) {
+
+    if (isreload == 0) {
+      this.load = this.loadingCtrl.create();
+      this.load.present();
+    }
+
+    this.doctorService.getStore(this.store.id).subscribe((data: any)=> {
+      this.isLoading=false;
+      this.store=data.data;
+      this.name = this.store.name;
+      this.products=data.products;
+      this.services=data.services;
+      this.comments=data.comments;
+      this.load.dismiss();
+
+      this.store.rate = Math.round(parseFloat(this.store.rate));
+
+      if (isreload == 0) {
+        if (this.products.length == 0 && this.services.length > 0) {
+          this.openTab = 'services';
+        }
+      }
+    });
+  }
+
+  enviarComentario() {
+    if (this.comentarios.trim() == "" || this.comentarios.length < 2) {
+      this.service.logError({}, "Tu comentario es muy corto, por favor escribe un comentario más largo");
+    }
+    else {
+
+      this.load = this.loadingCtrl.create({content: "posteando..."});
+      this.load.present();
+      this.doctorService.addComment({
+        store: this.store.id,
+        comment: this.comentarios
+      }).subscribe((data: any)=> {
+       this.comentarios = "";
+       this.reloadStore(1);
+      });
+    }
   }
 
   showMap() {

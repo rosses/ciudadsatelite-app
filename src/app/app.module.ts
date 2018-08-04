@@ -77,6 +77,9 @@ import {SocialSharing} from "@ionic-native/social-sharing";
 import {DatePipe} from "@angular/common";
 import {EmailComposer} from "@ionic-native/email-composer";
 import {CallNumber} from "@ionic-native/call-number";
+
+import { Ionic2RatingModule } from 'ionic2-rating';
+
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
 export function HttpLoaderFactory(http: Http) {
@@ -140,7 +143,8 @@ export function HttpLoaderFactory(http: Http) {
       apiKey: 'AIzaSyBrUo6PdRjbF03o4_xeEoYl9kTD5V7pp7g'
     }),
     Ng2Rut,
-    NgxEditorModule
+    NgxEditorModule,
+    Ionic2RatingModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
