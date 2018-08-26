@@ -175,10 +175,13 @@ export class MyApp {
         this.fcm.onNotification().subscribe(data=>{
           //alert('Push:' + JSON.stringify(data));
           if(data.wasTapped){
+            this.loading = this.loadingController.create();
+            this.loading.present();
             console.log("Received in background", data);
             this.userService.setReadPush(data.click_id).subscribe((ok: any) => {
               if (ok.res == 'OK') {
                 this.userService.getNotificationStatus().subscribe((cdata: any) => {
+                  this.loading.dismiss();
                   let number = parseInt(cdata.total);
                   if (isNaN(number)) {
                     console.log('Notification number is NaN, no updated');
