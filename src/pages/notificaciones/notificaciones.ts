@@ -80,11 +80,11 @@ export class Notificaciones {
     }
     else if (type=='product') {
       this.doctorService.addPd(reference);
-      this.navCtrl.push(Store, { store: {id: reference}, preloadType: 'product', preloadElement: reference });
+      this.navCtrl.push(Store, { store: {id: this.navParams.get("preloadStore")}, preloadType: 'product', preloadElement: reference });
     }
     else if (type=='service') {
       this.doctorService.addSs(reference);
-      this.navCtrl.push(Store, { store: {id: reference}, preloadType: 'service', preloadElement: reference });
+      this.navCtrl.push(Store, { store: {id: this.navParams.get("preloadStore")}, preloadType: 'service', preloadElement: reference });
     }
     else if (type=='category') {
       /*this.doctorService.addTracking('category', '');*/

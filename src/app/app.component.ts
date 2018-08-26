@@ -196,7 +196,7 @@ export class MyApp {
                   }
 
                   if (data.type != '' && data.reference != '') {
-                    this.nav.setRoot(Notificaciones, {preloadType: data.type, preloadReference: data.reference});
+                    this.nav.setRoot(Notificaciones, {preloadType: data.type, preloadReference: data.reference, preloadStore: data.store});
                   }
                 });
               }

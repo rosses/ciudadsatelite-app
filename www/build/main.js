@@ -2872,11 +2872,11 @@ var Notificaciones = (function () {
         }
         else if (type == 'product') {
             this.doctorService.addPd(reference);
-            this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_7__pages_home_store__["a" /* Store */], { store: { id: reference }, preloadType: 'product', preloadElement: reference });
+            this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_7__pages_home_store__["a" /* Store */], { store: { id: this.navParams.get("preloadStore") }, preloadType: 'product', preloadElement: reference });
         }
         else if (type == 'service') {
             this.doctorService.addSs(reference);
-            this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_7__pages_home_store__["a" /* Store */], { store: { id: reference }, preloadType: 'service', preloadElement: reference });
+            this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_7__pages_home_store__["a" /* Store */], { store: { id: this.navParams.get("preloadStore") }, preloadType: 'service', preloadElement: reference });
         }
         else if (type == 'category') {
             /*this.doctorService.addTracking('category', '');*/
@@ -2889,18 +2889,10 @@ Notificaciones = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'page-notificaciones',template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\pages\notificaciones\notificaciones.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <button ion-button menuToggle>\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n    <ion-title>Notificaciones</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content> \n\n\n\n  <ion-refresher (ionRefresh)="doRefresh($event)">\n\n    <ion-refresher-content></ion-refresher-content>\n\n  </ion-refresher>\n\n\n\n  <div *ngIf="!isLoading">\n\n\n\n    <ion-list>\n\n      <ion-item text-wrap *ngFor="let noti of notificaciones" (click)="goToAction(noti.type, noti.reference, noti.id)">\n\n        <ion-row>\n\n          <ion-col col-2>\n\n            <ion-icon *ngIf="noti.readed == 1" class="off" name="radio-button-off"></ion-icon>\n\n            <ion-icon *ngIf="noti.readed == 0" class="on" name="radio-button-on"></ion-icon>\n\n          </ion-col>\n\n          <ion-col col-8>\n\n            <strong>{{noti.title}}</strong>  <small>{{noti.created_at | date:\'dd/MM/yy H:mm\'}}</small> <br />\n\n            {{noti.message}}\n\n          </ion-col>\n\n          <ion-col col-2 *ngIf="noti.type != \'\'">\n\n            <ion-icon name="arrow-forward"></ion-icon>\n\n          </ion-col>\n\n        </ion-row>\n\n      </ion-item>\n\n    </ion-list>\n\n    <div *ngIf="notificaciones.length == 0" text-center>\n\n      <h5>No tienes notificaciones</h5>\n\n    </div>\n\n  </div>\n\n  <div *ngIf="isLoading">\n\n    <div class="timeline-wrapper">\n\n        <div class="timeline-item forceh">\n\n          <div class="animated-background">\n\n            <div class="background-masker news-img"></div>\n\n           </div>\n\n        </div>\n\n        <div class="timeline-item forceh">\n\n          <div class="animated-background">\n\n            <div class="background-masker news-img"></div>\n\n           </div>\n\n        </div>\n\n    </div>\n\n  </div>\n\n</ion-content>\n\n'/*ion-inline-end:"D:\Mobile\sateliteapp\src\pages\notificaciones\notificaciones.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["r" /* NavController */],
-        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["n" /* LoadingController */],
-        __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* UserService */],
-        __WEBPACK_IMPORTED_MODULE_5__services_doctor_service__["a" /* DoctorService */],
-        __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */],
-        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["p" /* ModalController */],
-        __WEBPACK_IMPORTED_MODULE_6__pata__["a" /* Pata */],
-        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["s" /* NavParams */],
-        __WEBPACK_IMPORTED_MODULE_9__ionic_native_badge__["a" /* Badge */],
-        __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__["c" /* DomSanitizer */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["r" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["r" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["n" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["n" /* LoadingController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* UserService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_5__services_doctor_service__["a" /* DoctorService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__services_doctor_service__["a" /* DoctorService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["p" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["p" /* ModalController */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_6__pata__["a" /* Pata */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__pata__["a" /* Pata */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["s" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["s" /* NavParams */]) === "function" && _h || Object, typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_9__ionic_native_badge__["a" /* Badge */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_9__ionic_native_badge__["a" /* Badge */]) === "function" && _j || Object, typeof (_k = typeof __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__["c" /* DomSanitizer */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__["c" /* DomSanitizer */]) === "function" && _k || Object])
 ], Notificaciones);
 
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
 //# sourceMappingURL=notificaciones.js.map
 
 /***/ }),
@@ -3907,7 +3899,7 @@ var MyApp = (function () {
                     else if (_this.platform.is('android')) {
                         uriLink = "https://play.google.com/store/apps/details?id=";
                     }
-                    var alert_1 = _this.alertCtrl.create({
+                    var alert = _this.alertCtrl.create({
                         title: 'Actualiza tu App',
                         message: data.msg,
                         buttons: [
@@ -3924,7 +3916,7 @@ var MyApp = (function () {
                             }
                         ]
                     });
-                    alert_1.present();
+                    alert.present();
                 }
             });
             if (_this.platform.is('cordova')) {
@@ -3983,7 +3975,7 @@ var MyApp = (function () {
                                         _this.badge.set(number);
                                     }
                                     if (data.type != '' && data.reference != '') {
-                                        _this.nav.setRoot(__WEBPACK_IMPORTED_MODULE_18__pages_notificaciones_notificaciones__["a" /* Notificaciones */], { preloadType: data.type, preloadReference: data.reference });
+                                        _this.nav.setRoot(__WEBPACK_IMPORTED_MODULE_18__pages_notificaciones_notificaciones__["a" /* Notificaciones */], { preloadType: data.type, preloadReference: data.reference, preloadStore: data.store });
                                     }
                                 });
                             }
@@ -4199,31 +4191,15 @@ var MyApp = (function () {
 }());
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* Nav */]),
-    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* Nav */])
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* Nav */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["q" /* Nav */]) === "function" && _a || Object)
 ], MyApp.prototype, "nav", void 0);
 MyApp = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"D:\Mobile\sateliteapp\src\app\app.html"*/'<ion-menu [content]="content" id="leftMenu" class="sidenav">\n\n\n\n  <div class="profile" *ngIf="!marketProfile">\n\n    <div class="image" [style.background-image]="\'url(\' + user?.avatar + \')\'" style="background-size: cover"></div>\n\n    <div class="name">{{ user?.first_name }} {{ user?.last_name }} {{ user?.company }}</div>\n\n    <!--<div class="scope" *ngIf="active">{{ active.name }} </div>-->\n\n    <button *ngIf="user?.id != \'0\'" menuClose (click)="profile()" ion-button round color="light">MI PERFIL</button>\n\n    <button *ngIf="user?.id == \'0\'" menuClose (click)="createAccount()" ion-button round color="light">CREAR CUENTA</button>\n\n  </div>\n\n\n\n  <div class="profile" *ngIf="marketProfile">\n\n    <div class="image" [style.background-image]="\'url(\' + active?.avatar + \')\'" style="background-size: cover"></div>\n\n    <div class="name">{{ active?.name }}</div>\n\n    <!--<div class="scope" *ngIf="active">{{ active.name }} </div>-->\n\n    <button menuClose (click)="profile(true)" ion-button round color="light">EDITAR TIENDA</button>\n\n  </div>\n\n\n\n  <!--\n\n  <div menuClose *ngFor="let p of pages" class="link" [ngClass]="{\'selected\' : p.selected}" (click)="openPage(p)">\n\n    <span [innerHTML]="sanitizer.bypassSecurityTrustHtml(p.title)"></span>\n\n  </div>\n\n  -->\n\n\n\n  <div menuClose class="link" (click)="openPageComponent(1)">\n\n    <span>Categorias</span>\n\n  </div>\n\n  <div *ngIf="!marketProfile" menuClose class="link" (click)="openPageComponent(2)">\n\n    <span>Mapa</span>\n\n  </div>\n\n  <div *ngIf="user?.id != \'0\' && !marketProfile" menuClose class="link" (click)="openPageComponent(3)">\n\n    <span>Notificaciones <strong class="badges" *ngIf="notifications > 0">{{notifications}}</strong></span>\n\n  </div>\n\n  <div *ngIf="!marketProfile" menuClose class="link" (click)="openPageComponent(4)">\n\n    <span>Junta de Vecinos</span>\n\n  </div>\n\n  <div *ngIf="!marketProfile" menuClose class="link" (click)="openPageComponent(5)">\n\n    <span>Teléfonos Útiles</span>\n\n  </div>\n\n  <div *ngIf="marketProfile" menuClose class="link" (click)="openPageComponent(10)">\n\n    <span>Ver mi tienda</span>\n\n  </div>\n\n  <div *ngIf="marketProfile" menuClose class="link" (click)="openPageComponent(11)">\n\n    <span>Mis productos</span>\n\n  </div>\n\n  <div *ngIf="marketProfile" menuClose class="link" (click)="openPageComponent(12)">\n\n    <span>Mis servicios</span>\n\n  </div>\n\n  \n\n  <!-- Marketplaces -->\n\n  <div *ngIf="!marketProfile">\n\n    <div menuClose *ngFor="let zone of zones" class="link destacado" [ngClass]="{\'selected\' : selected}" (click)="switchActive(zone)">\n\n      <span><strong>Administrar</strong><br />{{zone.name}}</span>\n\n    </div>\n\n  </div>\n\n  <!-- End Marketplaces -->\n\n\n\n  <div menuClose *ngIf="marketProfile" class="link destacado" [ngClass]="{\'selected\' : selected}" (click)="switchActive()">\n\n    <span><strong>Volver a</strong><br />{{user.first_name}}</span>\n\n  </div>\n\n  \n\n  <div menuClose class="link" (click)="contacto()">\n\n    <span>Contacto</span>\n\n  </div>\n\n\n\n  <div *ngIf="user?.id != \'0\'" menuClose class="link" (click)="closeSession()">\n\n    <span>{{\'APP_MENU.CLOSE\' | translate }}</span>\n\n  </div>\n\n</ion-menu>\n\n\n\n<!-- Disable swipe-to-go-back because it\'s poor UX to combine STGB with side menus -->\n\n<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>\n\n'/*ion-inline-end:"D:\Mobile\sateliteapp\src\app\app.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["u" /* Platform */],
-        __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */],
-        __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */],
-        __WEBPACK_IMPORTED_MODULE_4__ngx_translate_core__["c" /* TranslateService */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Config */],
-        __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */],
-        __WEBPACK_IMPORTED_MODULE_22__pata__["a" /* Pata */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
-        __WEBPACK_IMPORTED_MODULE_20__services_user_service__["a" /* UserService */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* LoadingController */],
-        __WEBPACK_IMPORTED_MODULE_21__services_auth_service__["a" /* AuthService */],
-        __WEBPACK_IMPORTED_MODULE_23__ionic_native_fcm__["a" /* FCM */],
-        __WEBPACK_IMPORTED_MODULE_19__angular_platform_browser__["c" /* DomSanitizer */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* MenuController */],
-        __WEBPACK_IMPORTED_MODULE_6__ionic_native_badge__["a" /* Badge */],
-        __WEBPACK_IMPORTED_MODULE_25__ionic_native_market__["a" /* Market */],
-        __WEBPACK_IMPORTED_MODULE_24__ionic_native_native_storage__["a" /* NativeStorage */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* IonicApp */]])
+    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["u" /* Platform */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["u" /* Platform */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_4__ngx_translate_core__["c" /* TranslateService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__ngx_translate_core__["c" /* TranslateService */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Config */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Config */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_22__pata__["a" /* Pata */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_22__pata__["a" /* Pata */]) === "function" && _h || Object, typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _j || Object, typeof (_k = typeof __WEBPACK_IMPORTED_MODULE_20__services_user_service__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_20__services_user_service__["a" /* UserService */]) === "function" && _k || Object, typeof (_l = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* LoadingController */]) === "function" && _l || Object, typeof (_m = typeof __WEBPACK_IMPORTED_MODULE_21__services_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_21__services_auth_service__["a" /* AuthService */]) === "function" && _m || Object, typeof (_o = typeof __WEBPACK_IMPORTED_MODULE_23__ionic_native_fcm__["a" /* FCM */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_23__ionic_native_fcm__["a" /* FCM */]) === "function" && _o || Object, typeof (_p = typeof __WEBPACK_IMPORTED_MODULE_19__angular_platform_browser__["c" /* DomSanitizer */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_19__angular_platform_browser__["c" /* DomSanitizer */]) === "function" && _p || Object, typeof (_q = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* MenuController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* MenuController */]) === "function" && _q || Object, typeof (_r = typeof __WEBPACK_IMPORTED_MODULE_6__ionic_native_badge__["a" /* Badge */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__ionic_native_badge__["a" /* Badge */]) === "function" && _r || Object, typeof (_s = typeof __WEBPACK_IMPORTED_MODULE_25__ionic_native_market__["a" /* Market */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_25__ionic_native_market__["a" /* Market */]) === "function" && _s || Object, typeof (_t = typeof __WEBPACK_IMPORTED_MODULE_24__ionic_native_native_storage__["a" /* NativeStorage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_24__ionic_native_native_storage__["a" /* NativeStorage */]) === "function" && _t || Object, typeof (_u = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* IonicApp */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* IonicApp */]) === "function" && _u || Object])
 ], MyApp);
 
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u;
 //# sourceMappingURL=app.component.js.map
 
 /***/ }),
