@@ -68,6 +68,7 @@
         </edit-config>
 
         <resource-file src="res/drawable/ic_launcher_background.xml" target="res/drawable/ic_launcher_background.xml" />
+        <resource-file src="res/drawable/ic_launcher_foreground.xml" target="res/drawable/ic_launcher_foreground.xml" />
         <resource-file src="res/drawable-v24/ic_launcher_foreground.xml" target="res/drawable-v24/ic_launcher_foreground.xml" />
         <resource-file src="res/mipmap-anydpi-v26/ic_launcher.xml" target="res/mipmap-anydpi-v26/ic_launcher.xml" />
         <resource-file src="res/mipmap-anydpi-v26/ic_launcher_round.xml" target="res/mipmap-anydpi-v26/ic_launcher_round.xml" />
