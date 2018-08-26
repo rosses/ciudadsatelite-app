@@ -25,6 +25,8 @@ export class Store {
 
   public isLoading: boolean = true;
   public rootMode: boolean = false;
+  public preloadElement: string = '';
+  public preloadType: string = '';
   public store: any;
   public name: string = '';
   public products: any = [];
@@ -74,6 +76,8 @@ export class Store {
 
     this.store = this.navParams.get("store");
     this.rootMode = (this.navParams.get("rootMode") ? true : false);
+    this.preloadElement = (this.navParams.get("preloadElement") ? this.navParams.get("preloadElement") : '');
+    this.preloadType = (this.navParams.get("preloadType") ? this.navParams.get("preloadType") : '');
 
 
     this.geolocation.getCurrentPosition().then((resp) => {
@@ -103,6 +107,29 @@ export class Store {
       this.comments=data.comments;
       this.load.dismiss();
 
+      if (this.preloadType == "product") {
+        let element = {};
+        for (let i = 0; i < this.products.length ; i++) {
+          if (this.products[i].id == this.preloadElement) {
+            element = this.products[i];
+          }
+        }
+        if (element.hasOwnProperty("id")) {
+          this.detail(element, this.preloadType);
+        }
+      }
+      else if (this.preloadType == "service") {
+        let element = {};
+        for (let i = 0; i < this.services.length ; i++) {
+          if (this.services[i].id == this.preloadElement) {
+            element = this.services[i];
+          }
+        }
+        if (element.hasOwnProperty("id")) {
+          this.detail(element, this.preloadType);
+        }
+      }
+
       this.totalRate = parseInt(data.totalRate) || 0;
       this.store.rate = Math.round(parseFloat(this.store.rate));
       console.log(this.store.rate);
@@ -116,7 +143,20 @@ export class Store {
   }
 
   onChangeRating(e:any) {
-    console.log(e);
+      this.load = this.loadingCtrl.create();
+      this.load.present();
+      this.doctorService.setRanking(this.store.id, e).subscribe((data: any)=> {
+        this.load.dismiss();
+        this.load = this.loadingCtrl.create();
+        this.load.present({
+          spinner: 'hide',
+          content: 'Gracias por votar'
+        });
+        setTimeout(() => { 
+          this.load.dismiss();
+        }, 2000);
+        this.reloadStore(1);
+      });
   }
 
   enviarComentario() {

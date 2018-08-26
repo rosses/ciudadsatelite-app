@@ -7,6 +7,7 @@ import { DoctorService } from '../../services/doctor.service';
 import { environment } from "../../environments/environment"
 import { Pata } from '../../pata';
 import { Store } from '../../pages/home/store';
+import { Categoria } from '../../pages/home/categoria';
 import { ModalDetail } from '../../modals/detail/detail';
 import { Badge } from '@ionic-native/badge';
 
@@ -71,10 +72,23 @@ export class Notificaciones {
   }
 
   goToAction(type:string, reference: number, idpush?: any) {
+    console.log('goToAction type: ',type,' - reference: ',reference, ' - idpush: ', idpush);
     if (idpush) { this.userService.setReadPush(idpush).subscribe((t) => { console.log('setReadPush '+t); }); }
     if (type=='store') {
       this.doctorService.addQty(reference);
       this.navCtrl.push(Store, { store: {id: reference} });
+    }
+    else if (type=='product') {
+      this.doctorService.addPd(reference);
+      this.navCtrl.push(Store, { store: {id: reference}, preloadType: 'product', preloadElement: reference });
+    }
+    else if (type=='service') {
+      this.doctorService.addSs(reference);
+      this.navCtrl.push(Store, { store: {id: reference}, preloadType: 'service', preloadElement: reference });
+    }
+    else if (type=='category') {
+      /*this.doctorService.addTracking('category', '');*/
+      this.navCtrl.push(Categoria, { categ: reference });
     }
   }
 }

@@ -23,7 +23,13 @@
 
 <ion-content>
 
-<img src="assets/img/jjvv.jpg" *ngIf="!searchActive" (click)="goToJJVV()" class="jjvv" />
+<!--<img src="assets/img/jjvv.jpg" *ngIf="!searchActive" (click)="goToJJVV()" class="jjvv" />-->
+<ion-slides *ngIf="!searchActive" class="homeslider">
+  <ion-slide *ngFor="let promocion of promociones">
+    <img src="{{promocion.image}}" (click)="procesarPromo(promocion);" />
+  </ion-slide>
+
+</ion-slides>
 
 <div *ngIf="isSearching" class="search-container">
   <div *ngIf="isSearchingLoad">

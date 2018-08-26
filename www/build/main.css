@@ -66213,6 +66213,10 @@ strong.badges {
   -webkit-user-select: text;
 }
 
+.homeslider {
+  height: auto;
+}
+
 news-preview .wrapper {
   margin: 6px 20px 20px 20px;
 }
@@ -66995,16 +66999,17 @@ page-store .item ion-avatar ion-img, page-store .item ion-avatar img {
 
 page-store .list-store ion-avatar {
   margin: 0;
-  margin-right: 5px;
+  margin-right: 25px !important;
 }
 
 page-store .list-store .item-inner {
   padding: 0;
 }
 
-page-store .list-store ion-avatar img {
-  width: 60px;
-  height: 60px;
+page-store .list-store ion-avatar > img {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 10px;
 }
 
 page-store .list-store .item {
@@ -67319,6 +67324,7 @@ page-store .background-masker.news-icon2 {
 
 page-store .distance {
   font-size: 12px;
+  text-align: center;
 }
 
 page-store ul.rating {

@@ -167,7 +167,7 @@ export class MyApp {
         });
 
         this.fcm.getToken().then(token=>{
-          //alert('push:'+ token);
+          console.log('Success getToken! ', token);
           this.userService.setPush(token);
           this.authService.setPush(token);
         })
@@ -179,7 +179,6 @@ export class MyApp {
             this.userService.setReadPush(data.click_id).subscribe((ok: any) => {
               if (ok.res == 'OK') {
                 this.userService.getNotificationStatus().subscribe((cdata: any) => {
-                  console.log('cdata', cdata);
                   let number = parseInt(cdata.total);
                   if (isNaN(number)) {
                     console.log('Notification number is NaN, no updated');
@@ -202,7 +201,6 @@ export class MyApp {
           } else {
             console.log("Received in foreground", data);
             this.userService.getNotificationStatus().subscribe((cdata: any) => {
-              console.log('cdata', cdata);
               let number = parseInt(cdata.total);
               if (isNaN(number)) {
                 console.log('Notification number is NaN, no updated');

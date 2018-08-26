@@ -31,6 +31,7 @@ export class HomePage {
   public searchStores: any = [];
   public searchProducts: any = [];
   public searchServices: any = [];
+  public promociones: any = [];
 
   constructor(
     public navCtrl: NavController,
@@ -46,6 +47,9 @@ export class HomePage {
     private badge: Badge
   ) {
 
+  	this.doctorService.getPromos().subscribe((data:any) => {
+  		this.promociones = data.data;
+  	});
     setTimeout(() => {
       this.doctorService.getAll().subscribe((data: any)=> {
         this.isLoading=false;
@@ -72,7 +76,28 @@ export class HomePage {
     });
 
   }
-
+  procesarPromo(promocion: any) {
+  	this.doctorService.addTracking('slider', promocion.id);
+  	if (promocion.type == "1") {
+  		window.open(promocion.value, '_system');
+  	}
+  	else if (promocion.type == "2") {
+  		let id = promocion.value.substring(1,100);
+	    this.doctorService.addQty(id);
+	    this.navCtrl.push(Store, { store: { id: id } });
+  	}
+  	else if (promocion.type == "3") {
+  		let id = promocion.value.substring(1,100);
+  		if (promocion.value.substring(0,1) == "P") {
+  			this.doctorService.addPd(id);
+  			this.navCtrl.push(Store, { store: { id: promocion.parent }, preloadType: 'product', preloadElement: id });
+  		}
+  		if (promocion.value.substring(0,1) == "S") {
+  			this.doctorService.addSs(id);
+  			this.navCtrl.push(Store, { store: { id: promocion.parent }, preloadType: 'product', preloadElement: id });
+  		}
+  	}
+  }
   goToStore(store: any) {
     this.doctorService.addQty(store.id);
     this.navCtrl.push(Store, { store: store });

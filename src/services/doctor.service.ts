@@ -20,6 +20,10 @@ export class DoctorService extends BaseService{
     return this.get('maps');
   }
 
+  getPromos() {
+    return this.get('promos');
+  }
+
   getAll() {
     return this.get('categs');
   }
@@ -83,16 +87,22 @@ export class DoctorService extends BaseService{
     });
   }
 
+  addTracking(action: string, id: number) {
+    this.post('actions').subscribe((data: any)=> { console.log('addTraking : '+action+' / '+id, data); });
+  }
+
   addQty(id:number) {
     this.post('store/see/'+id).subscribe((data: any)=> { console.log('addQty', data); });
   }
-
   addPd(id:number) {
     this.post('store/pd/'+id).subscribe((data: any)=> { console.log('addPd', data); });
   }
 
   addSs(id:number) {
     this.post('store/ss/'+id).subscribe((data: any)=> { console.log('addSs', data); });
+  }
+  setRanking(store:any, r:number) {
+    return this.post('store/rank', {store: store, rank: r});
   }
 
   // store admin
