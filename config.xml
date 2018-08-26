@@ -77,26 +77,31 @@
         <resource-file src="res/mipmap-hdpi/ic_launcher_background.png" target="res/mipmap-hdpi/ic_launcher_background.png" />
         <resource-file src="res/mipmap-hdpi/ic_launcher_foreground.png" target="res/mipmap-hdpi/ic_launcher_foreground.png" />
         <resource-file src="res/mipmap-hdpi/ic_launcher_round.png" target="res/mipmap-hdpi/ic_launcher_round.png" />
+        <resource-file src="res/mipmap-hdpi/fcm_push_icon.png" target="res/mipmap-hdpi/fcm_push_icon.png" />
         
         <resource-file src="res/mipmap-mdpi/ic_launcher.png" target="res/mipmap-mdpi/ic_launcher.png" />
         <resource-file src="res/mipmap-mdpi/ic_launcher_background.png" target="res/mipmap-mdpi/ic_launcher_background.png" />
         <resource-file src="res/mipmap-mdpi/ic_launcher_foreground.png" target="res/mipmap-mdpi/ic_launcher_foreground.png" />
         <resource-file src="res/mipmap-mdpi/ic_launcher_round.png" target="res/mipmap-mdpi/ic_launcher_round.png" />
+        <resource-file src="res/mipmap-mdpi/fcm_push_icon.png" target="res/mipmap-mdpi/fcm_push_icon.png" />
         
         <resource-file src="res/mipmap-xhdpi/ic_launcher.png" target="res/mipmap-xhdpi/ic_launcher.png" />
         <resource-file src="res/mipmap-xhdpi/ic_launcher_background.png" target="res/mipmap-xhdpi/ic_launcher_background.png" />
         <resource-file src="res/mipmap-xhdpi/ic_launcher_foreground.png" target="res/mipmap-xhdpi/ic_launcher_foreground.png" />
         <resource-file src="res/mipmap-xhdpi/ic_launcher_round.png" target="res/mipmap-xhdpi/ic_launcher_round.png" />
+        <resource-file src="res/mipmap-xhdpi/fcm_push_icon.png" target="res/mipmap-xhdpi/fcm_push_icon.png" />
         
         <resource-file src="res/mipmap-xxhdpi/ic_launcher.png" target="res/mipmap-xxhdpi/ic_launcher.png" />
         <resource-file src="res/mipmap-xxhdpi/ic_launcher_background.png" target="res/mipmap-xxhdpi/ic_launcher_background.png" />
         <resource-file src="res/mipmap-xxhdpi/ic_launcher_foreground.png" target="res/mipmap-xxhdpi/ic_launcher_foreground.png" />
         <resource-file src="res/mipmap-xxhdpi/ic_launcher_round.png" target="res/mipmap-xxhdpi/ic_launcher_round.png" />
+        <resource-file src="res/mipmap-xxhdpi/fcm_push_icon.png" target="res/mipmap-xxhdpi/fcm_push_icon.png" />
 
         <resource-file src="res/mipmap-xxxhdpi/ic_launcher.png" target="res/mipmap-xxxhdpi/ic_launcher.png" />
         <resource-file src="res/mipmap-xxxhdpi/ic_launcher_background.png" target="res/mipmap-xxxhdpi/ic_launcher_background.png" />
         <resource-file src="res/mipmap-xxxhdpi/ic_launcher_foreground.png" target="res/mipmap-xxxhdpi/ic_launcher_foreground.png" />
         <resource-file src="res/mipmap-xxxhdpi/ic_launcher_round.png" target="res/mipmap-xxxhdpi/ic_launcher_round.png" />
+        <resource-file src="res/mipmap-xxxhdpi/fcm_push_icon.png" target="res/mipmap-xxxhdpi/fcm_push_icon.png" />
         
     </platform>
     <allow-navigation href="*" />
