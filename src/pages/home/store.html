@@ -43,7 +43,8 @@
           <p class="opening">{{store.open_news}}</p>
         </ion-col>
         <ion-col col-12>
-          <span style="font-size:12px;">&nbsp;&nbsp;&nbsp;{{totalRate}} calificaciones</span>
+          <!--<span style="font-size:12px;">&nbsp;&nbsp;&nbsp;{{totalRate}} calificaciones</span>-->
+          <span style="font-size:12px;">&nbsp;&nbsp;&nbsp;{{store.rate}} puntuación actual</span>
           <rating [(ngModel)]="store.rate" 
                   max="5"  
                   emptyStarIconName="star-outline" 

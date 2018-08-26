@@ -5,6 +5,6 @@ export const environment = {
   "newsApi": "http://localhost:8080/",
   "token":"5981efe0d6f33",
   "branchId": 262,
-  "version": "1.1"
+  "version": "1.4"
 }
 

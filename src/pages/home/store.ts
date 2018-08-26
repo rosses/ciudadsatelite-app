@@ -147,15 +147,16 @@ export class Store {
       this.load.present();
       this.doctorService.setRanking(this.store.id, e).subscribe((data: any)=> {
         this.load.dismiss();
-        this.load = this.loadingCtrl.create();
-        this.load.present({
+        this.load = this.loadingCtrl.create({
           spinner: 'hide',
           content: 'Gracias por votar'
         });
+        this.load.present();
+        this.store.rate = data.rate;
         setTimeout(() => { 
           this.load.dismiss();
         }, 2000);
-        this.reloadStore(1);
+        
       });
   }
 
@@ -171,8 +172,18 @@ export class Store {
         store: this.store.id,
         comment: this.comentarios
       }).subscribe((data: any)=> {
-       this.comentarios = "";
-       this.reloadStore(1);
+        
+        this.comentarios = "";
+        this.load.dismiss();
+        this.load = this.loadingCtrl.create({
+          spinner: 'hide',
+          content: 'Gracias por comentar'
+        });
+        this.load.present();
+        setTimeout(() => { 
+          this.load.dismiss();
+          this.reloadStore(0);
+        }, 2000);
       });
     }
   }
@@ -207,10 +218,12 @@ export class Store {
 
   }
   email() {
+    this.doctorService.addTracking('email', this.store.id);
     window.open('mailto:'+this.store.email, '_system', 'location=no');
   }
 
   call() {
+    this.doctorService.addTracking('call', this.store.id);
     this.callNumber.callNumber(this.store.phone, true)
       .then(res => console.log('Launched dialer!', res))
       .catch(err => console.log('Error launching dialer', err));
@@ -246,6 +259,7 @@ export class Store {
   whatsapp() {
 
     let app;
+    this.doctorService.addTracking('whatsapp', this.store.id);
 
     if (this.platform.is('ios')) {
       app = 'whatsapp://';
@@ -344,7 +358,7 @@ export class Store {
   twitter() {
 
     let app;
-
+    this.doctorService.addTracking('twitter', this.store.id);
     if (this.platform.is('ios')) {
       app = 'twitter://';
     } else if (this.platform.is('android')) {
@@ -362,7 +376,7 @@ export class Store {
   facebook() {
 
     let app;
-
+    this.doctorService.addTracking('facebook', this.store.id);
     if (this.platform.is('ios')) {
       app = 'fb://';
     } else if (this.platform.is('android')) {
@@ -394,7 +408,7 @@ export class Store {
   instagram() {
 
     let app;
-
+    this.doctorService.addTracking('instagram', this.store.id);
     if (this.platform.is('ios')) {
       app = 'instagram://';
     } else if (this.platform.is('android')) {
@@ -410,6 +424,7 @@ export class Store {
   
   }
   website() {
+    this.doctorService.addTracking('website', this.store.id);
     window.open(this.store.website, '_system');
   }
 
