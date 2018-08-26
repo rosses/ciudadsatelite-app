@@ -88,7 +88,7 @@ export class DoctorService extends BaseService{
   }
 
   addTracking(action: string, id: number) {
-    this.post('actions').subscribe((data: any)=> { console.log('addTraking : '+action+' / '+id, data); });
+    this.post('actions', { action: action, id: id}).subscribe((data: any)=> { console.log('addTraking : '+action+' / '+id, data); });
   }
 
   addQty(id:number) {
