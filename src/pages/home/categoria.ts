@@ -48,6 +48,17 @@ export class Categoria {
   ) {
     
     this.categ = this.navParams.get("categ");
+    if (!this.categ.hasOwnProperty("id")) {
+      this.doctorService.getCategInfo(this.categ).subscribe((data: any)=> {
+        this.categ = data.data;
+        this.refreshCateg();
+      });
+    } else {
+      this.refreshCateg();
+    }
+  }
+
+  refreshCateg() {
     this.title = this.categ.name;
 
     this.doctorService.getStores(this.categ.id).subscribe((data: any)=> {
@@ -61,7 +72,6 @@ export class Categoria {
     }).catch((error) => {
       
     });
-
   }
 
   goToStore(store: any) {

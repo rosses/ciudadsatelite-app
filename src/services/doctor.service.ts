@@ -28,6 +28,10 @@ export class DoctorService extends BaseService{
     return this.get('categs');
   }
 
+  getCategInfo(id:number) {
+    return this.get('categ/'+id);
+  }
+
   getStores(id:number) {
     return this.get('categs/'+id);
   }

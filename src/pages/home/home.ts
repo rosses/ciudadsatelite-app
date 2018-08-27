@@ -158,6 +158,7 @@ export class HomePage {
   }
 
   verCategoria(categ:any) {
+    console.log(categ);
     this.searchActive = false;
     this.onClear(false);
     this.searchStores = [];
